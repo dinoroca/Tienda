@@ -11,6 +11,7 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { LoginComponent } from './components/login/login.component';
 import { IndexClienteComponent } from './components/clientes/index-cliente/index-cliente.component';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+import { CreateClienteComponent } from './components/clientes/create-cliente/create-cliente.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
     InicioComponent,
     SidebarComponent,
     LoginComponent,
-    IndexClienteComponent
+    IndexClienteComponent,
+    CreateClienteComponent
   ],
   imports: [
     BrowserModule,

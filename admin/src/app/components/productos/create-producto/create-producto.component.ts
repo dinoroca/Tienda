@@ -1,0 +1,126 @@
+import { Component, OnInit } from '@angular/core';
+import { ProductoService } from '../../../service/producto.service';
+import { AdminService } from '../../../service/admin.service';
+
+declare var iziToast: { show: (arg0: { title: string; titleColor: string; class: string; position: string; message: string; }) => void; };
+declare var jQuery: any;
+declare var $: any;
+
+@Component({
+  selector: 'app-create-producto',
+  templateUrl: './create-producto.component.html',
+  styleUrls: ['./create-producto.component.css']
+})
+export class CreateProductoComponent implements OnInit {
+
+  public producto: any = {};
+  public file: any = undefined;
+  public imgSelect: any | ArrayBuffer = 'assets/img/01.jpg';
+
+  public config: any = {};
+  public token: any;
+
+  constructor(
+    private _productoService: ProductoService,
+    private _adminService: AdminService
+  ) {
+    this.config = {
+      height: 500
+    }
+
+    this.token = this._adminService.getToken();
+  }
+
+  ngOnInit(): void {
+  }
+
+  registro(registroForm: any){
+    
+    if(registroForm.valid){
+      this._productoService.registro_producto_admin(this.producto, this.file, this.token).subscribe(
+        response => {
+          console.log(response);
+          
+        },
+        error => {
+          console.log(error);
+          
+        }
+      );
+    } else {
+      iziToast.show({
+        title: 'ERROR',
+        titleColor: '#FF634F',
+        class: 'text-danger',
+        position: 'topRight',
+        message: 'Los datos del formulario no son válidos'
+      });
+
+      $('#input-portada').text('Seleccionar imagen');
+      this.imgSelect = 'assets/img/01.jpg';
+      this.file = undefined;
+    }
+  }
+
+  fileChangeEvent(event: any): void {
+    var file: any;
+
+    if(event.target.files && event.target.files[0]){
+      file = <File>event.target.files[0];
+      
+    }else {
+      iziToast.show({
+        title: 'ERROR',
+        titleColor: '#FF634F',
+        class: 'text-danger',
+        position: 'topRight',
+        message: 'No hay imagen en el envío'
+      });
+    }
+
+    if(file.size <= 4000000){
+      if(file.type == 'image/png' || file.type == 'image/webp' 
+        || file.type == 'image/jpg' || file.type == 'image/jpeg' 
+        || file.type == 'image/gif'){
+
+          const reader = new FileReader();
+          reader.onload = e => this.imgSelect = reader.result;
+
+          reader.readAsDataURL(file);
+
+          $('#input-portada').text(file.name);
+
+          this.file = file;
+          
+        }else {
+          iziToast.show({
+            title: 'ERROR',
+            titleColor: '#FF634F',
+            class: 'text-danger',
+            position: 'topRight',
+            message: 'EL archivo debe ser una imagen'
+          });
+
+          $('#input-portada').text('Seleccionar imagen');
+          this.imgSelect = 'assets/img/01.jpg';
+          this.file = undefined;
+        }
+    }else {
+      iziToast.show({
+        title: 'ERROR',
+        titleColor: '#FF634F',
+        class: 'text-danger',
+        position: 'topRight',
+        message: 'La imagen no debe ser mayor a 4MB'
+      });
+
+      $('#input-portada').text('Seleccionar imagen');
+      this.imgSelect = 'assets/img/01.jpg';
+      this.file = undefined;
+    }
+
+    console.log(this.file);
+    
+  }
+
+}

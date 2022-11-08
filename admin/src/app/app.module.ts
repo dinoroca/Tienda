@@ -13,6 +13,8 @@ import { IndexClienteComponent } from './components/clientes/index-cliente/index
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { CreateClienteComponent } from './components/clientes/create-cliente/create-cliente.component';
 import { EditClienteComponent } from './components/clientes/edit-cliente/edit-cliente.component';
+import { CreateProductoComponent } from './components/productos/create-producto/create-producto.component';
+import { NgxTinymceModule } from 'ngx-tinymce';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,8 @@ import { EditClienteComponent } from './components/clientes/edit-cliente/edit-cl
     LoginComponent,
     IndexClienteComponent,
     CreateClienteComponent,
-    EditClienteComponent
+    EditClienteComponent,
+    CreateProductoComponent
   ],
   imports: [
     BrowserModule,
@@ -30,7 +33,10 @@ import { EditClienteComponent } from './components/clientes/edit-cliente/edit-cl
     FormsModule,
     HttpClientModule,
     NgbPaginationModule,
-    routing
+    routing,
+    NgxTinymceModule.forRoot({
+      baseURL: '../assets/tinymce/'
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]

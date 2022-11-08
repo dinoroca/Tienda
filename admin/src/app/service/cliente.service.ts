@@ -36,4 +36,9 @@ export class ClienteService {
     let headers = new HttpHeaders({'Content-Type':'application/json', 'authorization': token});
     return this._http.put(this.url + 'actualizar_cliente_admin/' + id, data, {headers : headers});
   }
+
+  eliminar_cliente_admin(id: any, token: any): Observable<any> {
+    let headers = new HttpHeaders({'Content-Type':'application/json', 'authorization': token});
+    return this._http.delete(this.url + 'eliminar_cliente_admin/' + id, {headers : headers});
+  }
 }

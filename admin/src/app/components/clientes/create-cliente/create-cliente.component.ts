@@ -4,7 +4,6 @@ import { AdminService } from '../../../service/admin.service';
 import { Router } from '@angular/router';
 declare var iziToast: { show: (arg0: { title: string; titleColor: string; class: string; position: string; message: string; }) => void; };
 
-
 @Component({
   selector: 'app-create-cliente',
   templateUrl: './create-cliente.component.html',

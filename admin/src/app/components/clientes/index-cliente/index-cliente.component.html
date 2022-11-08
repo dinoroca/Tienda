@@ -6,10 +6,8 @@
   <div class="d-flex flex-wrap flex-md-nowrap justify-content-between">
     <p class="text-muted">Este módulo lista todos los clientes de la tienda.</p>
     <p class="font-size-sm font-weight-medium pl-md-4">
-      <a
-        class="text-nowrap"
-        [routerLink]="['/panel/clientes/registro']"
-        >Registrar nuevo<i
+      <a class="text-nowrap bi-person-plus-fill" [routerLink]="['/panel/clientes/registro']"
+        >  Registrar nuevo<i
           class="cxi-angle-right font-size-base align-middle ml-1"
         ></i
       ></a>
@@ -28,10 +26,11 @@
         class="form-control mb-3 mr-sm-4"
         (keyup)="filtro('apellidos')"
         name="filtro_apellidos"
-        [(ngModel)] = "filtro_apellidos"
+        [(ngModel)]="filtro_apellidos"
         type="text"
         id="inline-form-input-name"
-        placeholder="Apellidos"/>
+        placeholder="Apellidos"
+      />
 
       <label class="sr-only" for="inline-form-input-username">Correo</label>
       <div class="input-group mb-3 mr-sm-4">
@@ -43,17 +42,15 @@
           type="email"
           (keyup)="filtro('correo')"
           name="filtro_correo"
-          [(ngModel)] = "filtro_correo"
+          [(ngModel)]="filtro_correo"
           id="inline-form-input-username"
           placeholder="Correo"
         />
       </div>
-
     </form>
   </div>
   <div class="card-body">
     <div class="table-responsive">
-
       <table class="table table-bordered text-center">
         <thead class="thead-dark">
           <tr>
@@ -64,48 +61,115 @@
             <th>Opciones</th>
           </tr>
         </thead>
-        <tbody *ngFor="let item of clientes | slice: (page-1)*pageSize : (page-1) * pageSize + pageSize ; let indice = index">
+
+        <!-- Precargador de página -->
+        <tbody *ngIf="load_data == true">
           <tr>
-            <td>{{indice + 1}}</td>
-            <td>{{item.nombres}}</td>
-            <td>{{item.apellidos}}</td>
-            <td>{{item.email}}</td>
+            <td class="text-center" colspan="5">
+              <!-- Custom size border spinner -->
+              <div class="text-center">
+                <div
+                  class="spinner-border"
+                  style="width: 3rem; height: 3rem"
+                  role="status">
+                </div>
+                <h5 class="text-black-50"><small>Cargando...</small></h5>
+              </div>
+              
+            </td>
+          </tr>
+        </tbody>
+
+        <ng-container *ngIf="load_data == false">
+          <tbody
+          *ngFor="let item of clientes
+              | slice: (page - 1) * pageSize:(page - 1) * pageSize + pageSize;
+            let indice = index"
+            >
+          <tr>
+            <td>{{ indice + 1 }}</td>
+            <td>{{ item.nombres }}</td>
+            <td>{{ item.apellidos }}</td>
+            <td>{{ item.email }}</td>
             <td>
               <div class="btn-group dropdown">
-                <button type="button" class="btn btn-outline-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <button
+                  type="button"
+                  class="btn btn-outline-secondary btn-sm dropdown-toggle"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
                   opciones
                 </button>
                 <div class="dropdown-menu text-center">
-                  <a [routerLink]="['/panel/clientes', item._id]" 
-                    class="dropdown-item bi-pencil-fill"> Editar cliente</a>
-                  <a class="dropdown-item bi-trash-fill text-danger"
-                    style="cursor: pointer;" 
+                  <a
+                    [routerLink]="['/panel/clientes', item._id]"
+                    class="dropdown-item bi-pencil-fill"
+                  >
+                    Editar cliente</a
+                  >
+                  <a
+                    class="dropdown-item bi-trash-fill text-danger"
+                    style="cursor: pointer"
                     data-toggle="modal"
-                    [attr.data-target]="'#delete-'+ item._id"> Eliminar cliente</a>
+                    [attr.data-target]="'#delete-' + item._id"
+                  >
+                    Eliminar cliente</a
+                  >
                 </div>
               </div>
 
-              <div class="modal fade" id="delete-{{item._id}}" tabindex="-1" style="display: none;" aria-hidden="true">
+              <div
+                class="modal fade"
+                id="delete-{{ item._id }}"
+                tabindex="-1"
+                style="display: none"
+                aria-hidden="true"
+              >
                 <div class="modal-dialog modal-dialog-centered" role="document">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <h4 class="modal-title text-center">Eliminar al cliente {{item.nombres}} {{item.apellidos}}</h4>
-                      <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close">x</button>
+                      <h4 class="modal-title text-center">
+                        Eliminar al cliente {{ item.nombres }}
+                        {{ item.apellidos }}
+                      </h4>
+                      <button
+                        class="btn-close"
+                        type="button"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                      >
+                        x
+                      </button>
                     </div>
                     <div class="modal-body">
                       <p class="fs-sm">Desea eliminar el cliente?</p>
                     </div>
                     <div class="modal-footer">
-                      <button class="btn btn-secondary btn-sm bi-x-circle-fill" type="button" data-bs-dismiss="modal"> Cancelar</button>
-                      <button class="btn btn-danger btn-sm bi-trash-fill" (click)="eliminar(item._id)" type="button"> Eliminar</button>
+                      <button
+                        class="btn btn-secondary btn-sm bi-x-circle-fill"
+                        type="button"
+                        data-bs-dismiss="modal"
+                      >
+                        Cancelar
+                      </button>
+                      <button
+                        class="btn btn-danger btn-sm bi-trash-fill"
+                        (click)="eliminar(item._id)"
+                        type="button"
+                      >
+                        Eliminar
+                      </button>
                     </div>
                   </div>
                 </div>
               </div>
-
             </td>
           </tr>
         </tbody>
+        </ng-container>
+
       </table>
     </div>
   </div>

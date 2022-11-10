@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductoService } from '../../../service/producto.service';
 import { AdminService } from '../../../service/admin.service';
+import { Router } from '@angular/router';
 
 declare var iziToast: { show: (arg0: { title: string; titleColor: string; class: string; position: string; message: string; }) => void; };
 declare var jQuery: any;
@@ -19,10 +20,12 @@ export class CreateProductoComponent implements OnInit {
 
   public config: any = {};
   public token: any;
+  public load_btn = false;
 
   constructor(
     private _productoService: ProductoService,
-    private _adminService: AdminService
+    private _adminService: AdminService,
+    private _router: Router
   ) {
     this.config = {
       height: 500
@@ -37,14 +40,26 @@ export class CreateProductoComponent implements OnInit {
   registro(registroForm: any){
     
     if(registroForm.valid){
+
+      this.load_btn = true;
       this._productoService.registro_producto_admin(this.producto, this.file, this.token).subscribe(
         response => {
-          console.log(response);
+
+          iziToast.show({
+            title: 'SUCCESS',
+            titleColor: '#35D18F',
+            class: 'text-success',
+            position: 'topRight',
+            message: 'Se registró el nuevo producto'
+          });
+
+          this.load_btn = false;
+          this._router.navigate(['/panel/productos']);
           
         },
         error => {
           console.log(error);
-          
+          this.load_btn = false;
         }
       );
     } else {
@@ -55,6 +70,8 @@ export class CreateProductoComponent implements OnInit {
         position: 'topRight',
         message: 'Los datos del formulario no son válidos'
       });
+
+      this.load_btn = false;
 
       $('#input-portada').text('Seleccionar imagen');
       this.imgSelect = 'assets/img/01.jpg';

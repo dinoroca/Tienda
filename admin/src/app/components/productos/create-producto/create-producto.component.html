@@ -20,38 +20,23 @@
                     <div class="row">
                         <div class="col-lg-12 form-group">
                             <label for="">Titulo de producto</label>
-                            <input type="text" 
-                                class="form-control" 
-                                name="titulo"
-                                [(ngModel)]="producto.titulo"
-                                placeholder="Titulo de producto" 
-                                required>
+                            <input type="text" class="form-control" name="titulo" [(ngModel)]="producto.titulo"
+                                placeholder="Titulo de producto" required>
                         </div>
                         <div class="col-lg-4 form-group">
                             <label for="">Stock</label>
-                            <input type="number" 
-                                class="form-control" 
-                                name="stock"
-                                [(ngModel)]="producto.stock"
-                                placeholder="Cantidad inicial" 
-                                required>
+                            <input type="number" class="form-control" name="stock" [(ngModel)]="producto.stock"
+                                placeholder="Cantidad inicial" required>
                         </div>
                         <div class="col-lg-4 form-group">
                             <label for="">Precio</label>
-                            <input type="number" 
-                                class="form-control" 
-                                name="precio"
-                                [(ngModel)]="producto.precio"
-                                placeholder="Precio" 
-                                required>
+                            <input type="number" class="form-control" name="precio" [(ngModel)]="producto.precio"
+                                placeholder="Precio" required>
                         </div>
                         <div class="col-lg-4 form-group">
                             <label for="">Categoría</label>
-                            <select class="form-control custom-select" 
-                                id="select-input" 
-                                name="categoria"
-                                [(ngModel)]="producto.categoria"
-                                required>
+                            <select class="form-control custom-select" id="select-input" name="categoria"
+                                [(ngModel)]="producto.categoria" required>
                                 <option value="" selected disabled>Seleccionar</option>
                                 <option value="Categoria 1">Categoria 1</option>
                                 <option value="Categoria 2">Categoria 2</option>
@@ -61,18 +46,12 @@
 
                         <div class="col-lg-12 form-group">
                             <label for="">Descripción corta</label>
-                            <textarea class="form-control" 
-                                placeholder="Titulo de producto" 
-                                name="descripcion"
-                                [(ngModel)]="producto.descripcion"
-                                required
-                                rows="5"></textarea>
+                            <textarea class="form-control" placeholder="Titulo de producto" name="descripcion"
+                                [(ngModel)]="producto.descripcion" required rows="5"></textarea>
                         </div>
 
                         <div class="col-lg-12 form-group">
-                            <tinymce [config]="config"
-                                name="contenido"
-                                [(ngModel)]="producto.contenido"></tinymce>
+                            <tinymce [config]="config" name="contenido" [(ngModel)]="producto.contenido"></tinymce>
                         </div>
 
                     </div>
@@ -82,10 +61,9 @@
                         <div class="col-lg-12 form-group">
                             <label for="">Portada</label>
                             <div class="custom-file">
-                                <input class="custom-file-input" type="file" id="file-input" (change)="fileChangeEvent($event)">
-                                <label class="custom-file-label" 
-                                    id="input-portada" 
-                                    for="file-input"
+                                <input class="custom-file-input" type="file" id="file-input"
+                                    (change)="fileChangeEvent($event)">
+                                <label class="custom-file-label" id="input-portada" for="file-input"
                                     style="white-space: nowrap; overflow: hidden;">Seleccionar imagen</label>
                             </div>
                         </div>
@@ -97,8 +75,16 @@
             </div>
         </div>
         <div class="card-footer text-center">
-            <button class="btn btn-primary mx-2 bi-file-plus-fill" type="submit" [disabled]="!registroForm.valid"> Crear producto</button>
-            <button class="btn btn-warning mx-2">Regresar</button>
+            <button class="btn btn-primary mx-2 bi-file-plus-fill" type="submit" *ngIf="!load_btn" [disabled]="!registroForm.valid"> Crear
+                producto</button>
+
+            <!-- Button with growing spinner and text -->
+            <button *ngIf="load_btn" type="button" class="btn btn-secondary" disabled>
+                <span class="spinner-grow spinner-grow-sm me-2" role="status" aria-hidden="true"></span>
+                Creando...
+            </button>
+
+            <button class="btn btn-warning mx-2" [routerLink]="['/panel/productos']">Regresar</button>
         </div>
     </div>
 </form>

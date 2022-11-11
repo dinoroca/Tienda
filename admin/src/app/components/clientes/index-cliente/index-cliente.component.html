@@ -93,7 +93,7 @@
                           Eliminar al cliente {{ item.nombres }}
                           {{ item.apellidos }}
                         </h4>
-                        <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close">
+                        <button class="btn-close" type="button" data-dismiss="modal" aria-label="Close">
                           x
                         </button>
                       </div>
@@ -101,7 +101,7 @@
                         <p class="fs-sm">Desea eliminar el cliente?</p>
                       </div>
                       <div class="modal-footer">
-                        <button class="btn btn-secondary btn-sm bi-x-circle-fill" type="button" data-bs-dismiss="modal">
+                        <button class="btn btn-secondary btn-sm bi-x-circle-fill" type="button" data-dismiss="modal">
                           Cancelar
                         </button>
                         <button class="btn btn-danger btn-sm bi-trash-fill" (click)="eliminar(item._id)" type="button">

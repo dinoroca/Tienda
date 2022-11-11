@@ -41,7 +41,17 @@ export class CreateProductoComponent implements OnInit {
     
     if(registroForm.valid){
 
-      this.load_btn = true;
+      if(this.file == undefined) {
+        iziToast.show({
+          title: 'ERROR',
+          titleColor: '#FF634F',
+          class: 'text-danger',
+          position: 'topRight',
+          message: 'Debe subir una imagen de portada'
+        });
+        
+      }else {
+        this.load_btn = true;
       this._productoService.registro_producto_admin(this.producto, this.file, this.token).subscribe(
         response => {
 
@@ -62,6 +72,8 @@ export class CreateProductoComponent implements OnInit {
           this.load_btn = false;
         }
       );
+      }
+      
     } else {
       iziToast.show({
         title: 'ERROR',

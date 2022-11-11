@@ -34,7 +34,6 @@ export class IndexProductoComponent implements OnInit {
   init_data() {
     this._productoService.listar_producto_admin(this.filtro, this.token).subscribe(
       response => {
-        console.log(response);
         this.productos = response.data;
 
         this.load_data = false;
@@ -50,7 +49,6 @@ export class IndexProductoComponent implements OnInit {
     if (this.filtro) {
       this._productoService.listar_producto_admin(this.filtro, this.token).subscribe(
         response => {
-          console.log(response);
           this.productos = response.data;
   
           this.load_data = false;

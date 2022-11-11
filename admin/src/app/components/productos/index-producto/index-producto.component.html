@@ -88,7 +88,8 @@
                                         opciones
                                     </button>
                                     <div class="dropdown-menu text-center">
-                                        <a class="dropdown-item bi-pencil-fill">
+                                        <a class="dropdown-item bi-pencil-fill"
+                                            [routerLink]="['/panel/productos', item._id]">
                                             Editar producto</a>
                                         <a class="dropdown-item bi-trash-fill text-danger" style="cursor: pointer"
                                             data-toggle="modal">

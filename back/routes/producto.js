@@ -11,5 +11,7 @@ const path = multiparty({uploadDir: './uploads/productos'});
 api.post('/registro_producto_admin', [auth.auth, path], productoController.registro_producto_admin);
 api.get('/listar_producto_admin/:filtro?', auth.auth, productoController.listar_producto_admin);
 api.get('/obtener_portada/:img', productoController.obtener_portada);
+api.get('/obtener_producto_admin/:id', auth.auth, productoController.obtener_producto_admin);
+api.put('/actualizar_producto_admin/:id', [auth.auth, path], productoController.actualizar_producto_admin);
 
 module.exports = api;

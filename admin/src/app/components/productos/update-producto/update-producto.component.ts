@@ -20,6 +20,7 @@ export class UpdateProductoComponent implements OnInit {
   public config: any = {};
   public imgSelect: any | ArrayBuffer;
   public load_btn = false;
+  public load_data = true;
   public id: any;
   public token: any;
   public url: any;
@@ -49,9 +50,11 @@ export class UpdateProductoComponent implements OnInit {
 
             if (response.data == undefined) {
               this.producto = undefined;
+              this.load_data = false;
             } else {
               this.producto = response.data;
               this.imgSelect = this.url + 'obtener_portada/' + this.producto.portada;
+              this.load_data = false;
             }
 
           },
@@ -68,7 +71,7 @@ export class UpdateProductoComponent implements OnInit {
   actualizar(actualizarForm: any) {
 
     if (actualizarForm.valid) {
-
+      
       var data: any = {};
 
       if (this.file != undefined) {

@@ -37,11 +37,11 @@ export class CreateProductoComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  registro(registroForm: any){
-    
-    if(registroForm.valid){
+  registro(registroForm: any) {
 
-      if(this.file == undefined) {
+    if (registroForm.valid) {
+
+      if (this.file == undefined) {
         iziToast.show({
           title: 'ERROR',
           titleColor: '#FF634F',
@@ -49,31 +49,31 @@ export class CreateProductoComponent implements OnInit {
           position: 'topRight',
           message: 'Debe subir una imagen de portada'
         });
-        
-      }else {
+
+      } else {
         this.load_btn = true;
-      this._productoService.registro_producto_admin(this.producto, this.file, this.token).subscribe(
-        response => {
+        this._productoService.registro_producto_admin(this.producto, this.file, this.token).subscribe(
+          response => {
 
-          iziToast.show({
-            title: 'SUCCESS',
-            titleColor: '#35D18F',
-            class: 'text-success',
-            position: 'topRight',
-            message: 'Se registró el nuevo producto'
-          });
+            iziToast.show({
+              title: 'SUCCESS',
+              titleColor: '#35D18F',
+              class: 'text-success',
+              position: 'topRight',
+              message: 'Se registró el nuevo producto'
+            });
 
-          this.load_btn = false;
-          this._router.navigate(['/panel/productos']);
-          
-        },
-        error => {
-          console.log(error);
-          this.load_btn = false;
-        }
-      );
+            this.load_btn = false;
+            this._router.navigate(['/panel/productos']);
+
+          },
+          error => {
+            console.log(error);
+            this.load_btn = false;
+          }
+        );
       }
-      
+
     } else {
       iziToast.show({
         title: 'ERROR',
@@ -94,10 +94,10 @@ export class CreateProductoComponent implements OnInit {
   fileChangeEvent(event: any): void {
     var file: any;
 
-    if(event.target.files && event.target.files[0]){
+    if (event.target.files && event.target.files[0]) {
       file = <File>event.target.files[0];
-      
-    }else {
+
+    } else {
       iziToast.show({
         title: 'ERROR',
         titleColor: '#FF634F',
@@ -107,34 +107,34 @@ export class CreateProductoComponent implements OnInit {
       });
     }
 
-    if(file.size <= 4000000){
-      if(file.type == 'image/png' || file.type == 'image/webp' 
-        || file.type == 'image/jpg' || file.type == 'image/jpeg' 
-        || file.type == 'image/gif'){
+    if (file.size <= 4000000) {
+      if (file.type == 'image/png' || file.type == 'image/webp'
+        || file.type == 'image/jpg' || file.type == 'image/jpeg'
+        || file.type == 'image/gif') {
 
-          const reader = new FileReader();
-          reader.onload = e => this.imgSelect = reader.result;
+        const reader = new FileReader();
+        reader.onload = e => this.imgSelect = reader.result;
 
-          reader.readAsDataURL(file);
+        reader.readAsDataURL(file);
 
-          $('#input-portada').text(file.name);
+        $('#input-portada').text(file.name);
 
-          this.file = file;
-          
-        }else {
-          iziToast.show({
-            title: 'ERROR',
-            titleColor: '#FF634F',
-            class: 'text-danger',
-            position: 'topRight',
-            message: 'EL archivo debe ser una imagen'
-          });
+        this.file = file;
 
-          $('#input-portada').text('Seleccionar imagen');
-          this.imgSelect = 'assets/img/01.jpg';
-          this.file = undefined;
-        }
-    }else {
+      } else {
+        iziToast.show({
+          title: 'ERROR',
+          titleColor: '#FF634F',
+          class: 'text-danger',
+          position: 'topRight',
+          message: 'EL archivo debe ser una imagen'
+        });
+
+        $('#input-portada').text('Seleccionar imagen');
+        this.imgSelect = 'assets/img/01.jpg';
+        this.file = undefined;
+      }
+    } else {
       iziToast.show({
         title: 'ERROR',
         titleColor: '#FF634F',
@@ -149,7 +149,7 @@ export class CreateProductoComponent implements OnInit {
     }
 
     console.log(this.file);
-    
+
   }
 
 }

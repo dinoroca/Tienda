@@ -2,7 +2,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-//Se crea un modelo de objeto para el cliente
+//Se crea un modelo de objeto para el producto
 var ProductoSchema = Schema({
     titulo: {type: String, required: true},
     slug: {type: String, required: true},

@@ -8,6 +8,7 @@ var auth = require('../middlewares/authenticate');
 var multiparty = require('connect-multiparty');
 const path = multiparty({uploadDir: './uploads/productos'});
 
+//PRODUCTOS
 api.post('/registro_producto_admin', [auth.auth, path], productoController.registro_producto_admin);
 api.get('/listar_producto_admin/:filtro?', auth.auth, productoController.listar_producto_admin);
 api.get('/obtener_portada/:img', productoController.obtener_portada);
@@ -15,4 +16,8 @@ api.get('/obtener_producto_admin/:id', auth.auth, productoController.obtener_pro
 api.put('/actualizar_producto_admin/:id', [auth.auth, path], productoController.actualizar_producto_admin);
 api.delete('/eliminar_producto_admin/:id', auth.auth, productoController.eliminar_producto_admin);
 
+//INVENTARIO
+api.get('/listar_inventario_admin/:id', auth.auth, productoController.listar_inventario_admin);
+api.delete('/eliminar_inventario_admin/:id', auth.auth, productoController.eliminar_inventario_admin);
+api.post('/registro_inventario_admin', auth.auth, productoController.registro_inventario_admin);
 module.exports = api;

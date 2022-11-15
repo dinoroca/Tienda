@@ -12,7 +12,7 @@
 <form #actualizarForm="ngForm" (ngSubmit)="actualizar(actualizarForm)">
   <div class="card box-shadow-sm col-lg-12">
     <div class="card-header">
-      <h5 style="margin-bottom: 0px">Actualizar cliente</h5>
+      <h5 style="margin-bottom: 0px">Actualizar producto</h5>
     </div>
 
     <ng-container *ngIf="load_data">
@@ -98,7 +98,7 @@
 
 
     <div class="card-footer text-center">
-      <button class="btn btn-primary mx-2 bi-file-plus-filll" type="submit" [disabled]="actualizarForm.invalid"
+      <button class="btn btn-primary mx-2 bi-check-circle-fill" type="submit" [disabled]="actualizarForm.invalid"
         *ngIf="producto != undefined && !load_btn"> Actualizar producto</button>
 
       <!-- Button with growing spinner and text -->

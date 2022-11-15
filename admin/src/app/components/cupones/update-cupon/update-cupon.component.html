@@ -1,1 +1,86 @@
-<p>update-cupon works!</p>
+<app-sidebar></app-sidebar>
+
+<!-- Page title-->
+<div class="border-bottom pt-5 mt-2 mb-5">
+    <h1 class="mt-2 mt-md-4 mb-3 pt-5">Cupones</h1>
+    <div class="d-flex flex-wrap flex-md-nowrap justify-content-between">
+        <p class="text-muted">Este módulo permite la actualización de cupones de descuento.</p>
+    </div>
+</div>
+
+<form #actualizarForm="ngForm" (ngSubmit)="actualizar(actualizarForm)">
+    <div class="card box-shadow-sm">
+        <div class="card-header">
+            <h5 style="margin-bottom: 0px">Actualizar cupón</h5>
+        </div>
+
+        <!-- Cargando spinner -->
+        <ng-container *ngIf="load_data">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <!-- Custom size border spinner -->
+                        <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+                        </div>
+                        <h5 class="text-black-50"><small>Cargando...</small></h5>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+
+        <!-- Cuando se carga los datos -->
+        <ng-container *ngIf="!load_data">
+            <div class="card-body" *ngIf="cupon != undefined">
+                <div class="row">
+
+                    <div class="col-md-6 form-group">
+                        <label for="validationCustom01" class="form-label">Código de cupón</label>
+                        <input class="form-control" type="text" name="codigo" [(ngModel)]="cupon.codigo"
+                            placeholder="Código del cupón" required />
+                    </div>
+
+                    <div class="col-md-4">
+                        <label for="validationCustom01" class="form-label">Tipo</label>
+                        <select class="form-control custom-select" name="genero" [(ngModel)]="cupon.tipo" required>
+                            <option value="" disabled selected>-- Seleccionar --</option>
+                            <option value="Porcentaje">Porcentaje</option>
+                            <option value="Valor fijo">Valor fijo</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-6 form-group">
+                        <label for="validationCustom01" class="form-label">Valor</label>
+                        <input class="form-control" type="number" name="valor" [(ngModel)]="cupon.valor"
+                            placeholder="Valor del descuento" required />
+                    </div>
+
+                    <div class="col-md-4 form-group">
+                        <label for="validationCustom01" class="form-label">Límite</label>
+                        <input class="form-control" type="number" name="valor" [(ngModel)]="cupon.limite"
+                            placeholder="Límite máximo" required />
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="card-body text-center" *ngIf="cupon == undefined">
+                <h3 class="text-danger">No se encontró el registro</h3>
+                <img src="assets/img/error.png" style="width: 100px;">
+            </div>
+        </ng-container>
+
+
+        <div class="card-footer text-center">
+            <button class="btn btn-primary mx-2 bi-check-circle-fill" type="submit"
+                [disabled]="actualizarForm.invalid" *ngIf="cupon != undefined && !load_btn"> Actualizar cupón
+            </button>
+
+            <!-- Button with growing spinner and text -->
+            <button *ngIf="load_btn" type="button" class="btn btn-secondary" disabled>
+                <span class="spinner-grow spinner-grow-sm me-2" role="status" aria-hidden="true"></span>
+                Actualizando...
+            </button>
+            <a class="btn btn-warning mx-2" [routerLink]="['/panel/cupones']">Regresar</a>
+        </div>
+    </div>
+</form>

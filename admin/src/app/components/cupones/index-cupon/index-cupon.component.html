@@ -70,7 +70,9 @@
                                         Opciones
                                     </button>
                                     <div class="dropdown-menu text-center">
-                                        <a class="dropdown-item bi-pencil-fill"> Editar</a>
+                                        <a class="dropdown-item bi-pencil-fill"
+                                        [routerLink]="['/panel/cupones', item._id]"> 
+                                            Editar</a>
                                         <a class="dropdown-item bi-trash-fill text-danger" 
                                             style="cursor: pointer"> Eliminar</a>
                                     </div>

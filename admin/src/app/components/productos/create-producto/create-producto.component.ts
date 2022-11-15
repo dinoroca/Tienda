@@ -14,7 +14,9 @@ declare var $: any;
 })
 export class CreateProductoComponent implements OnInit {
 
-  public producto: any = {};
+  public producto: any = {
+    categoria: ''
+  };
   public file: any = undefined;
   public imgSelect: any | ArrayBuffer = 'assets/img/01.jpg';
 

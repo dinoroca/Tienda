@@ -165,7 +165,7 @@ const listar_inventario_admin = async function (req, res) {
         if (req.user.role == 'admin') {
 
             var id = req.params['id'];
-            var reg = await Inventario.find({ producto: id }).populate('admin').sort({createdAt: -1});
+            var reg = await Inventario.find({ producto: id }).populate('admin').sort({ createdAt: -1 });
 
             res.status(200).send({ data: reg });
         } else {
@@ -183,15 +183,15 @@ const eliminar_inventario_admin = async function (req, res) {
             //Obtener id de inventario
             var id = req.params['id'];
             var reg = await Inventario.findByIdAndRemove({ _id: id });      //Eliminar inventario
-            let prod = await Producto.findById({_id: reg.producto});            //Obtener registro de producto
+            let prod = await Producto.findById({ _id: reg.producto });            //Obtener registro de producto
             let nuevo_stock = parseInt(prod.stock) - parseInt(reg.cantidad);   //Calcular nuevo stock
 
-            let producto = await Producto.findByIdAndUpdate({_id: reg.producto} ,{ //Actualizar producto con stock nuevo
+            let producto = await Producto.findByIdAndUpdate({ _id: reg.producto }, { //Actualizar producto con stock nuevo
                 stock: nuevo_stock
             });
 
-            res.status(200).send({data: producto});
-            
+            res.status(200).send({ data: producto });
+
         } else {
             res.status(500).send({ message: 'NoAccess' });
         }
@@ -208,15 +208,15 @@ const registro_inventario_admin = async function (req, res) {
 
             let reg = await Inventario.create(data);
 
-            let prod = await Producto.findById({_id: reg.producto});            //Obtener registro de producto
+            let prod = await Producto.findById({ _id: reg.producto });            //Obtener registro de producto
             let nuevo_stock = parseInt(prod.stock) + parseInt(reg.cantidad);   //Calcular nuevo stock
 
-            let producto = await Producto.findByIdAndUpdate({_id: reg.producto} ,{ //Actualizar producto con stock nuevo
+            let producto = await Producto.findByIdAndUpdate({ _id: reg.producto }, { //Actualizar producto con stock nuevo
                 stock: nuevo_stock
             });
 
-            res.status(200).send({data: reg});
-            
+            res.status(200).send({ data: reg });
+
         } else {
             res.status(500).send({ message: 'NoAccess' });
         }

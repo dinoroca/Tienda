@@ -21,7 +21,7 @@ export class AdminService {
   login_admin(data: any): Observable<any> {
     let headers = new HttpHeaders().set('Content-Type', 'application/json');
 
-    return this._http.post(this.url + 'login_admin', data, {headers : headers});
+    return this._http.post(this.url + 'login_admin', data, { headers: headers });
   }
 
   //Permite obtener el token almacenado en el localStorage
@@ -33,14 +33,14 @@ export class AdminService {
 
     const token = localStorage.getItem('token');
 
-    if(!token){
+    if (!token) {
       return false;
     }
 
     try {
       const helper = new JwtHelperService();
-      var decodedToken = helper.decodeToken(<any>token);      
-      if(!decodedToken){
+      var decodedToken = helper.decodeToken(<any>token);
+      if (!decodedToken) {
         //console.log('No es valido');
         localStorage.removeItem('token');
         return false;
@@ -49,7 +49,12 @@ export class AdminService {
       localStorage.removeItem('token');
       return false;
     }
- 
+
     return allowRoles.includes(decodedToken['role']);
+  }
+
+  obtener_config_admin(token: any): Observable<any> {
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'authorization': token });
+    return this._http.get(this.url + 'obtener_config_admin', { headers: headers });
   }
 }

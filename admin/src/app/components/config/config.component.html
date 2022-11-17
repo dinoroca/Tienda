@@ -52,9 +52,9 @@
 
                     </div>
                     <div class="col-md-9">
-                        <button style="cursor: pointer;"
+                        <a style="cursor: pointer;"
                             class="my-3 text-center btn btn-success col-12 bi-plus-circle-fill" (click)="agregar_cat()">
-                            Agregar</button>
+                            Agregar</a>
                         <div class="table-responsive mt-2">
 
                             <table class="table table-sm text-center" *ngIf="config.categorias">
@@ -76,10 +76,14 @@
                                 </ng-container>
 
                                 <ng-container *ngIf="config.categorias.length >= 1">
-                                    <tbody *ngFor="let item of config.categorias">
+                                    <tbody *ngFor="let item of config.categorias; let indice = index">
                                         <tr>
                                             <td>{{item.titulo}}</td>
-                                            <td>{{item.icono}}</td>
+                                            <td><i class="{{item.icono}}"></i></td>
+                                            <td><a class="dropdown-item bi-trash-fill text-danger" 
+                                                    style="cursor: pointer"
+                                                    (click)="eliminar_categoria(indice)"></a>
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </ng-container>

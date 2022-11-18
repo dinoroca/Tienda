@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GLOBAL } from 'src/app/service/global';
 import { ProductoService } from '../../../service/producto.service';
+import { AdminService } from '../../../service/admin.service';
 
 declare var iziToast: { show: (arg0: { title: string; titleColor: string; class: string; position: string; message: string; }) => void; };
 
@@ -18,6 +19,7 @@ export class UpdateProductoComponent implements OnInit {
   public producto: any = {};
   public file: any = undefined;
   public config: any = {};
+  public config_global: any = {};
   public imgSelect: any | ArrayBuffer;
   public load_btn = false;
   public load_data = true;
@@ -28,6 +30,7 @@ export class UpdateProductoComponent implements OnInit {
   constructor(
     private _route: ActivatedRoute,
     private _router: Router,
+    private _adminService: AdminService,
     private _productoService: ProductoService
   ) {
     this.config = {
@@ -36,17 +39,21 @@ export class UpdateProductoComponent implements OnInit {
 
     this.token = localStorage.getItem('token');
     this.url = GLOBAL.url;
+    this._adminService.obtener_config_publico().subscribe(
+      response => {
+        //Asiganr los valores de las categorias del back
+        this.config_global = response.data;
+      }
+    );
   }
 
   ngOnInit(): void {
     this._route.params.subscribe(
       params => {
         this.id = params['id'];
-        console.log(this.id);
 
         this._productoService.obtener_producto_admin(this.id, this.token).subscribe(
           response => {
-            console.log(response);
 
             if (response.data == undefined) {
               this.producto = undefined;
@@ -174,8 +181,6 @@ export class UpdateProductoComponent implements OnInit {
       this.imgSelect = 'assets/img/01.jpg';
       this.file = undefined;
     }
-
-    console.log(this.file);
 
   }
 

@@ -21,6 +21,7 @@ export class CreateProductoComponent implements OnInit {
   public imgSelect: any | ArrayBuffer = 'assets/img/01.jpg';
 
   public config: any = {};
+  public config_global: any = {};
   public token: any;
   public load_btn = false;
 
@@ -34,6 +35,12 @@ export class CreateProductoComponent implements OnInit {
     }
 
     this.token = this._adminService.getToken();
+    this._adminService.obtener_config_publico().subscribe(
+      response => {
+        //Asiganr los valores de las categorias del back
+        this.config_global = response.data;
+      }
+    );
   }
 
   ngOnInit(): void {
@@ -149,8 +156,6 @@ export class CreateProductoComponent implements OnInit {
       this.imgSelect = 'assets/img/01.jpg';
       this.file = undefined;
     }
-
-    console.log(this.file);
 
   }
 

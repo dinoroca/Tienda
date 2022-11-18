@@ -100,8 +100,12 @@
                                             [routerLink]="['/panel/productos/variedades', item._id]">
                                             Variedades</a>
 
+                                        <a class="dropdown-item text-success bi-card-image"
+                                            [routerLink]="['/panel/productos/galeria', item._id]">
+                                            Galeria</a>
+
                                         <a class="dropdown-item bi-trash-fill text-danger" style="cursor: pointer"
-                                            data-toggle="modal" data-toggle="modal"
+                                            data-toggle="modal"
                                             [attr.data-target]="'#delete-' + item._id">
                                             Eliminar producto</a>
 

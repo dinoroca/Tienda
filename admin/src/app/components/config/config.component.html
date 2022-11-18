@@ -4,7 +4,7 @@
 <div class="border-bottom pt-5 mt-2 mb-5">
     <h1 class="mt-2 mt-md-4 mb-3 pt-5">Configuraciones</h1>
     <div class="d-flex flex-wrap flex-md-nowrap justify-content-between">
-        <p class="text-muted">Este módulo se estableve las configuraciones de la tineda.</p>
+        <p class="text-muted">Este módulo se establece las configuraciones de la tineda.</p>
 
     </div>
 </div>
@@ -52,8 +52,8 @@
 
                     </div>
                     <div class="col-md-9">
-                        <a style="cursor: pointer;"
-                            class="my-3 text-center btn btn-success col-12 bi-plus-circle-fill" (click)="agregar_cat()">
+                        <a style="cursor: pointer;" class="my-3 text-center btn btn-success col-12 bi-plus-circle-fill"
+                            (click)="agregar_cat()">
                             Agregar</a>
                         <div class="table-responsive mt-2">
 
@@ -80,9 +80,8 @@
                                         <tr>
                                             <td>{{item.titulo}}</td>
                                             <td><i class="{{item.icono}}"></i></td>
-                                            <td><a class="dropdown-item bi-trash-fill text-danger" 
-                                                    style="cursor: pointer"
-                                                    (click)="eliminar_categoria(indice)"></a>
+                                            <td><a class="bi-trash-fill text-danger"
+                                                    style="cursor: pointer" (click)="eliminar_categoria(indice)"></a>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -104,7 +103,8 @@
 
                             <span class="cs-file-drop-message">Arratre la imagen y suelte</span>
                             <input type="file" class="cs-file-drop-input" (change)="fileChangeEvent($event)">
-                            <button type="button" class="cs-file-drop-btn btn btn-outline-primary btn-sm">Subir imagen</button>
+                            <button type="button" class="cs-file-drop-btn btn btn-outline-primary btn-sm">Subir
+                                imagen</button>
                         </div>
                     </div>
 

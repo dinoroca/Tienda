@@ -29,7 +29,7 @@
     </div>
 
     <div class="card-header text-center">
-        <div class="row">
+        <div class="row justify-content-center">
             <form #inventarioForm="ngForm" (ngSubmit)="registro_inventario(inventarioForm)" class="form-inline">
                 <!-- Input para la cantidad -->
                 <div class="col-auto">
@@ -47,7 +47,11 @@
                         [(ngModel)] = "inventario.proveedor" required>
                 </div>
                 <div class="col-auto">
-                    <button type="submit" class="btn btn-success bi-clipboard-plus-fill" [disabled]="inventarioForm.invalid"> Registrar</button>
+                    <button type="submit" class="btn btn-primary bi-clipboard-plus-fill" 
+                        [disabled]="inventarioForm.invalid"> Registrar</button>
+
+                    <button type="button" class="btn btn-success bi-file-earmark-excel-fill ml-3"
+                        (click)="download_excel()"></button>
                 </div>
             </form>
         </div>

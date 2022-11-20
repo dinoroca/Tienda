@@ -72,7 +72,7 @@ const login_cliente = async function (req, res) {
 };
 
 const listar_clientes_filtro_admin = async function (req, res) {
-    
+
   if (req.user) {
     if (req.user.role == "admin") {
 
@@ -94,67 +94,85 @@ const listar_clientes_filtro_admin = async function (req, res) {
         }
       }
     } else {
-        res.status(500).send({message: 'NoAccess'});
+      res.status(500).send({ message: 'NoAccess' });
     }
-  }else {
-    res.status(500).send({message: 'NoAccess'});
+  } else {
+    res.status(500).send({ message: 'NoAccess' });
   }
 };
 
-const registro_cliente_admin = async function(req, res){
-  if(req.user){
-    if(req.user.role == 'admin'){
-      
+const registro_cliente_admin = async function (req, res) {
+  if (req.user) {
+    if (req.user.role == 'admin') {
+
       var data = req.body;
-      
-      bcrypt.hash('12345', null, null, async function(err, hash) {
-        if(hash) {
+
+      bcrypt.hash('12345', null, null, async function (err, hash) {
+        if (hash) {
           data.password = hash;
           let reg = await Cliente.create(data);
-          res.status(200).send({data: reg});
+          res.status(200).send({ data: reg });
         } else {
-          res.status(200).send({message: 'Error en el servidor', data: undefined});
+          res.status(200).send({ message: 'Error en el servidor', data: undefined });
         }
       })
 
     } else {
-      res.status(500).send({message: 'NoAccess'});
+      res.status(500).send({ message: 'NoAccess' });
     }
   } else {
-    res.status(500).send({message: 'NoAccess'});
+    res.status(500).send({ message: 'NoAccess' });
   }
 }
 
-const obtener_cliente_admin = async function(req, res){
-  if(req.user){
-    if(req.user.role == 'admin'){
-      
+const obtener_cliente_admin = async function (req, res) {
+  if (req.user) {
+    if (req.user.role == 'admin') {
+
       var id = req.params['id'];
-      
+
       try {
-        var reg = await Cliente.findById({_id:id});
-        res.status(200).send({data: reg});
-        
+        var reg = await Cliente.findById({ _id: id });
+        res.status(200).send({ data: reg });
+
       } catch (error) {
-        res.status(200).send({data: undefined});
+        res.status(200).send({ data: undefined });
       }
 
     } else {
-      res.status(500).send({message: 'NoAccess'});
+      res.status(500).send({ message: 'NoAccess' });
     }
   } else {
-    res.status(500).send({message: 'NoAccess'});
+    res.status(500).send({ message: 'NoAccess' });
   }
 }
 
-const actualizar_cliente_admin = async function(req, res) {
-  if(req.user){
-    if(req.user.role == 'admin'){
-      
+const obtener_cliente = async function (req, res) {
+  if (req.user) {
+
+    var id = req.params['id'];
+
+    try {
+      var reg = await Cliente.findById({ _id: id });
+      res.status(200).send({ data: reg });
+
+    } catch (error) {
+      res.status(200).send({ data: undefined });
+    }
+
+  } else {
+    res.status(500).send({ message: 'NoAccess' });
+  }
+}
+
+const actualizar_cliente_admin = async function (req, res) {
+  if (req.user) {
+    if (req.user.role == 'admin') {
+
       var id = req.params['id'];
       var data = req.body;
 
-      var reg = await Cliente.findByIdAndUpdate({_id: id}, {
+      var reg = await Cliente.findByIdAndUpdate({ _id: id }, {
         nombres: data.nombres,
         apellidos: data.apellidos,
         email: data.email,
@@ -164,29 +182,29 @@ const actualizar_cliente_admin = async function(req, res) {
         genero: data.genero
       });
 
-      res.status(200).send({data: reg});
+      res.status(200).send({ data: reg });
 
     } else {
-      res.status(500).send({message: 'NoAccess'});
+      res.status(500).send({ message: 'NoAccess' });
     }
   } else {
-    res.status(500).send({message: 'NoAccess'});
+    res.status(500).send({ message: 'NoAccess' });
   }
 }
 
-const eliminar_cliente_admin = async function(req, res){
-  if(req.user){
-    if(req.user.role == 'admin'){
-      
+const eliminar_cliente_admin = async function (req, res) {
+  if (req.user) {
+    if (req.user.role == 'admin') {
+
       var id = req.params['id'];
-      let reg = await Cliente.findByIdAndRemove({_id: id});
-      res.status(200).send({data: reg});
+      let reg = await Cliente.findByIdAndRemove({ _id: id });
+      res.status(200).send({ data: reg });
 
     } else {
-      res.status(500).send({message: 'NoAccess'});
+      res.status(500).send({ message: 'NoAccess' });
     }
   } else {
-    res.status(500).send({message: 'NoAccess'});
+    res.status(500).send({ message: 'NoAccess' });
   }
 }
 
@@ -197,5 +215,6 @@ module.exports = {
   registro_cliente_admin,
   obtener_cliente_admin,
   actualizar_cliente_admin,
-  eliminar_cliente_admin
+  eliminar_cliente_admin,
+  obtener_cliente
 };

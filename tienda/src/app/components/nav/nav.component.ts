@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ClienteService } from '../../services/cliente.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nav',
@@ -14,7 +15,8 @@ export class NavComponent implements OnInit {
   public user_lc: any = {};
 
   constructor(
-    private _clienteService: ClienteService
+    private _clienteService: ClienteService,
+    private _router: Router
   ) {
     this.token = localStorage.getItem('token');
     this.id = localStorage.getItem('_id');
@@ -43,6 +45,13 @@ export class NavComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  logout() {
+    window.location.reload();
+    localStorage.clear();
+    this._router.navigate(['/']);
+    
   }
 
 }

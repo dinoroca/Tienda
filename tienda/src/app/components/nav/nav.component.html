@@ -70,6 +70,7 @@
           </li>
         </ul>
       </div>
+
       <!-- Navbar collapse -->
       <nav class="collapse navbar-collapse order-lg-2" id="navbarCollapse">
         <!-- Search mobile -->
@@ -89,7 +90,8 @@
               class="nav-link">Inicio</a>
           </li>
           <li class="nav-item dropdown">
-            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Shop</a>
+            <a [routerLink]="['/productos']" routerLinkActive="active"  class="nav-link dropdown-toggle" 
+              data-toggle="dropdown">Tienda</a>
             <ul class="dropdown-menu">
               <li>
                 <a href="shop-catalog.html" class="dropdown-item">Catalog with Filters</a>

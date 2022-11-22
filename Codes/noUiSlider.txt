@@ -1,0 +1,46 @@
+ <style>
+    .cs-range-slider-ui .noUi-handle {
+        top: 50% !important;
+        width: .875rem !important;
+        height: .875rem !important;
+        margin-top: -.4375rem !important;
+        border: 2px solid #fff !important;
+        border-radius: 50% !important;
+        box-shadow: none !important;
+        background-color: #17696a !important;
+    }
+    .cs-range-slider-ui {
+        height: .125rem !important;
+        margin: 3rem 0 !important;
+        border: 0 !important;
+        background-color: #dadbdd !important;
+        box-shadow: none !important;
+    }
+  </style>
+
+
+
+
+
+var slider : any = document.getElementById('slider');
+    noUiSlider.create(slider, {
+        start: [0, 1000],
+        connect: true,
+        decimals: false,
+        range: {
+            'min': 0,
+            'max': 1000
+        },
+        tooltips: [true,true],
+        pips: {
+          mode: 'count', 
+          values: 5,
+          
+        }
+    })
+
+    slider.noUiSlider.on('update', function (values) {
+        $('.cs-range-slider-value-min').val(values[0]);
+        $('.cs-range-slider-value-max').val(values[1]);
+    });
+    $('.noUi-tooltip').css('font-size','11px');

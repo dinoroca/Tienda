@@ -13,6 +13,7 @@ export class NavComponent implements OnInit {
   public id: any;
   public user: any = undefined;
   public user_lc: any = {};
+  public config_global: any = '';
 
   constructor(
     private _clienteService: ClienteService,
@@ -22,6 +23,13 @@ export class NavComponent implements OnInit {
     this.id = localStorage.getItem('_id');
 
     this.user_lc = undefined;
+
+    this._clienteService.obtener_config_publico().subscribe(
+      response => {
+        //Asiganr los valores de las categorias del back
+        this.config_global = response.data;
+      }
+    );
 
     if (this.token) {
       //Obtener usuario

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ClienteService } from 'src/app/services/cliente.service';
 
 declare var noUiSlider: any;
 declare var jQuery: any;
@@ -11,7 +12,19 @@ declare var $: any;
 })
 export class IndexProductoComponent implements OnInit {
 
-  constructor() { }
+  public config_global: any = {};
+  public filter_categoria: any = '';
+
+  constructor(
+    private _clienteService: ClienteService
+  ) {
+    this._clienteService.obtener_config_publico().subscribe(
+      response => {
+        //Asiganr los valores de las categorias del back
+        this.config_global = response.data;
+      }
+    );
+  }
 
   ngOnInit(): void {
     var slider: any = document.getElementById('slider');
@@ -37,6 +50,23 @@ export class IndexProductoComponent implements OnInit {
       $('.cs-range-slider-value-max').val(values[1]);
     });
     $('.noUi-tooltip').css('font-size', '11px');
+  }
+
+  buscar_categorias() {
+
+    if (this.filter_categoria) {
+      var search = new RegExp(this.filter_categoria, 'i');
+      this.config_global.categorias = this.config_global.categorias.filter(
+        (item: { titulo: string; }) => search.test(item.titulo)
+      );
+    } else {
+      this._clienteService.obtener_config_publico().subscribe(
+        response => {
+          //Asiganr los valores de las categorias del back
+          this.config_global = response.data;
+        }
+      );
+    }
   }
 
   buscar_precios() { }

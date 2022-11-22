@@ -1,0 +1,134 @@
+<app-nav></app-nav>
+
+<main class="cs-page-wrapper">
+
+    <!-- Breadcrumb -->
+    <nav class="bg-secondary mb-3" aria-label="breadcrumb">
+        <div class="container">
+            <ol class="breadcrumb breadcrumb-alt mb-0">
+                <li class="breadcrumb-item">
+                    <a [routerLink]="['/']"><i class="cxi-home"></i></a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">Mi perfil</li>
+            </ol>
+        </div>
+    </nav>
+
+    <!-- Page container -->
+    <section class="container pt-3 pt-lg-4 pb-5 pb-lg-6">
+        <div class="row pb-2 pb-lg-0">
+
+            <!-- Account menu (sticky sidebar) -->
+            <aside class="col-xl-3 col-lg-4 pb-3 mb-4 mb-lg-0">
+                <app-sidebar></app-sidebar>
+            </aside>
+
+            <!-- Content -->
+            <div class="col-lg-8 ml-auto">
+                <div class="d-flex align-items-center justify-content-between mb-4 pb-1 pb-sm-3">
+                    <h1 class="h2 mb-0">Mi perfil</h1>
+
+                    <!-- Eliminar cuenta -->
+
+                    <!-- <a href="#" class="btn text-danger btn-link font-size-base text-decoration-none pr-0">
+                        <i class="cxi-delete font-size-lg mt-n1 mr-2"></i>
+                        Delete account
+                    </a> -->
+
+                </div>
+                <form #actualizarForm="ngForm" (ngSubmit)="actualizar(actualizarForm)">
+                    <div class="row pb-3">
+                        <div class="col-sm-6 form-group">
+                            <label for="ac-fn">Nombres</label>
+                            <input required type="text" class="form-control form-control-lg" 
+                                name="nombres" [(ngModel)]="cliente.nombres" placeholder="Nombres">
+                        </div>
+                        <div class="col-sm-6 form-group">
+                            <label for="ac-fn">Apellidos</label>
+                            <input required type="text" class="form-control form-control-lg" 
+                                name="apellidos" [(ngModel)]="cliente.apellidos" placeholder="Apellidos">
+                        </div>
+                        <div class="col-sm-6 form-group">
+                            <label>Correo electrónico</label>
+                            <input required type="email" class="form-control form-control-lg"
+                               value="{{cliente.email}}" readonly placeholder="example@example.com">
+                        </div>
+                        <div class="col-sm-6 form-group">
+                            <label>Teléfono</label>
+                            <input required type="text" class="form-control form-control-lg"
+                                name="telefono" [(ngModel)]="cliente.telefono" placeholder="Teléfono">
+                        </div>
+                        <div class="col-sm-6 form-group">
+                            <label for="ac-password">Contraseña</label>
+                            <div class="cs-password-toggle input-group-overlay">
+                                <input type="password" autocomplete="new-password" class="form-control form-control-lg" 
+                                    placeholder="Contraseña nueva" id="input_password">
+
+                                <div class="input-group-append-overlay">
+                                    <label class="btn cs-password-toggle-btn input-group-text">
+                                        <input type="checkbox" class="custom-control-input">
+                                        <i class="cxi-eye cs-password-toggle-indicator"></i>
+                                        <span class="sr-only">Show password</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 form-group">
+                            <label for="ac-password-confirm">Confirmar contraseña</label>
+                            <div class="cs-password-toggle input-group-overlay">
+                                <input type="password" id="ac-password-confirm" class="form-control form-control-lg" 
+                                    placeholder="Confirmar">
+                                <div class="input-group-append-overlay">
+                                    <label class="btn cs-password-toggle-btn input-group-text">
+                                        <input type="checkbox" class="custom-control-input">
+                                        <i class="cxi-eye cs-password-toggle-indicator"></i>
+                                        <span class="sr-only">Show password</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 form-group">
+                            <label>Fecha de nacimiento</label>
+                            <input required type="date" class="form-control form-control-lg"
+                                name="f_nacimiento" [(ngModel)]="cliente.f_nacimiento">
+                        </div>
+                        <div class="col-sm-6 form-group">
+                            <label>DNI</label>
+                            <input required type="text" class="form-control form-control-lg"
+                                name="dni" [(ngModel)]="cliente.dni" placeholder="Ingrese su DNI">
+                        </div>
+                        <div class="col-sm-6 form-group">
+                            <label for="ac-genero">Género</label>
+                            <select required id="ac-genero" class="custom-select custom-select-lg" 
+                            name="genero" [(ngModel)]="cliente.genero">
+                                <option value="" disabled selected>--Seleccionar--</option>
+                                <option value="Masculino">Masculino</option>
+                                <option value="Femenino">Femenino</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-6 form-group">
+                            <label for="ac-pais">País</label>
+                            <select required id="ac-pais" class="custom-select custom-select-lg"
+                            name="pais" [(ngModel)]="cliente.pais">
+                                <option value="" disabled selected>--Seleccionar--</option>
+                                <option value="Peru">Peru</option>
+                                <option value="Bolivia">Bolivia</option>
+                                <option value="Chile">Chile</option>
+                                <option value="Argentina">Argentina</option>
+                                <option value="Colombia">Colombia</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="justify-content-center row">
+                        <button type="submit" class="btn btn-success btn-lg bi-check-circle-fill"
+                            [disabled]="actualizarForm.invalid"> Actualizar perfil</button>
+                    </div>
+                    
+                </form>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<app-footer></app-footer>

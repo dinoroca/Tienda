@@ -208,6 +208,51 @@ const eliminar_cliente_admin = async function (req, res) {
   }
 }
 
+const actualizar_perfil_cliente = async function (req, res) {
+  if (req.user) {
+
+    var id = req.params['id']
+    var data = req.body;
+
+    //Cuando se manda una contraseña se debe encriptar
+    if (data.password) {
+      bcrypt.hash(data.password, null, null, async function (err,hash){
+        var reg = await Cliente.findByIdAndUpdate({ _id: id }, {
+          nombres: data.nombres,
+          apellidos: data.apellidos,
+          telefono: data.telefono,
+          f_nacimiento: data.f_nacimiento,
+          dni: data.dni,
+          genero: data.genero,
+          pais: data.pais,
+          password: hash
+        });
+
+        res.status(200).send({ data: reg });
+      });
+
+      //No se manda una contraseña
+    } else {
+      console.log('SIN PASS');
+      var reg = await Cliente.findByIdAndUpdate({ _id: id }, {
+        nombres: data.nombres,
+        apellidos: data.apellidos,
+        telefono: data.telefono,
+        f_nacimiento: data.f_nacimiento,
+        dni: data.dni,
+        genero: data.genero,
+        pais: data.pais
+      });
+
+      res.status(200).send({ data: reg });
+    }
+
+
+  } else {
+    res.status(500).send({ message: 'NoAccess' });
+  }
+}
+
 module.exports = {
   registro_cliente,
   login_cliente,
@@ -216,5 +261,6 @@ module.exports = {
   obtener_cliente_admin,
   actualizar_cliente_admin,
   eliminar_cliente_admin,
-  obtener_cliente
+  obtener_cliente,
+  actualizar_perfil_cliente
 };

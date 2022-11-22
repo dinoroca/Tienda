@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
     private _clienteService: ClienteService,
     private _router: Router
   ) {
-    this.token = localStorage.getItem('teken');
+    this.token = localStorage.getItem('token');
 
     if (this.token) {
       this._router.navigate(['/']);
@@ -49,7 +49,7 @@ export class LoginComponent implements OnInit {
 
           } else {
             this.usuario = response.data;
-            localStorage.setItem('teken', response.token);
+            localStorage.setItem('token', response.token);
             localStorage.setItem('_id', response.data._id);
 
             this._router.navigate(['/']);

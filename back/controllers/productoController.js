@@ -261,11 +261,13 @@ const agregar_imagen_galeria_admin = async function (req, res) {
             var name = img_path.split('\\');
             var imagen_name = name[2];
 
-            let reg = await Producto.findByIdAndUpdate({_id: id}, {
-                $push:{galeria:{
-                    imagen: imagen_name,
-                    _id: data._id
-                }}
+            let reg = await Producto.findByIdAndUpdate({ _id: id }, {
+                $push: {
+                    galeria: {
+                        imagen: imagen_name,
+                        _id: data._id
+                    }
+                }
             });
 
             res.status(200).send({ data: reg });
@@ -287,12 +289,13 @@ const eliminar_imagen_galeria_admin = async function (req, res) {
             let id = req.params['id'];
             let data = req.body;
 
-            
 
-            let reg = await Producto.findByIdAndUpdate({_id: id}, {
+
+            let reg = await Producto.findByIdAndUpdate({ _id: id }, {
                 $pull: {
-                    galeria:{_id: data._id}
-                }});
+                    galeria: { _id: data._id }
+                }
+            });
 
             res.status(200).send({ data: reg });
 
@@ -303,6 +306,15 @@ const eliminar_imagen_galeria_admin = async function (req, res) {
     } else {
         res.status(500).send({ message: 'NoAccess' });
     }
+}
+
+//Método público
+const listar_productos = async function (req, res) {
+
+    var filtro = req.params['filtro'];
+
+    let reg = await Producto.find({ titulo: new RegExp(filtro, 'i') });
+    res.status(200).send({ data: reg });
 }
 
 module.exports = {
@@ -317,5 +329,6 @@ module.exports = {
     registro_inventario_admin,
     actualizar_producto_variedades_admin,
     agregar_imagen_galeria_admin,
-    eliminar_imagen_galeria_admin
+    eliminar_imagen_galeria_admin,
+    listar_productos
 }

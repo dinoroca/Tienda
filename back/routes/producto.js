@@ -23,4 +23,7 @@ api.put('/eliminar_imagen_galeria_admin/:id', auth.auth, productoController.elim
 api.get('/listar_inventario_admin/:id', auth.auth, productoController.listar_inventario_admin);
 api.delete('/eliminar_inventario_admin/:id', auth.auth, productoController.eliminar_inventario_admin);
 api.post('/registro_inventario_admin', auth.auth, productoController.registro_inventario_admin);
+
+//Públicos
+api.get('/listar_productos/:filtro?', productoController.listar_productos);
 module.exports = api;

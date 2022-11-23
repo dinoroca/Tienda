@@ -17,6 +17,7 @@ export class IndexProductoComponent implements OnInit {
   public filter_categoria: any = '';
   public productos: Array<any> = [];
   public filter_producto = '';
+  public filter_cat_productos = 'todos';
 
   public load_data = true;
   public url: any;
@@ -84,7 +85,7 @@ export class IndexProductoComponent implements OnInit {
     }
   }
 
-  buscar_produsto() {
+  buscar_producto() {
     this._clienteService.listar_productos(this.filter_producto).subscribe(
       response => {
         this.productos = response.data;
@@ -107,6 +108,27 @@ export class IndexProductoComponent implements OnInit {
         });
       }
     );
+
+  }
+
+  buscar_por_categoria() {
+    if (this.filter_cat_productos == 'todos') {
+      this._clienteService.listar_productos(this.filter_producto).subscribe(
+        response => {
+          this.productos = response.data;
+
+          this.load_data = false;
+        }
+      );
+    } else {
+      this._clienteService.listar_productos(this.filter_producto).subscribe(
+        response => {
+          this.productos = response.data;
+
+          this.productos = this.productos.filter(item => item.categoria == this.filter_cat_productos);
+        }
+      );
+    }
 
   }
 

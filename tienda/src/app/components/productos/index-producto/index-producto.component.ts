@@ -35,7 +35,7 @@ export class IndexProductoComponent implements OnInit {
     this._clienteService.listar_productos(this.filter_producto).subscribe(
       response => {
         this.productos = response.data;
-        
+
         this.load_data = false;
       }
     );
@@ -88,13 +88,27 @@ export class IndexProductoComponent implements OnInit {
     this._clienteService.listar_productos(this.filter_producto).subscribe(
       response => {
         this.productos = response.data;
-        
+
         this.load_data = false;
       }
     );
   }
 
-  buscar_precios() { }
+  buscar_precios() {
+    this._clienteService.listar_productos(this.filter_producto).subscribe(
+      response => {
+        this.productos = response.data;
+
+        let min = parseInt($('.cs-range-slider-value-min').val());
+        let max = parseInt($('.cs-range-slider-value-max').val());
+
+        this.productos = this.productos.filter((item) => {
+          return item.precio >= min && item.precio <= max;
+        });
+      }
+    );
+
+  }
 
 
 }

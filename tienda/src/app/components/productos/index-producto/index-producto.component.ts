@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ClienteService } from 'src/app/services/cliente.service';
 import { GLOBAL } from 'src/app/services/global';
+import { ActivatedRoute } from '@angular/router';
 
 declare var noUiSlider: any;
 declare var jQuery: any;
@@ -21,9 +22,11 @@ export class IndexProductoComponent implements OnInit {
 
   public load_data = true;
   public url: any;
+  public route_catrgoria: any;
 
   constructor(
-    private _clienteService: ClienteService
+    private _clienteService: ClienteService,
+    private _route: ActivatedRoute
   ) {
     this.url = GLOBAL.url;
     this._clienteService.obtener_config_publico().subscribe(
@@ -33,11 +36,26 @@ export class IndexProductoComponent implements OnInit {
       }
     );
 
-    this._clienteService.listar_productos(this.filter_producto).subscribe(
-      response => {
-        this.productos = response.data;
+    this._route.params.subscribe(
+      params => {
+        this.route_catrgoria = params['categoria'];
+        if (this.route_catrgoria) {
+          this._clienteService.listar_productos(this.filter_producto).subscribe(
+            response => {
+              this.productos = response.data;
+              this.productos = this.productos.filter(item => item.categoria.toLowerCase() == this.route_catrgoria);
+              this.load_data = false;
+            }
+          );
+        } else {
+          this._clienteService.listar_productos(this.filter_producto).subscribe(
+            response => {
+              this.productos = response.data;
+              this.load_data = false;
+            }
+          );
+        }
 
-        this.load_data = false;
       }
     );
   }

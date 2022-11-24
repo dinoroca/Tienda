@@ -94,7 +94,7 @@
               data-toggle="dropdown">Tienda</a>
             <ul class="dropdown-menu">
               <li *ngFor="let item of config_global.categorias">
-                <a href="shop-catalog.html" class="dropdown-item"> <i class="{{item.icono}}"></i> &nbsp; {{item.titulo}} </a>
+                <a [routerLink]="['/productos/categoria/', item.titulo.toLowerCase()]" class="dropdown-item"> <i class="{{item.icono}}"></i> &nbsp; {{item.titulo}} </a>
               </li>
             </ul>
           </li>

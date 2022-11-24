@@ -6,6 +6,8 @@ import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
+import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+
 import { routing } from './app.routing';
 import { InicioComponent } from './components/inicio/inicio.component';
 import { NavComponent } from './components/nav/nav.component';
@@ -31,7 +33,8 @@ import { IndexProductoComponent } from './components/productos/index-producto/in
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    routing
+    routing,
+    NgbPaginationModule
   ],
   providers: [],
   bootstrap: [AppComponent]

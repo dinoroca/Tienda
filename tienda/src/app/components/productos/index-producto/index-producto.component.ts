@@ -24,6 +24,11 @@ export class IndexProductoComponent implements OnInit {
   public url: any;
   public route_catrgoria: any;
 
+  public page = 1;
+  public pageSize = 12;
+
+  public sort_by = 'Defecto';
+
   constructor(
     private _clienteService: ClienteService,
     private _route: ActivatedRoute

@@ -39,8 +39,9 @@ export class IndexProductoComponent implements OnInit {
     this._route.params.subscribe(
       params => {
         this.route_catrgoria = params['categoria'];
+
         if (this.route_catrgoria) {
-          this._clienteService.listar_productos(this.filter_producto).subscribe(
+          this._clienteService.listar_productos('').subscribe(
             response => {
               this.productos = response.data;
               this.productos = this.productos.filter(item => item.categoria.toLowerCase() == this.route_catrgoria);
@@ -48,7 +49,7 @@ export class IndexProductoComponent implements OnInit {
             }
           );
         } else {
-          this._clienteService.listar_productos(this.filter_producto).subscribe(
+          this._clienteService.listar_productos('').subscribe(
             response => {
               this.productos = response.data;
               this.load_data = false;
@@ -150,5 +151,15 @@ export class IndexProductoComponent implements OnInit {
 
   }
 
+  reset_productos() {
 
+    this.filter_producto = '';
+
+    this._clienteService.listar_productos('').subscribe(
+      response => {
+        this.productos = response.data;
+        this.load_data = false;
+      }
+    );
+  }
 }

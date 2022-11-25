@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ClienteService } from '../../services/cliente.service';
 import { Router } from '@angular/router';
 
+declare var jQuery: any;
+declare var $: any;
+
 @Component({
   selector: 'app-nav',
   templateUrl: './nav.component.html',
@@ -14,6 +17,7 @@ export class NavComponent implements OnInit {
   public user: any = undefined;
   public user_lc: any = {};
   public config_global: any = '';
+  public op_cart = false;
 
   constructor(
     private _clienteService: ClienteService,
@@ -59,7 +63,16 @@ export class NavComponent implements OnInit {
     window.location.reload();
     localStorage.clear();
     this._router.navigate(['/']);
-    
+  }
+
+  op_modalcart() {
+    if (!this.op_cart) {
+      this.op_cart = true;
+      $('#cart').addClass('show');
+    } else {
+      this.op_cart = false;
+      $('#cart').removeClass('show');
+    }
   }
 
 }

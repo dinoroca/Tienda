@@ -77,4 +77,9 @@ export class ClienteService {
     let headers = new HttpHeaders({'Content-Type':'application/json', 'authorization': token});
     return this._http.post(this.url + 'agregar_carrito_cliente', data, {headers : headers});
   }
+
+  obtener_carrito_cliente(id: any, token: any): Observable<any> {
+    let headers = new HttpHeaders({'Content-Type':'application/json', 'authorization': token});
+    return this._http.get(this.url + 'obtener_carrito_cliente/' + id, {headers : headers});
+  }
 }

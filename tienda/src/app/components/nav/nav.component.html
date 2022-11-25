@@ -245,7 +245,7 @@
             <div class="d-flex align-items-center">
               <input type="number" class="form-control form-control-sm bg-light mr-3" style="width: 4.5rem;" 
                 value="{{item.cantidad}}" readonly>
-              <div class="text-nowrap"><strong class="text-danger">S/. {{item.producto.precio}}</strong></div>
+              <div class="text-nowrap"><strong style="font-size: 1rem;" class="text-muted">S/. {{item.producto.precio}}</strong></div>
             </div>
             <button class="btn btn-link btn-sm text-decoration-none px-0 pb-0">
               Agregar a deseos
@@ -253,7 +253,8 @@
             </button>
           </div>
           <div class="nav-muted mr-n2">
-            <a href="#" class="nav-link px-2 mt-n2" data-toggle="tooltip" title="" data-original-title="Remove"><i class="cxi-delete"></i></a>
+            <a style="cursor: pointer;" class="nav-link px-2 mt-n2 text-danger" title="Eliminar" (click)="eliminar_item(item._id)">
+              <i class="cxi-delete"></i></a>
           </div>
         </div>
       </div>
@@ -266,7 +267,7 @@
       <span class="text-muted mr-2">Subtotal:</span>
       <span class="h5 mb-0">S/. {{subtotal}}</span>
     </div>
-    <a [routerLink]="['/carrito-compras']" class="btn btn-primary btn-lg btn-block">
+    <a [routerLink]="['/carrito-compras']" class="btn btn-primary btn-block">
       <i class="cxi-credit-card font-size-lg mt-n1 mr-1"></i>
       Checkout
     </a>

@@ -6,7 +6,7 @@ const agregar_carrito_cliente = async function (req, res) {
 
     let data = req.body;
 
-    let carrito_cliente = await Carrito.find({ cliente: data.cliente, producto: data.producto, variedad:data.variedad });
+    let carrito_cliente = await Carrito.find({ cliente: data.cliente, producto: data.producto, variedad: data.variedad });
 
     if (carrito_cliente.length == 0) {
       let reg = await Carrito.create(data);
@@ -23,7 +23,6 @@ const agregar_carrito_cliente = async function (req, res) {
 
 const obtener_carrito_cliente = async function (req, res) {
   if (req.user) {
-
     let id = req.params['id'];
     let carrito_cliente = await Carrito.find({ cliente: id }).populate('producto');
     res.status(200).send({ data: carrito_cliente });
@@ -33,7 +32,20 @@ const obtener_carrito_cliente = async function (req, res) {
   }
 }
 
+const eliminar_carrito_cliente = async function (req, res) {
+  if (req.user) {
+    let id = req.params['id'];
+    let reg = await Carrito.findByIdAndRemove({ _id: id });
+
+    res.status(200).send({ data: reg });
+
+  } else {
+    res.status(500).send({ message: 'NoAccess' });
+  }
+}
+
 module.exports = {
   agregar_carrito_cliente,
-  obtener_carrito_cliente
+  obtener_carrito_cliente,
+  eliminar_carrito_cliente
 }

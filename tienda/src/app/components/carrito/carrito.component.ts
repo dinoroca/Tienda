@@ -43,4 +43,12 @@ export class CarritoComponent implements OnInit {
     this.total_pagar = this.subtotal;
   }
 
+  eliminar_item(id: any){
+    this._clienteService.eliminar_carrito_cliente(id, this.token) .subscribe(
+      response => {
+        
+      }
+    );
+  }
+
 }

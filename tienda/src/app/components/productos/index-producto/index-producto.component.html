@@ -27,10 +27,9 @@
         </div>
 
         <!-- Show / hide filters (off-canvas) on Mobile -->
-        <button type="button" class="btn btn-primary btn-block mt-0 d-lg-none" data-toggle="offcanvas"
-          data-target="filtersOffcanvas">
+        <button type="button" class="btn btn-primary btn-block mt-0 d-lg-none" (click)="op_modalcategorias()">
           <i class="cxi-filter-2 mr-1"></i>
-          Show filters
+          Mostrar filtros
         </button>
       </div>
 
@@ -73,8 +72,8 @@
       <div id="filtersSidebar" class="col-lg-3 pr-lg-4">
         <div id="filtersOffcanvas" class="cs-offcanvas cs-offcanvas-collapse">
           <div class="cs-offcanvas-cap align-items-center border-bottom mb-3">
-            <h2 class="h5 mb-0">Shop filters</h2>
-            <button class="close mr-n1" type="button" data-dismiss="offcanvas" aria-label="Close">
+            <h2 class="h5 mb-0">Filtros</h2>
+            <button class="close mr-n1" type="button" data-dismiss="offcanvas" aria-label="Close" (click)="op_modalcategorias()">
               <span class="h2 font-weight-normal mt-n1 mb-0" aria-hidden="true">&times;</span>
             </button>
           </div>

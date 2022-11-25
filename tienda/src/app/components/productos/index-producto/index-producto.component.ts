@@ -37,6 +37,7 @@ export class IndexProductoComponent implements OnInit {
     cantidad: 1
   };
   public btn_cart = false;
+  public op_categoria = false;
 
   constructor(
     private _clienteService: ClienteService,
@@ -281,5 +282,15 @@ export class IndexProductoComponent implements OnInit {
         }
       }
     );
+  }
+
+  op_modalcategorias() {
+    if (!this.op_categoria) {
+      this.op_categoria = true;
+      $('#filtersOffcanvas').addClass('show');
+    } else {
+      this.op_categoria = false;
+      $('#filtersOffcanvas').removeClass('show');
+    }
   }
 }

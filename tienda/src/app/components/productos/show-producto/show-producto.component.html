@@ -9,9 +9,9 @@
                     <a [routerLink]="['/']"><i class="cxi-home"></i></a>
                 </li>
                 <li class="breadcrumb-item">
-                    <a *ngIf="producto.categoria" 
-                        [routerLink]="['/productos/categoria/', producto.categoria.toLowerCase()]"> 
-                            {{producto.categoria}} </a>
+                    <a *ngIf="producto.categoria"
+                        [routerLink]="['/productos/categoria/', producto.categoria.toLowerCase()]">
+                        {{producto.categoria}} </a>
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">{{producto.titulo}}</li>
             </ol>
@@ -37,19 +37,16 @@
                         <a class="cs-gallery-item" *ngFor="let item of producto.galeria; let indice = index"
                             href="{{url + 'obtener_portada/' + item.imagen}}"
                             data-sub-html='<h6 class="text-light">Gallery image caption #1</h6>'>
-                            <img class="rounded"
-                                [src]="url + 'obtener_portada/' + item.imagen"
-                                alt="Carousel image">
+                            <img class="rounded" [src]="url + 'obtener_portada/' + item.imagen" alt="Carousel image">
                             <span class="cs-gallery-caption">Imagen #{{indice+1}}</span>
                         </a>
                     </div>
 
                     <!-- Product gallery thumbnails -->
                     <div class="cs-thumbnails" id="cs-thumbnails">
-                        <button type="button" *ngFor="let item of producto.galeria; let indice = index" 
+                        <button type="button" *ngFor="let item of producto.galeria; let indice = index"
                             [attr.data-nav]="indice">
-                            <img [src]="url + 'obtener_portada/' + item.imagen"
-                                alt="Thumbnail">
+                            <img [src]="url + 'obtener_portada/' + item.imagen" alt="Thumbnail">
                         </button>
                     </div>
                 </div>
@@ -114,31 +111,46 @@
                     <div class="col-6 order-sm-1 order-2">
                         <div class="form-group">
                             <label for="size"> {{producto.titulo_variedad}} </label>
-                            <select class="form-control custom-select" id="size">
+                            <select class="form-control custom-select" id="size" name="variedad"
+                                [(ngModel)]="carrito_data.variedad">
                                 <option value="" selected disabled> --Seleccionar-- </option>
-                                <option *ngFor="let item of producto.variedades" value="{{item.titulo}}"> 
-                                        {{item.titulo}} </option>
+                                <option *ngFor="let item of producto.variedades" value="{{item.titulo}}">
+                                    {{item.titulo}} </option>
                             </select>
                         </div>
                     </div>
-                    
+
                     <div class="col-6 order-lg-3 order-3">
                         <div class="form-group">
                             <label for="">Cantidad</label>
-                            <select class="form-control custom-select" id="select-input">
-                                <option>1</option>
-                                <option>2</option>
-                                <option>5</option>
-                                <option>10</option>
+                            <select class="form-control custom-select" id="select-input" name="cantidad"
+                                [(ngModel)]="carrito_data.cantidad">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
                             </select>
                         </div>
                     </div>
                     <div class="col-lg-6 order-lg-4 order-4">
-                        <button class="btn btn-block btn-primary">
+                        <button *ngIf="!btn_cart" class="btn btn-block btn-primary" (click)="agregar_producto()">
                             <i class="cxi-cart mr-2"></i>
                             Añadir al carrito
                         </button>
+
+                        <!-- Button with growing spinner and text -->
+                        <button *ngIf="btn_cart" type="button" class="btn btn-secondary" disabled>
+                            <span class="spinner-grow spinner-grow-sm me-2" role="status" aria-hidden="true"></span>
+                            Agregando...
+                        </button>
                     </div>
+
                     <div class="col-lg-6 col-8 order-lg-5 order-2">
                         <button class="btn btn-block btn-outline-primary px-lg-4">
                             <i class="cxi-heart mr-2"></i>
@@ -241,16 +253,13 @@
                 <!-- Payment -->
                 <div class="pb-3 text-nowrap text-center" data-simplebar data-simplebar-auto-hide="false">
                     <a class="d-inline-block mb-3 mr-xl-4 mr-3">
-                        <img src="assets/img/visa.jpg" alt="Visa"
-                            class="border rounded">
+                        <img src="assets/img/visa.jpg" alt="Visa" class="border rounded">
                     </a>
                     <a class="d-inline-block mb-3 mr-xl-4 mr-3">
-                        <img src="assets/img/master-card.jpg" alt="Mastercard"
-                            class="border rounded">
+                        <img src="assets/img/master-card.jpg" alt="Mastercard" class="border rounded">
                     </a>
                     <a class="d-inline-block mb-3">
-                        <img src="assets/img/pay-pal.jpg" alt="PayPal"
-                            class="border rounded">
+                        <img src="assets/img/pay-pal.jpg" alt="PayPal" class="border rounded">
                     </a>
                 </div>
             </div>
@@ -272,8 +281,7 @@
                         <div class="card-product-img">
                             <div class="cs-controls-onhover">
                                 <a class="cs-carousel-inner">
-                                    <div><img class="card-img-top"
-                                            [src]="url + 'obtener_portada/' + producto.portada"
+                                    <div><img class="card-img-top" [src]="url + 'obtener_portada/' + producto.portada"
                                             alt="Product image"></div>
 
                                 </a>
@@ -300,7 +308,7 @@
                                 <span class="h5 d-inline-block text-danger mb-0">S/. {{producto.precio}} </span>
                                 <del class="d-inline-block ml-2 pl-1 text-muted">$31.00</del>
                             </div>
-                            
+
                             <button type="button" class="btn btn-primary btn-block mb-3">
                                 <i class="cxi-cart align-middle mt-n1 mr-2"></i>
                                 Añadir al carrito
@@ -593,8 +601,7 @@
                     <div class="card-product-img">
                         <div class="cs-controls-onhover">
                             <a class="cs-carousel-inner">
-                                <div><img class="card-img-top"
-                                        [src]="url + 'obtener_portada/' + producto.portada"
+                                <div><img class="card-img-top" [src]="url + 'obtener_portada/' + producto.portada"
                                         alt="Product image"></div>
 
                             </a>
@@ -621,7 +628,7 @@
                             <span class="h5 d-inline-block text-danger mb-0">S/. {{producto.precio}} </span>
                             <del class="d-inline-block ml-2 pl-1 text-muted">$31.00</del>
                         </div>
-                        
+
                         <button type="button" class="btn btn-primary btn-block mb-3">
                             <i class="cxi-cart align-middle mt-n1 mr-2"></i>
                             Añadir al carrito
@@ -634,48 +641,50 @@
 
     <section class="py-5" style="background-color: #e5e8ed;">
         <div class="container my-lg-2 py-2 py-md-4">
-          <div class="d-flex align-items-center justify-content-between pb-sm-1 mb-5">
-            <h2 class="h1 pr-3 mb-0">Productos recomendados</h2>
-            <div class="tns-custom-controls cs-controls-inverse" id="custom-controls-related" tabindex="0">
-              <button type="button" data-controls="prev" tabindex="-1">
-                <i class="cxi-arrow-left"></i>
-              </button>
-              <button type="button" data-controls="next" tabindex="-1">
-                <i class="cxi-arrow-right"></i>
-              </button>
-            </div>
-          </div>
-          <div class="cs-carousel pb-2">
-            <div class="cs-carousel-inner-two" data-carousel-options=''>
-
-              <!-- Item -->
-              <div *ngFor="let item of productos_rec">
-                <div class="card shadow card-product mx-auto text-center">
-                  <div class="card-product-img">
-                    <a [routerLink]="['/productos/', item.slug]" target="_blank" class="card-img-top">
-                      <img [src]="url + 'obtener_portada/' + item.portada" alt="Product image">
-                    </a>
-                    <div class="card-product-widgets-bottom">
-                      <a [routerLink]="['/productos/', item.slug]" target="_blank" class="btn-wishlist ml-auto" 
-                      data-toggle="tooltip" data-placement="left" title="Add to wishlist"></a>
-                    </div>
-                  </div>
-                  <div class="card-body bg-0 pb-2 text-center">
-                    <h3 class="card-product-title text-truncate mb-2">
-                      <a [routerLink]="['/productos/', item.slug]" target="_blank" class="nav-link"> {{item.titulo}} </a>
-                    </h3>
-                    <div>
-                      <span class="h5 d-inline-block mb-0 text-warning">S/. {{item.precio}} </span>
-                    </div>
-                  </div>
+            <div class="d-flex align-items-center justify-content-between pb-sm-1 mb-5">
+                <h2 class="h1 pr-3 mb-0">Productos recomendados</h2>
+                <div class="tns-custom-controls cs-controls-inverse" id="custom-controls-related" tabindex="0">
+                    <button type="button" data-controls="prev" tabindex="-1">
+                        <i class="cxi-arrow-left"></i>
+                    </button>
+                    <button type="button" data-controls="next" tabindex="-1">
+                        <i class="cxi-arrow-right"></i>
+                    </button>
                 </div>
-              </div>
-
             </div>
-          </div>
+            <div class="cs-carousel pb-2">
+                <div class="cs-carousel-inner-two" data-carousel-options=''>
+
+                    <!-- Item -->
+                    <div *ngFor="let item of productos_rec">
+                        <div class="card shadow card-product mx-auto text-center">
+                            <div class="card-product-img">
+                                <a [routerLink]="['/productos/', item.slug]" target="_blank" class="card-img-top">
+                                    <img [src]="url + 'obtener_portada/' + item.portada" alt="Product image">
+                                </a>
+                                <div class="card-product-widgets-bottom">
+                                    <a [routerLink]="['/productos/', item.slug]" target="_blank"
+                                        class="btn-wishlist ml-auto" data-toggle="tooltip" data-placement="left"
+                                        title="Add to wishlist"></a>
+                                </div>
+                            </div>
+                            <div class="card-body bg-0 pb-2 text-center">
+                                <h3 class="card-product-title text-truncate mb-2">
+                                    <a [routerLink]="['/productos/', item.slug]" target="_blank" class="nav-link">
+                                        {{item.titulo}} </a>
+                                </h3>
+                                <div>
+                                    <span class="h5 d-inline-block mb-0 text-warning">S/. {{item.precio}} </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
         </div>
     </section>
-     
+
 </main>
 
 <app-footer></app-footer>

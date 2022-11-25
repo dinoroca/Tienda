@@ -3,6 +3,8 @@ import { ClienteService } from 'src/app/services/cliente.service';
 import { GLOBAL } from 'src/app/services/global';
 import { ActivatedRoute } from '@angular/router';
 
+declare var iziToast: { show: (arg0: { title: string; titleColor: string; class: string; position: string; message: string; }) => void; };
+
 declare var noUiSlider: any;
 declare var jQuery: any;
 declare var $: any;
@@ -14,6 +16,7 @@ declare var $: any;
 })
 export class IndexProductoComponent implements OnInit {
 
+  public token: any;
   public config_global: any = {};
   public filter_categoria: any = '';
   public productos: Array<any> = [];
@@ -29,11 +32,21 @@ export class IndexProductoComponent implements OnInit {
 
   public sort_by = 'Defecto';
 
+  public carrito_data: any = {
+    variedad: '',
+    cantidad: 1
+  };
+  public btn_cart = false;
+
   constructor(
     private _clienteService: ClienteService,
     private _route: ActivatedRoute
   ) {
+
     this.url = GLOBAL.url;
+
+    this.token = localStorage.getItem('token');
+
     this._clienteService.obtener_config_publico().subscribe(
       response => {
         //Asiganr los valores de las categorias del back
@@ -69,13 +82,13 @@ export class IndexProductoComponent implements OnInit {
   ngOnInit(): void {
     var slider: any = document.getElementById('slider');
     noUiSlider.create(slider, {
-      start: [0, 1000],
+      start: [0, 5000],
       connect: true,
 
       //Rango de precios
       range: {
         'min': 0,
-        'max': 1000
+        'max': 5000
       },
       tooltips: [true, true],
       pips: {
@@ -176,7 +189,7 @@ export class IndexProductoComponent implements OnInit {
           this.load_data = false;
         }
       );
-    } else if(this.sort_by == 'Popularidad') {
+    } else if (this.sort_by == 'Popularidad') {
       this.productos.sort(function (a, b) {
         if (a.nventas < b.nventas) {
           return 1;
@@ -187,7 +200,7 @@ export class IndexProductoComponent implements OnInit {
 
         return 0;
       });
-    } else if(this.sort_by == '+-precio') {
+    } else if (this.sort_by == '+-precio') {
       this.productos.sort(function (a, b) {
         if (a.precio < b.precio) {
           return 1;
@@ -198,7 +211,7 @@ export class IndexProductoComponent implements OnInit {
 
         return 0;
       });
-    } else if(this.sort_by == '-+precio') {
+    } else if (this.sort_by == '-+precio') {
       this.productos.sort(function (a, b) {
         if (a.precio > b.precio) {
           return 1;
@@ -209,7 +222,7 @@ export class IndexProductoComponent implements OnInit {
 
         return 0;
       });
-    } else if(this.sort_by == 'azTitulo') {
+    } else if (this.sort_by == 'azTitulo') {
       this.productos.sort(function (a, b) {
         if (a.titulo > b.titulo) {
           return 1;
@@ -220,7 +233,7 @@ export class IndexProductoComponent implements OnInit {
 
         return 0;
       });
-    } else if(this.sort_by == 'zaTitulo') {
+    } else if (this.sort_by == 'zaTitulo') {
       this.productos.sort(function (a, b) {
         if (a.titulo < b.titulo) {
           return 1;
@@ -232,5 +245,41 @@ export class IndexProductoComponent implements OnInit {
         return 0;
       });
     }
+  }
+
+  agregar_producto(producto: any) {
+    let data = {
+      producto: producto._id,
+      cliente: localStorage.getItem('_id'),
+      cantidad: 1,
+      variedad: producto.variedades[0].titulo
+    }
+
+    this.btn_cart = true;
+    this._clienteService.agregar_carrito_cliente(data, this.token).subscribe(
+      response => {
+        if (response.data == undefined) {
+          iziToast.show({
+            title: 'ERROR',
+            titleColor: '#FF634F',
+            class: 'text-danger',
+            position: 'topRight',
+            message: 'El producto ya existe en el carrito de compras'
+          });
+
+          this.btn_cart = false;
+        } else {
+          iziToast.show({
+            title: 'SUCCESS',
+            titleColor: '#35D18F',
+            class: 'text-success',
+            position: 'topRight',
+            message: 'Se agregó al carrito'
+          });
+
+          this.btn_cart = false;
+        }
+      }
+    );
   }
 }

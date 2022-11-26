@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ClienteService } from '../../services/cliente.service';
 import { Router } from '@angular/router';
 import { GLOBAL } from 'src/app/services/global';
+import { io } from 'socket.io-client';
+
+declare var iziToast: { show: (arg0: { title: string; titleColor: string; class: string; position: string; message: string; }) => void; };
 
 declare var jQuery: any;
 declare var $: any;
@@ -22,6 +25,7 @@ export class NavComponent implements OnInit {
   public carrito_arr: Array<any> = [];
   public url: any;
   public subtotal = 0;
+  public socket = io('http://localhost:4201');
 
   constructor(
     private _clienteService: ClienteService,
@@ -50,12 +54,9 @@ export class NavComponent implements OnInit {
           if (localStorage.getItem('user_data')) {
             this.user_lc = JSON.parse(localStorage.getItem('user_data')!);
 
-            this._clienteService.obtener_carrito_cliente(this.user_lc._id, this.token).subscribe(
-              response => {
-                this.carrito_arr = response.data;
-                this.calcular_subtotal();
-              }
-            );
+            this.subtotal = 0;
+            this.obtener_carrito();
+
           } else {
             this.user_lc = undefined;
           }
@@ -68,7 +69,19 @@ export class NavComponent implements OnInit {
     }
   }
 
+  obtener_carrito() {
+    this._clienteService.obtener_carrito_cliente(this.user_lc._id, this.token).subscribe(
+      response => {
+        this.carrito_arr = response.data;
+        this.calcular_subtotal();
+      }
+    );
+  }
+
   ngOnInit(): void {
+    this.subtotal = 0;
+    this.socket.on('new-carrito', this.obtener_carrito.bind(this)); //Eliminar
+    this.socket.on('new-carrito-add', this.obtener_carrito.bind(this)); //Agregar
   }
 
   logout() {
@@ -88,15 +101,25 @@ export class NavComponent implements OnInit {
   }
 
   calcular_subtotal() {
+    this.subtotal = 0;
     this.carrito_arr.forEach(element => {
       this.subtotal = this.subtotal + parseInt(element.producto.precio);
     });
   }
 
-  eliminar_item(id: any){
-    this._clienteService.eliminar_carrito_cliente(id, this.token) .subscribe(
+  eliminar_item(id: any) {
+    this.subtotal = 0;
+    this._clienteService.eliminar_carrito_cliente(id, this.token).subscribe(
       response => {
-        
+        iziToast.show({
+          title: 'SUCCESS',
+          titleColor: '#35D18F',
+          class: 'text-success',
+          position: 'topRight',
+          message: 'Se eliminó el producto'
+        });
+        //Eliminar cliente en real time con socket.io
+        this.socket.emit('delete-carrito', { data: response.data });
       }
     );
   }

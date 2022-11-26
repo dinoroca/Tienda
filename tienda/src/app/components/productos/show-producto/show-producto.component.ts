@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { GLOBAL } from 'src/app/services/global';
 import { GuestService } from '../../../services/guest.service';
 import { ClienteService } from '../../../services/cliente.service';
+import { io } from 'socket.io-client';
 
 declare var iziToast: { show: (arg0: { title: string; titleColor: string; class: string; position: string; message: string; }) => void; };
 
@@ -28,6 +29,7 @@ export class ShowProductoComponent implements OnInit {
     cantidad: 1
   };
   public btn_cart = false;
+  public socket = io('http://localhost:4201');
 
   constructor(
     private _route: ActivatedRoute,
@@ -163,6 +165,8 @@ export class ShowProductoComponent implements OnInit {
                 position: 'topRight',
                 message: 'Se agregó al carrito'
               });
+
+              this.socket.emit('add-carrito', {data: true});
   
               this.btn_cart = false;
             }

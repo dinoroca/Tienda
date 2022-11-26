@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { GLOBAL } from 'src/app/services/global';
 import { ClienteService } from '../../services/cliente.service';
+import { io } from 'socket.io-client';
+
+declare var iziToast: { show: (arg0: { title: string; titleColor: string; class: string; position: string; message: string; }) => void; };
 
 @Component({
   selector: 'app-carrito',
@@ -15,6 +18,7 @@ export class CarritoComponent implements OnInit {
   public carrito_arr: Array<any> = [];
   public subtotal = 0;
   public total_pagar = 0;
+  public socket = io('http://localhost:4201');
 
   constructor(
     private _clienteService: ClienteService
@@ -23,6 +27,15 @@ export class CarritoComponent implements OnInit {
     this.id = localStorage.getItem('_id');
     this.url = GLOBAL.url;
 
+    this._clienteService.obtener_carrito_cliente(this.id, this.token).subscribe(
+      response => {
+        this.carrito_arr = response.data;
+        this.calcular_subtotal();
+      }
+    );
+  }
+
+  init_carrito() {
     this._clienteService.obtener_carrito_cliente(this.id, this.token).subscribe(
       response => {
         this.carrito_arr = response.data;
@@ -44,9 +57,20 @@ export class CarritoComponent implements OnInit {
   }
 
   eliminar_item(id: any){
+    this.subtotal = 0;
     this._clienteService.eliminar_carrito_cliente(id, this.token) .subscribe(
       response => {
-        
+        iziToast.show({
+          title: 'SUCCESS',
+          titleColor: '#35D18F',
+          class: 'text-success',
+          position: 'topRight',
+          message: 'Se eliminó el producto'
+        });
+        //Eliminar cliente en real time con socket.io
+        this.socket.emit('delete-carrito', {data: response.data});
+
+        this.init_carrito();
       }
     );
   }

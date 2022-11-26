@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ClienteService } from 'src/app/services/cliente.service';
 import { GLOBAL } from 'src/app/services/global';
 import { ActivatedRoute } from '@angular/router';
+import { io } from 'socket.io-client';
 
 declare var iziToast: { show: (arg0: { title: string; titleColor: string; class: string; position: string; message: string; }) => void; };
 
@@ -38,6 +39,7 @@ export class IndexProductoComponent implements OnInit {
   };
   public btn_cart = false;
   public op_categoria = false;
+  public socket = io('http://localhost:4201');
 
   constructor(
     private _clienteService: ClienteService,
@@ -277,6 +279,7 @@ export class IndexProductoComponent implements OnInit {
             position: 'topRight',
             message: 'Se agregó al carrito'
           });
+          this.socket.emit('add-carrito', {data: true});
 
           this.btn_cart = false;
         }

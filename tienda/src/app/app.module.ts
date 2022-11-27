@@ -19,6 +19,7 @@ import { IndexProductoComponent } from './components/productos/index-producto/in
 import { ShowProductoComponent } from './components/productos/show-producto/show-producto.component';
 import { CarritoComponent } from './components/carrito/carrito.component';
 import { RegisterComponent } from './components/register/register.component';
+import { DireccionesComponent } from './components/usuario/direcciones/direcciones.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { RegisterComponent } from './components/register/register.component';
     IndexProductoComponent,
     ShowProductoComponent,
     CarritoComponent,
-    RegisterComponent
+    RegisterComponent,
+    DireccionesComponent
   ],
   imports: [
     BrowserModule,

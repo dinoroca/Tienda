@@ -1,8 +1,10 @@
-"use strict";
+'use strict';
 
-var Cliente = require("../models/cliente");
-var bcrypt = require("bcrypt-nodejs");
-var jwt = require("../helpers/jwt");
+var Cliente = require('../models/cliente');
+var bcrypt = require('bcrypt-nodejs');
+var jwt = require('../helpers/jwt');
+
+var Direccion = require('../models/direccion');
 
 const registro_cliente = async function (req, res) {
   //Obtiene los parámetros del cliente
@@ -20,10 +22,10 @@ const registro_cliente = async function (req, res) {
         if (hash) {
           data.password = hash;
           var reg = await Cliente.create(data);
-          res.status(200).send({ 
+          res.status(200).send({
             data: reg,
             token: jwt.createToken(reg)
-           });
+          });
         } else {
           res.status(200).send({ message: "Error server", data: undefined });
         }
@@ -219,7 +221,7 @@ const actualizar_perfil_cliente = async function (req, res) {
 
     //Cuando se manda una contraseña se debe encriptar
     if (data.password) {
-      bcrypt.hash(data.password, null, null, async function (err,hash){
+      bcrypt.hash(data.password, null, null, async function (err, hash) {
         var reg = await Cliente.findByIdAndUpdate({ _id: id }, {
           nombres: data.nombres,
           apellidos: data.apellidos,
@@ -256,6 +258,19 @@ const actualizar_perfil_cliente = async function (req, res) {
   }
 }
 
+/************************************************************************+*/
+//Direcciones
+const registro_direccion_cliente = async function (req, res) {
+  if (req.user) {
+    var data = req.body;
+    let reg = await Direccion.create(data);
+
+    res.status(200).send({ data: reg });
+  } else {
+    res.status(500).send({ message: 'NoAccess' });
+  }
+}
+
 module.exports = {
   registro_cliente,
   login_cliente,
@@ -265,5 +280,6 @@ module.exports = {
   actualizar_cliente_admin,
   eliminar_cliente_admin,
   obtener_cliente,
-  actualizar_perfil_cliente
+  actualizar_perfil_cliente,
+  registro_direccion_cliente
 };

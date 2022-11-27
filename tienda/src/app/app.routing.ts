@@ -9,12 +9,14 @@ import { IndexProductoComponent } from './components/productos/index-producto/in
 import { ShowProductoComponent } from "./components/productos/show-producto/show-producto.component";
 import { CarritoComponent } from './components/carrito/carrito.component';
 import { RegisterComponent } from './components/register/register.component';
+import { DireccionesComponent } from './components/usuario/direcciones/direcciones.component';
 
 const appRoute: Routes = [
     {path: '', component: InicioComponent},
     {path: 'login', component: LoginComponent},
     {path: 'registro', component: RegisterComponent},
     {path: 'cuenta/perfil', component: PerfilComponent, canActivate: [AuthGuard]},
+    {path: 'cuenta/direcciones', component: DireccionesComponent, canActivate: [AuthGuard]},
     {path: 'carrito-compras', component: CarritoComponent, canActivate: [AuthGuard]},
 
     {path: 'productos', component: IndexProductoComponent},

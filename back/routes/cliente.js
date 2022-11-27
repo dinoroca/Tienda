@@ -20,4 +20,7 @@ api.put('/actualizar_perfil_cliente/:id', auth.auth, clienteController.actualiza
 //Métodos públicos
 api.post('/registro_cliente', clienteController.registro_cliente);
 
+//Direcciones
+api.post('/registro_direccion_cliente', auth.auth, clienteController.registro_direccion_cliente);
+
 module.exports = api;

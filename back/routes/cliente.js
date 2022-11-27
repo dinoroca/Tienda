@@ -17,4 +17,7 @@ api.delete('/eliminar_cliente_admin/:id', auth.auth, clienteController.eliminar_
 api.get('/obtener_cliente/:id', auth.auth, clienteController.obtener_cliente);
 api.put('/actualizar_perfil_cliente/:id', auth.auth, clienteController.actualizar_perfil_cliente);
 
+//Métodos públicos
+api.post('/registro_cliente', clienteController.registro_cliente);
+
 module.exports = api;

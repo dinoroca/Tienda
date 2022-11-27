@@ -1,43 +1,45 @@
 import { Component, OnInit } from '@angular/core';
-import { ClienteService } from '../../services/cliente.service';
+import { ClienteService } from 'src/app/services/cliente.service';
 import { Router } from '@angular/router';
 
 declare var iziToast: { show: (arg0: { title: string; titleColor: string; class: string; position: string; message: string; }) => void; };
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  selector: 'app-register',
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.css']
 })
-export class LoginComponent implements OnInit {
+export class RegisterComponent implements OnInit {
 
-  public user: any = {};
-  public usuario: any = {};
-  public token: any;
+  public user: any = {
+    genero: ''
+  };
 
   constructor(
     private _clienteService: ClienteService,
     private _router: Router
-  ) {
-    this.token = localStorage.getItem('token');
-
-    if (this.token) {
-      this._router.navigate(['/']);
-    }
-  }
+  ) { }
 
   ngOnInit(): void {
   }
 
-  login(loginForm: any) {
-    if (loginForm.valid) {
+  registrar(registroForm: any) {
+    if (registroForm.valid) {
+
       let data = {
+        nombres: this.user.nombres,
+        apellidos: this.user.apellidos,
+        pais: this.user.pais,
         email: this.user.email,
-        password: this.user.password
+        password: this.user.password,
+        telefono: this.user.telefono,
+        genero: this.user.genero,
+        f_nacimiento: this.user.f_nacimiento,
+        dni: this.user.dni
       }
 
-      this._clienteService.login_cliente(data).subscribe(
-        response => {        
+      this._clienteService.registro_cliente(data).subscribe(
+        response => {
           if (response.data == undefined) {
             iziToast.show({
               title: 'ERROR',
@@ -48,7 +50,6 @@ export class LoginComponent implements OnInit {
             });
 
           } else {
-            this.usuario = response.data;
             localStorage.setItem('token', response.token);
             localStorage.setItem('_id', response.data._id);
 
@@ -56,7 +57,6 @@ export class LoginComponent implements OnInit {
           }
         }
       );
-      
     } else {
       iziToast.show({
         title: 'ERROR',
@@ -66,6 +66,7 @@ export class LoginComponent implements OnInit {
         message: 'Los datos del formulario no son válidos'
       });
     }
+    
   }
 
 }

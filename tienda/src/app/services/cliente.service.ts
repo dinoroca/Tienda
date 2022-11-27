@@ -87,4 +87,9 @@ export class ClienteService {
     let headers = new HttpHeaders({'Content-Type':'application/json', 'authorization': token});
     return this._http.delete(this.url + 'eliminar_carrito_cliente/' + id, {headers : headers});
   }
+
+  registro_cliente(data: any): Observable<any> {
+    let headers = new HttpHeaders({'Content-Type':'application/json'});
+    return this._http.post(this.url + 'registro_cliente', data, {headers : headers});
+  }
 }

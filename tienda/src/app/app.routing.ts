@@ -8,10 +8,12 @@ import { AuthGuard } from "./guards/auth.guard";
 import { IndexProductoComponent } from './components/productos/index-producto/index-producto.component';
 import { ShowProductoComponent } from "./components/productos/show-producto/show-producto.component";
 import { CarritoComponent } from './components/carrito/carrito.component';
+import { RegisterComponent } from './components/register/register.component';
 
 const appRoute: Routes = [
     {path: '', component: InicioComponent},
     {path: 'login', component: LoginComponent},
+    {path: 'registro', component: RegisterComponent},
     {path: 'cuenta/perfil', component: PerfilComponent, canActivate: [AuthGuard]},
     {path: 'carrito-compras', component: CarritoComponent, canActivate: [AuthGuard]},
 

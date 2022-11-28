@@ -29,7 +29,7 @@
                     <h1 class="h2 mb-0">Mis direcciones</h1>
                 </div>
 
-                <form>
+                <form #registroForm="ngForm" (ngSubmit)="registrar(registroForm)">
                     <div class="row pb-3">
                         <div class="col-sm-6 form-group">
                             <label for="dest" class="form-label">Destinatario</label>
@@ -63,7 +63,7 @@
 
                         <div class="col-sm-3 form-group">
                             <label for="pais" class="form-label">País</label>
-                            <select name="pais" [(ngModel)]="direccion.pais" id="pais"
+                            <select name="pais" [(ngModel)]="direccion.pais" id="pais" required
                                 class="custom-select custom-select-lg" (change)="select_pais()">
                                 <option selected disabled value="">--Seleccionar--</option>
                                 <option value="Argentina">Argentina</option>
@@ -128,7 +128,8 @@
                     </div>
 
                     <div class="justify-content-center row">
-                        <button type="submit" class="btn btn-success btn-lg bi-pin-map-fill"> Crear dirección</button>
+                        <button type="submit" class="btn btn-success btn-lg bi-pin-map-fill" [disabled]="registroForm.invalid"> 
+                            Crear dirección</button>
                     </div>
                 </form>
 

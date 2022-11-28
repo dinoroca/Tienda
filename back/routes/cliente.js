@@ -23,5 +23,6 @@ api.post('/registro_cliente', clienteController.registro_cliente);
 //Direcciones
 api.post('/registro_direccion_cliente', auth.auth, clienteController.registro_direccion_cliente);
 api.get('/obtener_direcciones_cliente/:id', auth.auth, clienteController.obtener_direcciones_cliente);
+api.put('/cambiar_direccion_principal/:id/:cliente', auth.auth, clienteController.cambiar_direccion_principal);
 
 module.exports = api;

@@ -102,4 +102,9 @@ export class ClienteService {
     let headers = new HttpHeaders({'Content-Type':'application/json', 'authorization': token});
     return this._http.get(this.url + 'obtener_direcciones_cliente/' + id, {headers : headers});
   }
+
+  cambiar_direccion_principal(id: any, cliente: any, token: any): Observable<any> {
+    let headers = new HttpHeaders({'Content-Type':'application/json', 'authorization': token});
+    return this._http.put(this.url + 'cambiar_direccion_principal/' + id + '/' + cliente, {data: true}, {headers : headers});
+  }
 }

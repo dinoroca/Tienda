@@ -63,7 +63,7 @@ export class DireccionesComponent implements OnInit {
     this.obtener_direcciones();
   }
 
-  obtener_direcciones () {
+  obtener_direcciones() {
     this._clienteService.obtener_direcciones_cliente(localStorage.getItem('_id'), this.token).subscribe(
       response => {
         this.direcciones = response.data;
@@ -200,6 +200,22 @@ export class DireccionesComponent implements OnInit {
         message: 'Los datos del formulario no son válidos'
       });
     }
+  }
+
+  establcer_principal(id: any) {
+    this._clienteService.cambiar_direccion_principal(id, localStorage.getItem('_id'), this.token).subscribe(
+      response => {
+        console.log(response);
+        this.obtener_direcciones();
+        iziToast.show({
+          title: 'SUCCESS',
+          titleColor: '#35D18F',
+          class: 'text-success',
+          position: 'topRight',
+          message: 'Se actualizó la dirección de entrega'
+        });
+      }
+    );
   }
 
 }

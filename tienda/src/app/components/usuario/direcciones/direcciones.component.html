@@ -150,7 +150,9 @@
                                 <span> - {{item.region}}</span>
                                 <span> - {{item.pais}}</span>
                             </p>
-                            <a href="#" class="btn btn-sm btn-primary" *ngIf="!item.principal">Establecer principal</a>
+                            <a class="btn btn-sm btn-primary" *ngIf="!item.principal" (click)="establcer_principal(item._id)">
+                                Establecer principal
+                            </a>
                             <span class="badge rounded-pill bg-info text-white" *ngIf="item.principal">
                                 Dirección de envío actual
                             </span>

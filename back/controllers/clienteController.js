@@ -263,9 +263,27 @@ const actualizar_perfil_cliente = async function (req, res) {
 const registro_direccion_cliente = async function (req, res) {
   if (req.user) {
     var data = req.body;
+
+    if (data.principal) {
+      let direcciones = await Direccion.find({ cliente: data.cliente });
+      direcciones.forEach(async element => {
+        await Direccion.findByIdAndUpdate({ _id: element._id }, { principal: false });
+      });
+    } 
+
     let reg = await Direccion.create(data);
 
     res.status(200).send({ data: reg });
+  } else {
+    res.status(500).send({ message: 'NoAccess' });
+  }
+}
+
+const obtener_direcciones_cliente = async function (req, res) {
+  if (req.user) {
+    var id = req.params['id'];
+    let direcciones = await Direccion.find({ cliente: id }).populate('cliente').sort({createdAt: -1});
+    res.status(200).send({ data: direcciones });
   } else {
     res.status(500).send({ message: 'NoAccess' });
   }
@@ -281,5 +299,6 @@ module.exports = {
   eliminar_cliente_admin,
   obtener_cliente,
   actualizar_perfil_cliente,
-  registro_direccion_cliente
+  registro_direccion_cliente,
+  obtener_direcciones_cliente
 };

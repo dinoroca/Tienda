@@ -26,10 +26,10 @@
             <!-- Content -->
             <div class="col-lg-8 ml-auto">
                 <div class="d-flex align-items-center justify-content-between mb-4 pb-1 pb-sm-3">
-                    <h1 class="h2 mb-0">Mis direcciones</h1>
+                    <h1 class="h2 mb-0">Nueva dirección</h1>
                 </div>
 
-                <form #registroForm="ngForm" (ngSubmit)="registrar(registroForm)">
+                <form #registroForm="ngForm" (ngSubmit)="registrar(registroForm)" class="mb-4">
                     <div class="row pb-3">
                         <div class="col-sm-6 form-group">
                             <label for="dest" class="form-label">Destinatario</label>
@@ -128,10 +128,35 @@
                     </div>
 
                     <div class="justify-content-center row">
-                        <button type="submit" class="btn btn-success btn-lg bi-pin-map-fill" [disabled]="registroForm.invalid"> 
+                        <button type="submit" class="btn btn-success btn-lg bi-pin-map-fill"
+                            [disabled]="registroForm.invalid">
                             Crear dirección</button>
                     </div>
                 </form>
+
+                <div class="d-flex align-items-center justify-content-between mb-4 pb-1 pb-sm-3">
+                    <h1 class="h2 mb-0">Mis direcciones</h1>
+                </div>
+
+                <div class="row mx-2 justify-content-center">
+                    <!-- Header and footer -->
+                    <div class="shadow text-center col-sm-12 mb-3 rounded" *ngFor="let item of direcciones">
+                        <div class="card-header">ZIP: {{item.zip}}</div>
+                        <div class="card-body">
+                            <h5 class="card-title">{{item.destinatario}}</h5>
+                            <p class="card-text">{{item.direccion}} 
+                                <span> - {{item.distrito}}</span>
+                                <span> - {{item.provincia}}</span>
+                                <span> - {{item.region}}</span>
+                                <span> - {{item.pais}}</span>
+                            </p>
+                            <a href="#" class="btn btn-sm btn-primary" *ngIf="!item.principal">Establecer principal</a>
+                            <span class="badge rounded-pill bg-info text-white" *ngIf="item.principal">
+                                Dirección de envío actual
+                            </span>
+                        </div>
+                    </div>
+                </div>
 
             </div>
         </div>

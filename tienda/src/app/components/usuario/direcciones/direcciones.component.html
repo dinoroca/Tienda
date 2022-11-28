@@ -64,24 +64,48 @@
                         <div class="col-sm-3 form-group">
                             <label for="pais" class="form-label">País</label>
                             <select name="pais" [(ngModel)]="direccion.pais" id="pais"
-                                class="custom-select custom-select-lg">
+                                class="custom-select custom-select-lg" (change)="select_pais()">
                                 <option selected disabled value="">--Seleccionar--</option>
+                                <option value="Argentina">Argentina</option>
+                                <option value="Bolivia">Bolivia</option>
+                                <option value="Brasil">Brasil</option>
+                                <option value="Chile">Chile</option>
+                                <option value="Colombia">Colombia</option>
+                                <option value="Costa Rica">Costa Rica</option>
+                                <option value="Cuba">Cuba</option>
+                                <option value="Ecuador">Ecuador</option>
+                                <option value="El Salvador">El Salvador</option>
+                                <option value="España">España</option>
+                                <option value="Estados Unidos">Estados Unidos</option>
+                                <option value="Guatemala">Guatemala</option>
+                                <option value="Haití">Haití</option>
+                                <option value="Honduras">Honduras</option>
+                                <option value="México">México</option>
+                                <option value="Nicaragua">Nicaragua</option>
+                                <option value="Panamá">Panamá</option>
+                                <option value="Paraguay">Paraguay</option>
+                                <option value="Peru">Perú</option>
+                                <option value="República Dominican">República Dominican</option>
+                                <option value="Uruguay">Uruguay</option>
+                                <option value="Venezuela">Venezuela</option>
                             </select>
                         </div>
 
                         <div class="col-sm-3 form-group">
                             <label for="region" class="form-label">Región</label>
                             <select name="region" [(ngModel)]="direccion.region" id="region"
-                                class="custom-select custom-select-lg" disabled>
+                                class="custom-select custom-select-lg" disabled (change)="select_region()">
                                 <option selected disabled value="">--Seleccionar--</option>
+                                <option value="{{item.id}}" *ngFor="let item of regiones"> {{item.name}} </option>
                             </select>
                         </div>
 
                         <div class="col-sm-3 form-group">
                             <label for="provincia" class="form-label">Provincia</label>
                             <select name="provincia" [(ngModel)]="direccion.provincia" id="provincia"
-                                class="custom-select custom-select-lg" disabled>
+                                class="custom-select custom-select-lg" disabled (change)="select_provincia()">
                                 <option selected disabled value="">--Seleccionar--</option>
+                                <option value="{{item.id}}" *ngFor="let item of provincias"> {{item.name}} </option>
                             </select>
                         </div>
 
@@ -90,21 +114,21 @@
                             <select name="distrito" [(ngModel)]="direccion.distrito" id="distrito"
                                 class="custom-select custom-select-lg" disabled>
                                 <option selected disabled value="">--Seleccionar--</option>
+                                <option value="{{item.id}}" *ngFor="let item of distritos"> {{item.name}} </option>
                             </select>
                         </div>
 
                         <div class="col-sm-12 form-group">
                             <div class="custom-control custom-checkbox text-center">
-                                <input class="custom-control-input" type="checkbox" id="ex-check-1" 
-                                    name="principal" [(ngModel)]="direccion.principal">
+                                <input class="custom-control-input" type="checkbox" id="ex-check-1" name="principal"
+                                    [(ngModel)]="direccion.principal">
                                 <label class="custom-control-label" for="ex-check-1">Dirección principal</label>
                             </div>
                         </div>
                     </div>
 
                     <div class="justify-content-center row">
-                        <button type="submit" class="btn btn-success btn-lg bi-pin-map-fill"
-                            > Crear dirección</button>
+                        <button type="submit" class="btn btn-success btn-lg bi-pin-map-fill"> Crear dirección</button>
                     </div>
                 </form>
 

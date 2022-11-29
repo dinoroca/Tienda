@@ -138,27 +138,60 @@
                     <h1 class="h2 mb-0">Mis direcciones</h1>
                 </div>
 
-                <div class="row mx-2 justify-content-center">
-                    <!-- Header and footer -->
-                    <div class="shadow text-center col-sm-12 mb-3 rounded" *ngFor="let item of direcciones">
-                        <div class="card-header">ZIP: {{item.zip}}</div>
-                        <div class="card-body">
-                            <h5 class="card-title">{{item.destinatario}}</h5>
-                            <p class="card-text">{{item.direccion}} 
-                                <span> - {{item.distrito}}</span>
-                                <span> - {{item.provincia}}</span>
-                                <span> - {{item.region}}</span>
-                                <span> - {{item.pais}}</span>
-                            </p>
-                            <a class="btn btn-sm btn-primary" *ngIf="!item.principal" (click)="establcer_principal(item._id)">
-                                Establecer principal
-                            </a>
-                            <span class="badge rounded-pill bg-info text-white" *ngIf="item.principal">
-                                Dirección de envío actual
-                            </span>
+                <!-- Precargador -->
+                <ng-container *ngIf="load_direcciones">
+                    <div class="row">
+                        <div class="col-12 text-center">
+                            <!-- Custom size border spinner -->
+                            <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </ng-container>
+
+                <ng-container *ngIf="!load_direcciones">
+                    <!-- Con dirección -->
+                    <div class="row mx-2 justify-content-center" *ngIf="direcciones.length >= 1">
+                        <!-- Header and footer -->
+                        <div class="shadow text-center col-sm-12 mb-3 rounded" *ngFor="let item of direcciones">
+                            <div class="card-header">ZIP: {{item.zip}}</div>
+                            <div class="card-body">
+                                <h5 class="card-title">{{item.destinatario}}</h5>
+                                <p class="card-text">{{item.direccion}}
+                                    <span> - {{item.distrito}}</span>
+                                    <span> - {{item.provincia}}</span>
+                                    <span> - {{item.region}}</span>
+                                    <span> - {{item.pais}}</span>
+                                </p>
+                                <a class="btn btn-sm btn-primary" *ngIf="!item.principal"
+                                    (click)="establcer_principal(item._id)">
+                                    Establecer principal
+                                </a>
+                                <span class="badge rounded-pill bg-info text-white" *ngIf="item.principal">
+                                    Dirección de envío actual
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sin dirección -->
+                    <div class="mx-2" *ngIf="direcciones.length == 0">
+                        <div class="col-lg-12 card align-items-center py-4 rounded"
+                            style="background-color: rgb(255, 207, 207); border-color: rgb(255, 66, 66);">
+                            <h4 class="text-danger">
+                                Debe registrar una dirección de envío</h4>
+
+                            <svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="#FF4242"
+                                class="bi bi-exclamation-octagon" viewBox="0 0 16 16">
+                                <path
+                                    d="M4.54.146A.5.5 0 0 1 4.893 0h6.214a.5.5 0 0 1 .353.146l4.394 4.394a.5.5 0 0 1 .146.353v6.214a.5.5 0 0 1-.146.353l-4.394 4.394a.5.5 0 0 1-.353.146H4.893a.5.5 0 0 1-.353-.146L.146 11.46A.5.5 0 0 1 0 11.107V4.893a.5.5 0 0 1 .146-.353L4.54.146zM5.1 1 1 5.1v5.8L5.1 15h5.8l4.1-4.1V5.1L10.9 1H5.1z" />
+                                <path
+                                    d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z" />
+                            </svg>
+                        </div>
+                    </div>
+                </ng-container>
 
             </div>
         </div>

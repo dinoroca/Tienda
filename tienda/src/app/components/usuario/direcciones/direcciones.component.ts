@@ -34,6 +34,8 @@ export class DireccionesComponent implements OnInit {
   public provincias_arr: Array<any> = [];
   public distritos_arr: Array<any> = [];
 
+  public load_direcciones = true;
+
   constructor(
     private _guestService: GuestService,
     private _clienteService: ClienteService
@@ -67,6 +69,7 @@ export class DireccionesComponent implements OnInit {
     this._clienteService.obtener_direcciones_cliente(localStorage.getItem('_id'), this.token).subscribe(
       response => {
         this.direcciones = response.data;
+        this.load_direcciones = false;
       }
     );
   }
@@ -200,6 +203,8 @@ export class DireccionesComponent implements OnInit {
         message: 'Los datos del formulario no son válidos'
       });
     }
+
+    this.obtener_direcciones();
   }
 
   establcer_principal(id: any) {

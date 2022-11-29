@@ -4,6 +4,8 @@ import { ClienteService } from '../../services/cliente.service';
 import { io } from 'socket.io-client';
 
 declare var iziToast: { show: (arg0: { title: string; titleColor: string; class: string; position: string; message: string; }) => void; };
+declare var Cleave: any;
+declare var StickySidebar: any;
 
 @Component({
   selector: 'app-carrito',
@@ -45,6 +47,23 @@ export class CarritoComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    //Validación para número de tarjeta de crédito
+    setTimeout(() => {
+      new Cleave('#cc-number', {
+        creditCard: true,
+        onCreditCardTypeChanged: function (type: any) {
+          // update UI ...
+        }
+      });
+
+      //Validación para la fecha de vencimiento
+      new Cleave('#cc-exp-date', {
+        date: true,
+        datePattern: ['m', 'y']
+      });
+
+      var sidebar = new StickySidebar('.sidebar-sticky', {topSpacing: 20});
+    });
   }
 
   calcular_subtotal() {
@@ -56,9 +75,9 @@ export class CarritoComponent implements OnInit {
     this.total_pagar = this.subtotal;
   }
 
-  eliminar_item(id: any){
+  eliminar_item(id: any) {
     this.subtotal = 0;
-    this._clienteService.eliminar_carrito_cliente(id, this.token) .subscribe(
+    this._clienteService.eliminar_carrito_cliente(id, this.token).subscribe(
       response => {
         iziToast.show({
           title: 'SUCCESS',
@@ -68,7 +87,7 @@ export class CarritoComponent implements OnInit {
           message: 'Se eliminó el producto'
         });
         //Eliminar cliente en real time con socket.io
-        this.socket.emit('delete-carrito', {data: response.data});
+        this.socket.emit('delete-carrito', { data: response.data });
 
         this.init_carrito();
       }

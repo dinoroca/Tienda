@@ -201,7 +201,7 @@
         <hr class="border-top-0 border-bottom pt-4 mb-4">
 
         <!-- Payment -->
-        <h2 class="h4 pt-2 mb-4">4. Payment Method</h2>
+        <h2 class="h4 pt-2 mb-4">4. Métodos de pago</h2>
         <div class="row pb-4">
           <div class="col-lg-7">
             <div class="accordion-alt" id="payment-methods">
@@ -213,7 +213,7 @@
                     data-target="#cc-card">
                     <input type="radio" class="custom-control-input" id="cc" name="payment" checked>
                     <label for="cc" class="custom-control-label d-flex align-items-center">
-                      <strong class="d-block mr-3">Credit card</strong>
+                      <strong class="d-block mr-3">Tarjeta de crédito / débito</strong>
                       <img src="../../assets/img/ecommerce/checkout/cards.png" width="108" alt="Credit cards">
                     </label>
                   </div>
@@ -221,13 +221,13 @@
                 <div class="collapse show" id="cc-card" data-parent="#payment-methods">
                   <div class="card-body pt-3 pb-0">
                     <div class="form-group mb-3">
-                      <label for="cc-number">Card number</label>
+                      <label for="cc-number">Número de tarjeta</label>
                       <input type="text" id="cc-number" class="form-control form-control-lg" data-format="card"
                         placeholder="0000 0000 0000 0000">
                     </div>
                     <div class="d-flex">
                       <div class="form-group mb-3 mr-3">
-                        <label for="cc-exp-date">Expiry date</label>
+                        <label for="cc-exp-date">Vencimiento</label>
                         <input type="text" id="cc-exp-date" class="form-control form-control-lg" data-format="date"
                           placeholder="mm/yy">
                       </div>
@@ -301,10 +301,7 @@
       <!-- Order totals (sticky sidebar) -->
       <!-- For more sticky sidebar options visit https://abouolia.github.io/sticky-sidebar/#options -->
       <aside class="col-lg-4">
-        <div class="sidebar-sticky" data-sidebar-sticky-options='{
-              "topSpacing": 120,
-              "minWidth": 991
-            }'>
+        <div class="sidebar-sticky">
           <div class="sidebar-sticky-inner">
             <div class="form-group">
               <label for="promo-code">Apply a promo code</label>

@@ -1,0 +1,12 @@
+[
+    {
+        "titulo": "Envío express",
+        "tiempo": "3 a 5 días",
+        "precio": 30
+    },
+    {
+        "titulo": "Envío estandar",
+        "tiempo": "5 días a 1 semana",
+        "precio": 15
+    }
+]

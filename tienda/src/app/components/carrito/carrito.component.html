@@ -25,17 +25,6 @@
           <a [routerLink]="['/productos']"><strong>Volver a tienda</strong></a>
         </div>
 
-        <!-- Alert -->
-        <div class="alert alert-info mb-4" role="alert">
-          <div class="media align-items-center">
-            <i class="cxi-profile lead mr-3"></i>
-            <div class="media-body">
-              Already have an account?&nbsp;&nbsp;<a href="#modal-signin" class="alert-link" data-toggle="modal"
-                data-view="#modal-signin-view">Sign in</a>&nbsp;&nbsp;for faster checkout experience.
-            </div>
-          </div>
-        </div>
-
         <hr class="border-top-0 border-bottom pt-2 mb-4">
 
         <!-- Order review -->
@@ -50,7 +39,8 @@
               <div class="d-sm-flex">
                 <div class="pr-sm-3 w-100" style="max-width: 16rem;">
                   <h3 class="font-size-sm mb-3">
-                    <a [routerLink]="['/productos/', item.producto.slug]" class="nav-link font-weight-bold">{{item.producto.titulo}}</a>
+                    <a [routerLink]="['/productos/', item.producto.slug]"
+                      class="nav-link font-weight-bold">{{item.producto.titulo}}</a>
                   </h3>
                   <ul class="list-unstyled font-size-xs mt-n2 mb-2">
                     <li class="mb-0"><span class="text-muted">{{item.producto.titulo_variedad}}:</span>
@@ -65,8 +55,8 @@
                   </div>
                 </div>
                 <div class="d-flex align-items-center flex-sm-column text-sm-center ml-sm-auto pt-3 pt-sm-0">
-                  <a style="cursor: pointer; font-size: 1.2rem;" class="nav-link px-2 text-danger mx-2" 
-                  title="Eliminar" (click)="eliminar_item(item._id)">
+                  <a style="cursor: pointer; font-size: 1.2rem;" class="nav-link px-2 text-danger mx-2" title="Eliminar"
+                    (click)="eliminar_item(item._id)">
                     <i class="cxi-delete"></i></a>
                   <button class="btn btn-link btn-sm text-decoration-none pt-0 pt-sm-2 px-0 pb-0 mt-0 mt-sm-1">
                     Añadir a deseos
@@ -78,126 +68,81 @@
           </div>
 
           <div class="px-3 px-sm-4 py-4 text-right">
-            <span class="text-muted">Subtotal:<strong class="text-dark font-size-lg ml-2">S/. {{subtotal}} </strong></span>
+            <span class="text-muted">Subtotal:<strong class="text-dark font-size-lg ml-2">S/. {{subtotal}}
+              </strong></span>
           </div>
         </div>
 
         <!-- Adresses -->
-        <h2 class="h4 mb-4">2. Shipping &amp; Billing Address</h2>
-        <div class="row pb-3">
-          <div class="col-sm-6 form-group">
-            <label for="ch-fn">First Name</label>
-            <input type="text" class="form-control form-control-lg" id="ch-fn" placeholder="Your first name">
-          </div>
-          <div class="col-sm-6 form-group">
-            <label for="ch-ln">Last Name</label>
-            <input type="text" class="form-control form-control-lg" id="ch-ln" placeholder="Your last name">
-          </div>
-          <div class="col-sm-6 form-group">
-            <label for="ch-email">Email</label>
-            <input type="email" class="form-control form-control-lg" id="ch-email" placeholder="Your email address">
-          </div>
-          <div class="col-sm-6 form-group">
-            <label for="ch-phone">Phone</label>
-            <input type="text" class="form-control form-control-lg" id="ch-phone" placeholder="Your phone number">
-          </div>
-          <div class="col-sm-6 form-group">
-            <label for="ch-country">Country</label>
-            <select id="ch-country" class="custom-select custom-select-lg">
-              <option value="" disabled selected>Choose country</option>
-              <option value="argentina">Australia</option>
-              <option value="brazil">Brazil</option>
-              <option value="belgium">Belgium</option>
-              <option value="france">France</option>
-              <option value="germany">Germany</option>
-              <option value="uk">United Kingdom</option>
-              <option value="usa">USA</option>
-            </select>
-          </div>
-          <div class="col-sm-6 form-group">
-            <label for="ch-city">City</label>
-            <select id="ch-city" class="custom-select custom-select-lg">
-              <option value="" disabled selected>Choose city</option>
-              <option value="belgium">Brussels</option>
-              <option value="germany">Berlin</option>
-              <option value="uk">London</option>
-              <option value="argentina">Melbourne</option>
-              <option value="usa">New York</option>
-              <option value="france">Paris</option>
-              <option value="brazil">Rio de Janeiro</option>
-            </select>
-          </div>
-          <div class="col-sm-6 form-group">
-            <label for="ch-address">Address</label>
-            <input type="text" class="form-control form-control-lg" id="ch-address" placeholder="Street, appartment...">
-          </div>
-          <div class="col-sm-6 form-group">
-            <label for="ch-zip">ZIP Code</label>
-            <input type="text" class="form-control form-control-lg" id="ch-zip" placeholder="ZIP code">
-          </div>
-          <div class="col-12 form-group">
-            <div class="custom-control custom-checkbox">
-              <input type="checkbox" class="custom-control-input" id="same-details" checked>
-              <label for="same-details" class="custom-control-label">Billing and Shipping details are the same</label>
+        <h2 class="h4">2. Dirección de envío</h2>
+        <div class="row">
+          <div class="card-body">
+            <div class="row justify-content-center" *ngIf="direccion_principal != undefined">
+              <!-- Header and footer -->
+              <div class="shadow text-center col-sm-12 rounded">
+                <div class="card-header">ZIP: {{direccion_principal.zip}}
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title">{{direccion_principal.destinatario}}</h5>
+                  <p class="card-text">{{direccion_principal.direccion}}
+                    <span> - {{direccion_principal.distrito}}</span>
+                    <span> - {{direccion_principal.provincia}}</span>
+                    <span> - {{direccion_principal.region}}</span>
+                    <span> - {{direccion_principal.pais}}</span>
+                  </p>
+                  <p class="card-text">Teléfono: {{direccion_principal.telefono}}</p>
+                  <span class="badge rounded-pill bg-info text-white" *ngIf="direccion_principal.principal">
+                    Dirección de envío actual
+                  </span>
+                </div>
+              </div>
             </div>
+
+            <!-- Sin dirección -->
+            <div class="mt-0" *ngIf="direccion_principal == undefined">
+              <div class="col-lg-12 card align-items-center py-4 rounded"
+                  style="background-color: rgb(255, 207, 207); border-color: rgb(255, 66, 66);">
+                  <h4 class="text-danger">
+                      Debe registrar una dirección principal</h4>
+
+                  <svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="#FF4242"
+                      class="bi bi-exclamation-octagon" viewBox="0 0 16 16">
+                      <path
+                          d="M4.54.146A.5.5 0 0 1 4.893 0h6.214a.5.5 0 0 1 .353.146l4.394 4.394a.5.5 0 0 1 .146.353v6.214a.5.5 0 0 1-.146.353l-4.394 4.394a.5.5 0 0 1-.353.146H4.893a.5.5 0 0 1-.353-.146L.146 11.46A.5.5 0 0 1 0 11.107V4.893a.5.5 0 0 1 .146-.353L4.54.146zM5.1 1 1 5.1v5.8L5.1 15h5.8l4.1-4.1V5.1L10.9 1H5.1z" />
+                      <path
+                          d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z" />
+                  </svg>
+                
+                  <button class="btn btn-danger btn-sm mt-4" [routerLink]="['/cuenta/direcciones']">
+                    Registrar
+                  </button>
+              </div>
+          </div>
           </div>
         </div>
 
         <hr class="mb-4 pb-2">
 
         <!-- Shipping -->
-        <h2 class="h4 mb-4">3. Shipping Method</h2>
+        <h2 class="h4 mb-4">3. Métodos de envío</h2>
         <div class="custom-control custom-radio mb-3">
-          <input type="radio" class="custom-control-input" id="courier" name="shipping" checked>
-          <label for="courier" class="custom-control-label d-flex align-items-center">
+          <input type="radio" class="custom-control-input" id="vacio" name="precio_envio" 
+          [(ngModel)]="precio_envio" value="" disabled> 
+          <label for="vacio" class="custom-control-label text-danger fw-bold">SELECCIONE</label>
+        </div>
+        
+        <div class="custom-control custom-radio mb-3" *ngFor="let item of envios; let indice = index">
+          <input type="radio" class="custom-control-input" id="courier-{{indice}}" name="precio_envio" 
+          [(ngModel)]="precio_envio" value="{{item.precio}}" (change)="calcular_total()">
+          <label for="courier-{{indice}}" class="custom-control-label d-flex align-items-center">
             <span>
-              <strong class="d-block">Courier to your address</strong>
-              <span class="text-muted font-size-sm">Estimated date: November 9</span>
+              <strong class="d-block">{{item.titulo}}</strong>
+              <span class="text-muted font-size-sm">Tiempo de espera: {{item.tiempo}}</span>
             </span>
-            <span class="ml-auto">$25.00</span>
+            <span class="ml-auto">S/. {{item.precio}}</span>
           </label>
         </div>
-        <div class="custom-control custom-radio mb-3">
-          <input type="radio" class="custom-control-input" id="store-pickup" name="shipping">
-          <label for="store-pickup" class="custom-control-label d-flex align-items-center">
-            <span>
-              <strong class="d-block">Pick up from store</strong>
-              <span class="text-muted font-size-sm">Pick up on November 8 from 12:00pm</span>
-            </span>
-            <span class="ml-auto">Free</span>
-          </label>
-        </div>
-        <div class="custom-control custom-radio mb-3">
-          <input type="radio" class="custom-control-input" id="ups" name="shipping">
-          <label for="ups" class="custom-control-label d-flex align-items-center">
-            <span>
-              <strong class="d-block">UPS Ground Shipping</strong>
-              <span class="text-muted font-size-sm">Up to one week</span>
-            </span>
-            <span class="ml-auto">$10.00</span>
-          </label>
-        </div>
-        <div class="custom-control custom-radio mb-3">
-          <input type="radio" class="custom-control-input" id="locker-pickup" name="shipping">
-          <label for="locker-pickup" class="custom-control-label d-flex align-items-center">
-            <span>
-              <strong class="d-block">Pick up at Createx Locker</strong>
-              <span class="text-muted font-size-sm">Pick up on November 8 from 12:00pm</span>
-            </span>
-            <span class="ml-auto">$8.50</span>
-          </label>
-        </div>
-        <div class="custom-control custom-radio mb-3">
-          <input type="radio" class="custom-control-input" id="global-export" name="shipping">
-          <label for="global-export" class="custom-control-label d-flex align-items-center">
-            <span>
-              <strong class="d-block">Createx Global Export</strong>
-              <span class="text-muted font-size-sm">3-4 days</span>
-            </span>
-            <span class="ml-auto">$15.00</span>
-          </label>
-        </div>
-
+        
         <hr class="border-top-0 border-bottom pt-4 mb-4">
 
         <!-- Payment -->
@@ -323,7 +268,7 @@
                 </li>
                 <li class="d-flex justify-content-between mb-2">
                   <span>Envío:</span>
-                  <span>$25.00</span>
+                  <span>S/. {{precio_envio}}</span>
                 </li>
                 <li class="d-flex justify-content-between mb-2">
                   <span>Descuento:</span>
@@ -336,7 +281,7 @@
               </div>
             </div>
             <button type="button" class="btn btn-primary btn-block bi-wallet-fill">
-               Completar orden
+              Completar orden
             </button>
           </div>
         </div>

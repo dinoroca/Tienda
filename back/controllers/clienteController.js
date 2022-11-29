@@ -289,6 +289,24 @@ const obtener_direcciones_cliente = async function (req, res) {
   }
 }
 
+const obtener_direccion_principal_cliente = async function(req, res) {
+  if (req.user) {
+    var id = req.params['id'];
+    var direccion = undefined;
+
+    direccion = await Direccion.findOne({ cliente: id, principal: true });
+
+    if (direccion == undefined) {
+      res.status(200).send({ data: undefined });
+    } else {
+      res.status(200).send({ data: direccion });
+    }
+
+  } else {
+    res.status(500).send({ message: 'NoAccess' });
+  }
+}
+
 const cambiar_direccion_principal = async function (req, res) {
   if (req.user) {
     var id = req.params['id'];
@@ -334,5 +352,6 @@ module.exports = {
   registro_direccion_cliente,
   obtener_direcciones_cliente,
   cambiar_direccion_principal,
-  eliminar_direccion_cliente
+  eliminar_direccion_cliente,
+  obtener_direccion_principal_cliente
 };

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { GLOBAL } from 'src/app/services/global';
 import { ClienteService } from '../../services/cliente.service';
 import { io } from 'socket.io-client';
+import { GuestService } from '../../services/guest.service';
 
 declare var iziToast: { show: (arg0: { title: string; titleColor: string; class: string; position: string; message: string; }) => void; };
 declare var Cleave: any;
@@ -22,8 +23,14 @@ export class CarritoComponent implements OnInit {
   public total_pagar = 0;
   public socket = io('http://localhost:4201');
 
+  public direccion_principal: any = {};
+  public envios: Array<any> = [];
+
+  public precio_envio = '';
+
   constructor(
-    private _clienteService: ClienteService
+    private _clienteService: ClienteService,
+    private _guestService: GuestService
   ) {
     this.token = localStorage.getItem('token');
     this.id = localStorage.getItem('_id');
@@ -35,13 +42,19 @@ export class CarritoComponent implements OnInit {
         this.calcular_subtotal();
       }
     );
+
+    this._guestService.obtener_envios().subscribe(
+      response => {
+        this.envios = response;
+      }
+    );
+    this.calcular_subtotal();
   }
 
   init_carrito() {
     this._clienteService.obtener_carrito_cliente(this.id, this.token).subscribe(
       response => {
         this.carrito_arr = response.data;
-        this.calcular_subtotal();
       }
     );
   }
@@ -64,6 +77,21 @@ export class CarritoComponent implements OnInit {
 
       var sidebar = new StickySidebar('.sidebar-sticky', {topSpacing: 20});
     });
+
+    this.obtener_direccion_principal();
+    this.calcular_total();
+  }
+
+  obtener_direccion_principal() {
+    this._clienteService.obtener_direccion_principal_cliente(localStorage.getItem('_id'), this.token).subscribe(
+      response => {
+        if (response.data == undefined) {
+          this.direccion_principal = undefined;
+        } else {
+          this.direccion_principal = response.data;
+        }
+      }
+    );
   }
 
   calcular_subtotal() {
@@ -92,6 +120,10 @@ export class CarritoComponent implements OnInit {
         this.init_carrito();
       }
     );
+  }
+
+  calcular_total() {
+    this.total_pagar = this.subtotal + parseInt(this.precio_envio);
   }
 
 }

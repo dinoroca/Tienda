@@ -15,11 +15,18 @@ export class LoginComponent implements OnInit {
   public usuario: any = {};
   public token: any;
 
+  public ruta_actual: any;
+
   constructor(
     private _clienteService: ClienteService,
     private _router: Router
   ) {
     this.token = localStorage.getItem('token');
+    this.ruta_actual = localStorage.getItem('ruta_actual');
+
+    if (this.ruta_actual == undefined || this.ruta_actual == null) {
+      this.ruta_actual = '';
+    }
 
     if (this.token) {
       this._router.navigate(['/']);
@@ -52,7 +59,7 @@ export class LoginComponent implements OnInit {
             localStorage.setItem('token', response.token);
             localStorage.setItem('_id', response.data._id);
 
-            this._router.navigate(['/']);
+            this._router.navigate(['/' + this.ruta_actual]);
           }
         }
       );

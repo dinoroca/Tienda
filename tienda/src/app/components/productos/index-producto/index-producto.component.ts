@@ -250,6 +250,7 @@ export class IndexProductoComponent implements OnInit {
     }
   }
 
+  //TODO: Corregir
   agregar_producto(producto: any) {
     let data = {
       producto: producto._id,

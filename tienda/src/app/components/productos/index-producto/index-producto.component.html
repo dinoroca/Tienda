@@ -261,6 +261,7 @@
                   <h3 class="card-product-title text-truncate mb-2">
                     <a [routerLink]="['/productos/', item.slug]" class="nav-link">{{item.titulo}}</a>
                   </h3>
+                  
                   <div class="">
                     <span class="h5 d-inline-block mb-0 text-warning">S/. {{item.precio}}</span>
                   </div>
@@ -274,7 +275,7 @@
                     </div>
                   </div>
                   <button *ngIf="!btn_cart" type="button" class="btn btn-primary btn-block"
-                    (click)="agregar_producto(item)">
+                  [routerLink]="['/productos/', item.slug]">
                     <i class="cxi-cart align-middle mt-n1 mr-2"></i>
                     Añadir al carrito
                   </button>

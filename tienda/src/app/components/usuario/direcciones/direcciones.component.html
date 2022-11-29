@@ -155,7 +155,11 @@
                     <div class="row mx-2 justify-content-center" *ngIf="direcciones.length >= 1">
                         <!-- Header and footer -->
                         <div class="shadow text-center col-sm-12 mb-3 rounded" *ngFor="let item of direcciones">
-                            <div class="card-header">ZIP: {{item.zip}}</div>
+                            <div class="card-header">ZIP: {{item.zip}}
+                                <a class="text-danger bi-trash-fill" style="margin-left: 30vw; cursor: pointer;"
+                                (click)="eliminar_direccion(item._id)">
+                                </a>
+                            </div>
                             <div class="card-body">
                                 <h5 class="card-title">{{item.destinatario}}</h5>
                                 <p class="card-text">{{item.direccion}}

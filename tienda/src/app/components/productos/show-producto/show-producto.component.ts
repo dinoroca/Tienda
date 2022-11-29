@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { GLOBAL } from 'src/app/services/global';
 import { GuestService } from '../../../services/guest.service';
 import { ClienteService } from '../../../services/cliente.service';
@@ -24,6 +24,8 @@ export class ShowProductoComponent implements OnInit {
   public url: any;
   public productos_rec: any = [];
 
+  public ruta_actual = '';
+
   public carrito_data: any = {
     variedad: '',
     cantidad: 1
@@ -33,9 +35,14 @@ export class ShowProductoComponent implements OnInit {
 
   constructor(
     private _route: ActivatedRoute,
+    private _router: Router,
     private _guestService: GuestService,
     private _clienteService: ClienteService
   ) {
+
+    this.ruta_actual = this._router.url;
+
+    localStorage.setItem('ruta_actual', this.ruta_actual);
 
     this.url = GLOBAL.url;
 
@@ -134,62 +141,67 @@ export class ShowProductoComponent implements OnInit {
 
   agregar_producto() {
 
-    if (this.carrito_data.variedad) {
-      if (this.carrito_data.cantidad <= this.producto.stock) {
-        
-        let data = {
-          producto: this.producto._id,
-          cliente: localStorage.getItem('_id'),
-          cantidad: this.carrito_data.cantidad,
-          variedad: this.carrito_data.variedad
-        }
-
-        this.btn_cart = true;
-        this._clienteService.agregar_carrito_cliente(data, this.token).subscribe(
-          response  => {
-            if (response.data == undefined) {
-              iziToast.show({
-                title: 'ERROR',
-                titleColor: '#FF634F',
-                class: 'text-danger',
-                position: 'topRight',
-                message: 'El producto ya existe en el carrito de compras'
-              });
-              
-              this.btn_cart = false;
-            } else {
-              iziToast.show({
-                title: 'SUCCESS',
-                titleColor: '#35D18F',
-                class: 'text-success',
-                position: 'topRight',
-                message: 'Se agregó al carrito'
-              });
-
-              this.socket.emit('add-carrito', {data: true});
-  
-              this.btn_cart = false;
-            }
+    if (this.token != undefined) {
+      if (this.carrito_data.variedad) {
+        if (this.carrito_data.cantidad <= this.producto.stock) {
+          
+          let data = {
+            producto: this.producto._id,
+            cliente: localStorage.getItem('_id'),
+            cantidad: this.carrito_data.cantidad,
+            variedad: this.carrito_data.variedad
           }
-        );
+  
+          this.btn_cart = true;
+          this._clienteService.agregar_carrito_cliente(data, this.token).subscribe(
+            response  => {
+              if (response.data == undefined) {
+                iziToast.show({
+                  title: 'ERROR',
+                  titleColor: '#FF634F',
+                  class: 'text-danger',
+                  position: 'topRight',
+                  message: 'El producto ya existe en el carrito de compras'
+                });
+                
+                this.btn_cart = false;
+              } else {
+                iziToast.show({
+                  title: 'SUCCESS',
+                  titleColor: '#35D18F',
+                  class: 'text-success',
+                  position: 'topRight',
+                  message: 'Se agregó al carrito'
+                });
+  
+                this.socket.emit('add-carrito', {data: true});
+    
+                this.btn_cart = false;
+              }
+            }
+          );
+        } else {
+          iziToast.show({
+            title: 'ERROR',
+            titleColor: '#FF634F',
+            class: 'text-danger',
+            position: 'topRight',
+            message: 'La cantidad máxima disponible es: ' + this.producto.stock
+          });
+        }
       } else {
         iziToast.show({
           title: 'ERROR',
           titleColor: '#FF634F',
           class: 'text-danger',
           position: 'topRight',
-          message: 'La cantidad máxima disponible es: ' + this.producto.stock
+          message: 'Seleccione una variedad'
         });
       }
     } else {
-      iziToast.show({
-        title: 'ERROR',
-        titleColor: '#FF634F',
-        class: 'text-danger',
-        position: 'topRight',
-        message: 'Seleccione una variedad'
-      });
+      this._router.navigate(['/login']);
     }
+
   }
 
 }

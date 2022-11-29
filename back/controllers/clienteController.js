@@ -308,6 +308,19 @@ const cambiar_direccion_principal = async function (req, res) {
   }
 }
 
+const eliminar_direccion_cliente = async function (req, res) {
+  if (req.user) {
+    var id = req.params['id'];
+
+    await Direccion.findByIdAndRemove({ _id: id });
+
+    res.status(200).send({ data: true });
+
+  } else {
+    res.status(500).send({ message: 'NoAccess' });
+  }
+}
+
 module.exports = {
   registro_cliente,
   login_cliente,
@@ -320,5 +333,6 @@ module.exports = {
   actualizar_perfil_cliente,
   registro_direccion_cliente,
   obtener_direcciones_cliente,
-  cambiar_direccion_principal
+  cambiar_direccion_principal,
+  eliminar_direccion_cliente
 };

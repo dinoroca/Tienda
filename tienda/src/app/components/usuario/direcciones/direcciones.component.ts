@@ -191,6 +191,7 @@ export class DireccionesComponent implements OnInit {
             message: 'Se registró la nueva dirección'
           });
 
+          this.obtener_direcciones();
         }
       );
 
@@ -203,14 +204,11 @@ export class DireccionesComponent implements OnInit {
         message: 'Los datos del formulario no son válidos'
       });
     }
-
-    this.obtener_direcciones();
   }
 
   establcer_principal(id: any) {
     this._clienteService.cambiar_direccion_principal(id, localStorage.getItem('_id'), this.token).subscribe(
       response => {
-        console.log(response);
         this.obtener_direcciones();
         iziToast.show({
           title: 'SUCCESS',
@@ -221,6 +219,22 @@ export class DireccionesComponent implements OnInit {
         });
       }
     );
+  }
+
+  eliminar_direccion(id: any) {
+    this._clienteService.eliminar_direccion_cliente(id, this.token).subscribe(
+      response => {
+        iziToast.show({
+          title: 'SUCCESS',
+          titleColor: '#35D18F',
+          class: 'text-success',
+          position: 'topRight',
+          message: 'Se eliminó la dirección'
+        });
+      }
+    );
+    
+    this.obtener_direcciones();
   }
 
 }

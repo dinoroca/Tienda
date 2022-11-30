@@ -101,23 +101,23 @@
             <!-- Sin dirección -->
             <div class="mt-0" *ngIf="direccion_principal == undefined">
               <div class="col-lg-12 card align-items-center py-4 rounded"
-                  style="background-color: rgb(255, 207, 207); border-color: rgb(255, 66, 66);">
-                  <h4 class="text-danger">
-                      Debe registrar una dirección principal</h4>
+                style="background-color: rgb(255, 207, 207); border-color: rgb(255, 66, 66);">
+                <h4 class="text-danger">
+                  Debe registrar una dirección principal</h4>
 
-                  <svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="#FF4242"
-                      class="bi bi-exclamation-octagon" viewBox="0 0 16 16">
-                      <path
-                          d="M4.54.146A.5.5 0 0 1 4.893 0h6.214a.5.5 0 0 1 .353.146l4.394 4.394a.5.5 0 0 1 .146.353v6.214a.5.5 0 0 1-.146.353l-4.394 4.394a.5.5 0 0 1-.353.146H4.893a.5.5 0 0 1-.353-.146L.146 11.46A.5.5 0 0 1 0 11.107V4.893a.5.5 0 0 1 .146-.353L4.54.146zM5.1 1 1 5.1v5.8L5.1 15h5.8l4.1-4.1V5.1L10.9 1H5.1z" />
-                      <path
-                          d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z" />
-                  </svg>
-                
-                  <button class="btn btn-danger btn-sm mt-4" [routerLink]="['/cuenta/direcciones']">
-                    Registrar
-                  </button>
+                <svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="#FF4242"
+                  class="bi bi-exclamation-octagon" viewBox="0 0 16 16">
+                  <path
+                    d="M4.54.146A.5.5 0 0 1 4.893 0h6.214a.5.5 0 0 1 .353.146l4.394 4.394a.5.5 0 0 1 .146.353v6.214a.5.5 0 0 1-.146.353l-4.394 4.394a.5.5 0 0 1-.353.146H4.893a.5.5 0 0 1-.353-.146L.146 11.46A.5.5 0 0 1 0 11.107V4.893a.5.5 0 0 1 .146-.353L4.54.146zM5.1 1 1 5.1v5.8L5.1 15h5.8l4.1-4.1V5.1L10.9 1H5.1z" />
+                  <path
+                    d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z" />
+                </svg>
+
+                <button class="btn btn-danger btn-sm mt-4" [routerLink]="['/cuenta/direcciones']">
+                  Registrar
+                </button>
               </div>
-          </div>
+            </div>
           </div>
         </div>
 
@@ -126,14 +126,14 @@
         <!-- Shipping -->
         <h2 class="h4 mb-4">3. Métodos de envío</h2>
         <div class="custom-control custom-radio mb-3">
-          <input type="radio" class="custom-control-input" id="vacio" name="precio_envio" 
-          [(ngModel)]="precio_envio" value="" disabled> 
+          <input type="radio" class="custom-control-input" id="vacio" name="precio_envio" [(ngModel)]="precio_envio"
+            value="" disabled>
           <label for="vacio" class="custom-control-label text-danger fw-bold">SELECCIONE</label>
         </div>
-        
+
         <div class="custom-control custom-radio mb-3" *ngFor="let item of envios; let indice = index">
-          <input type="radio" class="custom-control-input" id="courier-{{indice}}" name="precio_envio" 
-          [(ngModel)]="precio_envio" value="{{item.precio}}" (change)="calcular_total()">
+          <input type="radio" class="custom-control-input" id="courier-{{indice}}" name="precio_envio"
+            [(ngModel)]="precio_envio" value="{{item.precio}}" (change)="calcular_total(item.titulo)">
           <label for="courier-{{indice}}" class="custom-control-label d-flex align-items-center">
             <span>
               <strong class="d-block">{{item.titulo}}</strong>
@@ -142,7 +142,7 @@
             <span class="ml-auto">S/. {{item.precio}}</span>
           </label>
         </div>
-        
+
         <hr class="border-top-0 border-bottom pt-4 mb-4">
 
         <!-- Payment -->
@@ -159,7 +159,7 @@
                     <input type="radio" class="custom-control-input" id="cc" name="payment" checked>
                     <label for="cc" class="custom-control-label d-flex align-items-center">
                       <strong class="d-block mr-3">Tarjeta de crédito / débito</strong>
-                      <img src="../../assets/img/ecommerce/checkout/cards.png" width="108" alt="Credit cards">
+                      <img src="assets/img/cards.png" width="108" alt="Credit cards">
                     </label>
                   </div>
                 </div>
@@ -187,28 +187,23 @@
               </div>
 
               <!-- Card: PayPal -->
-              <div class="card mb-3 px-4 py-3 border rounded box-shadow-sm">
+              <!-- <div class="card mb-3 px-4 py-3 border rounded box-shadow-sm">
                 <div class="card-header py-2">
                   <div class="accordion-heading custom-control custom-radio" data-toggle="collapse"
                     data-target="#paypal-card">
                     <input type="radio" class="custom-control-input" id="paypal" name="payment">
                     <label for="paypal" class="custom-control-label d-flex align-items-center">
                       <strong class="d-block mr-3">PayPal</strong>
-                      <img src="../../assets/img/ecommerce/checkout/paypal-badge.png" width="48" alt="PayPal">
+                      <img src="assets/img/paypal-badge.png" width="48" alt="PayPal">
                     </label>
                   </div>
                 </div>
                 <div class="collapse" id="paypal-card" data-parent="#payment-methods">
                   <div class="card-body pt-3 pb-0">
-                    <a href="#" class="d-inline-block mb-2" style="max-width: 300px;">
-                      <img src="../../assets/img/ecommerce/checkout/paypal.png" alt="PayPal">
-                    </a>
-                    <a href="#" class="d-inline-block mb-2" style="max-width: 300px;">
-                      <img src="../../assets/img/ecommerce/checkout/paypal-credit.png" alt="PayPal Credit">
-                    </a>
+
                   </div>
                 </div>
-              </div>
+              </div> -->
 
               <!-- Card: Cash -->
               <div class="card mb-3 px-4 py-3 border rounded box-shadow-sm">
@@ -234,11 +229,11 @@
         <hr class="mb-4 pb-2">
 
         <!-- Additional info -->
-        <h2 class="h4 mb-4">5. Additional Information (optional)</h2>
+        <h2 class="h4 mb-4">5. Información adicional (opcional)</h2>
         <div class="form-group">
-          <label for="ch-notes">Order notes</label>
-          <textarea id="ch-notes" class="form-control form-control-lg" rows="5"
-            placeholder="Notes about your order, e.g. special noted for delivery."></textarea>
+          <label for="ch-notes">Mensaje de la orden</label>
+          <textarea id="ch-notes" class="form-control form-control-lg" rows="5" name="nota" [(ngModel)]="venta.nota"
+            placeholder="Escriba su mensaje"></textarea>
         </div>
       </div>
 
@@ -249,11 +244,12 @@
         <div class="sidebar-sticky">
           <div class="sidebar-sticky-inner">
             <div class="form-group">
-              <label for="promo-code">Apply a promo code</label>
+              <label for="promo-code">Aplicar cupón</label>
               <div class="input-group input-group-lg">
-                <input type="text" id="promo-code" class="form-control" placeholder="Enter promo code">
+                <input type="text" id="promo-code" class="form-control" 
+                placeholder="Ingrese código de cupón" name="venta.cupon" [(ngModel)]="venta.cupon">
                 <div class="input-group-append">
-                  <button type="button" class="btn btn-primary">&nbsp;&nbsp;Apply&nbsp;&nbsp;</button>
+                  <button type="button" class="btn btn-primary">Aplicar</button>
                 </div>
               </div>
             </div>

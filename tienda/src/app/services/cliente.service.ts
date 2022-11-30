@@ -98,23 +98,29 @@ export class ClienteService {
     return this._http.post(this.url + 'registro_direccion_cliente', data, {headers : headers});
   }
 
+  
   obtener_direcciones_cliente(id: any, token: any): Observable<any> {
     let headers = new HttpHeaders({'Content-Type':'application/json', 'authorization': token});
     return this._http.get(this.url + 'obtener_direcciones_cliente/' + id, {headers : headers});
   }
-
+  
   cambiar_direccion_principal(id: any, cliente: any, token: any): Observable<any> {
     let headers = new HttpHeaders({'Content-Type':'application/json', 'authorization': token});
     return this._http.put(this.url + 'cambiar_direccion_principal/' + id + '/' + cliente, {data: true}, {headers : headers});
   }
-
+  
   eliminar_direccion_cliente(id: any, token: any): Observable<any> {
     let headers = new HttpHeaders({'Content-Type':'application/json', 'authorization': token});
     return this._http.delete(this.url + 'eliminar_direccion_cliente/' + id, {headers : headers});
   }
-
+  
   obtener_direccion_principal_cliente(id: any, token: any): Observable<any> {
     let headers = new HttpHeaders({'Content-Type':'application/json', 'authorization': token});
     return this._http.get(this.url + 'obtener_direccion_principal_cliente/' + id, {headers : headers});
+  }
+
+  registro_compra_cliente(data: any, token: any): Observable<any> {
+    let headers = new HttpHeaders({'Content-Type':'application/json', 'authorization': token});
+    return this._http.post(this.url + 'registro_compra_cliente', data, {headers : headers});
   }
 }

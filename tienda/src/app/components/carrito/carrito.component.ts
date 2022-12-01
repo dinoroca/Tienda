@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { GLOBAL } from 'src/app/services/global';
 import { ClienteService } from '../../services/cliente.service';
 import { io } from 'socket.io-client';
@@ -7,6 +7,11 @@ import { GuestService } from '../../services/guest.service';
 declare var iziToast: { show: (arg0: { title: string; titleColor: string; class: string; position: string; message: string; }) => void; };
 declare var Cleave: any;
 declare var StickySidebar: any;
+declare var paypal: any;
+
+interface HtmlInputEvent extends Event {
+  target: HTMLInputElement & EventTarget;
+}
 
 @Component({
   selector: 'app-carrito',
@@ -15,6 +20,7 @@ declare var StickySidebar: any;
 })
 export class CarritoComponent implements OnInit {
 
+  @ViewChild('paypalButton', { static: true }) paypalElement!: ElementRef;
   public token: any;
   public id: any;
   public url: any;
@@ -79,10 +85,41 @@ export class CarritoComponent implements OnInit {
         datePattern: ['m', 'y']
       });
 
-      var sidebar = new StickySidebar('.sidebar-sticky', {topSpacing: 20});
+      var sidebar = new StickySidebar('.sidebar-sticky', { topSpacing: 20 });
     });
 
     this.obtener_direccion_principal();
+
+    paypal.Buttons({
+      style: {
+        layout: 'horizontal'
+      },
+      createOrder: (data: any, actions: { order: { create: (arg0: { purchase_units: { description: string; amount: { currency_code: string; value: number; }; }[]; }) => any; }; }) => {
+
+        return actions.order.create({
+          purchase_units: [{
+            description: 'Nombre del pago',
+            amount: {
+              currency_code: 'USD',
+              value: 999
+            },
+          }]
+        });
+
+      },
+      onApprove: async (data: any, actions: { order: { capture: () => any; }; }) => {
+        const order = await actions.order.capture();
+
+
+      },
+      onError: (err: any) => {
+
+      },
+      onCancel: function (data: any, actions: any) {
+
+      }
+    }).render(this.paypalElement.nativeElement);
+
   }
 
   obtener_direccion_principal() {
@@ -133,7 +170,7 @@ export class CarritoComponent implements OnInit {
     this.venta.envio_titulo = envio_titulo;
 
     console.log(this.venta);
-    
+
   }
 
 }

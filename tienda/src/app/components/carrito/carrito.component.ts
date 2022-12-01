@@ -97,8 +97,15 @@ export class CarritoComponent implements OnInit {
       },
       onApprove: async (data: any, actions: { order: { capture: () => any; }; }) => {
         const order = await actions.order.capture();
-        console.log(this.dventa);
-        
+        this.venta.transaccion = order.purchase_units[0].payments.captures[0].id;
+        this.venta.detalles = this.dventa;
+
+        //Registrar la venta mediante el método del controlador
+        this._clienteService.registro_compra_cliente(this.venta, this.token).subscribe(
+          response => {
+            console.log(response);
+          }
+        );
       },
       onError: (err: any) => {
 
@@ -176,9 +183,6 @@ export class CarritoComponent implements OnInit {
     this.venta.subtotal = this.total_pagar;
     this.venta.envio_precio = parseInt(this.precio_envio);
     this.venta.envio_titulo = envio_titulo;
-
-    console.log(this.venta);
-
   }
 
 }

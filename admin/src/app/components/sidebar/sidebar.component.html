@@ -15,11 +15,18 @@
   
   <ul class="navbar-nav ml-auto d-none d-lg-flex align-items-center">
 
-    <li class="nav-item">
-      <a class="nav-link py-0" href="../components/typography.html">
+    <li class="nav-item dropdown">
+      <a class="nav-link py-0">
         <i class="cxi-profile align-middle mt-n1 mr-2"></i>
         Cuenta
       </a>
+
+      <div class="dropdown-menu">
+        <a class="dropdown-item text-danger" (click)="cerrar_sesion()" style="cursor: pointer;">
+          <i class="cxi-logout me-2"></i>
+          Cerrar sesión
+        </a>
+      </div>
     </li>
 
   </ul>

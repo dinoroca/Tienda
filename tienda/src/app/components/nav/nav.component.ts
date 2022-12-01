@@ -27,6 +27,10 @@ export class NavComponent implements OnInit {
   public subtotal = 0;
   public socket = io('http://localhost:4201');
 
+  public filter_producto = '';
+  public load_data = true;
+  public productos: Array<any> = [];
+
   constructor(
     private _clienteService: ClienteService,
     private _router: Router
@@ -122,6 +126,23 @@ export class NavComponent implements OnInit {
         this.socket.emit('delete-carrito', { data: response.data });
       }
     );
+  }
+
+  buscar_producto() {
+
+    if (this.filter_producto == '') {
+      this.productos = [];
+    } else {
+      this._clienteService.listar_productos(this.filter_producto).subscribe(
+        response => {
+          this.productos = response.data;
+          console.log(this.productos);
+          
+          this.load_data = false;
+        }
+      );
+    }
+    
   }
 
 }

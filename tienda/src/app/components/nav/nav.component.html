@@ -7,13 +7,24 @@
       <a [routerLink]="['/']" class="navbar-brand order-lg-1 mr-0 pr-lg-3 mr-lg-4">
         HOK LOGO
       </a>
+
       <!-- Search desktop -->
       <div class="input-group-overlay ml-4 d-lg-block d-none order-lg-3" style="max-width: 21rem">
-        <input class="form-control appended-form-control" type="text" placeholder="Search for products..." />
+        <input class="form-control appended-form-control" type="text" placeholder="Buscar productos..." 
+          name="filter_producto" [(ngModel)]="filter_producto"
+          (keyup)="buscar_producto()"/>
         <div class="input-group-append-overlay">
           <span class="input-group-text"><i class="cxi-search lead align-middle"></i></span>
         </div>
+
+        <div *ngFor="let item of productos">
+          <div *ngIf="productos.length >= 1">
+            <a [routerLink]="['/productos/', item.slug]">{{item.titulo}}</a>
+          </div>
+        </div>
+
       </div>
+
       <!-- Toolbar -->
       <div class="d-flex align-items-center order-lg-3">
         <ul class="nav nav-tools flex-nowrap">

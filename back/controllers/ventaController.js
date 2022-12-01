@@ -7,15 +7,36 @@ const registro_compra_cliente = async function (req, res) {
 
         var data = req.body;
         let detalles = data.detalles;
+
+        console.log(data);
+
+        var venta_last = await Venta.find().sort({ cretedAt: -1 });
+        var serie;
+        var correlativo;
+        var nventa;
+
+        if (venta_last.length == 0) {
+            serie = '001';
+            correlativo = '000001';
+
+            nventa = serie + '-' + correlativo;
+        } else {
+            // Más de un registro en venta
+
+        }
+        data.nventa = nventa;
+        data.estado = 'Procesando';
+        
+        console.log(data);
+
         let venta = await Venta.create(data);
-        var d_detalles = [];
 
         detalles.forEach(async element => {
+            element.venta = venta._id;
             await Dventa.create(element);
-            d_detalles.push(element);
         });
 
-        res.status(200).send({ venta: venta, dventa: d_detalles });
+        res.status(200).send({ venta: venta });
 
     } else {
         res.status(500).send({ message: 'NoAccess' });

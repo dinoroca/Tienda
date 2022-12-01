@@ -46,13 +46,6 @@ export class CarritoComponent implements OnInit {
     this.venta.cliente = this.id;
     this.url = GLOBAL.url;
 
-    this._clienteService.obtener_carrito_cliente(this.id, this.token).subscribe(
-      response => {
-        this.carrito_arr = response.data;
-        this.calcular_subtotal();
-      }
-    );
-
     this._guestService.obtener_envios().subscribe(
       response => {
         this.envios = response;
@@ -61,15 +54,10 @@ export class CarritoComponent implements OnInit {
     this.calcular_subtotal();
   }
 
-  init_carrito() {
-    this._clienteService.obtener_carrito_cliente(this.id, this.token).subscribe(
-      response => {
-        this.carrito_arr = response.data;
-      }
-    );
-  }
-
   ngOnInit(): void {
+    //Inicializa los valores de inicio
+    this.init_data();
+
     //Validación para número de tarjeta de crédito
     setTimeout(() => {
       new Cleave('#cc-number', {
@@ -109,8 +97,8 @@ export class CarritoComponent implements OnInit {
       },
       onApprove: async (data: any, actions: { order: { capture: () => any; }; }) => {
         const order = await actions.order.capture();
-
-
+        console.log(this.dventa);
+        
       },
       onError: (err: any) => {
 
@@ -120,6 +108,26 @@ export class CarritoComponent implements OnInit {
       }
     }).render(this.paypalElement.nativeElement);
 
+  }
+
+  init_data() {
+    this.subtotal = 0;
+    this._clienteService.obtener_carrito_cliente(this.id, this.token).subscribe(
+      response => {
+        this.carrito_arr = response.data;
+        //Recorrer todos los elementos del arreglo de carrito
+        this.carrito_arr.forEach(element => {
+          this.dventa.push({
+            producto: element.producto._id,
+            subtotal: element.producto.precio,
+            variedad: element.variedad,
+            cantidad: element.cantidad,
+            cliente: localStorage.getItem('_id')
+          });
+        });
+        this.calcular_subtotal();
+      }
+    );
   }
 
   obtener_direccion_principal() {
@@ -158,7 +166,7 @@ export class CarritoComponent implements OnInit {
         //Eliminar cliente en real time con socket.io
         this.socket.emit('delete-carrito', { data: response.data });
 
-        this.init_carrito();
+        this.init_data();
       }
     );
   }

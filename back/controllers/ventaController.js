@@ -2,6 +2,7 @@
 var Venta = require('../models/venta');
 var Dventa = require('../models/dventa');
 var Producto = require('../models/producto');
+var Carrito = require('../models/carrito');
 
 const registro_compra_cliente = async function (req, res) {
     if (req.user) {
@@ -50,9 +51,13 @@ const registro_compra_cliente = async function (req, res) {
             let element_producto = await Producto.findById({ _id: element.producto });
             let new_stock = element_producto.stock - element.cantidad;
 
+            //Actualizar el stock del producto con un nuevop stock
             await Producto.findByIdAndUpdate({ _id: element.producto }, {
                 stock: new_stock
             });
+
+            //Limpiar carrito de compras al finalizar una compra
+            await Carrito.remove({ cliente: data.cliente });
         });
 
         res.status(200).send({ venta: venta });

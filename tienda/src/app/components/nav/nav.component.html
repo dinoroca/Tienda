@@ -220,6 +220,7 @@
   </div>
 </header>
 
+<!-- Mostrar productos de búsqueda -->
 <div class="card shadow mx-4 my-4" *ngIf="productos.length >= 1" 
   style="background-color: rgb(227, 250, 255); border-color: rgb(23,105,106); justify-content: center !important;">
   <h5 class="card-title text-center mt-2" style="color:  rgb(23,105,106);">Resultados de la búsqueda: </h5>
@@ -246,6 +247,10 @@
   <!-- Header -->
   <div class="cs-offcanvas-cap align-items-center border-bottom">
     <h2 class="h5 mb-0">Tu carrito ({{carrito_arr.length}})</h2>
+    <button [routerLink]="['/carrito-compras']" class="btn btn-primary" [disabled]="carrito_arr.length == 0">
+      <i class="cxi-credit-card font-size-lg mt-n1 mr-1"></i>
+      Pagar
+    </button>
     <button class="close mr-n1" type="button" data-dismiss="offcanvas" aria-label="Close" (click)="op_modalcart()">
       <span class="h3 font-weight-normal mb-0" aria-hidden="true" >×</span>
     </button>
@@ -294,9 +299,9 @@
       <span class="text-muted mr-2">Subtotal:</span>
       <span class="h5 mb-0">S/. {{subtotal}}</span>
     </div>
-    <a [routerLink]="['/carrito-compras']" class="btn btn-primary btn-block">
+    <button [routerLink]="['/carrito-compras']" class="btn btn-primary btn-block" [disabled]="carrito_arr.length == 0">
       <i class="cxi-credit-card font-size-lg mt-n1 mr-1"></i>
       Checkout
-    </a>
+    </button>
   </div>
 </div>

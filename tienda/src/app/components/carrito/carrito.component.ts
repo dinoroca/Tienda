@@ -152,7 +152,8 @@ export class CarritoComponent implements OnInit {
 
   calcular_subtotal() {
     this.carrito_arr.forEach(element => {
-      this.subtotal = this.subtotal + parseInt(element.producto.precio);
+      this.subtotal = this.subtotal + (parseInt(element.producto.precio) * element.cantidad);
+      
     });
 
     //Tempratlemte //TODO: SE debe definir una funcion para calcular el total

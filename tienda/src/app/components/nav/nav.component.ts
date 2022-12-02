@@ -107,7 +107,7 @@ export class NavComponent implements OnInit {
   calcular_subtotal() {
     this.subtotal = 0;
     this.carrito_arr.forEach(element => {
-      this.subtotal = this.subtotal + parseInt(element.producto.precio);
+      this.subtotal = this.subtotal + (parseInt(element.producto.precio) * element.cantidad);
     });
   }
 

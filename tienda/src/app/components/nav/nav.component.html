@@ -16,13 +16,6 @@
         <div class="input-group-append-overlay">
           <span class="input-group-text"><i class="cxi-search lead align-middle"></i></span>
         </div>
-
-        <div *ngFor="let item of productos">
-          <div *ngIf="productos.length >= 1">
-            <a [routerLink]="['/productos/', item.slug]">{{item.titulo}}</a>
-          </div>
-        </div>
-
       </div>
 
       <!-- Toolbar -->
@@ -93,7 +86,9 @@
         <!-- Search mobile -->
         <div class="input-group-overlay form-group mb-0 d-lg-none d-block">
           <input type="text" class="form-control prepended-form-control rounded-0 border-0"
-            placeholder="Search for products..." />
+          placeholder="Buscar productos..." 
+          name="filter_producto" [(ngModel)]="filter_producto"
+          (keyup)="buscar_producto()" />
           <div class="input-group-prepend-overlay">
             <span class="input-group-text">
               <i class="cxi-search font-size-lg align-middle mt-n1"></i>
@@ -224,6 +219,27 @@
     </div>
   </div>
 </header>
+
+<div class="card shadow mx-4 my-4" *ngIf="productos.length >= 1" 
+  style="background-color: rgb(227, 250, 255); border-color: rgb(23,105,106); justify-content: center !important;">
+  <h5 class="card-title text-center mt-2" style="color:  rgb(23,105,106);">Resultados de la búsqueda: </h5>
+  <div class="">
+    <div *ngFor="let item of productos" class="mx-lg-6 mx-2">
+        <div class="card card-body shadow rounded my-3" 
+        style="background-color: rgb(244, 253, 255);">
+          <div class="row justify-content-between mx-lg-6 mx-2" [routerLink]="['/productos/', item.slug]" 
+          style="cursor: pointer;">
+            <a [routerLink]="['/productos/', item.slug]" class="nav-item">
+              {{item.titulo}}
+            </a>
+            <a [routerLink]="['/productos/', item.slug]" class="nav-item">
+              <img [src]="url + 'obtener_portada/' + item.portada" alt="{{item.titulo}}" class="rounded-3" style="width: 8vw;">
+            </a>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>
 
 <div id="cart" class="cs-offcanvas cs-offcanvas-right">
 

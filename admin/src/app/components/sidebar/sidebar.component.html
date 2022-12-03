@@ -1,7 +1,7 @@
 <!-- Navbar-->
 <header class="navbar navbar-expand navbar-light fixed-top navbar-box-shadow bg-light px-3 px-lg-4" data-scroll-header
   data-fixed-element>
-  <a class="navbar-brand d-lg-none" href="#"> LOGO Hok
+  <a class="navbar-brand d-lg-none" href="#"> {{nombre}}
   </a>
 
   <button class="navbar-toggler d-block d-lg-none mr-3 ml-auto" type="button" data-toggle="offcanvas"
@@ -35,7 +35,10 @@
 <!-- Side navigation (Off-canvas)-->
 <aside class="cs-offcanvas cs-offcanvas-expand bg-dark" id="componentsNav">
   <div class="cs-offcanvas-cap d-none d-lg-block py-4">
-    <a class="navbar-brand py-2" href="#"> LOGO Hok
+    <a [routerLink]="['/']"> 
+      <img [src]="url + 'obtener_logo/' + logo" alt="{{configuracion.logo}}" class="rounded">
+    </a>
+    <a class="navbar-brand py-2 text-center" [routerLink]="['/']"> {{nombre}}
     </a>
   </div>
   

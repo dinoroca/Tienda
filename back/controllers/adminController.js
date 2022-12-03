@@ -2,6 +2,8 @@
 var Admin = require('../models/admin');
 var bcrypt = require('bcrypt-nodejs');
 var jwt = require('../helpers/jwt');
+var fs = require('fs');
+var path = require('path');
 
 const registro_admim = async function (req, res) {
     //Obtiene los parámetros del cliente
@@ -59,7 +61,22 @@ const login_admin = async function(req, res) {
     }
 }
 
+const obtener_logo = async function (req, res) {
+    var img = req.params['img'];
+
+    fs.stat('./uploads/configs/' + img, function (err) {
+        if (!err) {
+            let path_img = './uploads/configs/' + img;
+            res.status(200).sendFile(path.resolve(path_img));
+        } else {
+            let path_img = './uploads/default.jpg';
+            res.status(200).sendFile(path.resolve(path_img));
+        }
+    });
+}
+
 module.exports = {
     registro_admim,
-    login_admin
+    login_admin,
+    obtener_logo
 };

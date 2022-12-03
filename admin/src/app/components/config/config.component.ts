@@ -102,6 +102,10 @@ export class ConfigComponent implements OnInit {
         message: 'Complete correctamente los campos'
       });
     }
+
+    window.location.reload();
+    localStorage.setItem('nombre', '');
+    localStorage.setItem('logo', '');
   }
 
   fileChangeEvent(event: any) {
@@ -161,8 +165,6 @@ export class ConfigComponent implements OnInit {
       this.imgSelect = 'assets/img/01.jpg';
       this.file = undefined;
     }
-
-    console.log(this.file);
 
   }
 

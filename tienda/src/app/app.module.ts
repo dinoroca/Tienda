@@ -20,6 +20,7 @@ import { ShowProductoComponent } from './components/productos/show-producto/show
 import { CarritoComponent } from './components/carrito/carrito.component';
 import { RegisterComponent } from './components/register/register.component';
 import { DireccionesComponent } from './components/usuario/direcciones/direcciones.component';
+import { SoftwareComponent } from './components/software/software.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { DireccionesComponent } from './components/usuario/direcciones/direccion
     ShowProductoComponent,
     CarritoComponent,
     RegisterComponent,
-    DireccionesComponent
+    DireccionesComponent,
+    SoftwareComponent
   ],
   imports: [
     BrowserModule,

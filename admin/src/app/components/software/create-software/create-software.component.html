@@ -1,0 +1,76 @@
+<app-sidebar></app-sidebar>
+
+<!-- Page title-->
+<div class="border-bottom mt-4 mb-5">
+    <h1 class="mt-2 mt-md-4 mb-3 pt-5">Productos</h1>
+    <div class="d-flex flex-wrap flex-md-nowrap justify-content-between">
+        <p class="text-muted">Este módulo permite crear un software.</p>
+
+    </div>
+</div>
+
+<form #registroForm="ngForm" (ngSubmit)="registro(registroForm)">
+    <div class="card box-shadow-sm">
+        <div class="card-header">
+            <h5 style="margin-bottom: 0px;">Registro de producto</h5>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="row">
+                        <div class="col-lg-12 form-group">
+                            <label for="">Titulo de producto</label>
+                            <input type="text" class="form-control" name="titulo" [(ngModel)]="programa.titulo"
+                                placeholder="Titulo de producto" required>
+                        </div>
+                        <div class="col-lg-12 form-group">
+                            <label for="">Link</label>
+                            <input type="text" class="form-control" name="link" [(ngModel)]="programa.link"
+                                placeholder="Link del programa" required>
+                        </div>
+                        <div class="col-lg-12 form-group">
+                            <label for="">Precio</label>
+                            <input type="number" class="form-control" name="precio" [(ngModel)]="programa.precio"
+                                placeholder="Precio" required>
+                        </div>
+
+                        <div class="col-lg-12 form-group">
+                            <label for="">Descripción corta</label>
+                            <textarea class="form-control" placeholder="Titulo de producto" name="descripcion"
+                                [(ngModel)]="programa.descripcion" required rows="5"></textarea>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="row">
+                        <div class="col-lg-12 form-group">
+                            <label for="">Portada</label>
+                            <div class="custom-file">
+                                <input class="custom-file-input" type="file" id="file-input"
+                                    (change)="fileChangeEvent($event)">
+                                <label class="custom-file-label" id="input-portada" for="file-input"
+                                    style="white-space: nowrap; overflow: hidden;">Seleccionar imagen</label>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <img [src]="imgSelect" class="img-thumbnail" alt="Rounded image">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer text-center">
+            <button class="btn btn-primary mx-2 bi-file-plus-fill" type="submit" *ngIf="!load_btn" [disabled]="!registroForm.valid"> 
+                Crear software</button>
+
+            <!-- Button with growing spinner and text -->
+            <button *ngIf="load_btn" type="button" class="btn btn-secondary" disabled>
+                <span class="spinner-grow spinner-grow-sm me-2" role="status" aria-hidden="true"></span>
+                Creando...
+            </button>
+
+            <button class="btn btn-warning mx-2" [routerLink]="['/panel/software']">Regresar</button>
+        </div>
+    </div>
+</form>

@@ -10,6 +10,7 @@ import { ShowProductoComponent } from "./components/productos/show-producto/show
 import { CarritoComponent } from './components/carrito/carrito.component';
 import { RegisterComponent } from './components/register/register.component';
 import { DireccionesComponent } from './components/usuario/direcciones/direcciones.component';
+import { SoftwareComponent } from './components/software/software.component';
 
 const appRoute: Routes = [
     {path: '', component: InicioComponent},
@@ -20,6 +21,7 @@ const appRoute: Routes = [
     {path: 'carrito-compras', component: CarritoComponent, canActivate: [AuthGuard]},
 
     {path: 'productos', component: IndexProductoComponent},
+    {path: 'software', component: SoftwareComponent},
     {path: 'productos/:slug', component: ShowProductoComponent},
     {path: 'productos/categoria/:categoria', component: IndexProductoComponent},
 ]

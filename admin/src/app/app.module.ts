@@ -24,6 +24,10 @@ import { UpdateCuponComponent } from './components/cupones/update-cupon/update-c
 import { ConfigComponent } from './components/config/config.component';
 import { VariedadProductoComponent } from './components/productos/variedad-producto/variedad-producto.component';
 import { GaleriaProductoComponent } from './components/productos/galeria-producto/galeria-producto.component';
+import { IndexSoftwareComponent } from './components/software/index-software/index-software.component';
+import { CreateSoftwareComponent } from './components/software/create-software/create-software.component';
+import { UpdateSoftwareComponent } from './components/software/update-software/update-software.component';
+import { VariedadSoftwareComponent } from './components/software/variedad-software/variedad-software.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +47,11 @@ import { GaleriaProductoComponent } from './components/productos/galeria-product
     UpdateCuponComponent,
     ConfigComponent,
     VariedadProductoComponent,
-    GaleriaProductoComponent
+    GaleriaProductoComponent,
+    IndexSoftwareComponent,
+    CreateSoftwareComponent,
+    UpdateSoftwareComponent,
+    VariedadSoftwareComponent
   ],
   imports: [
     BrowserModule,

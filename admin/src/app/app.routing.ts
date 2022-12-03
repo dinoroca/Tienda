@@ -16,6 +16,10 @@ import { UpdateCuponComponent } from './components/cupones/update-cupon/update-c
 import { ConfigComponent } from './components/config/config.component';
 import { VariedadProductoComponent } from './components/productos/variedad-producto/variedad-producto.component';
 import { GaleriaProductoComponent } from './components/productos/galeria-producto/galeria-producto.component';
+import { IndexSoftwareComponent } from './components/software/index-software/index-software.component';
+import { CreateSoftwareComponent } from './components/software/create-software/create-software.component';
+import { UpdateSoftwareComponent } from './components/software/update-software/update-software.component';
+import { VariedadSoftwareComponent } from './components/software/variedad-software/variedad-software.component';
 
 const appRoute: Routes = [
 
@@ -29,12 +33,17 @@ const appRoute: Routes = [
         {path: 'clientes/:id', component: EditClienteComponent, canActivate: [AdminGuard]},
 
 
-        {path: 'productos/registro', component: CreateProductoComponent, canActivate: [AdminGuard]},
         {path: 'productos', component: IndexProductoComponent, canActivate: [AdminGuard]},
+        {path: 'productos/registro', component: CreateProductoComponent, canActivate: [AdminGuard]},
         {path: 'productos/:id', component: UpdateProductoComponent, canActivate: [AdminGuard]},
         {path: 'productos/inventario/:id', component: InventarioProductoComponent, canActivate: [AdminGuard]},
         {path: 'productos/variedades/:id', component: VariedadProductoComponent, canActivate: [AdminGuard]},
         {path: 'productos/galeria/:id', component: GaleriaProductoComponent, canActivate: [AdminGuard]},
+
+        {path: 'software', component: IndexSoftwareComponent, canActivate: [AdminGuard]},
+        {path: 'software/registro', component: CreateSoftwareComponent, canActivate: [AdminGuard]},
+        {path: 'software/:id', component: UpdateSoftwareComponent, canActivate: [AdminGuard]},
+        {path: 'software/variedades/:id', component: VariedadSoftwareComponent, canActivate: [AdminGuard]},
 
         {path: 'cupones', component: IndexCuponComponent, canActivate: [AdminGuard]},
         {path: 'cupones/registro', component: CreateCuponComponent, canActivate: [AdminGuard]},

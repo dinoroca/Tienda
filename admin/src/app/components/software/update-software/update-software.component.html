@@ -1,0 +1,96 @@
+<app-sidebar></app-sidebar>
+
+<!-- Page title-->
+<div class="border-bottom mt-4 mb-5">
+    <h1 class="mt-2 mt-md-4 mb-3 pt-5">Software</h1>
+    <div class="d-flex flex-wrap flex-md-nowrap justify-content-between">
+        <p class="text-muted">Este módulo permite actualizar los softwares de la tienda.</p>
+
+    </div>
+</div>
+
+<form #actualizarForm="ngForm" (ngSubmit)="actualizar(actualizarForm)">
+  <div class="card box-shadow-sm col-lg-12">
+    <div class="card-header">
+      <h5 style="margin-bottom: 0px">Actualizar software</h5>
+    </div>
+
+    <ng-container *ngIf="load_data">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-12 text-center">
+            <!-- Custom size border spinner -->
+            <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+            </div>
+            <h5 class="text-black-50"><small>Cargando...</small></h5>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="!load_data">
+      <div class="card-body" *ngIf="programa != undefined">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="row">
+                    <div class="col-lg-12 form-group">
+                        <label for="">Titulo de producto</label>
+                        <input type="text" class="form-control" name="titulo" [(ngModel)]="programa.titulo"
+                            placeholder="Titulo de producto" required>
+                    </div>
+                    <div class="col-lg-4 form-group">
+                        <label for="">Precio</label>
+                        <input type="number" class="form-control" name="precio" [(ngModel)]="programa.precio"
+                            placeholder="Precio" required>
+                    </div>
+
+                    <div class="col-lg-12 form-group">
+                        <label for="">Descripción corta</label>
+                        <textarea class="form-control" placeholder="Titulo de producto" name="descripcion"
+                            [(ngModel)]="programa.descripcion" required rows="5"></textarea>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="row">
+                    <div class="col-lg-12 form-group">
+                        <label for="">Portada</label>
+                        <div class="custom-file">
+                            <input class="custom-file-input" type="file" id="file-input"
+                                (change)="fileChangeEvent($event)" style="cursor: pointer;">
+                            <label class="custom-file-label" id="input-portada" for="file-input"
+                                style="white-space: nowrap; overflow: hidden; cursor: pointer;">Seleccionar imagen</label>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <img [src]="imgSelect" class="img-thumbnail" alt="Rounded image">
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+
+      <div class="card-body text-center" *ngIf="programa == undefined">
+        <h3 class="text-danger">No se encontró el registro</h3>
+        <img src="assets/img/error.png" style="width: 100px;">
+      </div>
+    </ng-container>
+
+
+    <div class="card-footer text-center">
+      <button class="btn btn-primary mx-2 bi-check-circle-fill" type="submit" [disabled]="actualizarForm.invalid"
+        *ngIf="programa != undefined && !load_btn"> Actualizar software</button>
+
+      <!-- Button with growing spinner and text -->
+      <button *ngIf="load_btn" type="button" class="btn btn-secondary" disabled>
+        <span class="spinner-grow spinner-grow-sm me-2" role="status" aria-hidden="true"></span>
+        Actualizando...
+      </button>
+
+      <a class="btn btn-warning mx-2" [routerLink]="['/panel/software']">Regresar</a>
+    </div>
+  </div>
+</form>
+
+

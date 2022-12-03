@@ -1,0 +1,160 @@
+<app-sidebar></app-sidebar>
+
+<!-- Page title-->
+<div class="border-bottom mt-4 mb-5">
+    <h1 class="mt-2 mt-md-4 mb-3 pt-5">Software</h1>
+    <div class="d-flex flex-wrap flex-md-nowrap justify-content-between">
+        <p class="text-muted mt-2">
+            Este módulo lista todos los programas de la tienda.
+        </p>
+        <p class="font-size-sm font-weight-medium pl-md-4">
+            <a class="text-nowrap bi-clipboard-plus-fill btn btn-secondary" [routerLink]="['/panel/software/registro']">
+                Registrar software</a>
+        </p>
+    </div>
+</div>
+
+<div class="card box-shadow-sm">
+    <div class="card-header">
+        <h5 style="margin-bottom: 0px">Filtro de productos</h5>
+    </div>
+
+    <div class="card-header text-center">
+        <!-- Button addon on the right -->
+        <div class="input-group">
+            <input class="form-control" type="text" placeholder="Nombre del producto" name="filtro" [(ngModel)]="filtro"
+                required />
+            <button class="btn btn-primary bi-search" type="button" (click)="filtrar()" [disabled]="!this.filtro">
+                Filtrar
+            </button>
+
+            <button class="btn btn-secondary bi-arrow-repeat mx-2" type="button" (click)="reset()">
+                Reset
+            </button>
+
+            <button class="btn btn-success bi-file-earmark-excel-fill mx-2" type="button" (click)="download_excel()">
+                Exportar
+            </button>
+        </div>
+    </div>
+
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered text-center">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>#</th>
+                        <th>Título</th>
+                        <th>Precio</th>
+                        <th>Link</th>
+                        <th>Ventas</th>
+                        <th>Opciones</th>
+                    </tr>
+                </thead>
+
+                <!-- Precargador de página -->
+                <tbody *ngIf="load_data == true">
+                    <tr>
+                        <td class="text-center" colspan="7">
+                            <!-- Custom size border spinner -->
+                            <div class="text-center">
+                                <div class="spinner-border" style="width: 3rem; height: 3rem" role="status"></div>
+                                <h5 class="text-black-50"><small>Cargando...</small></h5>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+
+                <ng-container *ngIf="!load_data">
+                    <tbody *ngFor="
+              let item of programas
+                | slice: (page - 1) * pageSize:(page - 1) * pageSize + pageSize;
+              let indice = index
+            ">
+                        <tr>
+                            <td>{{ indice + 1 }}</td>
+                            <td>
+                                <h6 class="my-0">
+                                    <img [src]="url + 'obtener_portada/' + item.portada" class="img-thumbnail rounded-0"
+                                        alt="Square image" style="width: 50px" />
+                                    {{ item.titulo }}
+                                </h6>
+                            </td>
+                            <td>{{ item.precio }}</td>
+                            <td> <a href="{{item.link}}" target="_blank">{{ item.titulo }}</a></td>
+                            <td>{{ item.nventas }}</td>
+                            <td>
+                                <div class="btn-group dropdown">
+                                    <button type="button" class="btn btn-outline-secondary btn-sm dropdown-toggle"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        opciones
+                                    </button>
+                                    <div class="dropdown-menu text-center">
+                                        <a class="dropdown-item bi-pencil-fill"
+                                            [routerLink]="['/panel/software', item._id]">
+                                            Editar software</a>
+
+                                        <a class="dropdown-item bi-ui-checks-grid"
+                                            [routerLink]="['/panel/software/variedades', item._id]">
+                                            Variedades</a>
+
+                                        <a class="dropdown-item bi-trash-fill text-danger" style="cursor: pointer"
+                                            data-toggle="modal"
+                                            [attr.data-target]="'#delete-' + item._id">
+                                            Eliminar software</a>
+
+                                    </div>
+                                </div>
+
+                                <div class="modal fade" id="delete-{{ item._id }}" tabindex="-1" style="display: none"
+                                    aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title text-center">
+                                                    Eliminar producto
+                                                </h4>
+                                                <button class="btn btn-secondary btn-sm" type="button" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                    x
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p class="fs-sm">
+                                                    Desea eliminar el producto {{ item.titulo }}?
+                                                </p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button class="btn btn-secondary btn-sm bi-x-circle-fill" type="button"
+                                                    data-dismiss="modal">
+                                                    Cancelar
+                                                </button>
+                                                <button *ngIf="!load_btn" class="btn btn-danger btn-sm bi-trash-fill"
+                                                    (click)="eliminar(item._id)" type="button">
+                                                    Eliminar
+                                                </button>
+
+                                                <!-- Button with growing spinner and text -->
+                                                <button *ngIf="load_btn" type="button" class="btn btn-secondary">
+                                                    <span class="spinner-grow spinner-grow-sm me-2" role="status"
+                                                        aria-hidden="true" disabled></span>
+                                                    Eliminando...
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </ng-container>
+            </table>
+        </div>
+    </div>
+
+    <!-- Pagination of clients -->
+    <div class="card-footer">
+        <ngb-pagination [(page)]="page" [pageSize]="pageSize" [collectionSize]="programas.length">
+        </ngb-pagination>
+    </div>
+</div>

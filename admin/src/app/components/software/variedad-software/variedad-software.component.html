@@ -1,0 +1,116 @@
+<app-sidebar></app-sidebar>
+
+<!-- Page title-->
+<div class="border-bottom mt-4 mb-5">
+    <h1 class="mt-2 mt-md-4 mb-3 pt-5">Software</h1>
+    <div class="d-flex flex-wrap flex-md-nowrap justify-content-between">
+        <p class="text-muted">Este módulo permite actualizar los softwares de la tienda.</p>
+
+    </div>
+</div>
+
+<div class="card box-shadow-sm">
+    <div class="card-header">
+        <h5 style="margin-bottom: 0px;">Variedad de software</h5>
+    </div>
+
+    <div class="card-body">
+        <div style="max-width: 48rem;">
+
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <!-- Square image (default) -->
+                    <img [src]="url + 'obtener_portada/' + programa.portada" alt="{{programa.titulo}}">
+                </div>
+
+                <div class="col-md-8">
+                    <div class="card" style="height: 100%; background-color: #c6fff0; border-color: #03CEA4;">
+                        <div class="card-body">
+                            <h3 class="card-product-title mb-2">
+                                <a class="nav-link mb-3">{{programa.titulo}}</a>
+                                <p><small>{{programa.descripcion}}</small></p>
+
+                                <div class="d-flex align-items-center">
+                                    <span class="h5 d-inline-block mb-0 text-success">$ {{programa.precio}}</span>
+                                  </div>
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group row align-items-center">
+                <label class="col-md-3 col-form-label font-weight-medium" for="text-input">Título de la variedad</label>
+                <div class="col-md-9">
+                    <input class="form-control" type="text" id="text-input" placeholder="Título de la variedad"
+                        name="titulo_variedad" [(ngModel)]="programa.titulo_variedad" required>
+                </div>
+            </div>
+
+            <div class="form-group row align-items-center">
+                <label class="col-md-3 col-form-label font-weight-medium" for="text-input">Variedades</label>
+                <div class="col-md-9 mb-3">
+                    <!-- Button addon on the right -->
+                    <div class="input-group">
+                        <input class="form-control" type="text" placeholder="Ingrese la variedad" name="nueva_variedad"
+                            [(ngModel)]="nueva_variedad">
+                        <button class="btn btn-success bi-plus-circle-fill" type="button" (click)="agregar_variedad()">
+                            Agregar</button>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+
+                </div>
+                <div class="col-md-9">
+                    <div class="table-responsive mt-2">
+
+                        <table class="table table-sm text-center" *ngIf="programa.variedades">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th>Título</th>
+                                    <th>Opciones</th>
+                                </tr>
+                            </thead>
+
+                            <ng-container *ngIf="programa.variedades.length == 0">
+                                <tbody>
+                                    <tr>
+                                        <td colspan="2"><span class="text-danger">No hay categorías
+                                                diponibles</span></td>
+                                    </tr>
+                                </tbody>
+                            </ng-container>
+
+                            <ng-container *ngIf="programa.variedades.length >= 1">
+                                <tbody *ngFor="let item of programa.variedades; let indice = index">
+                                    <tr>
+                                        <td>{{item.titulo}}</td>
+                                        <td><a class="bi-trash-fill text-danger" style="cursor: pointer;"
+                                                (click)="eliminar_variedad(indice)"></a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </ng-container>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    <div class="card-footer text-center">
+        <button class="btn btn-primary mr-3 bi-check-circle-fill" type="button" (click)="actualizar()"
+            *ngIf="!load_btn">
+            Guardar cambios</button>
+
+        <!-- Button with growing spinner and text -->
+        <button *ngIf="load_btn" type="button" class="btn btn-secondary" disabled>
+            <span class="spinner-grow spinner-grow-sm me-2" role="status" aria-hidden="true"></span>
+            Guardando...
+        </button>
+
+        <button class="btn btn-warning mx-2" [routerLink]="['/panel/software']">Regresar</button>
+    </div>
+</div>

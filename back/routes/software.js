@@ -15,5 +15,6 @@ api.get('/obtener_portada/:img', softwareController.obtener_portada);
 api.get('/obtener_software_admin/:id', auth.auth, softwareController.obtener_software_admin);
 api.put('/actualizar_software_admin/:id', [auth.auth, path], softwareController.actualizar_software_admin);
 api.put('/actualizar_software_variedades_admin/:id', auth.auth, softwareController.actualizar_software_variedades_admin);
+api.get('/listar_software/:filtro?', softwareController.listar_software);
 
 module.exports = api;

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ClienteService } from 'src/app/services/cliente.service';
+import { GLOBAL } from 'src/app/services/global';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-software',
@@ -8,22 +10,69 @@ import { ClienteService } from 'src/app/services/cliente.service';
 })
 export class SoftwareComponent implements OnInit {
 
+  public token: any;
+  public config_global: any = {};
+  public filter_categoria: any = '';
   public programas: Array<any> = [];
-  public sort_by = 'Defecto';
+  public filter_producto = '';
+  public filter_cat_productos = 'todos';
+
+  public load_data = true;
+  public url: any;
+  public route_catrgoria: any;
+
   public page = 1;
   public pageSize = 12;
-  public load_data = true;
+
+  public sort_by = 'Defecto';
 
   constructor(
-    private _clienteService: ClienteService
-  ) { }
+    private _clienteService: ClienteService,
+    private _route: ActivatedRoute
+  ) {
+    this.url = GLOBAL.url;
+
+    this.token = localStorage.getItem('token');
+
+    this._clienteService.obtener_config_publico().subscribe(
+      response => {
+        //Asiganr los valores de las categorias del back
+        this.config_global = response.data;
+      }
+    );
+
+    this._route.params.subscribe(
+      params => {
+        this.route_catrgoria = params['titulo'];
+
+        if (this.route_catrgoria) {
+          this._clienteService.listar_software('').subscribe(
+            response => {
+              this.programas = response.data;
+              this.programas = this.programas.filter(item => item.titulo.toLowerCase() == this.route_catrgoria);
+              this.load_data = false;
+            }
+          );
+        } else {
+          this._clienteService.listar_software('').subscribe(
+            response => {
+              this.programas = response.data;
+              this.load_data = false;
+            }
+          );
+        }
+
+      }
+    );
+    
+  }
 
   ngOnInit(): void {
   }
 
   orden_por() {
     if (this.sort_by == 'Defecto') {
-      this._clienteService.listar_productos('').subscribe(
+      this._clienteService.listar_software('').subscribe(
         response => {
           this.programas = response.data;
           this.load_data = false;
@@ -85,6 +134,18 @@ export class SoftwareComponent implements OnInit {
         return 0;
       });
     }
+  }
+
+  reset_productos() {
+
+    this.filter_producto = '';
+
+    this._clienteService.listar_software('').subscribe(
+      response => {
+        this.programas = response.data;
+        this.load_data = false;
+      }
+    );
   }
 
 }

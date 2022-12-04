@@ -170,6 +170,14 @@ const actualizar_software_variedades_admin = async function (req, res) {
     }
 }
 
+const listar_software = async function (req, res) {
+
+    var filtro = req.params['filtro'];
+
+    let reg = await Software.find({ titulo: new RegExp(filtro, 'i') }).sort({ createdAt: -1 });
+    res.status(200).send({ data: reg });
+}
+
 module.exports = {
     registro_software_admin,
     listar_sofware_admin,
@@ -177,5 +185,6 @@ module.exports = {
     eliminar_software_admin,
     obtener_software_admin,
     actualizar_software_admin,
-    actualizar_software_variedades_admin
+    actualizar_software_variedades_admin,
+    listar_software
 }

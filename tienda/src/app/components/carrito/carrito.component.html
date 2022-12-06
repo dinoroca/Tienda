@@ -263,12 +263,20 @@
             <div class="form-group">
               <label for="promo-code">Aplicar cupón</label>
               <div class="input-group input-group-lg">
-                <input type="text" id="promo-code" class="form-control" 
-                placeholder="Ingrese código de cupón" name="venta.cupon" [(ngModel)]="venta.cupon">
+                <input type="text" id="promo-code" class="form-control" placeholder="Ingrese código de cupón"
+                  name="venta.cupon" [(ngModel)]="venta.cupon">
                 <div class="input-group-append">
-                  <button type="button" class="btn btn-primary">Aplicar</button>
+                  <button type="button" class="btn btn-primary" (click)="validar_cupon()">
+                    Aplicar
+                  </button>
                 </div>
               </div>
+
+              <!-- Danger alert -->
+              <div class="alert alert-danger mt-3 text-center" role="alert" *ngIf="error_cupon">
+                {{error_cupon}}
+              </div>
+
             </div>
             <div class="bg-secondary rounded mb-4">
               <div class="border-bottom p-4">
@@ -285,7 +293,7 @@
                 </li>
                 <li class="d-flex justify-content-between mb-2">
                   <span>Descuento:</span>
-                  <span>&mdash;</span>
+                  <span class="text-danger">- S/ {{descuento}}</span>
                 </li>
               </ul>
               <div class="d-flex justify-content-between p-4">

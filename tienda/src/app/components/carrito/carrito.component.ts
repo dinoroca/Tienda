@@ -35,9 +35,12 @@ export class CarritoComponent implements OnInit {
   public envios: Array<any> = [];
 
   public precio_envio = '';
+  public descuento = 0;
 
   public venta: any = {};
   public dventa: Array<any> = [];
+
+  public error_cupon = '';
 
   constructor(
     private _clienteService: ClienteService,
@@ -165,7 +168,7 @@ export class CarritoComponent implements OnInit {
   calcular_subtotal() {
     this.carrito_arr.forEach(element => {
       this.subtotal = this.subtotal + (parseInt(element.producto.precio) * element.cantidad);
-      
+
     });
 
     //Tempratlemte //TODO: SE debe definir una funcion para calcular el total
@@ -196,6 +199,42 @@ export class CarritoComponent implements OnInit {
     this.venta.subtotal = this.total_pagar;
     this.venta.envio_precio = parseInt(this.precio_envio);
     this.venta.envio_titulo = envio_titulo;
+  }
+
+  validar_cupon() {
+    if (this.venta.cupon) {
+
+      if (this.venta.cupon.toString().length <= 10) {
+        this._clienteService.validar_cupon_cliente(this.venta.cupon, this.token).subscribe(
+          response => {
+            if (response.data != undefined) {
+              //Procede con el descuento
+              this.error_cupon = '';
+
+              if (response.data.tipo == 'Valor fijo') {
+                this.descuento = response.data.valor;
+                this.total_pagar = this.total_pagar - this.descuento;
+
+              } else if(response.data.tipo == 'Porcentaje') {
+                this.descuento = (this.total_pagar * response.data.valor)/100;
+                this.total_pagar = this.total_pagar - this.descuento;
+                this.subtotal = this.total_pagar;
+              }
+
+            } else {
+              this.error_cupon = 'El cupón no se pudo canjear';
+            }
+            console.log(response);
+          }
+        );
+
+      } else {
+        //no es válido
+        this.error_cupon = 'El cupón debe tener menos de 10 caracteres';
+      }
+    } else {
+      this.error_cupon = 'El cupón no es válido';
+    }
   }
 
 }

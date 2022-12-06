@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ClienteService } from 'src/app/services/cliente.service';
 import { GLOBAL } from 'src/app/services/global';
 import { ActivatedRoute } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-software',
@@ -28,7 +29,8 @@ export class SoftwareComponent implements OnInit {
 
   constructor(
     private _clienteService: ClienteService,
-    private _route: ActivatedRoute
+    private _route: ActivatedRoute,
+    private _title: Title
   ) {
     this.url = GLOBAL.url;
 
@@ -68,6 +70,7 @@ export class SoftwareComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this._title.setTitle('Software');
   }
 
   orden_por() {

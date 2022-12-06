@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ClienteService } from 'src/app/services/cliente.service';
+import { Title } from '@angular/platform-browser';
 import { GLOBAL } from 'src/app/services/global';
 import { ActivatedRoute } from '@angular/router';
 import { io } from 'socket.io-client';
@@ -43,7 +44,8 @@ export class IndexProductoComponent implements OnInit {
 
   constructor(
     private _clienteService: ClienteService,
-    private _route: ActivatedRoute
+    private _route: ActivatedRoute,
+    private _title: Title
   ) {
 
     this.url = GLOBAL.url;
@@ -83,6 +85,8 @@ export class IndexProductoComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this._title.setTitle('Tienda | Productos');
+
     var slider: any = document.getElementById('slider');
     noUiSlider.create(slider, {
       start: [0, 5000],

@@ -3,6 +3,8 @@ import { GLOBAL } from 'src/app/services/global';
 import { ClienteService } from '../../services/cliente.service';
 import { io } from 'socket.io-client';
 import { GuestService } from '../../services/guest.service';
+import { Title } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 
 declare var iziToast: { show: (arg0: { title: string; titleColor: string; class: string; position: string; message: string; }) => void; };
 declare var Cleave: any;
@@ -39,7 +41,9 @@ export class CarritoComponent implements OnInit {
 
   constructor(
     private _clienteService: ClienteService,
-    private _guestService: GuestService
+    private _guestService: GuestService,
+    private _title: Title,
+    private _router: Router
   ) {
     this.token = localStorage.getItem('token');
     this.id = localStorage.getItem('_id');
@@ -55,6 +59,9 @@ export class CarritoComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    this._title.setTitle('Carrito de compras');
+
     //Inicializa los valores de inicio
     this.init_data();
 
@@ -86,10 +93,10 @@ export class CarritoComponent implements OnInit {
 
         return actions.order.create({
           purchase_units: [{
-            description: 'Nombre del pago',
+            description: 'Pago en la tienda HJM',
             amount: {
               currency_code: 'USD',
-              value: 999
+              value: this.subtotal
             },
           }]
         });
@@ -97,13 +104,18 @@ export class CarritoComponent implements OnInit {
       },
       onApprove: async (data: any, actions: { order: { capture: () => any; }; }) => {
         const order = await actions.order.capture();
+
         this.venta.transaccion = order.purchase_units[0].payments.captures[0].id;
         this.venta.detalles = this.dventa;
 
         //Registrar la venta mediante el método del controlador
         this._clienteService.registro_compra_cliente(this.venta, this.token).subscribe(
           response => {
-            console.log(response);
+            this._clienteService.enviar_correo_cliente(response.venta._id, this.token).subscribe(
+              response => {
+                this._router.navigate(['/']);
+              }
+            );
           }
         );
       },

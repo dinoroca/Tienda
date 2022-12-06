@@ -4,6 +4,7 @@ import { GLOBAL } from 'src/app/services/global';
 import { GuestService } from '../../../services/guest.service';
 import { ClienteService } from '../../../services/cliente.service';
 import { io } from 'socket.io-client';
+import { Title } from '@angular/platform-browser';
 
 declare var iziToast: { show: (arg0: { title: string; titleColor: string; class: string; position: string; message: string; }) => void; };
 
@@ -37,7 +38,8 @@ export class ShowProductoComponent implements OnInit {
     private _route: ActivatedRoute,
     private _router: Router,
     private _guestService: GuestService,
-    private _clienteService: ClienteService
+    private _clienteService: ClienteService,
+    private _title: Title
   ) {
 
     this.ruta_actual = this._router.url;
@@ -69,6 +71,8 @@ export class ShowProductoComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    this._title.setTitle('Tienda | ' + this.slug);
 
     setTimeout(() => {
       tns({

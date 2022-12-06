@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ClienteService } from 'src/app/services/cliente.service';
 import { Router } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 
 declare var iziToast: { show: (arg0: { title: string; titleColor: string; class: string; position: string; message: string; }) => void; };
 
@@ -18,7 +19,8 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     private _clienteService: ClienteService,
-    private _router: Router
+    private _router: Router,
+    private _title: Title
   ) {
 
     this.ruta_actual = localStorage.getItem('ruta_actual');
@@ -29,6 +31,7 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this._title.setTitle('Registro');
   }
 
   registrar(registroForm: any) {

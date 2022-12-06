@@ -124,6 +124,11 @@ export class ClienteService {
     return this._http.post(this.url + 'registro_compra_cliente', data, {headers : headers});
   }
 
+  enviar_correo_cliente(id: any, token: any): Observable<any> {
+    let headers = new HttpHeaders({'Content-Type':'application/json', 'authorization': token});
+    return this._http.get(this.url + 'enviar_correo_cliente/' + id, {headers : headers});
+  }
+
   listar_software(filtro: any): Observable<any> {
     let headers = new HttpHeaders().set('Content-Type', 'application/json');
     return this._http.get(this.url + 'listar_software/' + filtro, { headers: headers });

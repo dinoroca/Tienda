@@ -1,0 +1,86 @@
+<app-sidebar></app-sidebar>
+
+<!-- Page title-->
+<div class="border-bottom mt-4 mb-5">
+    <h1 class="mt-2 mt-md-4 mb-3 pt-5">Descuentos</h1>
+    <div class="d-flex flex-wrap flex-md-nowrap justify-content-between">
+        <p class="text-muted">Este módulo permite crear los descuentos de la tienda.</p>
+
+    </div>
+</div>
+
+<form #registroForm="ngForm" (ngSubmit)="registro(registroForm)">
+    <div class="card box-shadow-sm">
+        <div class="card-header">
+            <h5 style="margin-bottom: 0px;">Registro de producto</h5>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-6">
+                    <div class="row">
+                        <div class="col-lg-12 form-group">
+                            <label for="">Título del descuento</label>
+                            <input type="text" class="form-control" name="titulo" [(ngModel)]="descuento.titulo"
+                                placeholder="Título del descuento" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="row">
+                        <div class="col-lg-12 form-group">
+                            <label for="">Valor del descuento (%)</label>
+                            <input type="number" class="form-control" name="descuento" [(ngModel)]="descuento.descuento"
+                                placeholder="Porcentaje" min="0" max="100" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="row">
+                        <div class="col-lg-12 form-group">
+                            <label for="">Fecha de inicio</label>
+                            <input type="date" class="form-control" name="fecha_inicio" [(ngModel)]="descuento.fecha_inicio"
+                                required>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="row">
+                        <div class="col-lg-12 form-group">
+                            <label for="">Fecha de fin</label>
+                            <input type="date" class="form-control" name="fecha_fin" [(ngModel)]="descuento.fecha_fin"
+                                required>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="row">
+                        <div class="col-12 form-group">
+                            <label for="">Banner</label>
+                            <div class="custom-file">
+                                <input class="custom-file-input" type="file" id="file-input"
+                                    (change)="fileChangeEvent($event)">
+                                <label class="custom-file-label" id="input-portada" for="file-input"
+                                    style="white-space: nowrap; overflow: hidden;">Seleccionar imagen</label>
+                            </div>
+                        </div>
+                        <div class="col-12 text-center">
+                            <img [src]="imgSelect" class="rounded" alt="Banner image">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer text-center">
+            <button class="btn btn-primary mx-2 bi-file-plus-fill" type="submit" *ngIf="!load_btn" [disabled]="!registroForm.valid"> 
+                Crear descuento</button>
+
+            <!-- Button with growing spinner and text -->
+            <button *ngIf="load_btn" type="button" class="btn btn-secondary" disabled>
+                <span class="spinner-grow spinner-grow-sm me-2" role="status" aria-hidden="true"></span>
+                Creando...
+            </button>
+
+            <button class="btn btn-warning mx-2" [routerLink]="['/panel/descuentos']">Regresar</button>
+        </div>
+    </div>
+</form>

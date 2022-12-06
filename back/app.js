@@ -31,6 +31,7 @@ var config_route = require('./routes/config');
 var carrito_route = require('./routes/carrito');
 var venta_route = require('./routes/venta');
 var software_route = require('./routes/software');
+var descuento_route = require('./routes/descuento');
 
 //Conexión a base de datos Mongo DB local
 mongoose.connect('mongodb://127.0.0.1:27017/tienda', (err, res) => {
@@ -64,5 +65,6 @@ app.use('/api', config_route);
 app.use('/api', carrito_route);
 app.use('/api', venta_route);
 app.use('/api', software_route);
+app.use('/api', descuento_route);
 
 module.exports = app;

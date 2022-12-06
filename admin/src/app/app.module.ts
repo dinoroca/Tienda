@@ -28,6 +28,9 @@ import { IndexSoftwareComponent } from './components/software/index-software/ind
 import { CreateSoftwareComponent } from './components/software/create-software/create-software.component';
 import { UpdateSoftwareComponent } from './components/software/update-software/update-software.component';
 import { VariedadSoftwareComponent } from './components/software/variedad-software/variedad-software.component';
+import { CreateDescuentoComponent } from './components/descuento/create-descuento/create-descuento.component';
+import { EditDescuentoComponent } from './components/descuento/edit-descuento/edit-descuento.component';
+import { IndexDescuentoComponent } from './components/descuento/index-descuento/index-descuento.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +54,10 @@ import { VariedadSoftwareComponent } from './components/software/variedad-softwa
     IndexSoftwareComponent,
     CreateSoftwareComponent,
     UpdateSoftwareComponent,
-    VariedadSoftwareComponent
+    VariedadSoftwareComponent,
+    CreateDescuentoComponent,
+    EditDescuentoComponent,
+    IndexDescuentoComponent
   ],
   imports: [
     BrowserModule,

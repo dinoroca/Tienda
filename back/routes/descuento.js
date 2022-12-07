@@ -14,6 +14,7 @@ api.get('/obtener_banner_descuento/:img', descuentoController.obtener_banner_des
 api.get('/obtener_descuento_admin/:id', auth.auth,descuentoController.obtener_descuento_admin);
 api.put('/actualizar_descuento_admin/:id', [auth.auth, path],descuentoController.actualizar_descuento_admin);
 api.delete('/eliminar_descuento_admin/:id', auth.auth,descuentoController.eliminar_descuento_admin);
+api.get('/obtener_descuento_activo', descuentoController.obtener_descuento_activo);
 
 
 module.exports = api;

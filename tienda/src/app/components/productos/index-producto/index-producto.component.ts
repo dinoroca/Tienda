@@ -4,6 +4,7 @@ import { Title } from '@angular/platform-browser';
 import { GLOBAL } from 'src/app/services/global';
 import { ActivatedRoute } from '@angular/router';
 import { io } from 'socket.io-client';
+import { GuestService } from '../../../services/guest.service';
 
 declare var iziToast: { show: (arg0: { title: string; titleColor: string; class: string; position: string; message: string; }) => void; };
 
@@ -42,10 +43,13 @@ export class IndexProductoComponent implements OnInit {
   public op_categoria = false;
   public socket = io('http://localhost:4201');
 
+  public descuento_activo: any = undefined;
+
   constructor(
     private _clienteService: ClienteService,
     private _route: ActivatedRoute,
-    private _title: Title
+    private _title: Title,
+    private _guestService: GuestService
   ) {
 
     this.url = GLOBAL.url;
@@ -110,6 +114,18 @@ export class IndexProductoComponent implements OnInit {
       $('.cs-range-slider-value-max').val(values[1]);
     });
     $('.noUi-tooltip').css('font-size', '11px');
+
+    //Obtener descuentos activos
+    this._guestService.obtener_descuento_activo().subscribe(
+      response => {
+
+        if (response.data != undefined) {
+          this.descuento_activo = response.data[0];
+        } else {
+          this.descuento_activo = undefined;
+        }
+      }
+    );
   }
 
   buscar_categorias() {

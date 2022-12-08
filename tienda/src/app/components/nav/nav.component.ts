@@ -3,6 +3,7 @@ import { ClienteService } from '../../services/cliente.service';
 import { Router } from '@angular/router';
 import { GLOBAL } from 'src/app/services/global';
 import { io } from 'socket.io-client';
+import { GuestService } from '../../services/guest.service';
 
 declare var iziToast: { show: (arg0: { title: string; titleColor: string; class: string; position: string; message: string; }) => void; };
 
@@ -31,9 +32,12 @@ export class NavComponent implements OnInit {
   public load_data = true;
   public productos: Array<any> = [];
 
+  public descuento_activo: any = undefined;
+
   constructor(
     private _clienteService: ClienteService,
-    private _router: Router
+    private _router: Router,
+    private _guestService: GuestService
   ) {
     this.token = localStorage.getItem('token');
     this.id = localStorage.getItem('_id');
@@ -86,6 +90,18 @@ export class NavComponent implements OnInit {
     this.subtotal = 0;
     this.socket.on('new-carrito', this.obtener_carrito.bind(this)); //Eliminar
     this.socket.on('new-carrito-add', this.obtener_carrito.bind(this)); //Agregar
+
+    //Obtener descuentos activos
+    this._guestService.obtener_descuento_activo().subscribe(
+      response => {
+
+        if (response.data != undefined) {
+          this.descuento_activo = response.data[0];
+        } else {
+          this.descuento_activo = undefined;
+        }
+      }
+    );
   }
 
   logout() {
@@ -136,7 +152,6 @@ export class NavComponent implements OnInit {
       this._clienteService.listar_productos(this.filter_producto).subscribe(
         response => {
           this.productos = response.data;
-          console.log(this.productos);
           
           this.load_data = false;
         }

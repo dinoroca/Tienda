@@ -64,7 +64,7 @@
             <span class="font-size-sm text-muted text-nowrap ml-2 d-none d-lg-block">Productos por página</span>
           </div>
           <!-- Pagination of products -->
-          <div class="card-footer">
+          <div>
             <ngb-pagination [(page)]="page" [pageSize]="pageSize" [collectionSize]="productos.length">
             </ngb-pagination>
           </div>
@@ -251,6 +251,9 @@
                     <img [src]="url + 'obtener_portada/' + item.portada" alt="{{item.titulo}}">
                   </a>
                   <div class="card-product-widgets-top">
+                    <span class="badge product-badge badge-danger" *ngIf="descuento_activo">
+                      -{{descuento_activo.descuento}}%
+                    </span>
                     <div class="star-rating ml-auto">
                       <i class="sr-star cxi-star-filled active"></i>
                       <i class="sr-star cxi-star-filled active"></i>
@@ -269,9 +272,17 @@
                     <a [routerLink]="['/productos/', item.slug]" class="nav-link">{{item.titulo}}</a>
                   </h3>
                   
-                  <div class="">
+                  <div *ngIf="descuento_activo == undefined">
                     <span class="h5 d-inline-block mb-0 text-warning">S/. {{item.precio}}</span>
                   </div>
+
+                  <div *ngIf="descuento_activo != undefined" class="">
+                    <span class="h5 d-inline-block mb-0 text-danger">
+                      S/. {{item.precio | descuento: descuento_activo.descuento}}
+                    </span>
+                    <del class="d-inline-block ml-3 text-muted">S/. {{item.precio}}</del>
+                  </div>
+
                 </div>
                 <div class="card-footer">
                   <div class="d-flex align-items-center mb-2 pb-1">
@@ -326,7 +337,7 @@
           </div>
 
           <!-- Pagination of products -->
-          <div class="card-footer">
+          <div>
             <ngb-pagination [(page)]="page" [pageSize]="pageSize" [collectionSize]="productos.length">
             </ngb-pagination>
           </div>

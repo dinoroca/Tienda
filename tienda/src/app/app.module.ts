@@ -21,6 +21,8 @@ import { CarritoComponent } from './components/carrito/carrito.component';
 import { RegisterComponent } from './components/register/register.component';
 import { DireccionesComponent } from './components/usuario/direcciones/direcciones.component';
 import { SoftwareComponent } from './components/software/software.component';
+import { DescuentoPipe } from './pipes/descuento.pipe';
+import { ScrolltopComponent } from './components/scrolltop/scrolltop.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,9 @@ import { SoftwareComponent } from './components/software/software.component';
     CarritoComponent,
     RegisterComponent,
     DireccionesComponent,
-    SoftwareComponent
+    SoftwareComponent,
+    DescuentoPipe,
+    ScrolltopComponent
   ],
   imports: [
     BrowserModule,

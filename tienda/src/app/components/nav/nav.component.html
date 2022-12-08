@@ -7,15 +7,14 @@
     <div class="container px-0 px-xl-3">
       <!-- Logo -->
       <a [routerLink]="['/']" class="navbar-brand order-lg-1 mr-0 pr-lg-3 mr-lg-4">
-        <img [src]="url + 'obtener_logo/' + config_global.logo" alt="{{config_global.logo}}" 
-        style="width: 5vw;" class="my-0">
+        <img [src]="url + 'obtener_logo/' + config_global.logo" alt="{{config_global.logo}}" style="width: 5vw;"
+          class="my-0">
       </a>
 
       <!-- Search desktop -->
       <div class="input-group-overlay ml-4 d-lg-block d-none order-lg-3" style="max-width: 21rem">
-        <input class="form-control appended-form-control" type="text" placeholder="Buscar productos..." 
-          name="filter_producto" [(ngModel)]="filter_producto"
-          (keyup)="buscar_producto()"/>
+        <input class="form-control appended-form-control" type="text" placeholder="Buscar productos..."
+          name="filter_producto" [(ngModel)]="filter_producto" (keyup)="buscar_producto()" />
         <div class="input-group-append-overlay">
           <span class="input-group-text"><i class="cxi-search lead align-middle"></i></span>
         </div>
@@ -65,7 +64,8 @@
           <li class="nav-item align-self-center mb-0" *ngIf="user_lc != undefined">
             <a style="cursor: pointer;" class="nav-tool pr-lg-0" (click)="op_modalcart()">
               <i class="cxi-cart nav-tool-icon"></i>
-              <span class="badge badge-success align-middle mt-n1 ml-2 px-2 py-1 font-size-xs"> {{carrito_arr.length}} </span>
+              <span class="badge badge-success align-middle mt-n1 ml-2 px-2 py-1 font-size-xs"> {{carrito_arr.length}}
+              </span>
             </a>
           </li>
           <li class="nav-item align-self-center mb-0" *ngIf="user_lc == undefined">
@@ -89,9 +89,8 @@
         <!-- Search mobile -->
         <div class="input-group-overlay form-group mb-0 d-lg-none d-block">
           <input type="text" class="form-control prepended-form-control rounded-0 border-0"
-          placeholder="Buscar productos..." 
-          name="filter_producto" [(ngModel)]="filter_producto"
-          (keyup)="buscar_producto()" />
+            placeholder="Buscar productos..." name="filter_producto" [(ngModel)]="filter_producto"
+            (keyup)="buscar_producto()" />
           <div class="input-group-prepend-overlay">
             <span class="input-group-text">
               <i class="cxi-search font-size-lg align-middle mt-n1"></i>
@@ -105,17 +104,18 @@
               class="nav-link">Inicio</a>
           </li>
           <li class="nav-item dropdown">
-            <a [routerLink]="['/productos']" routerLinkActive="active"  class="nav-link dropdown-toggle" 
+            <a [routerLink]="['/productos']" routerLinkActive="active" class="nav-link dropdown-toggle"
               data-toggle="dropdown">Tienda</a>
             <ul class="dropdown-menu">
               <li *ngFor="let item of config_global.categorias">
-                <a [routerLink]="['/productos/categoria/', item.titulo.toLowerCase()]" class="dropdown-item"> <i class="{{item.icono}}"></i> &nbsp; {{item.titulo}} </a>
+                <a [routerLink]="['/productos/categoria/', item.titulo.toLowerCase()]" class="dropdown-item"> <i
+                    class="{{item.icono}}"></i> &nbsp; {{item.titulo}} </a>
               </li>
             </ul>
           </li>
 
           <li class="nav-item dropdown">
-            <a [routerLink]="['/software']" routerLinkActive="active"  class="nav-link dropdown-toggle" 
+            <a [routerLink]="['/software']" routerLinkActive="active" class="nav-link dropdown-toggle"
               data-toggle="dropdown">Software</a>
             <!-- <ul class="dropdown-menu">
               <li *ngFor="let item of config_global.categorias">
@@ -130,23 +130,23 @@
 </header>
 
 <!-- Mostrar productos de búsqueda -->
-<div class="card shadow mx-4 mt-5" *ngIf="productos.length >= 1" 
+<div class="card shadow mx-4 mt-5" *ngIf="productos.length >= 1"
   style="background-color: rgb(227, 250, 255); border-color: rgb(23,105,106); justify-content: center !important;">
   <h5 class="card-title text-center mt-2" style="color:  rgb(23,105,106);">Resultados de la búsqueda: </h5>
   <div class="">
     <div *ngFor="let item of productos" class="mx-lg-6 mx-2">
-        <div class="card card-body shadow rounded my-3" 
-        style="background-color: rgb(244, 253, 255);">
-          <div class="row justify-content-between mx-lg-6 mx-2" [routerLink]="['/productos/', item.slug]" 
+      <div class="card card-body shadow rounded my-3" style="background-color: rgb(244, 253, 255);">
+        <div class="row justify-content-between mx-lg-6 mx-2" [routerLink]="['/productos/', item.slug]"
           style="cursor: pointer;">
-            <a [routerLink]="['/productos/', item.slug]" class="nav-item">
-              {{item.titulo}}
-            </a>
-            <a [routerLink]="['/productos/', item.slug]" class="nav-item">
-              <img [src]="url + 'obtener_portada/' + item.portada" alt="{{item.titulo}}" class="rounded-3" style="width: 8vw;">
-            </a>
-          </div>
+          <a [routerLink]="['/productos/', item.slug]" class="nav-item">
+            {{item.titulo}}
+          </a>
+          <a [routerLink]="['/productos/', item.slug]" class="nav-item">
+            <img [src]="url + 'obtener_portada/' + item.portada" alt="{{item.titulo}}" class="rounded-3"
+              style="width: 8vw;">
+          </a>
         </div>
+      </div>
     </div>
   </div>
 </div>
@@ -161,7 +161,7 @@
       Pagar
     </button>
     <button class="close mr-n1" type="button" data-dismiss="offcanvas" aria-label="Close" (click)="op_modalcart()">
-      <span class="h3 font-weight-normal mb-0" aria-hidden="true" >×</span>
+      <span class="h3 font-weight-normal mb-0" aria-hidden="true">×</span>
     </button>
   </div>
 
@@ -184,9 +184,26 @@
               <li class="mb-0"><span class="text-muted">{{item.producto.titulo_variedad}}:</span> {{item.variedad}}</li>
             </ul>
             <div class="d-flex align-items-center">
-              <input type="number" class="form-control form-control-sm bg-light mr-3" style="width: 4.5rem;" 
+              <input type="number" class="form-control form-control-sm bg-light mr-3" style="width: 4.5rem;"
                 value="{{item.cantidad}}" readonly>
-              <div class="text-nowrap"><strong style="font-size: 1rem;" class="text-muted">S/. {{item.producto.precio}}</strong></div>
+
+              <div class="justify-content-between row">
+                <div *ngIf="descuento_activo == undefined" class="mb-3">
+                  <span class="h5 mb-0 text-muted ml-3">S/. {{item.producto.precio}}</span>
+                </div>
+  
+                <div *ngIf="descuento_activo != undefined" class="mb-3">
+                  <span class="h5 mb-0 text-danger ml-2">
+                    S/. {{item.producto.precio | descuento: descuento_activo.descuento}}
+                  </span>
+                  <del class="d-inline-block ml-3 text-muted">
+                    <small>
+                      S/. {{item.producto.precio}}
+                    </small>
+                  </del>
+                </div>
+              </div>
+
             </div>
             <button class="btn btn-link btn-sm text-decoration-none px-0 pb-0">
               Agregar a deseos
@@ -194,7 +211,8 @@
             </button>
           </div>
           <div class="nav-muted mr-n2">
-            <a style="cursor: pointer;" class="nav-link px-2 mt-n2 text-danger" title="Eliminar" (click)="eliminar_item(item._id)">
+            <a style="cursor: pointer;" class="nav-link px-2 mt-n2 text-danger" title="Eliminar"
+              (click)="eliminar_item(item._id)">
               <i class="cxi-delete"></i></a>
           </div>
         </div>

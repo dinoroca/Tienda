@@ -1,53 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
-import { ClienteService } from 'src/app/services/cliente.service';
-import { GLOBAL } from 'src/app/services/global';
-import { GuestService } from '../../services/guest.service';
-
-declare var tns: any;
-
-@Component({
-  selector: 'app-inicio',
-  templateUrl: './inicio.component.html',
-  styleUrls: ['./inicio.component.css']
-})
-export class InicioComponent implements OnInit {
-
-  public config_global: any = '';
-  public descuento_activo: any = undefined;
-  public url: any;
-
-  constructor(
-    private _title: Title,
-    private _guestService: GuestService,
-    private _clienteService: ClienteService
-  ) {
-    this.url = GLOBAL.url;
-
-    this._clienteService.obtener_config_publico().subscribe(
-      response => {
-        //Asiganr los valores de las categorias del back
-        this.config_global = response.data;
-      }
-    );
-  }
-
-  ngOnInit(): void {
-    this._title.setTitle('Inicio');
-
-    //Obtener descuentos activos
-    this._guestService.obtener_descuento_activo().subscribe(
-      response => {
-
-        if (response.data != undefined) {
-          this.descuento_activo = response.data[0];
-        } else {
-          this.descuento_activo = undefined;
-        }
-      }
-    );
-
-    setTimeout(()=>{
+setTimeout(()=>{
       tns({
         container: '.cs-carousel-inner',
         controlsText: ['<i class="cxi-arrow-left"></i>', '<i class="cxi-arrow-right"></i>'],
@@ -173,6 +124,3 @@ export class InicioComponent implements OnInit {
       });
 
     },500);
-  }
-
-}

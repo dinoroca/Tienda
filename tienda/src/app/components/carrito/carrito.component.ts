@@ -42,6 +42,8 @@ export class CarritoComponent implements OnInit {
 
   public error_cupon = '';
 
+  public descuento_activo: any = undefined;
+
   constructor(
     private _clienteService: ClienteService,
     private _guestService: GuestService,
@@ -64,6 +66,18 @@ export class CarritoComponent implements OnInit {
   ngOnInit(): void {
 
     this._title.setTitle('Carrito de compras');
+
+    //Obtener descuentos activos
+    this._guestService.obtener_descuento_activo().subscribe(
+      response => {
+
+        if (response.data != undefined) {
+          this.descuento_activo = response.data[0];
+        } else {
+          this.descuento_activo = undefined;
+        }
+      }
+    );
 
     //Inicializa los valores de inicio
     this.init_data();
@@ -166,12 +180,20 @@ export class CarritoComponent implements OnInit {
   }
 
   calcular_subtotal() {
-    this.carrito_arr.forEach(element => {
-      this.subtotal = this.subtotal + (parseInt(element.producto.precio) * element.cantidad);
-
-    });
-
-    //Tempratlemte //TODO: SE debe definir una funcion para calcular el total
+    this.subtotal = 0;
+    if (this.descuento_activo == undefined) {
+      //NO hay descuento
+      this.carrito_arr.forEach(element => {
+        this.subtotal = this.subtotal + (parseInt(element.producto.precio) * element.cantidad);
+      });
+    } else if (this.descuento_activo != undefined) {
+      //Hay descuento
+      this.carrito_arr.forEach(element => {
+        let new_precio =  Math.round((parseInt(element.producto.precio) * element.cantidad) - 
+                                      (parseInt(element.producto.precio) * this.descuento_activo.descuento)/100);
+        this.subtotal = this.subtotal + new_precio;
+      });
+    }
     this.total_pagar = this.subtotal;
   }
 
@@ -215,8 +237,8 @@ export class CarritoComponent implements OnInit {
                 this.descuento = response.data.valor;
                 this.total_pagar = this.total_pagar - this.descuento;
 
-              } else if(response.data.tipo == 'Porcentaje') {
-                this.descuento = (this.total_pagar * response.data.valor)/100;
+              } else if (response.data.tipo == 'Porcentaje') {
+                this.descuento = (this.total_pagar * response.data.valor) / 100;
                 this.total_pagar = this.total_pagar - this.descuento;
                 this.subtotal = this.total_pagar;
               }

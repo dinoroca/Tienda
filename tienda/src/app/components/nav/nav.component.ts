@@ -122,9 +122,19 @@ export class NavComponent implements OnInit {
 
   calcular_subtotal() {
     this.subtotal = 0;
-    this.carrito_arr.forEach(element => {
-      this.subtotal = this.subtotal + (parseInt(element.producto.precio) * element.cantidad);
-    });
+    if (this.descuento_activo == undefined) {
+      //NO hay descuento
+      this.carrito_arr.forEach(element => {
+        this.subtotal = this.subtotal + (parseInt(element.producto.precio) * element.cantidad);
+      });
+    } else if (this.descuento_activo != undefined) {
+      //Hay descuento
+      this.carrito_arr.forEach(element => {
+        let new_precio =  Math.round((parseInt(element.producto.precio) * element.cantidad) - 
+                                      (parseInt(element.producto.precio) * this.descuento_activo.descuento)/100);
+        this.subtotal = this.subtotal + new_precio;
+      });
+    }
   }
 
   eliminar_item(id: any) {
@@ -152,12 +162,12 @@ export class NavComponent implements OnInit {
       this._clienteService.listar_productos(this.filter_producto).subscribe(
         response => {
           this.productos = response.data;
-          
+
           this.load_data = false;
         }
       );
     }
-    
+
   }
 
 }

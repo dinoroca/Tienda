@@ -120,7 +120,7 @@
             <div class="cs-carousel-inner cs-carousel-inner-three" data-carousel-options='{}'>
                 <!-- Item -->
                 <div *ngFor="let item of productos_nuevos">
-                    <div class="card card-product rounded shadow mb-3">
+                    <div class="card card-product rounded shadow mb-5">
                         <div class="card-product-img">
                             <a [routerLink]="['/productos/', item.slug]" class="card-img-top">
                                 <img [src]="url + 'obtener_portada/' + item.portada" alt="{{item.titulo}}">
@@ -181,7 +181,7 @@
                 <div class="cs-carousel-inner cs-carousel-inner-four" data-carousel-options='{}'>
                     <!-- Item -->
                     <div *ngFor="let item of productos_mas_vendidos">
-                        <div class="card card-product mx-auto shadow mb-3">
+                        <div class="card card-product mx-auto shadow mb-5">
                             <div class="card-product-img">
                                 <a [routerLink]="['/productos/', item.slug]" class="card-img-top">
                                     <img [src]="url + 'obtener_portada/' + item.portada" alt="{{item.titulo}}">
@@ -232,7 +232,7 @@
     </section>
 
     <!-- Services -->
-    <section class="container pt-3 pb-2 pb-sm-5">
+    <section class="container pt-5 pb-2 pb-sm-5">
         <h2 class="text-primary text-center">Te ofrecemos</h2>
         <div class="row py-1 justify-content-between">
             <div class="col-sm-6 col-md-3 text-center mb-md-0 mb-4 pb-md-0 pb-3">

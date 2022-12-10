@@ -333,6 +333,16 @@ const listar_productos_recomendados = async function (req, res) {
     res.status(200).send({ data: reg });
 }
 
+const listar_productos_nuevos = async function (req, res) {
+    let reg = await Producto.find().sort({ createdAt: -1 }).limit(8);
+    res.status(200).send({ data: reg });
+}
+
+const listar_productos_mas_vendidos = async function (req, res) {
+    let reg = await Producto.find().sort({ nventas: -1 }).limit(8);
+    res.status(200).send({ data: reg });
+}
+
 module.exports = {
     registro_producto_admin,
     listar_producto_admin,
@@ -348,5 +358,7 @@ module.exports = {
     eliminar_imagen_galeria_admin,
     listar_productos,
     obtener_producto_slug,
-    listar_productos_recomendados
+    listar_productos_recomendados,
+    listar_productos_nuevos,
+    listar_productos_mas_vendidos
 }

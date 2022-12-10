@@ -17,6 +17,9 @@ export class InicioComponent implements OnInit {
   public descuento_activo: any = undefined;
   public url: any;
 
+  public productos_nuevos: Array<any> = [];
+  public productos_mas_vendidos: Array<any> = [];
+
   constructor(
     private _title: Title,
     private _guestService: GuestService,
@@ -44,6 +47,20 @@ export class InicioComponent implements OnInit {
         } else {
           this.descuento_activo = undefined;
         }
+      }
+    );
+
+    //Listar productos nuevos
+    this._guestService.listar_productos_nuevos().subscribe(
+      response => {
+        this.productos_nuevos = response.data;
+      }
+    );
+
+    //Obtener priductos más vendidos
+    this._guestService.listar_productos_mas_vendidos().subscribe(
+      response => {
+        this.productos_mas_vendidos = response.data;
       }
     );
 

@@ -23,6 +23,7 @@ import { DireccionesComponent } from './components/usuario/direcciones/direccion
 import { SoftwareComponent } from './components/software/software.component';
 import { DescuentoPipe } from './pipes/descuento.pipe';
 import { ScrolltopComponent } from './components/scrolltop/scrolltop.component';
+import { ContactoComponent } from './components/contacto/contacto.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { ScrolltopComponent } from './components/scrolltop/scrolltop.component';
     DireccionesComponent,
     SoftwareComponent,
     DescuentoPipe,
-    ScrolltopComponent
+    ScrolltopComponent,
+    ContactoComponent
   ],
   imports: [
     BrowserModule,

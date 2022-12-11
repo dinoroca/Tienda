@@ -31,6 +31,7 @@ import { VariedadSoftwareComponent } from './components/software/variedad-softwa
 import { CreateDescuentoComponent } from './components/descuento/create-descuento/create-descuento.component';
 import { EditDescuentoComponent } from './components/descuento/edit-descuento/edit-descuento.component';
 import { IndexDescuentoComponent } from './components/descuento/index-descuento/index-descuento.component';
+import { IndexContactoComponent } from './components/contacto/index-contacto/index-contacto.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import { IndexDescuentoComponent } from './components/descuento/index-descuento/
     VariedadSoftwareComponent,
     CreateDescuentoComponent,
     EditDescuentoComponent,
-    IndexDescuentoComponent
+    IndexDescuentoComponent,
+    IndexContactoComponent
   ],
   imports: [
     BrowserModule,

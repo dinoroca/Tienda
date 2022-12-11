@@ -50,8 +50,6 @@ export class IndexProductoComponent implements OnInit {
             nventas: element.nventas
           });
         });
-
-        console.log(this.arr_productos);
         
         this.load_data = false;
       },

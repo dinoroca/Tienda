@@ -30,4 +30,7 @@ api.get('/obtener_direccion_principal_cliente/:id', auth.auth, clienteController
 ////Contacto
 api.post('/enviar_mensaje_contacto', clienteController.enviar_mensaje_contacto);
 
+//Odenes
+api.get('/obtener_ordenes_cliente/:id', auth.auth, clienteController.obtener_ordenes_cliente);
+
 module.exports = api;

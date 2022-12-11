@@ -38,7 +38,6 @@ export class DetalleOrdenComponent implements OnInit {
               this.orden = response.data;
               this.detalles = response.detalles;
               this.load_data = false;
-              console.log(response);
               
             } else {
               this.orden = undefined;

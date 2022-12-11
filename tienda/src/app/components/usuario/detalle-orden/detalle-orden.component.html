@@ -135,6 +135,12 @@
                         </div>
                       </td>
                       <td class="border-top-0">
+                        <div class="py-2" *ngIf="item.descuento >= 0">
+                          <div class="font-size-xs text-muted mb-1">Descuento: {{item.descuento}}%</div>
+                          <div class="font-size-sm text-danger">S/. {{item.producto.precio * item.descuento/100}} </div>
+                        </div>
+                      </td>
+                      <td class="border-top-0">
                         <div class="py-2">
                           <div class="font-size-xs text-muted mb-1">Cantidad:</div>
                           <div class="font-size-sm text-dark"> {{item.cantidad}} </div>
@@ -155,6 +161,8 @@
                           <span class="font-size-xs text-muted">Envío: </span>
                           <span class="font-size-sm text-dark">S/. {{orden.envio_precio}} </span>
                         </div>
+                      </td>
+                      <td>
                       </td>
                       <td>
                       </td>

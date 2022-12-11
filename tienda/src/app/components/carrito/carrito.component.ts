@@ -113,7 +113,7 @@ export class CarritoComponent implements OnInit {
             description: 'Pago en la tienda HJM',
             amount: {
               currency_code: 'USD',
-              value: this.subtotal
+              value: this.total_pagar
             },
           }]
         });
@@ -152,16 +152,32 @@ export class CarritoComponent implements OnInit {
       response => {
         this.carrito_arr = response.data;
         //Recorrer todos los elementos del arreglo de carrito
-        this.carrito_arr.forEach(element => {
-          this.dventa.push({
-            producto: element.producto._id,
-            variedad: element.variedad,
-            cantidad: element.cantidad,
-            subtotal: element.producto.precio * element.cantidad,
-            cliente: localStorage.getItem('_id')
+
+        if (this.descuento_activo) {
+          this.carrito_arr.forEach(element => {
+            this.dventa.push({
+              producto: element.producto._id,
+              variedad: element.variedad,
+              cantidad: element.cantidad,
+              descuento: this.descuento_activo.descuento,
+              subtotal: Math.round((parseInt(element.producto.precio) * element.cantidad) - 
+              (parseInt(element.producto.precio) * element.cantidad * this.descuento_activo.descuento)/100),
+              cliente: localStorage.getItem('_id')
+            });
           });
-        });
-        this.calcular_subtotal();
+          this.calcular_subtotal();
+        } else {
+          this.carrito_arr.forEach(element => {
+            this.dventa.push({
+              producto: element.producto._id,
+              variedad: element.variedad,
+              cantidad: element.cantidad,
+              subtotal: element.producto.precio * element.cantidad,
+              cliente: localStorage.getItem('_id')
+            });
+          });
+          this.calcular_subtotal();
+        }
       }
     );
   }
@@ -190,7 +206,7 @@ export class CarritoComponent implements OnInit {
       //Hay descuento
       this.carrito_arr.forEach(element => {
         let new_precio =  Math.round((parseInt(element.producto.precio) * element.cantidad) - 
-                                      (parseInt(element.producto.precio) * this.descuento_activo.descuento)/100);
+                                      (parseInt(element.producto.precio) * element.cantidad * this.descuento_activo.descuento)/100);
         this.subtotal = this.subtotal + new_precio;
       });
     }

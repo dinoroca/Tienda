@@ -129,8 +129,8 @@ const actualizar_producto_admin = async function (req, res) {
                 let reg = await Producto.findByIdAndUpdate({ _id: id }, {
                     titulo: data.titulo,
                     stock: data.stock,
-                    precio: data.precio,
                     descuento: data.descuento,
+                    precio: Math.round(data.precio - (data.precio*data.descuento/100)),
                     categoria: data.categoria,
                     descripcion: data.descripcion,
                     contenido: data.contenido
@@ -340,6 +340,11 @@ const listar_productos_nuevos = async function (req, res) {
     res.status(200).send({ data: reg });
 }
 
+const listar_productos_descuento = async function (req, res) {
+    let reg = await Producto.find({ descuento: {$gt:0} }).sort({ descuento: -1 });
+    res.status(200).send({ data: reg });
+}
+
 const listar_productos_mas_vendidos = async function (req, res) {
     let reg = await Producto.find().sort({ nventas: -1 }).limit(8);
     res.status(200).send({ data: reg });
@@ -362,5 +367,6 @@ module.exports = {
     obtener_producto_slug,
     listar_productos_recomendados,
     listar_productos_nuevos,
+    listar_productos_descuento,
     listar_productos_mas_vendidos
 }

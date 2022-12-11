@@ -1,0 +1,49 @@
+.relleno-card {
+    background: linear-gradient(195deg,#f3bcff, #ffd2d2, #d1bfff, #8ce0ff, #d1ffcb, #e2ffdf);
+    background-size: 500% 500%;
+  
+    -webkit-animation: AnimationName 21s ease infinite;
+    -moz-animation: AnimationName 21s ease infinite;
+    -o-animation: AnimationName 21s ease infinite;
+    animation: AnimationName 21s ease infinite;
+  
+    border-color: #ffffff00;
+    padding: 0vw 2vw 0vw 2vw;
+  }
+  
+  @-webkit-keyframes AnimationName {
+    0%{background-position:22% 0%}
+    50%{background-position:79% 100%}
+    100%{background-position:22% 0%}
+  }
+  @-moz-keyframes AnimationName {
+    0%{background-position:22% 0%}
+    50%{background-position:79% 100%}
+    100%{background-position:22% 0%}
+  }
+  @-o-keyframes AnimationName {
+    0%{background-position:22% 0%}
+    50%{background-position:79% 100%}
+    100%{background-position:22% 0%}
+  }
+  @keyframes AnimationName {
+    0%{background-position:22% 0%}
+    50%{background-position:79% 100%}
+    100%{background-position:22% 0%}
+  }
+  
+  @media screen and (max-width: 768px) {
+    .relleno-card {
+      background: linear-gradient(195deg,#f3bcff, #ffd2d2, #d1bfff, #8ce0ff, #d1ffcb, #e2ffdf);
+      background-size: 500% 500%;
+    
+      -webkit-animation: AnimationName 21s ease infinite;
+      -moz-animation: AnimationName 21s ease infinite;
+      -o-animation: AnimationName 21s ease infinite;
+      animation: AnimationName 21s ease infinite;
+    
+      border-color: #ffffff00;
+      margin: 0vw 0vw 0vw 0vw;
+      padding: 0vw 2vw 0vw 2vw;
+    }
+  }

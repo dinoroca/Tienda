@@ -29,5 +29,6 @@ api.get('/listar_productos/:filtro?', productoController.listar_productos);
 api.get('/obtener_producto_slug/:slug', productoController.obtener_producto_slug);
 api.get('/listar_productos_recomendados/:categoria', productoController.listar_productos_recomendados);
 api.get('/listar_productos_nuevos', productoController.listar_productos_nuevos);
+api.get('/listar_productos_descuento', productoController.listar_productos_descuento);
 api.get('/listar_productos_mas_vendidos', productoController.listar_productos_mas_vendidos);
 module.exports = api;

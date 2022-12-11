@@ -12,6 +12,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { DireccionesComponent } from './components/usuario/direcciones/direcciones.component';
 import { SoftwareComponent } from './components/software/software.component';
 import { ContactoComponent } from './components/contacto/contacto.component';
+import { NosotrosComponent } from "./components/nosotros/nosotros.component";
 
 const appRoute: Routes = [
     {path: '', component: InicioComponent},
@@ -27,6 +28,8 @@ const appRoute: Routes = [
     {path: 'productos/categoria/:categoria', component: IndexProductoComponent},
 
     {path: 'contactos', component: ContactoComponent},
+    {path: 'nosotros', component: NosotrosComponent},
+
 ]
 
 export const appRoutingProviders: any [] = [];

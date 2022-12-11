@@ -38,17 +38,22 @@
                         <input type="text" class="form-control" name="titulo" [(ngModel)]="producto.titulo"
                             placeholder="Titulo de producto" required>
                     </div>
-                    <div class="col-lg-4 form-group">
+                    <div class="col-6 form-group">
                         <label for="">Stock</label>
                         <input type="number" class="form-control" name="stock" [(ngModel)]="producto.stock"
                             placeholder="Cantidad inicial" required>
                     </div>
-                    <div class="col-lg-4 form-group">
+                    <div class="col-6 form-group">
                         <label for="">Precio</label>
                         <input type="number" class="form-control" name="precio" [(ngModel)]="producto.precio"
                             placeholder="Precio" required>
                     </div>
-                    <div class="col-lg-4 form-group">
+                    <div class="col-6 form-group">
+                        <label for="">Descuento %</label>
+                        <input type="number" class="form-control" name="descuento" [(ngModel)]="producto.descuento"
+                            placeholder="Descuento" required>
+                    </div>
+                    <div class="col-6 form-group">
                         <label for="">Categoría</label>
                         <select class="form-control custom-select" id="select-input" name="categoria"
                             [(ngModel)]="producto.categoria" required>

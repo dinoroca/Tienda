@@ -17,6 +17,7 @@ var ProductoSchema = Schema({
     variedades: [{type: Object, required: true}],
     titulo_variedad: {type: String, required: false},
     categoria: {type: String, required: true},
+    descuento: {type: Number, required: false},
     estado: {type: String, default: 'Edicion', required: true},
     
     createdAt: {type: Date, default: Date.now, required: true}

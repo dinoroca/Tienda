@@ -1,0 +1,101 @@
+<app-sidebar></app-sidebar>
+
+<!-- Page title-->
+<div class="border-bottom mt-4 mb-5">
+    <h1 class="mt-2 mt-md-4 mb-3 pt-5">Contactos</h1>
+    <div class="d-flex flex-wrap flex-md-nowrap">
+        <p class="text-muted mt-2">Este módulo lista todos los mensajes recibidos.</p>
+    </div>
+</div>
+
+<div class="card box-shadow-sm">
+    <div class="card-header">
+        <h5 style="margin-bottom: 0px">Mensajes recibidos</h5>
+    </div>
+
+    <!-- Messages -->
+    <div class="card-body" *ngIf="!load_data">
+        <!-- Mensajes-->
+        <div class="mb-4 pb-4 border-bottom" *ngFor="let item of mensajes | 
+            slice: (page - 1) * pageSize:(page - 1) * pageSize + pageSize">
+            <div class="row">
+                <div class="col-md-3 col-sm-4 mb-sm-0 mb-3">
+                    <h3 class="mb-2 fs-lg"> {{item.cliente}} </h3>
+                    <span class="d-block mb-3 fs-sm text-muted"> {{item.createdAt | date}} </span>
+                    <span class="badge rounded-pill bg-success" *ngIf="item.estado == 'Abierto'"> 
+                        {{item.estado}} &nbsp; <i class="cxi-unlock"></i> </span>
+                    <span class="badge rounded-pill bg-danger text-white" *ngIf="item.estado == 'Cerrado'">
+                        {{item.estado}} &nbsp; <i class="cxi-lock"></i> </span>
+                </div>
+                <div class="col">
+                    <p class="mb-3">
+                        <strong>{{item.asunto}}: </strong>
+                        {{item.mensaje}}
+
+                        <a class="mr-1 fw-bold text-decoration-none" href="mailto:{{item.correo}}"> {{item.correo}} </a>
+                    </p>
+                    <div class="d-flex justify-content-between" *ngIf="item.estado == 'Abierto'">
+                        <a class="nav-link p-0 fs-sm" data-toggle="modal"
+                            [attr.data-target]="'#estadoModal-' + item._id">
+                            <i class="cxi-lock mr-2 fs-base align-middle mt-n1"></i>
+                            Cerrar mensaje
+                        </a>
+
+                        <div class="modal fade" id="estadoModal-{{ item._id }}" tabindex="-1" style="display: none"
+                            aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title text-center">
+                                            Cerrar mensaje
+                                        </h4>
+                                        <button class="btn btn-secondary btn-sm" type="button" data-dismiss="modal"
+                                            aria-label="Close">
+                                            x
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p class="fs-sm">
+                                            Desea eliminar el cupón {{ item.asunto }}?
+                                        </p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button class="btn btn-secondary btn-sm bi-x-circle-fill" type="button"
+                                            data-dismiss="modal">
+                                            Cancelar
+                                        </button>
+                                        <button *ngIf="!load_btn" class="btn btn-danger btn-sm"
+                                            (click)="cerrar(item._id)" type="button">
+                                            <i class="cxi-lock"></i>
+                                            Cerrar
+                                        </button>
+
+                                        <!-- Button with growing spinner and text -->
+                                        <button *ngIf="load_btn" type="button" class="btn btn-secondary">
+                                            <span class="spinner-grow spinner-grow-sm me-2" role="status"
+                                                aria-hidden="true" disabled></span>
+                                            Cerrando...
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- NO messages -->
+    <div class="card-body text-center" *ngIf="load_data">
+        <!-- Custom size border spinner -->
+        <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+        </div>
+    </div>
+
+    <!-- Pagination of clients -->
+    <div class="card-footer">
+        <ngb-pagination [(page)]="page" [pageSize]="pageSize" [collectionSize]="mensajes.length">
+        </ngb-pagination>
+    </div>
+</div>

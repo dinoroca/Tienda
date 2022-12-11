@@ -131,7 +131,7 @@ export class NavComponent implements OnInit {
       //Hay descuento
       this.carrito_arr.forEach(element => {
         let new_precio =  Math.round((parseInt(element.producto.precio) * element.cantidad) - 
-                                      (parseInt(element.producto.precio) * this.descuento_activo.descuento)/100);
+                                      (parseInt(element.producto.precio) * element.cantidad * this.descuento_activo.descuento)/100);
         this.subtotal = this.subtotal + new_precio;
       });
     }

@@ -17,7 +17,10 @@ export class InicioComponent implements OnInit {
   public descuento_activo: any = undefined;
   public url: any;
 
+  public load_data = true;
+
   public productos_nuevos: Array<any> = [];
+  public productos_descuento: Array<any> = [];
   public productos_mas_vendidos: Array<any> = [];
 
   constructor(
@@ -61,6 +64,14 @@ export class InicioComponent implements OnInit {
     this._guestService.listar_productos_mas_vendidos().subscribe(
       response => {
         this.productos_mas_vendidos = response.data;
+      }
+    );
+
+    //Obtener productos
+    this._guestService.listar_productos_descuento().subscribe(
+      response => {
+        this.productos_descuento = response.data;
+        this.load_data = false;
       }
     );
 

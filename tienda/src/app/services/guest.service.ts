@@ -30,6 +30,11 @@ export class GuestService {
     let headers = new HttpHeaders().set('Content-Type', 'application/json');
     return this._http.get(this.url + 'listar_productos_nuevos', { headers: headers });
   }
+  
+  listar_productos_descuento(): Observable<any> {
+    let headers = new HttpHeaders().set('Content-Type', 'application/json');
+    return this._http.get(this.url + 'listar_productos_descuento', { headers: headers });
+  }
 
   listar_productos_mas_vendidos(): Observable<any> {
     let headers = new HttpHeaders().set('Content-Type', 'application/json');

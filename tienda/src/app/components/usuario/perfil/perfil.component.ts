@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ClienteService } from 'src/app/services/cliente.service';
+import { Title } from '@angular/platform-browser';
 declare var jQuery: any;
 declare var $: any;
 
@@ -17,7 +18,8 @@ export class PerfilComponent implements OnInit {
   public token: any;
 
   constructor(
-    private _clienteService: ClienteService
+    private _clienteService: ClienteService,
+    private _title: Title
   ) {
     this.id = localStorage.getItem('_id');
     this.token = localStorage.getItem('token');
@@ -37,6 +39,7 @@ export class PerfilComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this._title.setTitle('Perfil');
   }
 
   actualizar(actualizarForm: any) {

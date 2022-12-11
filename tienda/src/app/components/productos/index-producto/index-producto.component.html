@@ -254,6 +254,10 @@
                     <span class="badge product-badge badge-danger" *ngIf="descuento_activo">
                       -{{descuento_activo.descuento}}%
                     </span>
+
+                    <span class="badge product-badge badge-danger ml-2" *ngIf="item.descuento > 0">
+                      -{{item.descuento}}%
+                    </span>
                     <div class="star-rating ml-auto">
                       <i class="sr-star cxi-star-filled active"></i>
                       <i class="sr-star cxi-star-filled active"></i>
@@ -272,8 +276,15 @@
                     <a [routerLink]="['/productos/', item.slug]" class="nav-link">{{item.titulo}}</a>
                   </h3>
                   
-                  <div *ngIf="descuento_activo == undefined">
+                  <div *ngIf="descuento_activo == undefined && item.descuento == undefined">
                     <span class="h5 d-inline-block mb-0 text-warning">S/. {{item.precio}}</span>
+                  </div>
+
+                  <div *ngIf="descuento_activo == undefined && item.descuento > 0">
+                    <span class="h5 d-inline-block mb-0 text-danger">
+                      S/. {{item.precio}}
+                    </span>
+                    <del class="d-inline-block ml-3 text-muted">S/. {{item.precio + item.precio*item.descuento/100}}</del>
                   </div>
 
                   <div *ngIf="descuento_activo != undefined" class="">

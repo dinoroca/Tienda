@@ -134,6 +134,16 @@ export class ClienteService {
     return this._http.get(this.url + 'validar_cupon_cliente/' + cupon, {headers : headers});
   }
 
+  obtener_ordenes_cliente(id: any, token: any): Observable<any> {
+    let headers = new HttpHeaders({'Content-Type':'application/json', 'authorization': token});
+    return this._http.get(this.url + 'obtener_ordenes_cliente/' + id, {headers : headers});
+  }
+
+  obtener_detalles_orden_cliente(id: any, token: any): Observable<any> {
+    let headers = new HttpHeaders({'Content-Type':'application/json', 'authorization': token});
+    return this._http.get(this.url + 'obtener_detalles_orden_cliente/' + id, {headers : headers});
+  }
+
   listar_software(filtro: any): Observable<any> {
     let headers = new HttpHeaders().set('Content-Type', 'application/json');
     return this._http.get(this.url + 'listar_software/' + filtro, { headers: headers });

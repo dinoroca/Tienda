@@ -2,6 +2,8 @@
 
 var Cliente = require('../models/cliente');
 var Contacto = require('../models/contacto');
+var Venta = require('../models/venta');
+var Dventa = require('../models/dventa');
 var bcrypt = require('bcrypt-nodejs');
 var jwt = require('../helpers/jwt');
 
@@ -350,6 +352,43 @@ const enviar_mensaje_contacto = async function (req, res) {
   res.status(200).send({ data: reg })
 }
 
+///////////////////////ORDENES
+const obtener_ordenes_cliente = async function (req, res) {
+  if (req.user) {
+    var id = req.params['id'];
+    
+    var reg = await Venta.find({ cliente: id }).sort({ createdAt: -1 });
+    if (reg.length >= 1) {
+      res.status(200).send({ data: reg });
+
+    } else if(reg.length == 0) {
+      res.status(200).send({ data: undefined });
+    }
+
+  } else {
+    res.status(500).send({ message: 'NoAccess' });
+  }
+}
+
+const obtener_detalles_orden_cliente = async function (req, res) {
+  if (req.user) {
+    var id = req.params['id'];
+
+    try {
+      let venta = await Venta.findById({ _id: id }).populate('direccion');
+      let detalles = await Dventa.find({ venta: id }).populate('producto');
+
+      res.status(200).send({ data: venta, detalles: detalles });
+
+    } catch (error) {
+      res.status(200).send({ data: undefined });
+    }
+
+  } else {
+    res.status(500).send({ message: 'NoAccess' });
+  }
+}
+
 module.exports = {
   registro_cliente,
   login_cliente,
@@ -365,5 +404,7 @@ module.exports = {
   cambiar_direccion_principal,
   eliminar_direccion_cliente,
   obtener_direccion_principal_cliente,
-  enviar_mensaje_contacto
+  enviar_mensaje_contacto,
+  obtener_ordenes_cliente,
+  obtener_detalles_orden_cliente
 };

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ClienteService } from 'src/app/services/cliente.service';
 import { GuestService } from '../../../services/guest.service';
+import { Title } from '@angular/platform-browser';
 
 declare var iziToast: { show: (arg0: { title: string; titleColor: string; class: string; position: string; message: string; }) => void; };
 
@@ -38,7 +39,8 @@ export class DireccionesComponent implements OnInit {
 
   constructor(
     private _guestService: GuestService,
-    private _clienteService: ClienteService
+    private _clienteService: ClienteService,
+    private _title: Title
   ) {
     this.token = localStorage.getItem('token');
 
@@ -62,6 +64,7 @@ export class DireccionesComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this._title.setTitle('Perfil | Direcciones');
     this.obtener_direcciones();
   }
 

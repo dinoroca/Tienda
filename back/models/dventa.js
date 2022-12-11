@@ -10,6 +10,7 @@ var DventaSchema = Schema({
     subtotal: {type: Number, required: true},
     variedad: {type: String, required: true},
     cantidad: {type: Number, required: true},
+    descuento: {type: Number, required: false},
     
     createdAt: {type: Date, default: Date.now, required: true}
 });

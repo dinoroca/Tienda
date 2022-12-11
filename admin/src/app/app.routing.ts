@@ -23,6 +23,7 @@ import { VariedadSoftwareComponent } from './components/software/variedad-softwa
 import { IndexDescuentoComponent } from './components/descuento/index-descuento/index-descuento.component';
 import { CreateDescuentoComponent } from './components/descuento/create-descuento/create-descuento.component';
 import { EditDescuentoComponent } from './components/descuento/edit-descuento/edit-descuento.component';
+import { IndexContactoComponent } from './components/contacto/index-contacto/index-contacto.component';
 
 const appRoute: Routes = [
 
@@ -55,6 +56,8 @@ const appRoute: Routes = [
         {path: 'descuentos', component: IndexDescuentoComponent, canActivate: [AdminGuard]},
         {path: 'descuentos/registro', component: CreateDescuentoComponent, canActivate: [AdminGuard]},
         {path: 'descuentos/:id', component: EditDescuentoComponent, canActivate: [AdminGuard]},
+
+        {path: 'contactos', component: IndexContactoComponent, canActivate: [AdminGuard]},
 
         {path: 'configuraciones', component: ConfigComponent, canActivate: [AdminGuard]},
     ]},

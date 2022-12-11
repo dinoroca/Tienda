@@ -59,8 +59,6 @@ export class ShowProductoComponent implements OnInit {
         this._guestService.obtener_producto_slug(this.slug).subscribe(
           response => {
             this.producto = response.data;
-            console.log(this.producto);
-            
 
             //Obtener productos recomendados
             this._guestService.listar_productos_recomendados(this.producto.categoria).subscribe(

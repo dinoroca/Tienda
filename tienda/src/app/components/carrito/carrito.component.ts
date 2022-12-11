@@ -155,9 +155,9 @@ export class CarritoComponent implements OnInit {
         this.carrito_arr.forEach(element => {
           this.dventa.push({
             producto: element.producto._id,
-            subtotal: element.producto.precio,
             variedad: element.variedad,
             cantidad: element.cantidad,
+            subtotal: element.producto.precio * element.cantidad,
             cliente: localStorage.getItem('_id')
           });
         });

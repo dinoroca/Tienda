@@ -370,6 +370,25 @@ const obtener_ordenes_cliente = async function (req, res) {
   }
 }
 
+const obtener_detalles_orden_cliente = async function (req, res) {
+  if (req.user) {
+    var id = req.params['id'];
+
+    try {
+      let venta = await Venta.findById({ _id: id }).populate('direccion');
+      let detalles = await Dventa.find({ venta: id }).populate('producto');
+
+      res.status(200).send({ data: venta, detalles: detalles });
+
+    } catch (error) {
+      res.status(200).send({ data: undefined });
+    }
+
+  } else {
+    res.status(500).send({ message: 'NoAccess' });
+  }
+}
+
 module.exports = {
   registro_cliente,
   login_cliente,
@@ -386,5 +405,6 @@ module.exports = {
   eliminar_direccion_cliente,
   obtener_direccion_principal_cliente,
   enviar_mensaje_contacto,
-  obtener_ordenes_cliente
+  obtener_ordenes_cliente,
+  obtener_detalles_orden_cliente
 };

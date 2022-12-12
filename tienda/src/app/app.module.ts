@@ -6,6 +6,8 @@ import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
+import { RatingModule } from 'ng-starrating';
+
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { routing } from './app.routing';
@@ -56,7 +58,8 @@ import { DetalleOrdenComponent } from './components/usuario/detalle-orden/detall
     FormsModule,
     HttpClientModule,
     routing,
-    NgbPaginationModule
+    NgbPaginationModule,
+    RatingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

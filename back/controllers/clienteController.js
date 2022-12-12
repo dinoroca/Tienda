@@ -4,6 +4,7 @@ var Cliente = require('../models/cliente');
 var Contacto = require('../models/contacto');
 var Venta = require('../models/venta');
 var Dventa = require('../models/dventa');
+var Review = require('../models/review');
 var bcrypt = require('bcrypt-nodejs');
 var jwt = require('../helpers/jwt');
 
@@ -356,12 +357,12 @@ const enviar_mensaje_contacto = async function (req, res) {
 const obtener_ordenes_cliente = async function (req, res) {
   if (req.user) {
     var id = req.params['id'];
-    
+
     var reg = await Venta.find({ cliente: id }).sort({ createdAt: -1 });
     if (reg.length >= 1) {
       res.status(200).send({ data: reg });
 
-    } else if(reg.length == 0) {
+    } else if (reg.length == 0) {
       res.status(200).send({ data: undefined });
     }
 
@@ -389,6 +390,25 @@ const obtener_detalles_orden_cliente = async function (req, res) {
   }
 }
 
+//Reseñas
+const emitir_review_producto_cliente = async function (req, res) {
+  if (req.user) {
+    let data = req.body;
+
+    let reg = await Review.create(data);
+    res.status(200).send({ data: reg });
+  } else {
+    res.status(500).send({ message: 'NoAccess' });
+  }
+}
+
+const obtener_review_producto_cliente = async function (req, res) {
+  let id = req.params['id'];
+
+  let reg = await Review.find({ producto: id }).sort({ createdAt: -1 });
+  res.status(200).send({ data: reg });
+}
+
 module.exports = {
   registro_cliente,
   login_cliente,
@@ -406,5 +426,7 @@ module.exports = {
   obtener_direccion_principal_cliente,
   enviar_mensaje_contacto,
   obtener_ordenes_cliente,
-  obtener_detalles_orden_cliente
+  obtener_detalles_orden_cliente,
+  emitir_review_producto_cliente,
+  obtener_review_producto_cliente
 };

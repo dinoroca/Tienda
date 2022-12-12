@@ -3,6 +3,11 @@ import { Title } from '@angular/platform-browser';
 import { ClienteService } from '../../../services/cliente.service';
 import { ActivatedRoute } from '@angular/router';
 import { GLOBAL } from 'src/app/services/global';
+import { StarRatingComponent } from 'ng-starrating';
+
+declare var iziToast: { show: (arg0: { title: string; titleColor: string; class: string; position: string; message: string; }) => void; };
+declare var jQuery: any;
+declare var $: any;
 
 @Component({
   selector: 'app-detalle-orden',
@@ -18,6 +23,9 @@ export class DetalleOrdenComponent implements OnInit {
   public load_data = true;
   public id: any;
 
+  public total_star = 5;
+  public review: any = {};
+
   constructor(
     private _title: Title,
     private _clienteService: ClienteService,
@@ -31,25 +39,98 @@ export class DetalleOrdenComponent implements OnInit {
       params => {
         this.id = params['id'];
 
-        this._clienteService.obtener_detalles_orden_cliente(this.id, this.token).subscribe(
-          response => {
-
-            if (response.data != undefined) {
-              this.orden = response.data;
-              this.detalles = response.detalles;
-              this.load_data = false;
-              
-            } else {
-              this.orden = undefined;
-            }
-          }
-        );
+        this.init_data();
       }
     );
   }
 
   ngOnInit(): void {
     this._title.setTitle('Perfil | Detalle de orden');
+  }
+
+  init_data() {
+    this._clienteService.obtener_detalles_orden_cliente(this.id, this.token).subscribe(
+      response => {
+
+        if (response.data != undefined) {
+          this.orden = response.data;
+
+          response.detalles.forEach((element: { producto: { _id: any; }; estado: boolean; }) => {
+            this._clienteService.obtener_review_producto_cliente(element.producto._id).subscribe(
+              response => {
+                let emitido = false;
+
+                response.data.forEach((element_: { cliente: string | null; }) => {
+                  if (element_.cliente == localStorage.getItem('_id')) {
+                    emitido = true;
+                  }
+                });
+
+                element.estado = emitido;
+              }
+            );
+          });
+
+          this.detalles = response.detalles;
+          this.load_data = false;
+          
+        } else {
+          this.orden = undefined;
+        }
+      }
+    );
+  }
+
+  openModal(item: any) {
+    this.review = {};
+    this.review.producto = item.producto._id;
+    this.review.cliente = item.cliente;
+    this.review.venta = this.id;
+  }
+
+  onRate($event: {oldValue: number, newValue: number, starRating: StarRatingComponent}) {
+  }
+
+  emitir(id: any) {
+    if (this.review.review) {
+      if (this.total_star && this.total_star >= 0) {
+        this.review.estrellas = this.total_star;
+        
+        this._clienteService.emitir_review_producto_cliente(this.review, this.token).subscribe(
+          response => {
+            iziToast.show({
+              title: 'SUCCESS',
+              titleColor: '#35D18F',
+              class: 'text-success',
+              position: 'topRight',
+              message: 'Se envió la reseña'
+            });
+
+            $('#review-' + id).modal('hide');
+            $('.modal-backdrop').removeClass('show');
+
+            this.init_data();
+          }
+        );
+        
+      } else {
+        iziToast.show({
+          title: 'ERROR',
+          titleColor: '#FF634F',
+          class: 'text-danger',
+          position: 'topRight',
+          message: 'Ingrese un número de estrellas'
+        });
+      }
+    } else {
+      iziToast.show({
+        title: 'ERROR',
+        titleColor: '#FF634F',
+        class: 'text-danger',
+        position: 'topRight',
+        message: 'Ingrese un mensaje'
+      });
+    }
   }
 
 }

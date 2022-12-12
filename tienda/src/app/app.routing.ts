@@ -15,6 +15,7 @@ import { ContactoComponent } from './components/contacto/contacto.component';
 import { NosotrosComponent } from "./components/nosotros/nosotros.component";
 import { OrdenesComponent } from './components/usuario/ordenes/ordenes.component';
 import { DetalleOrdenComponent } from './components/usuario/detalle-orden/detalle-orden.component';
+import { IndexReviewComponent } from './components/usuario/reviews/index-review/index-review.component';
 
 const appRoute: Routes = [
     {path: '', component: InicioComponent},
@@ -24,6 +25,7 @@ const appRoute: Routes = [
     {path: 'cuenta/direcciones', component: DireccionesComponent, canActivate: [AuthGuard]},
     {path: 'cuenta/ordenes', component: OrdenesComponent, canActivate: [AuthGuard]},
     {path: 'cuenta/ordenes/:id', component: DetalleOrdenComponent, canActivate: [AuthGuard]},
+    {path: 'cuenta/reviews', component: IndexReviewComponent, canActivate: [AuthGuard]},
     {path: 'carrito-compras', component: CarritoComponent, canActivate: [AuthGuard]},
 
     {path: 'productos', component: IndexProductoComponent},

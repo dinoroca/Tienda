@@ -28,19 +28,15 @@
                               <i class="cxi-cart font-size-lg mr-2"></i>
                               <span>Mis órdenes</span>
                           </a>
-                          <a href="account-recently-viewed.html"
-                              class="list-group-item list-group-item-action d-flex align-items-center">
-                              <i class="cxi-eye font-size-lg mr-2"></i>
-                              <span>Recently viewed</span>
-                          </a>
-                          <a href="account-reviews.html"
+                          <a [routerLink]="['/cuenta/reviews']" routerLinkActive="active"
                               class="list-group-item list-group-item-action d-flex align-items-center">
                               <i class="cxi-star font-size-lg mr-2"></i>
-                              <span>My reviews</span>
+                              <span>Mis reseñas</span>
                           </a>
-                          <a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
+                          <a class="list-group-item list-group-item-action d-flex align-items-center text-danger"
+                            (click)="logout()" style="cursor: pointer;">
                               <i class="cxi-logout font-size-lg mr-2"></i>
-                              <span>Sign out</span>
+                              <span>Cerrar sesión</span>
                           </a>
                       </div>
                   </div>

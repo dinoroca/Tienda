@@ -6,6 +6,8 @@ import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
+import { RatingModule } from 'ng-starrating';
+
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { routing } from './app.routing';
@@ -27,6 +29,7 @@ import { ContactoComponent } from './components/contacto/contacto.component';
 import { NosotrosComponent } from './components/nosotros/nosotros.component';
 import { OrdenesComponent } from './components/usuario/ordenes/ordenes.component';
 import { DetalleOrdenComponent } from './components/usuario/detalle-orden/detalle-orden.component';
+import { IndexReviewComponent } from './components/usuario/reviews/index-review/index-review.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +51,8 @@ import { DetalleOrdenComponent } from './components/usuario/detalle-orden/detall
     ContactoComponent,
     NosotrosComponent,
     OrdenesComponent,
-    DetalleOrdenComponent
+    DetalleOrdenComponent,
+    IndexReviewComponent
   ],
   imports: [
     BrowserModule,
@@ -56,7 +60,8 @@ import { DetalleOrdenComponent } from './components/usuario/detalle-orden/detall
     FormsModule,
     HttpClientModule,
     routing,
-    NgbPaginationModule
+    NgbPaginationModule,
+    RatingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

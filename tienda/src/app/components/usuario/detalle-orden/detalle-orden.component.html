@@ -83,18 +83,18 @@
               <div class="card-header">ZIP: {{orden.direccion.zip}}
               </div>
               <div class="card-body">
-                  <h5 class="card-title">{{orden.direccion.destinatario}}</h5>
-                  <p class="card-text">{{orden.direccion.direccion}}
-                      <span> - {{orden.direccion.distrito}}</span>
-                      <span> - {{orden.direccion.provincia}}</span>
-                      <span> - {{orden.direccion.region}}</span>
-                      <span> - {{orden.direccion.pais}}</span>
-                  </p>
-                  <span class="badge rounded-pill bg-info text-white" *ngIf="orden.direccion.principal">
-                      Dirección de envío actual
-                  </span>
+                <h5 class="card-title">{{orden.direccion.destinatario}}</h5>
+                <p class="card-text">{{orden.direccion.direccion}}
+                  <span> - {{orden.direccion.distrito}}</span>
+                  <span> - {{orden.direccion.provincia}}</span>
+                  <span> - {{orden.direccion.region}}</span>
+                  <span> - {{orden.direccion.pais}}</span>
+                </p>
+                <span class="badge rounded-pill bg-info text-white" *ngIf="orden.direccion.principal">
+                  Dirección de envío actual
+                </span>
               </div>
-          </div>
+            </div>
           </div>
         </div>
 
@@ -109,7 +109,8 @@
                       <td class="border-top-0">
                         <div class="media pl-2 py-2">
                           <a href="shop-single.html" style="min-width: 80px;">
-                            <img [src]="url + 'obtener_portada/' + item.producto.portada" width="80" alt="Product thumb">
+                            <img [src]="url + 'obtener_portada/' + item.producto.portada" width="80"
+                              alt="Product thumb">
                           </a>
                           <div class="media-body pl-3">
                             <h3 class="font-size-sm mb-3">
@@ -123,8 +124,58 @@
                                   {{item.producto.titulo_variedad}}:
                                 </span>
                                 {{item.variedad}}
-                            </li>
+                              </li>
                             </ul>
+                            <a style="cursor: pointer;" data-toggle="modal" [attr.data-target]="'#review-' + item._id"
+                              (click)="openModal(item)" *ngIf="!item.estado">
+                              <!-- Info badge -->
+                              <span class="badge text-white rounded-pill bg-info"> 
+                                <i class="cxi-chat"></i> &nbsp;
+                                Emitir reseña
+                              </span>
+                            </a>
+                            <span class="badge rounded-pill bg-success" *ngIf="item.estado"> 
+                              <i class="cxi-chat"></i> &nbsp;
+                              Emitido
+                            </span>
+
+                            <div class="modal fade" id="review-{{item._id}}" tabindex="-1" style="display: none;"
+                              aria-hidden="true">
+                              <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h4 class="modal-title">Emitir reseña de {{item.producto.titulo}}</h4>
+                                    <button class="btn btn-secondary btn-sm" type="button" data-dismiss="modal"
+                                      aria-label="Close"><i class="cxi-cross"></i></button>
+                                  </div>
+                                  <div class="modal-body">
+                                    <!-- Comentario -->
+                                    <div class="row">
+                                      <div class="col-sm-12 form-group">
+                                        <label for="review" class="form-label">Reseña</label>
+                                        <textarea name="review" class="form-control form-control-lg" rows="3"
+                                          [(ngModel)]="review.review" placeholder="Qué te pareció el producto?"
+                                          id="review"></textarea>
+                                      </div>
+                                    </div>
+
+                                    <!-- Estrellas -->
+                                    <star-rating [value]=total_star [totalstars]=total_star checkedcolor="gold"
+                                      uncheckedcolor="gray" size="45px" (rate)="onRate($event)"></star-rating>
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button class="btn btn-secondary btn-sm" type="button" data-dismiss="modal">
+                                      <i class="cxi-cross"></i>
+                                    </button>
+
+                                    <button class="btn btn-info btn-sm" type="button" (click)="emitir(item._id)">
+                                      <i class="cxi-check-round"></i>
+                                      Enviar
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
                           </div>
                         </div>
                       </td>

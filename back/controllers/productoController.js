@@ -2,6 +2,7 @@
 
 var Producto = require('../models/producto');
 var Inventario = require('../models/inventario');
+var Review = require('../models/review');
 var fs = require('fs');
 var path = require('path');
 
@@ -350,6 +351,13 @@ const listar_productos_mas_vendidos = async function (req, res) {
     res.status(200).send({ data: reg });
 }
 
+const obtener_reviews_producto = async function (req, res) {
+    let id = req.params['id'];
+
+    let reviews = await Review.find({ producto: id }).populate('cliente').sort({ createdAt: -1 });
+    res.status(200).send({ data: reviews });
+}
+
 module.exports = {
     registro_producto_admin,
     listar_producto_admin,
@@ -368,5 +376,6 @@ module.exports = {
     listar_productos_recomendados,
     listar_productos_nuevos,
     listar_productos_descuento,
-    listar_productos_mas_vendidos
+    listar_productos_mas_vendidos,
+    obtener_reviews_producto
 }

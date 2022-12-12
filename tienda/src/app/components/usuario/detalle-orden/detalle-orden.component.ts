@@ -49,6 +49,7 @@ export class DetalleOrdenComponent implements OnInit {
   }
 
   init_data() {
+
     this._clienteService.obtener_detalles_orden_cliente(this.id, this.token).subscribe(
       response => {
 
@@ -73,7 +74,7 @@ export class DetalleOrdenComponent implements OnInit {
 
           this.detalles = response.detalles;
           this.load_data = false;
-          
+          this.total_star = 5;
         } else {
           this.orden = undefined;
         }
@@ -89,6 +90,7 @@ export class DetalleOrdenComponent implements OnInit {
   }
 
   onRate($event: {oldValue: number, newValue: number, starRating: StarRatingComponent}) {
+    this.total_star = $event.newValue;
   }
 
   emitir(id: any) {

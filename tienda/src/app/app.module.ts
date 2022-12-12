@@ -29,6 +29,7 @@ import { ContactoComponent } from './components/contacto/contacto.component';
 import { NosotrosComponent } from './components/nosotros/nosotros.component';
 import { OrdenesComponent } from './components/usuario/ordenes/ordenes.component';
 import { DetalleOrdenComponent } from './components/usuario/detalle-orden/detalle-orden.component';
+import { IndexReviewComponent } from './components/usuario/reviews/index-review/index-review.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { DetalleOrdenComponent } from './components/usuario/detalle-orden/detall
     ContactoComponent,
     NosotrosComponent,
     OrdenesComponent,
-    DetalleOrdenComponent
+    DetalleOrdenComponent,
+    IndexReviewComponent
   ],
   imports: [
     BrowserModule,

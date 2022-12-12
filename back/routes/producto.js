@@ -31,4 +31,5 @@ api.get('/listar_productos_recomendados/:categoria', productoController.listar_p
 api.get('/listar_productos_nuevos', productoController.listar_productos_nuevos);
 api.get('/listar_productos_descuento', productoController.listar_productos_descuento);
 api.get('/listar_productos_mas_vendidos', productoController.listar_productos_mas_vendidos);
+api.get('/obtener_reviews_producto/:id', productoController.obtener_reviews_producto);
 module.exports = api;

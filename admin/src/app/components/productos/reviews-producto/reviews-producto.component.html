@@ -1,0 +1,103 @@
+<app-sidebar></app-sidebar>
+
+<!-- Page title-->
+<div class="border-bottom mt-4 mb-5">
+    <h1 class="mt-2 mt-md-4 mb-3 pt-5">Productos</h1>
+    <div class="d-flex flex-wrap flex-md-nowrap justify-content-between">
+        <p class="text-muted">
+            Este módulo muestra las reseñas de un producto.
+        </p>
+        <p class="font-size-sm font-weight-medium pl-md-4">
+            <a class="text-nowrap bi-arrow-left-circle-fill" [routerLink]="['/panel/productos']">
+                Volver<i class="cxi-angle-right font-size-base align-middle ml-1"></i></a>
+        </p>
+    </div>
+</div>
+
+<!-- Cuando no existe el producto -->
+<div class="card box-shadow-sm" *ngIf="producto == undefined">
+    <div class="card-body text-center" *ngIf="producto == undefined">
+        <h3 class="text-danger">No se encontró el registro</h3>
+        <img src="assets/img/error.png" style="width: 100px;">
+    </div>
+</div>
+
+<!-- Cuando existe producto -->
+<div class="card box-shadow-sm" *ngIf="producto">
+    <div class="card-header">
+        <h5 style="margin-bottom: 0px">Reseñas del producto {{producto.titulo}}</h5>
+    </div>
+
+    <div class="card-body">
+        <div class="row mb-5">
+            <div class="col-md-4">
+                <!-- Square image (default) -->
+                <img [src]="url + 'obtener_portada/' + producto.portada" alt="{{producto.titulo}}">
+            </div>
+
+            <div class="col-md-8">
+                <div class="card" style="height: 100%; background-color: #c6fff0; border-color: #03CEA4;">
+                    <div class="card-body">
+                        <h3 class="card-product-title mb-2">
+                            <a class="nav-link mb-3">{{producto.titulo}}</a>
+                            <p><small>{{producto.descripcion}}</small></p>
+
+                            <div class="d-flex align-items-center">
+                                <span class="h5 d-inline-block mb-0 text-success">$ {{producto.precio}}</span>
+                              </div>
+                        </h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="shadow rounded px-3">
+            <!-- Product review -->
+            <div class="mb-4 pb-4" *ngIf="reviews.length >= 1">
+                <div class="row" *ngFor="let item of reviews | slice: (page - 1) * pageSize:(page - 1) * pageSize + pageSize">
+                    <div class="col-6 mb-sm-0 mb-3">
+                        <h4 class="mb-2 fs-lg"> {{item.cliente.nombres}} {{item.cliente.apellidos}}</h4>
+                        <span class="d-block mb-3 fs-sm text-muted"> {{item.createdAt | date}} </span>
+                        <div class="mt-n1 star-rating">
+                            <i class="sr-star cxi-star-filled" [ngClass]="{'active': item.estrellas >= 1}"></i>
+                            <i class="sr-star cxi-star-filled" [ngClass]="{'active': item.estrellas >= 2}"></i>
+                            <i class="sr-star cxi-star-filled" [ngClass]="{'active': item.estrellas >= 3}"></i>
+                            <i class="sr-star cxi-star-filled" [ngClass]="{'active': item.estrellas >= 4}"></i>
+                            <i class="sr-star cxi-star-filled" [ngClass]="{'active': item.estrellas >= 5}"></i>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <p class="mb-3">
+                            <a class="me-1 text-decoration-none" href="mailto:{{item.cliente.email}}"> 
+                                <strong>{{item.cliente.email}}</strong>
+                            </a> <br>
+                            {{item.review}}
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sin reviews -->
+            <div class="mb-4 pb-4" *ngIf="reviews.length == 0">
+                <div class="col-12 text-center">
+                    <h3 class="text-danger">
+                      El producto aún no tiene reseñas</h3>
+      
+                    <svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="#FF4242"
+                      class="bi bi-exclamation-octagon" viewBox="0 0 16 16">
+                      <path
+                        d="M4.54.146A.5.5 0 0 1 4.893 0h6.214a.5.5 0 0 1 .353.146l4.394 4.394a.5.5 0 0 1 .146.353v6.214a.5.5 0 0 1-.146.353l-4.394 4.394a.5.5 0 0 1-.353.146H4.893a.5.5 0 0 1-.353-.146L.146 11.46A.5.5 0 0 1 0 11.107V4.893a.5.5 0 0 1 .146-.353L4.54.146zM5.1 1 1 5.1v5.8L5.1 15h5.8l4.1-4.1V5.1L10.9 1H5.1z" />
+                      <path
+                        d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z" />
+                    </svg>
+                  </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pagination of clients -->
+    <div class="card-footer">
+        <ngb-pagination [(page)]="page" [pageSize]="pageSize" [collectionSize]="reviews.length">
+        </ngb-pagination>
+    </div>
+</div>

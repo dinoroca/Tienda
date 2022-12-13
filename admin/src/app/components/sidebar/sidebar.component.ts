@@ -11,16 +11,20 @@ import { AdminService } from '../../service/admin.service';
 export class SidebarComponent implements OnInit {
 
   public token: any;
+  public id: any;
   public configuracion: any = {};
   public url: any;
   public logo: any;
   public nombre: any;
+  public user: any = undefined;
+  public user_lc: any = {};
 
   constructor(
     private _router: Router,
     private _adminService: AdminService
   ) {
     this.token = this._adminService.getToken();
+    this.id = localStorage.getItem('_id');
     this.url = GLOBAL.url;
     this.logo = localStorage.getItem('logo');
     this.nombre = localStorage.getItem('nombre');
@@ -47,6 +51,18 @@ export class SidebarComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this._adminService.obtener_admin(this.id, this.token).subscribe(
+      response => {
+        this.user = response.data;
+        localStorage.setItem('user_data', JSON.stringify(this.user));
+        if (localStorage.getItem('user_data')) {
+          this.user_lc = JSON.parse(localStorage.getItem('user_data')!);
+          
+        } else {
+          this.user_lc = undefined;
+        }
+      }
+    );
   }
 
   cerrar_sesion() {

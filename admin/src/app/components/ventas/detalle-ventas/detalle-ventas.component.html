@@ -1,1 +1,182 @@
-<p>detalle-ventas works!</p>
+<app-sidebar></app-sidebar>
+
+<!-- Page title-->
+<div class="border-bottom mt-4 mb-5">
+    <h1 class="mt-2 mt-md-4 mb-3 pt-5">Detalle de ventas</h1>
+    <div class="d-flex flex-wrap flex-md-nowrap justify-content-between">
+        <p class="text-muted">Este módulo muestra los detalles de una venta.</p>
+
+    </div>
+</div>
+
+<div class="card box-shadow-sm">
+
+    <!-- Detalles / datos de la venta -->
+    <div class="card-body">
+        <div class="row mb-3">
+            <div class="col-12 mb-4">
+                <div class="card card-body py-3 box-shadow ">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <table class="table mb-0">
+                                <tbody>
+                                    <tr *ngIf="orden.cliente">
+                                        <th class="border-0 py-2 pl-0">Nombres:</th>
+                                        <td class="border-0 py-2 px-0 text-muted">{{orden.cliente.nombres}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th class="border-0 py-2 pl-0">Orden No:</th>
+                                        <td class="border-0 py-2 px-0 text-muted">{{id | uppercase}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th class="border-0 py-2 pl-0">Envío:</th>
+                                        <td class="border-0 py-2 px-0 text-muted"> {{orden.envio_titulo}} </td>
+                                    </tr>
+                                    <tr>
+                                        <th class="border-0 py-2 pl-0">Fecha:</th>
+                                        <td class="border-0 py-2 px-0 text-muted"> {{orden.createdAt | date}} </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-lg-6">
+                            <table class="table mb-0">
+                                <tbody>
+                                    <tr *ngIf="orden.cliente">
+                                        <th class="border-0 py-2 pl-0">Apellidos:</th>
+                                        <td class="border-0 py-2 px-0 text-muted"> {{orden.cliente.apellidos}} </td>
+                                    </tr>
+                                    <tr>
+                                        <th class="border-0 py-2 pl-0">Venta:</th>
+                                        <td class="border-0 py-2 px-0 text-muted"> {{orden.nventa}} </td>
+                                    </tr>
+                                    <tr>
+                                        <th class="border-0 py-2 pl-0">Transaccion:</th>
+                                        <td class="border-0 py-2 px-0 text-muted"> {{orden.transaccion}} </td>
+                                    </tr>
+                                    <tr>
+                                        <th class="border-0 py-2 pl-0">Estado:</th>
+                                        <td class="border-0 py-2 px-0 text-muted"> {{orden.estado}} </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Card dirección principal -->
+            <div class="col-12 mb-4" *ngIf="orden.direccion">
+                <div class="shadow text-center col-sm-12 rounded card">
+                    <div class="card-header">ZIP: {{orden.direccion.zip}}
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{orden.direccion.destinatario}}</h5>
+                        <p class="card-text">{{orden.direccion.direccion}}
+                            <span> - {{orden.direccion.distrito}}</span>
+                            <span> - {{orden.direccion.provincia}}</span>
+                            <span> - {{orden.direccion.region}}</span>
+                            <span> - {{orden.direccion.pais}}</span>
+                        </p>
+                        <span class="badge rounded-pill bg-info text-white" *ngIf="orden.direccion.principal">
+                            Dirección de envío actual
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card border-bottom">
+            <div id="order-1" class="collapse show" data-parent="#orders">
+                <div class="bg-secondary rounded shadow">
+                    <div class="table-responsive">
+                        <table class="table mb-0 text-center">
+                            <tbody>
+
+                                <tr *ngFor="let item of detalles">
+                                    <td class="border-top-0">
+                                        <div class="media pl-2 py-2">
+                                            <a href="shop-single.html" style="min-width: 80px;">
+                                                <img [src]="url + 'obtener_portada/' + item.producto.portada" width="80"
+                                                    alt="Product thumb">
+                                            </a>
+                                            <div class="media-body pl-3">
+                                                <h3 class="font-size-sm mb-3">
+                                                    <a href="shop-single.html" class="nav-link font-weight-bold">
+                                                        {{item.producto.titulo}}
+                                                    </a>
+                                                </h3>
+                                                <ul class="list-unstyled font-size-xs mt-n2 mb-2">
+                                                    <li class="mb-0">
+                                                        <span class="text-muted">
+                                                            {{item.producto.titulo_variedad}}:
+                                                        </span>
+                                                        {{item.variedad}}
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="border-top-0">
+                                        <div class="py-2">
+                                            <div class="font-size-xs text-muted mb-1">Precio:</div>
+                                            <div class="font-size-sm text-dark">S/. {{item.producto.precio}} </div>
+                                        </div>
+                                    </td>
+                                    <td class="border-top-0">
+                                        <div class="py-2" *ngIf="item.descuento >= 0">
+                                            <div class="font-size-xs text-muted mb-1">Descuento: {{item.descuento}}%
+                                            </div>
+                                            <div class="font-size-sm text-danger">S/. {{item.producto.precio *
+                                                item.descuento/100}} </div>
+                                        </div>
+                                    </td>
+                                    <td class="border-top-0">
+                                        <div class="py-2">
+                                            <div class="font-size-xs text-muted mb-1">Cantidad:</div>
+                                            <div class="font-size-sm text-dark"> {{item.cantidad}} </div>
+                                        </div>
+                                    </td>
+                                    <td class="border-top-0">
+                                        <div class="py-2 pr-3 text-right">
+                                            <div class="font-size-xs text-muted mb-1">Subtotal:</div>
+                                            <div class="font-size-sm font-weight-bold text-dark">S/. {{item.subtotal}}
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                    </td>
+                                    <td>
+                                        <div class="py-2">
+                                            <span class="font-size-xs text-muted">Envío: </span>
+                                            <span class="font-size-sm text-dark">S/. {{orden.envio_precio}} </span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                        <div class="py-2 pr-3 text-right">
+                                            <span class="font-size-xs text-muted">Total: </span>
+                                            <span class="font-size-sm font-weight-bold text-dark">S/. {{orden.subtotal}}
+                                            </span>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-footer text-center">
+        <a class="bi-arrow-left-circle-fill text-warning" style="font-size: 2rem;" [routerLink]="['/panel/ventas']"></a>
+      </div>
+</div>

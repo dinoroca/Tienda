@@ -54,11 +54,10 @@
                             <a style="cursor: pointer;" class="dropdown-toggle" data-toggle="dropdown">
                                 <span class="cxi-settings"></span>
                             </a>
-                            <div class="dropdown-menu">
-                                <a href="#" class="dropdown-item">Regular link</a>
-                                <a href="#" class="dropdown-item">Another regular link</a>
-                                <a href="#" class="dropdown-item active">Active link</a>
-                                <a href="#" class="dropdown-item disabled">Disabled link</a>
+                            <div class="dropdown-menu text-center">
+                                <a [routerLink]="['/panel/ventas', item._id]" class="dropdown-item">Ver detalles &nbsp;
+                                    <i class="bi-list-ul"></i>
+                                </a>
                             </div>
                         </div>
 

@@ -12,4 +12,6 @@ api.get('/obtener_logo/:img', adiminController.obtener_logo);
 api.get('/obtener_mensajes_admin', auth.auth, adiminController.obtener_mensajes_admin);
 api.put('/cerrar_mensaje_admin/:id', auth.auth, adiminController.cerrar_mensaje_admin);
 
+api.get('/obtener_ventas_admin/:desde?/:hasta?', auth.auth, adiminController.obtener_ventas_admin);
+
 module.exports = api;

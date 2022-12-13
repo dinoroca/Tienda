@@ -51,6 +51,11 @@ export class GuestService {
     return this._http.get(this.url + 'obtener_descuento_activo', { headers: headers });
   }
 
+  obtener_reviews_producto(id: any): Observable<any> {
+    let headers = new HttpHeaders().set('Content-Type', 'application/json');
+    return this._http.get(this.url + 'obtener_reviews_producto/' + id, { headers: headers });
+  }
+
   obtener_regiones(): Observable<any> {
     return this._http.get('./assets/regiones.json');
   }

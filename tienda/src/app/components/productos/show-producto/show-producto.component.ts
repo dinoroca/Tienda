@@ -24,8 +24,29 @@ export class ShowProductoComponent implements OnInit {
   public producto: any = {};
   public url: any;
   public productos_rec: any = [];
+  public reviews: Array<any> = [];
 
   public ruta_actual = '';
+
+  public page = 1;
+  public pageSize = 10;
+
+  public count_five_stars = 0;
+  public count_four_stars = 0;
+  public count_three_stars = 0;
+  public count_two_stars = 0;
+  public count_one_stars = 0;
+
+  public porcent_five_stars = 0;
+  public porcent_four_stars = 0;
+  public porcent_three_stars = 0;
+  public porcent_two_stars = 0;
+  public porcent_one_stars = 0;
+
+  public total_puntos = 0;
+  public max_puntos = 0;
+  public porcent_rating = 0;
+  public puntos_rating = 0;
 
   public carrito_data: any = {
     variedad: '',
@@ -59,6 +80,56 @@ export class ShowProductoComponent implements OnInit {
         this._guestService.obtener_producto_slug(this.slug).subscribe(
           response => {
             this.producto = response.data;
+
+            //mandar arreglo de productos a reviews
+            this._guestService.obtener_reviews_producto(this.producto._id).subscribe(
+              response => {
+
+                //Contar la cantidad de estrellas de cada comentario
+                response.data.forEach((element: { estrellas: number; }) => {
+                  if (element.estrellas == 5) {
+                    this.count_five_stars = this.count_five_stars + 1;
+
+                  } else if (element.estrellas == 4) {
+                    this.count_four_stars = this.count_four_stars + 1;
+
+                  }else if (element.estrellas == 3) {
+                    this.count_three_stars = this.count_three_stars + 1;
+
+                  }else if (element.estrellas == 2) {
+                    this.count_two_stars = this.count_two_stars + 1;
+
+                  }else if (element.estrellas == 1) {
+                    this.count_one_stars = this.count_one_stars + 1;
+                  }
+
+                  this.porcent_five_stars = (this.count_five_stars * 100)/response.data.length;
+                  this.porcent_four_stars = (this.count_four_stars * 100)/response.data.length;
+                  this.porcent_three_stars = (this.count_three_stars * 100)/response.data.length;
+                  this.porcent_two_stars = (this.count_two_stars * 100)/response.data.length;
+                  this.porcent_one_stars = (this.count_one_stars * 100)/response.data.length;
+
+                  let puntos_cinco = 0;
+                  let puntos_cuatro = 0;
+                  let puntos_tres = 0;
+                  let puntos_dos = 0;
+                  let puntos_uno = 0;
+
+                  puntos_cinco = this.count_five_stars * 5;
+                  puntos_cuatro = this.count_four_stars * 4;
+                  puntos_tres = this.count_three_stars * 3;
+                  puntos_dos = this.count_two_stars * 2;
+                  puntos_uno = this.count_one_stars * 1;
+
+                  this.total_puntos = puntos_cinco + puntos_cuatro + puntos_tres + puntos_dos + puntos_uno;
+                  this.max_puntos = response.data.length * 5;
+                  this.porcent_rating = Math.round((this.total_puntos * 100)/this.max_puntos);
+                  this.puntos_rating = (this.porcent_rating * 5)/100;
+
+                });
+                this.reviews = response.data;
+              }
+            );
 
             //Obtener productos recomendados
             this._guestService.listar_productos_recomendados(this.producto.categoria).subscribe(

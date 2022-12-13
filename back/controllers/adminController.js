@@ -1,5 +1,7 @@
 'use strict'
 var Admin = require('../models/admin');
+var Venta = require('../models/venta');
+var Denta = require('../models/dventa');
 var Contacto = require('../models/contacto');
 var bcrypt = require('bcrypt-nodejs');
 var jwt = require('../helpers/jwt');
@@ -98,9 +100,49 @@ const cerrar_mensaje_admin = async function (req, res) {
 
             let id = req.params['id'];
 
-            let reg = await Contacto.findByIdAndUpdate({ _id: id }, {estado: 'Cerrado'});
+            let reg = await Contacto.findByIdAndUpdate({ _id: id }, { estado: 'Cerrado' });
 
             res.status(200).send({ data: reg });
+
+        } else {
+            res.status(500).send({ message: 'NoAccess' });
+        }
+    } else {
+        res.status(500).send({ message: 'NoAccess' });
+    }
+}
+
+//Ventas
+const obtener_ventas_admin = async function (req, res) {
+    if (req.user) {
+        if (req.user.role == 'admin') {
+
+            let ventas = [];
+
+            let desde = req.params['desde'];
+            let hasta = req.params['hasta'];
+
+            if (desde == 'undefined' && hasta == 'undefined') {
+                //No hay filtros
+                ventas = await Venta.find().populate('cliente').populate('direccion').sort({ createdAt: -1 });
+                res.status(200).send({ data: ventas });
+
+            } else {
+                //Hay filtros
+                let tt_desde = Date.parse(new Date(desde + 'T00:00:00'))/1000;
+                let tt_hasta = Date.parse(new Date(hasta + 'T00:00:00'))/1000;
+
+                let temp_ventas = await Venta.find().populate('cliente').populate('direccion').sort({ createdAt: -1 });
+
+                for (var item of temp_ventas) {
+                    var tt_create = Date.parse(new Date(item.createdAt))/1000;
+                    if (tt_create >= tt_desde && tt_create <= tt_hasta) {
+                        ventas.push(item);
+                    }
+                }
+
+                res.status(200).send({ data: ventas });
+            }
 
         } else {
             res.status(500).send({ message: 'NoAccess' });
@@ -115,5 +157,6 @@ module.exports = {
     login_admin,
     obtener_logo,
     obtener_mensajes_admin,
-    cerrar_mensaje_admin
+    cerrar_mensaje_admin,
+    obtener_ventas_admin
 };

@@ -26,7 +26,6 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.token);
     if (this.token) {
       this._router.navigate(['/']);
     }
@@ -35,7 +34,6 @@ export class LoginComponent implements OnInit {
   login(loginForm: { valid: any; }) {
     
     if(loginForm.valid) {
-      console.log(this.user);
       let data = {
         email: this.user.email,
         password: this.user.password
@@ -59,8 +57,6 @@ export class LoginComponent implements OnInit {
 
             this._router.navigate(['/']);
           }
-
-          console.log(response);
         }, error => {
           console.log(error);
         });

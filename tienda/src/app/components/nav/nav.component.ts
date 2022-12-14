@@ -39,8 +39,13 @@ export class NavComponent implements OnInit {
     private _router: Router,
     private _guestService: GuestService
   ) {
-    this.token = localStorage.getItem('token');
-    this.id = localStorage.getItem('_id');
+    if (localStorage.getItem('token')) {
+      this.token = localStorage.getItem('token');
+      this.id = localStorage.getItem('_id');
+    } else {
+      this.token = sessionStorage.getItem('token');
+      this.id = sessionStorage.getItem('_id');
+    }
     this.url = GLOBAL.url;
 
     this.user_lc = undefined;
@@ -107,6 +112,7 @@ export class NavComponent implements OnInit {
   logout() {
     window.location.reload();
     localStorage.clear();
+    sessionStorage.clear();
     this._router.navigate(['/']);
   }
 
@@ -130,8 +136,8 @@ export class NavComponent implements OnInit {
     } else if (this.descuento_activo != undefined) {
       //Hay descuento
       this.carrito_arr.forEach(element => {
-        let new_precio =  Math.round((parseInt(element.producto.precio) * element.cantidad) - 
-                                      (parseInt(element.producto.precio) * element.cantidad * this.descuento_activo.descuento)/100);
+        let new_precio = Math.round((parseInt(element.producto.precio) * element.cantidad) -
+          (parseInt(element.producto.precio) * element.cantidad * this.descuento_activo.descuento) / 100);
         this.subtotal = this.subtotal + new_precio;
       });
     }

@@ -114,6 +114,7 @@ const actualizar_software_admin = async function (req, res) {
                     titulo: data.titulo,
                     precio: data.precio,
                     link: data.link,
+                    tutorial: data.tutorial,
                     descripcion: data.descripcion,
                     portada: portada_name
                 });
@@ -133,6 +134,7 @@ const actualizar_software_admin = async function (req, res) {
                     titulo: data.titulo,
                     precio: data.precio,
                     link: data.link,
+                    tutorial: data.tutorial,
                     descripcion: data.descripcion,
                 });
 

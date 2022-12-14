@@ -8,6 +8,7 @@ var SoftwareSchema = Schema({
     slug: {type: String, required: true},
     portada: {type: String, required: true},
     link: {type: String, required: true},
+    tutorial: {type: String, required: false},
     precio: {type: Number, required: true},
     descripcion: {type: String, required: true},
     nventas: {type: Number, default: 0, required: true},

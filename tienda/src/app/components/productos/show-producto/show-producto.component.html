@@ -93,14 +93,14 @@
 
                     <!-- Rating -->
                     <div class="text-sm-right">
-                        <div class="star-rating ml-auto">
-                            <i class="sr-star cxi-star-filled active"></i>
-                            <i class="sr-star cxi-star-filled active"></i>
-                            <i class="sr-star cxi-star-filled active"></i>
-                            <i class="sr-star cxi-star-filled active"></i>
-                            <i class="sr-star cxi-star"></i>
+                        <div class="star-rating pb-1">
+                            <i class="sr-star cxi-star-filled" [ngClass]="{'active': puntos_rating >= 1}"></i>
+                            <i class="sr-star cxi-star-filled" [ngClass]="{'active': puntos_rating >= 2}"></i>
+                            <i class="sr-star cxi-star-filled" [ngClass]="{'active': puntos_rating >= 3}"></i>
+                            <i class="sr-star cxi-star-filled" [ngClass]="{'active': puntos_rating >= 4}"></i>
+                            <i class="sr-star cxi-star-filled" [ngClass]="{'active': puntos_rating >= 5}"></i>
                         </div>
-                        <span class="font-size-sm text-muted">12 reviews</span>
+                        <span class="font-size-sm text-muted">{{reviews.length}} reseñas</span>
                     </div>
                 </div>
 
@@ -285,12 +285,19 @@
                                 </a>
                             </div>
                             <div class="card-product-widgets-top">
+                                <span class="badge product-badge badge-danger" *ngIf="descuento_activo">
+                                    -{{descuento_activo.descuento}}%
+                                </span>
+    
+                                <span class="badge product-badge badge-danger ml-2" *ngIf="producto.descuento > 0">
+                                    -{{producto.descuento}}%
+                                </span>
                                 <div class="ml-auto star-rating">
-                                    <i class="sr-star cxi-star-filled active"></i>
-                                    <i class="sr-star cxi-star-filled active"></i>
-                                    <i class="sr-star cxi-star-filled active"></i>
-                                    <i class="sr-star cxi-star-filled active"></i>
-                                    <i class="sr-star cxi-star"></i>
+                                    <i class="sr-star cxi-star-filled" [ngClass]="{'active': puntos_rating >= 1}"></i>
+                                    <i class="sr-star cxi-star-filled" [ngClass]="{'active': puntos_rating >= 2}"></i>
+                                    <i class="sr-star cxi-star-filled" [ngClass]="{'active': puntos_rating >= 3}"></i>
+                                    <i class="sr-star cxi-star-filled" [ngClass]="{'active': puntos_rating >= 4}"></i>
+                                    <i class="sr-star cxi-star-filled" [ngClass]="{'active': puntos_rating >= 5}"></i>
                                 </div>
                             </div>
                             <div class="card-product-widgets-bottom">
@@ -303,18 +310,26 @@
                                 <a href="#" class="nav-link"> {{producto.titulo}} </a>
                             </h3>
 
-                            <div *ngIf="descuento_activo == undefined" class="mb-3">
+                            <div *ngIf="descuento_activo == undefined && producto.descuento == undefined">
                                 <span class="h5 d-inline-block mb-0 text-warning">S/. {{producto.precio}}</span>
                             </div>
 
-                            <div *ngIf="descuento_activo != undefined" class="mb-3">
+                            <div *ngIf="descuento_activo == undefined && producto.descuento > 0">
+                                <span class="h5 d-inline-block mb-0 text-danger">
+                                    S/. {{producto.precio}}
+                                </span>
+                                <del class="d-inline-block ml-3 text-muted">S/. {{producto.precio +
+                                    producto.precio*producto.descuento/100 | number: '1.0-0'}}</del>
+                            </div>
+
+                            <div *ngIf="descuento_activo != undefined" class="">
                                 <span class="h5 d-inline-block mb-0 text-danger">
                                     S/. {{producto.precio | descuento: descuento_activo.descuento}}
                                 </span>
                                 <del class="d-inline-block ml-3 text-muted">S/. {{producto.precio}}</del>
                             </div>
 
-                            <button type="button" class="btn btn-primary btn-block mb-3">
+                            <button type="button" class="btn btn-primary btn-block mb-3 mt-3">
                                 <i class="cxi-cart align-middle mt-n1 mr-2"></i>
                                 Añadir al carrito
                             </button>
@@ -512,12 +527,19 @@
                             </a>
                         </div>
                         <div class="card-product-widgets-top">
+                            <span class="badge product-badge badge-danger" *ngIf="descuento_activo">
+                                -{{descuento_activo.descuento}}%
+                            </span>
+
+                            <span class="badge product-badge badge-danger ml-2" *ngIf="producto.descuento > 0">
+                                -{{producto.descuento}}%
+                            </span>
                             <div class="ml-auto star-rating">
-                                <i class="sr-star cxi-star-filled active"></i>
-                                <i class="sr-star cxi-star-filled active"></i>
-                                <i class="sr-star cxi-star-filled active"></i>
-                                <i class="sr-star cxi-star-filled active"></i>
-                                <i class="sr-star cxi-star"></i>
+                                <i class="sr-star cxi-star-filled" [ngClass]="{'active': puntos_rating >= 1}"></i>
+                                <i class="sr-star cxi-star-filled" [ngClass]="{'active': puntos_rating >= 2}"></i>
+                                <i class="sr-star cxi-star-filled" [ngClass]="{'active': puntos_rating >= 3}"></i>
+                                <i class="sr-star cxi-star-filled" [ngClass]="{'active': puntos_rating >= 4}"></i>
+                                <i class="sr-star cxi-star-filled" [ngClass]="{'active': puntos_rating >= 5}"></i>
                             </div>
                         </div>
                         <div class="card-product-widgets-bottom">
@@ -539,7 +561,7 @@
                                 S/. {{producto.precio}}
                             </span>
                             <del class="d-inline-block ml-3 text-muted">S/. {{producto.precio +
-                                producto.precio*producto.descuento/100}}</del>
+                                producto.precio*producto.descuento/100 | number: '1.0-0'}}</del>
                         </div>
 
                         <div *ngIf="descuento_activo != undefined" class="">
@@ -549,7 +571,7 @@
                             <del class="d-inline-block ml-3 text-muted">S/. {{producto.precio}}</del>
                         </div>
 
-                        <button type="button" class="btn btn-primary btn-block mb-3">
+                        <button type="button" class="btn btn-primary btn-block mb-3 mt-3">
                             <i class="cxi-cart align-middle mt-n1 mr-2"></i>
                             Añadir al carrito
                         </button>

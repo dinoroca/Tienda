@@ -18,7 +18,7 @@
                 <div class="px-md-5">
                     <h3 class="modal-title mt-4 mb-0 text-center">Iniciar Sesión</h3>
                     <p class="font-size-sm text-muted text-center">Inicia sesión con los datos ingresados en el registro.</p>
-                    <form autocomplete="off" #loginForm="ngForm" (ngSubmit)="login(loginForm)">
+                    <form #loginForm="ngForm" (ngSubmit)="login(loginForm)">
                         <div class="form-group">
                             <label for="signin-email" class="form-label">Correo electrónico</label>
                             <input type="email" class="form-control" placeholder="Correo electrónico" 
@@ -31,7 +31,7 @@
                                     placeholder="Contraseña" required name="password" [(ngModel)]="user.password">
                                 <div class="input-group-append-overlay">
                                     <label class="btn cs-password-toggle-btn input-group-text">
-                                        <input type="checkbox" class="custom-control-input">
+                                        <input type="checkbox" class="custom-control-input" (click)="show_password()">
                                         <i class="cxi-eye cs-password-toggle-indicator"></i>
                                         <span class="sr-only">Ver contraseña</span>
                                     </label>
@@ -39,6 +39,11 @@
                             </div>
                         </div>
                         <div class="d-flex justify-content-between align-items-center form-group">
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="remember-me" 
+                                    [(ngModel)]="recordar" name="recordar">
+                                <label for="remember-me" class="custom-control-label">Recordar</label>
+                            </div>
                             <a href="#" class="font-size-sm text-decoration-none">Olvidó su contraseña?</a>
                         </div>
                         <button type="submit" class="btn btn-primary btn-block">Iniciar sesión</button>

@@ -1,0 +1,162 @@
+<app-nav></app-nav>
+
+<main class="cs-page-weapper">
+    <!-- Breadcrumb -->
+    <nav class="bg-secondary mb-3 mt-5" aria-label="breadcrumb">
+        <div class="container">
+            <ol class="breadcrumb breadcrumb-alt mb-0">
+                <li class="breadcrumb-item">
+                    <a [routerLink]="['/']"><i class="cxi-home"></i></a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">{{software.titulo}}</li>
+            </ol>
+        </div>
+    </nav>
+
+    <!-- Page title -->
+    <section class="container d-md-flex align-items-center justify-content-between">
+        <h1 class="mb-md-0">{{software.titulo}}</h1>
+        <span class="text-muted" *ngIf="software._id"><strong>Art. ID</strong> {{software._id.toUpperCase()}} </span>
+    </section>
+
+    <!-- Single product -->
+    <section class="container py-4 mb-2">
+        <div class="row">
+            <div class="col-md-6 mb-md-0 mb-4">
+
+                <!-- Product gallery item -->
+                <img class="rounded" [src]="url + 'obtener_portada/' + software.portada" alt="Product image">
+            </div>
+            <div class="col-md-6 pl-xl-5">
+                <div class="d-sm-flex align-items-center justify-content-between mb-4">
+
+                    <!-- Con descuento -->
+                    <div class="d-flex align-items-center mb-sm-0 mb-4" *ngIf="descuento_activo != undefined">
+                        <span class="h3 d-inline-block mb-0 text-danger" *ngIf="descuento_activo">
+                            S/. {{software.precio | descuento: descuento_activo.descuento}}
+                        </span>
+                        <del class="d-inline-block ml-2 pl-1 font-size-lg text-muted">S/. {{software.precio}} </del>
+                        <span class="ml-4 p-2 badge badge-danger font-size-base font-weight-bold"
+                            *ngIf="descuento_activo">
+                            -{{descuento_activo.descuento}}%
+                        </span>
+                    </div>
+                    <!-- Con descuento por producto -->
+                    <div class="d-flex align-items-center mb-sm-0 mb-4"
+                        *ngIf="descuento_activo == undefined && software.descuento > 0">
+                        <span class="h3 d-inline-block mb-0">
+                            S/. {{software.precio}}
+                        </span>
+                        <del class="d-inline-block ml-2 pl-1 font-size-lg text-muted">S/. {{software.precio +
+                            software.precio * software.descuento/100 | number: '1.0-0'}} </del>
+                        <span class="ml-4 p-2 badge badge-danger font-size-base font-weight-bold"
+                            *ngIf="descuento_activo">
+                            -{{descuento_activo.descuento}}%
+                        </span>
+                        <span class="ml-4 p-2 badge badge-danger font-size-base font-weight-bold"
+                            *ngIf="software.descuento > 0">
+                            -{{software.descuento}}%
+                        </span>
+                    </div>
+
+                    <!-- Sin descuento -->
+                    <div class="d-flex align-items-center mb-sm-0 mb-4"
+                        *ngIf="descuento_activo == undefined && software.descuento == undefined">
+                        <span class="h3 d-inline-block mb-0">
+                            Precio: <strong class="text-warning">S/. {{software.precio}}</strong>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Payment -->
+                <h2 class="h4 pt-2 mb-4">Métodos de pago</h2>
+                <div class="row pb-4">
+                    <div class="col-lg-12">
+                        <div class="accordion-alt" id="payment-methods">
+
+                            <!-- Card: Credit card -->
+                            <div class="card mb-3 px-4 py-3 border rounded box-shadow-sm">
+                                <div class="card-header py-2">
+                                    <div class="accordion-heading custom-control custom-radio" data-toggle="collapse"
+                                        data-target="#cc-card">
+                                        <input type="radio" class="custom-control-input" id="cc" name="payment" checked>
+                                        <label for="cc" class="custom-control-label d-flex align-items-center">
+                                            <strong class="d-block mr-3">Tarjeta de crédito / débito</strong>
+                                            <img src="assets/img/cards.png" width="108" alt="Credit cards">
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="collapse show" id="cc-card" data-parent="#payment-methods">
+                                    <div class="card-body pt-3 pb-0">
+                                        <div class="form-group mb-3">
+                                            <label for="cc-number">Número de tarjeta</label>
+                                            <input type="text" id="cc-number" class="form-control form-control-lg"
+                                                data-format="card" placeholder="0000 0000 0000 0000">
+                                        </div>
+                                        <div class="d-flex">
+                                            <div class="form-group mb-3 mr-3">
+                                                <label for="cc-exp-date">Vencimiento</label>
+                                                <input type="text" id="cc-exp-date" class="form-control form-control-lg"
+                                                    data-format="date" placeholder="mm/yy">
+                                            </div>
+                                            <div class="form-group mb-3">
+                                                <label for="cc-cvc">CVC</label>
+                                                <input type="text" id="cc-cvc" class="form-control form-control-lg"
+                                                    data-format="cvc" placeholder="000">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Card: PayPal -->
+                            <div class="card mb-3 px-4 py-3 border rounded box-shadow-sm">
+                                <div class="card-header py-2">
+                                    <div class="accordion-heading custom-control custom-radio" data-toggle="collapse"
+                                        data-target="#paypal-card">
+                                        <input type="radio" class="custom-control-input" id="paypal" name="payment">
+                                        <label for="paypal" class="custom-control-label d-flex align-items-center">
+                                            <strong class="d-block mr-3">PayPal</strong>
+                                            <img src="assets/img/paypal-badge.png" width="48" alt="PayPal">
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="collapse" id="paypal-card" data-parent="#payment-methods">
+                                    <div class="card-body pt-3 pb-0" #paypalButton>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ordering form -->
+                <form class="row">
+                    <div class="col-6 order-sm-3 order-3" *ngIf="!btn_cart">
+                        <button class="btn btn-block btn-primary" (click)="comprar()">
+                            <i class="cxi-cart"></i>
+                            Descargar
+                        </button>
+
+                        <!-- Button with growing spinner and text -->
+                        <button *ngIf="btn_cart" type="button" class="btn btn-secondary" disabled>
+                            <span class="spinner-grow spinner-grow-sm me-2" role="status" aria-hidden="true"></span>
+                            Agregando...
+                        </button>
+                    </div>
+
+                    <div class="col-6 order-sm-4 order-4">
+                        <button class="btn btn-block btn-outline-primary px-lg-4">
+                            <i class="cxi-heart"></i>
+                            Lista de deseos
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<app-footer></app-footer>

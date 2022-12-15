@@ -46,7 +46,7 @@
                             </div>
                             <a href="#" class="font-size-sm text-decoration-none">Olvidó su contraseña?</a>
                         </div>
-                        <button type="submit" class="btn btn-primary btn-block">Iniciar sesión</button>
+                        <button type="submit" class="btn btn-primary btn-block" [disabled]="loginForm.invalid">Iniciar sesión</button>
                         <p class="font-size-sm pt-4 text-center">
                             No tienes una cuenta?
                             <a [routerLink]="['/registro']" class="font-weight-bold text-decoration-none text-success">

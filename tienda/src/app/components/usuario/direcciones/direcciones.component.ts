@@ -227,6 +227,7 @@ export class DireccionesComponent implements OnInit {
   eliminar_direccion(id: any) {
     this._clienteService.eliminar_direccion_cliente(id, this.token).subscribe(
       response => {
+        this.obtener_direcciones();
         iziToast.show({
           title: 'SUCCESS',
           titleColor: '#35D18F',
@@ -236,8 +237,6 @@ export class DireccionesComponent implements OnInit {
         });
       }
     );
-    
-    this.obtener_direcciones();
   }
 
 }

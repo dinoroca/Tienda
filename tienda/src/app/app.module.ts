@@ -30,6 +30,7 @@ import { NosotrosComponent } from './components/nosotros/nosotros.component';
 import { OrdenesComponent } from './components/usuario/ordenes/ordenes.component';
 import { DetalleOrdenComponent } from './components/usuario/detalle-orden/detalle-orden.component';
 import { IndexReviewComponent } from './components/usuario/reviews/index-review/index-review.component';
+import { ShowSofwareComponent } from './components/show-sofware/show-sofware.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { IndexReviewComponent } from './components/usuario/reviews/index-review/
     NosotrosComponent,
     OrdenesComponent,
     DetalleOrdenComponent,
-    IndexReviewComponent
+    IndexReviewComponent,
+    ShowSofwareComponent
   ],
   imports: [
     BrowserModule,

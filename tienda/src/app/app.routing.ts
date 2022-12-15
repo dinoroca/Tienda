@@ -16,6 +16,7 @@ import { NosotrosComponent } from "./components/nosotros/nosotros.component";
 import { OrdenesComponent } from './components/usuario/ordenes/ordenes.component';
 import { DetalleOrdenComponent } from './components/usuario/detalle-orden/detalle-orden.component';
 import { IndexReviewComponent } from './components/usuario/reviews/index-review/index-review.component';
+import { ShowSofwareComponent } from './components/show-sofware/show-sofware.component';
 
 const appRoute: Routes = [
     {path: '', component: InicioComponent},
@@ -29,9 +30,11 @@ const appRoute: Routes = [
     {path: 'carrito-compras', component: CarritoComponent, canActivate: [AuthGuard]},
 
     {path: 'productos', component: IndexProductoComponent},
-    {path: 'software', component: SoftwareComponent},
     {path: 'productos/:slug', component: ShowProductoComponent},
     {path: 'productos/categoria/:categoria', component: IndexProductoComponent},
+
+    {path: 'software', component: SoftwareComponent},
+    {path: 'software/:slug', component: ShowSofwareComponent},
 
     {path: 'contactos', component: ContactoComponent},
     {path: 'nosotros', component: NosotrosComponent},

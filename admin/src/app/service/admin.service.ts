@@ -24,6 +24,11 @@ export class AdminService {
     return this._http.post(this.url + 'login_admin', data, { headers: headers });
   }
 
+  obtener_admin(id: any, token: any): Observable<any> {
+    let headers = new HttpHeaders({'Content-Type':'application/json', 'authorization': token});
+    return this._http.get(this.url + 'obtener_admin/' + id, {headers : headers});
+  }
+
   //Permite obtener el token almacenado en el localStorage
   getToken() {
     return localStorage.getItem('token');

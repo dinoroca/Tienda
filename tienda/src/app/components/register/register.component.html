@@ -74,7 +74,8 @@
                                 <label for="signin-password" class="form-label">Contraseña</label>
                                 <div class="cs-password-toggle input-group-overlay">
                                     <input type="password" class="form-control appended-form-control"
-                                        id="signin-password" placeholder="Contraseña" required>
+                                        id="signin-password" placeholder="Contraseña" required
+                                        name="password1" [(ngModel)]="password1">
                                     <div class="input-group-append-overlay">
                                         <label class="btn cs-password-toggle-btn input-group-text">
                                             <input type="checkbox" class="custom-control-input">
@@ -88,26 +89,31 @@
                                 <div class="cs-password-toggle input-group-overlay">
                                     <input type="password" class="form-control appended-form-control"
                                         id="signin-password1" placeholder="Contraseña" 
-                                        required name="password" [(ngModel)]="user.password">
+                                        required name="password" [(ngModel)]="user.password" 
+                                        (keyup)="compare_password()">
                                     <div class="input-group-append-overlay">
                                         <label class="btn cs-password-toggle-btn input-group-text">
-                                            <input type="checkbox" class="custom-control-input">
+                                            <input type="checkbox" class="custom-control-input" (click)="show_password()">
                                             <i class="cxi-eye cs-password-toggle-indicator"></i>
                                             <span class="sr-only">Mostrar contraseña</span>
                                         </label>
                                     </div>
                                 </div>
-                            </div>
 
+                                <div class="alert-danger mt-2" role="alert" *ngIf="alert_pass">
+                                    <em><small>Las contraseñas no coinciden</small></em>
+                                </div>
+                            </div>
                         </div>
                         <div class="d-flex justify-content-between align-items-center form-group">
                             <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="remember-me" checked="">
+                                <input type="checkbox" class="custom-control-input" id="remember-me"
+                                [(ngModel)]="recordar" name="recordar">
                                 <label for="remember-me" class="custom-control-label">Recordar</label>
                             </div>
                             <a href="#" class="font-size-sm text-decoration-none">Olvidó su contraseña?</a>
                         </div>
-                        <button type="submit" class="btn btn-primary btn-block" [disabled]="registroForm.invalid">
+                        <button type="submit" id="reg" class="btn btn-primary btn-block" [disabled]="registroForm.invalid || !valid">
                             Registrarme
                         </button>
                         <p class="font-size-sm pt-4 text-center">

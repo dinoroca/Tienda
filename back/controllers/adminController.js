@@ -1,7 +1,6 @@
 'use strict'
 var Admin = require('../models/admin');
 var Venta = require('../models/venta');
-var Denta = require('../models/dventa');
 var Contacto = require('../models/contacto');
 var bcrypt = require('bcrypt-nodejs');
 var jwt = require('../helpers/jwt');
@@ -63,6 +62,28 @@ const login_admin = async function (req, res) {
         });
     }
 }
+
+const obtener_admin = async function (req, res) {
+    if (req.user) {
+      if (req.user.role == 'admin') {
+  
+        var id = req.params['id'];
+  
+        try {
+          var reg = await Admin.findById({ _id: id });
+          res.status(200).send({ data: reg });
+  
+        } catch (error) {
+          res.status(200).send({ data: undefined });
+        }
+  
+      } else {
+        res.status(500).send({ message: 'NoAccess' });
+      }
+    } else {
+      res.status(500).send({ message: 'NoAccess' });
+    }
+  }
 
 const obtener_logo = async function (req, res) {
     var img = req.params['img'];
@@ -130,7 +151,7 @@ const obtener_ventas_admin = async function (req, res) {
             } else {
                 //Hay filtros
                 let tt_desde = Date.parse(new Date(desde + 'T00:00:00'))/1000;
-                let tt_hasta = Date.parse(new Date(hasta + 'T00:00:00'))/1000;
+                let tt_hasta = Date.parse(new Date(hasta + 'T23:59:59'))/1000;
 
                 let temp_ventas = await Venta.find().populate('cliente').populate('direccion').sort({ createdAt: -1 });
 
@@ -155,6 +176,7 @@ const obtener_ventas_admin = async function (req, res) {
 module.exports = {
     registro_admim,
     login_admin,
+    obtener_admin,
     obtener_logo,
     obtener_mensajes_admin,
     cerrar_mensaje_admin,

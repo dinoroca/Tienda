@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 
 declare var iziToast: { show: (arg0: { title: string; titleColor: string; class: string; position: string; message: string; }) => void; };
+declare var jQuery: any;
+declare var $: any;
 
 @Component({
   selector: 'app-register',
@@ -16,6 +18,13 @@ export class RegisterComponent implements OnInit {
     genero: ''
   };
   public ruta_actual: any;
+
+  public show = false;
+  public recordar = true;
+  public password1 = '';
+  public alert_pass = false;
+
+  public valid = false;
 
   constructor(
     private _clienteService: ClienteService,
@@ -32,6 +41,29 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): void {
     this._title.setTitle('Registro');
+  }
+
+  show_password() {
+    if (!this.show) {
+      this.show = true;
+      $('#signin-password').attr('type', 'text');
+      $('#signin-password1').attr('type', 'text');
+    } else {
+      this.show = false;
+      $('#signin-password').attr('type', 'password');
+      $('#signin-password1').attr('type', 'password');
+    }
+  }
+
+  compare_password() {
+    if (this.password1 == this.user.password) {
+      this.alert_pass = false;
+      this.valid = true;
+
+    } else if (this.password1 != this.user.password) {
+      this.alert_pass = true;
+      this.valid = false;
+    }
   }
 
   registrar(registroForm: any) {
@@ -61,8 +93,15 @@ export class RegisterComponent implements OnInit {
             });
 
           } else {
-            localStorage.setItem('token', response.token);
-            localStorage.setItem('_id', response.data._id);
+            if (this.recordar) {
+              localStorage.setItem('token', response.token);
+              localStorage.setItem('_id', response.data._id);
+              console.log('recordando');
+            }
+
+            sessionStorage.setItem('token', response.token);
+            sessionStorage.setItem('_id', response.data._id);
+            console.log('Sin recordar');
 
             this._router.navigate(['/' + this.ruta_actual]);
           }

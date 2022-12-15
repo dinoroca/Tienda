@@ -114,6 +114,7 @@ const actualizar_software_admin = async function (req, res) {
                     titulo: data.titulo,
                     precio: data.precio,
                     link: data.link,
+                    tutorial: data.tutorial,
                     descripcion: data.descripcion,
                     portada: portada_name
                 });
@@ -133,6 +134,7 @@ const actualizar_software_admin = async function (req, res) {
                     titulo: data.titulo,
                     precio: data.precio,
                     link: data.link,
+                    tutorial: data.tutorial,
                     descripcion: data.descripcion,
                 });
 
@@ -178,6 +180,14 @@ const listar_software = async function (req, res) {
     res.status(200).send({ data: reg });
 }
 
+const obtener_software_slug = async function (req, res) {
+
+    var slug = req.params['slug'];
+
+    let reg = await Software.findOne({ slug: slug });
+    res.status(200).send({ data: reg });
+}
+
 module.exports = {
     registro_software_admin,
     listar_sofware_admin,
@@ -186,5 +196,6 @@ module.exports = {
     obtener_software_admin,
     actualizar_software_admin,
     actualizar_software_variedades_admin,
-    listar_software
+    listar_software,
+    obtener_software_slug
 }

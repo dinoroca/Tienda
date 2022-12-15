@@ -73,11 +73,10 @@ export class UpdateSoftwareComponent implements OnInit {
       }
 
       data.titulo = this.programa.titulo;
-      data.stock = this.programa.stock;
       data.precio = this.programa.precio;
-      data.categoria = this.programa.categoria;
+      data.link = this.programa.link;
+      data.tutorial = this.programa.tutorial;
       data.descripcion = this.programa.descripcion;
-      data.contenido = this.programa.contenido;
 
       this.load_btn = true;
       this._softwareService.actualizar_software_admin(data, this.id, this.token).subscribe(

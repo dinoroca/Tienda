@@ -93,14 +93,14 @@
 
                     <!-- Rating -->
                     <div class="text-sm-right">
-                        <div class="star-rating ml-auto">
-                            <i class="sr-star cxi-star-filled active"></i>
-                            <i class="sr-star cxi-star-filled active"></i>
-                            <i class="sr-star cxi-star-filled active"></i>
-                            <i class="sr-star cxi-star-filled active"></i>
-                            <i class="sr-star cxi-star"></i>
+                        <div class="star-rating pb-1">
+                            <i class="sr-star cxi-star-filled" [ngClass]="{'active': puntos_rating >= 1}"></i>
+                            <i class="sr-star cxi-star-filled" [ngClass]="{'active': puntos_rating >= 2}"></i>
+                            <i class="sr-star cxi-star-filled" [ngClass]="{'active': puntos_rating >= 3}"></i>
+                            <i class="sr-star cxi-star-filled" [ngClass]="{'active': puntos_rating >= 4}"></i>
+                            <i class="sr-star cxi-star-filled" [ngClass]="{'active': puntos_rating >= 5}"></i>
                         </div>
-                        <span class="font-size-sm text-muted">12 reviews</span>
+                        <span class="font-size-sm text-muted">{{reviews.length}} reseñas</span>
                     </div>
                 </div>
 
@@ -174,39 +174,13 @@
                         <div class="collapse" id="delivery" aria-labelledby="delivery-card" data-parent="#productTerms">
                             <div class="card-body">
                                 <p class="font-size-sm">
-                                    Free standard shipping on orders <strong>over $35</strong> before tax, plus free
-                                    returns.
+                                    EL envío de nuestros productos fuera de Ayacucho, se realizará a través de
+                                    <strong>empresas de envío</strong> como <em> (Olva courrier, Shalom y más).</em>
+                                    <br><br>
+                                    La empresa de envío así como el código, se enviará al correo del cliente cuando se
+                                    confirme la compra. <strong>Gracias por su comprensión.</strong>
                                 </p>
 
-                                <!-- Delivery table -->
-                                <div class="table-responsive px-md-3">
-                                    <table class="table mb-0" style="min-width: 450px;">
-                                        <thead class="font-size-xs text-uppercase text-muted">
-                                            <tr>
-                                                <th class="border-0 font-weight-normal">Type</th>
-                                                <th class="border-0 font-weight-normal">How long</th>
-                                                <th class="border-0 font-weight-normal">How much</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody class="font-size-sm">
-                                            <tr>
-                                                <th class="font-weight-normal">Standard delivery</th>
-                                                <td>1-4 business days</td>
-                                                <td>$4.50</td>
-                                            </tr>
-                                            <tr>
-                                                <th class="font-weight-normal">Express delivery</th>
-                                                <td>1 business day</td>
-                                                <td>$10.00</td>
-                                            </tr>
-                                            <tr>
-                                                <th class="font-weight-normal">Pick up in store</th>
-                                                <td>1-3 business days</td>
-                                                <td>Free</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -221,15 +195,10 @@
                                 </a>
                             </h6>
                         </div>
-                        <div class="collapse" id="return" aria-labelledby="return-card" data-parent="#productTerms">
-                            <p class="font-size-sm">
-                                You have <strong>60 days</strong> to return the item(s) using any of the following
-                                methods:
-                            </p>
-                            <ul class="mb-4 pl-3">
-                                <li>Free store return</li>
-                                <li>Free returns via USPS Dropoff Service</li>
-                            </ul>
+                        <div class="collapse pb-2" id="return" aria-labelledby="return-card" data-parent="#productTerms">
+                            Tiene <strong>30 días</strong> para devolver el producto a través de la empresa de envío, 
+                            puede revisar más sobre devoluciones en nuestos 
+                            <a href="#" class="text-decoration-none"><strong>términos y condiciones</strong></a>.
                         </div>
                     </div>
                 </div>
@@ -285,12 +254,19 @@
                                 </a>
                             </div>
                             <div class="card-product-widgets-top">
+                                <span class="badge product-badge badge-danger" *ngIf="descuento_activo">
+                                    -{{descuento_activo.descuento}}%
+                                </span>
+
+                                <span class="badge product-badge badge-danger ml-2" *ngIf="producto.descuento > 0">
+                                    -{{producto.descuento}}%
+                                </span>
                                 <div class="ml-auto star-rating">
-                                    <i class="sr-star cxi-star-filled active"></i>
-                                    <i class="sr-star cxi-star-filled active"></i>
-                                    <i class="sr-star cxi-star-filled active"></i>
-                                    <i class="sr-star cxi-star-filled active"></i>
-                                    <i class="sr-star cxi-star"></i>
+                                    <i class="sr-star cxi-star-filled" [ngClass]="{'active': puntos_rating >= 1}"></i>
+                                    <i class="sr-star cxi-star-filled" [ngClass]="{'active': puntos_rating >= 2}"></i>
+                                    <i class="sr-star cxi-star-filled" [ngClass]="{'active': puntos_rating >= 3}"></i>
+                                    <i class="sr-star cxi-star-filled" [ngClass]="{'active': puntos_rating >= 4}"></i>
+                                    <i class="sr-star cxi-star-filled" [ngClass]="{'active': puntos_rating >= 5}"></i>
                                 </div>
                             </div>
                             <div class="card-product-widgets-bottom">
@@ -303,18 +279,26 @@
                                 <a href="#" class="nav-link"> {{producto.titulo}} </a>
                             </h3>
 
-                            <div *ngIf="descuento_activo == undefined" class="mb-3">
+                            <div *ngIf="descuento_activo == undefined && producto.descuento == undefined">
                                 <span class="h5 d-inline-block mb-0 text-warning">S/. {{producto.precio}}</span>
                             </div>
 
-                            <div *ngIf="descuento_activo != undefined" class="mb-3">
+                            <div *ngIf="descuento_activo == undefined && producto.descuento > 0">
+                                <span class="h5 d-inline-block mb-0 text-danger">
+                                    S/. {{producto.precio}}
+                                </span>
+                                <del class="d-inline-block ml-3 text-muted">S/. {{producto.precio +
+                                    producto.precio*producto.descuento/100 | number: '1.0-0'}}</del>
+                            </div>
+
+                            <div *ngIf="descuento_activo != undefined" class="">
                                 <span class="h5 d-inline-block mb-0 text-danger">
                                     S/. {{producto.precio | descuento: descuento_activo.descuento}}
                                 </span>
                                 <del class="d-inline-block ml-3 text-muted">S/. {{producto.precio}}</del>
                             </div>
 
-                            <button type="button" class="btn btn-primary btn-block mb-3">
+                            <button type="button" class="btn btn-primary btn-block mb-3 mt-3">
                                 <i class="cxi-cart align-middle mt-n1 mr-2"></i>
                                 Añadir al carrito
                             </button>
@@ -449,7 +433,7 @@
 
                 <!-- Con review -->
                 <ng-container *ngIf="reviews.length >= 1">
-                    <div class="mb-4 pb-4 border-bottom" *ngFor="let item of reviews">
+                    <div class="mb-4 pb-4 border-bottom">
                         <div class="row"
                             *ngFor="let item of reviews | slice: (page - 1) * pageSize:(page - 1) * pageSize + pageSize">
                             <div class="col-6 mb-sm-0 mb-3">
@@ -512,12 +496,19 @@
                             </a>
                         </div>
                         <div class="card-product-widgets-top">
+                            <span class="badge product-badge badge-danger" *ngIf="descuento_activo">
+                                -{{descuento_activo.descuento}}%
+                            </span>
+
+                            <span class="badge product-badge badge-danger ml-2" *ngIf="producto.descuento > 0">
+                                -{{producto.descuento}}%
+                            </span>
                             <div class="ml-auto star-rating">
-                                <i class="sr-star cxi-star-filled active"></i>
-                                <i class="sr-star cxi-star-filled active"></i>
-                                <i class="sr-star cxi-star-filled active"></i>
-                                <i class="sr-star cxi-star-filled active"></i>
-                                <i class="sr-star cxi-star"></i>
+                                <i class="sr-star cxi-star-filled" [ngClass]="{'active': puntos_rating >= 1}"></i>
+                                <i class="sr-star cxi-star-filled" [ngClass]="{'active': puntos_rating >= 2}"></i>
+                                <i class="sr-star cxi-star-filled" [ngClass]="{'active': puntos_rating >= 3}"></i>
+                                <i class="sr-star cxi-star-filled" [ngClass]="{'active': puntos_rating >= 4}"></i>
+                                <i class="sr-star cxi-star-filled" [ngClass]="{'active': puntos_rating >= 5}"></i>
                             </div>
                         </div>
                         <div class="card-product-widgets-bottom">
@@ -539,7 +530,7 @@
                                 S/. {{producto.precio}}
                             </span>
                             <del class="d-inline-block ml-3 text-muted">S/. {{producto.precio +
-                                producto.precio*producto.descuento/100}}</del>
+                                producto.precio*producto.descuento/100 | number: '1.0-0'}}</del>
                         </div>
 
                         <div *ngIf="descuento_activo != undefined" class="">
@@ -549,7 +540,7 @@
                             <del class="d-inline-block ml-3 text-muted">S/. {{producto.precio}}</del>
                         </div>
 
-                        <button type="button" class="btn btn-primary btn-block mb-3">
+                        <button type="button" class="btn btn-primary btn-block mb-3 mt-3">
                             <i class="cxi-cart align-middle mt-n1 mr-2"></i>
                             Añadir al carrito
                         </button>

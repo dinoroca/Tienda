@@ -23,11 +23,15 @@
     <section class="container py-4 mb-2">
         <div class="row">
             <div class="col-md-6 mb-md-0 mb-4">
-
                 <!-- Product gallery item -->
                 <img class="rounded" [src]="url + 'obtener_portada/' + software.portada" alt="Product image">
             </div>
+
             <div class="col-md-6 pl-xl-5">
+                <div class=" p-2 mb-1 rounded" style="background-color: rgb(215, 250, 243);">
+                    <span style="font-size: 1.1rem; font-style: italic;">{{software.descripcion}}</span>
+                </div>
+                
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
 
                     <!-- Con descuento -->

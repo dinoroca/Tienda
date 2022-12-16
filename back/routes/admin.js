@@ -15,4 +15,6 @@ api.put('/cerrar_mensaje_admin/:id', auth.auth, adiminController.cerrar_mensaje_
 
 api.get('/obtener_ventas_admin/:desde?/:hasta?', auth.auth, adiminController.obtener_ventas_admin);
 
+api.get('/kpi_ganancias_mensuales_admin', auth.auth, adiminController.kpi_ganancias_mensuales_admin);
+
 module.exports = api;

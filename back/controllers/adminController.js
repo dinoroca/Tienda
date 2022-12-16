@@ -173,6 +173,106 @@ const obtener_ventas_admin = async function (req, res) {
     }
 }
 
+//////////////KPI
+const kpi_ganancias_mensuales_admin = async function (req, res) {
+    if (req.user) {
+        if (req.user.role == 'admin') {
+            var enero = 0;
+            var febrero = 0;
+            var marzo = 0;
+            var abril = 0;
+            var mayo = 0;
+            var junio = 0;
+            var julio = 0;
+            var agosto = 0;
+            var septiembre = 0;
+            var octubre = 0;
+            var noviembre = 0;
+            var diciembre = 0;
+
+            var ganancia_total = 0;
+            var total_mes = 0;
+            var total_mes_anterior = 0;
+            var count_ventas = 0;
+
+            var reg = await Venta.find();
+            let current_date = new Date();
+            let current_year = current_date.getFullYear();
+            let current_month = current_date.getMonth() + 1;
+
+            for(var item of reg) {
+                let createdAt_date = new Date(item.createdAt);
+                let mes = createdAt_date.getMonth() + 1;
+
+                if (createdAt_date.getFullYear() == current_year) {
+
+                    ganancia_total = ganancia_total + item.subtotal;
+
+                    if (mes == current_month) {
+                        total_mes = total_mes + item.subtotal;
+                        count_ventas = count_ventas + 1;
+                    }
+                    
+                    if (mes == current_month - 1) {
+                        total_mes_anterior = total_mes_anterior + item.subtotal;
+                    }
+
+                    if (mes == 1) {
+                        enero = enero + item.subtotal;
+                    } else if (mes == 2) {
+                        febrero = febrero + item.subtotal;
+                    }else if (mes == 3) {
+                        marzo = marzo + item.subtotal;
+                    }else if (mes == 4) {
+                        abril = abril + item.subtotal;
+                    }else if (mes == 5) {
+                        mayo = mayo + item.subtotal;
+                    }else if (mes == 6) {
+                        junio = junio + item.subtotal;
+                    }else if (mes == 7) {
+                        julio = julio + item.subtotal;
+                    }else if (mes == 8) {
+                        agosto = agosto + item.subtotal;
+                    } else if (mes == 9) {
+                        septiembre = septiembre + item.subtotal;
+                    }else if (mes == 10) {
+                        octubre = octubre + item.subtotal;
+                    }else if (mes == 11) {
+                        noviembre = noviembre + item.subtotal;
+                    }else if (mes == 12) {
+                        diciembre = diciembre + item.subtotal;
+                    }
+                }
+            }
+
+            res.status(200).send({
+                enero: enero,
+                febrero: febrero,
+                marzo: marzo,
+                abril: abril,
+                mayo: mayo,
+                junio: junio,
+                julio: julio,
+                agosto: agosto,
+                septiembre: septiembre,
+                octubre: octubre,
+                noviembre: noviembre,
+                diciembre: diciembre,
+
+                ganancia_total: ganancia_total,
+                total_mes: total_mes,
+                total_mes_anterior: total_mes_anterior,
+                count_ventas: count_ventas
+            });
+
+        } else {
+            res.status(500).send({ message: 'NoAccess' });
+        }
+    } else {
+        res.status(500).send({ message: 'NoAccess' });
+    }
+}
+
 module.exports = {
     registro_admim,
     login_admin,
@@ -180,5 +280,6 @@ module.exports = {
     obtener_logo,
     obtener_mensajes_admin,
     cerrar_mensaje_admin,
-    obtener_ventas_admin
+    obtener_ventas_admin,
+    kpi_ganancias_mensuales_admin
 };

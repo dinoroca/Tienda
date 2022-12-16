@@ -19,7 +19,6 @@ import { GaleriaProductoComponent } from './components/productos/galeria-product
 import { IndexSoftwareComponent } from './components/software/index-software/index-software.component';
 import { CreateSoftwareComponent } from './components/software/create-software/create-software.component';
 import { UpdateSoftwareComponent } from './components/software/update-software/update-software.component';
-import { VariedadSoftwareComponent } from './components/software/variedad-software/variedad-software.component';
 import { IndexDescuentoComponent } from './components/descuento/index-descuento/index-descuento.component';
 import { CreateDescuentoComponent } from './components/descuento/create-descuento/create-descuento.component';
 import { EditDescuentoComponent } from './components/descuento/edit-descuento/edit-descuento.component';
@@ -51,7 +50,6 @@ const appRoute: Routes = [
         {path: 'software', component: IndexSoftwareComponent, canActivate: [AdminGuard]},
         {path: 'software/registro', component: CreateSoftwareComponent, canActivate: [AdminGuard]},
         {path: 'software/:id', component: UpdateSoftwareComponent, canActivate: [AdminGuard]},
-        {path: 'software/variedades/:id', component: VariedadSoftwareComponent, canActivate: [AdminGuard]},
 
         {path: 'cupones', component: IndexCuponComponent, canActivate: [AdminGuard]},
         {path: 'cupones/registro', component: CreateCuponComponent, canActivate: [AdminGuard]},

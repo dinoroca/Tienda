@@ -17,8 +17,6 @@ const registro_compra_cliente = async function (req, res) {
         var data = req.body;
         let detalles = data.detalles;
 
-        console.log(data);
-
         var venta_last = await Venta.find().sort({ cretedAt: -1 });
         var serie;
         var correlativo;
@@ -46,8 +44,6 @@ const registro_compra_cliente = async function (req, res) {
         data.nventa = nventa;
         data.estado = 'Procesando';
 
-        console.log(data);
-
         let venta = await Venta.create(data);
 
         detalles.forEach(async element => {
@@ -57,10 +53,12 @@ const registro_compra_cliente = async function (req, res) {
             //Obtener producto de cada arreglo de datalle
             let element_producto = await Producto.findById({ _id: element.producto });
             let new_stock = element_producto.stock - element.cantidad;
+            let n_ventas = element_producto.nventas + element.cantidad;
 
             //Actualizar el stock del producto con un nuevop stock
             await Producto.findByIdAndUpdate({ _id: element.producto }, {
-                stock: new_stock
+                stock: new_stock,
+                nventas: n_ventas
             });
 
             //Limpiar carrito de compras al finalizar una compra

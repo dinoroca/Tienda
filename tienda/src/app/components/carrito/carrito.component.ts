@@ -130,7 +130,7 @@ export class CarritoComponent implements OnInit {
           response => {
             this._clienteService.enviar_correo_cliente(response.venta._id, this.token).subscribe(
               response => {
-                this._router.navigate(['/']);
+                this._router.navigate(['/cuenta/ordenes']);
               }
             );
           }

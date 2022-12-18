@@ -173,6 +173,38 @@ const obtener_ventas_admin = async function (req, res) {
     }
 }
 
+const actualizar_ventas_enviado_admin = async function (req, res) {
+    if (req.user) {
+        if (req.user.role == 'admin') {
+
+            let id = req.params['id'];
+            let reg = await Venta.findByIdAndUpdate({ _id: id }, {estado: 'Enviado'});
+            res.status(200).send({ data: reg });
+
+        } else {
+            res.status(500).send({ message: 'NoAccess' });
+        }
+    } else {
+        res.status(500).send({ message: 'NoAccess' });
+    }
+}
+
+const actualizar_ventas_recibido_admin = async function (req, res) {
+    if (req.user) {
+        if (req.user.role == 'admin') {
+
+            let id = req.params['id'];
+            let reg = await Venta.findByIdAndUpdate({ _id: id }, {estado: 'Recibido'});
+            res.status(200).send({ data: reg });
+
+        } else {
+            res.status(500).send({ message: 'NoAccess' });
+        }
+    } else {
+        res.status(500).send({ message: 'NoAccess' });
+    }
+}
+
 //////////////KPI
 const kpi_ganancias_mensuales_admin = async function (req, res) {
     if (req.user) {
@@ -281,5 +313,7 @@ module.exports = {
     obtener_mensajes_admin,
     cerrar_mensaje_admin,
     obtener_ventas_admin,
+    actualizar_ventas_enviado_admin,
+    actualizar_ventas_recibido_admin,
     kpi_ganancias_mensuales_admin
 };

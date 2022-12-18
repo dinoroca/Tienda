@@ -109,6 +109,16 @@ export class AdminService {
     return this._http.get(this.url + 'obtener_ventas_admin/' + desde + '/' + hasta, { headers: headers });
   }
 
+  actualizar_ventas_enviado_admin(id: any, token: any): Observable<any> {
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'authorization': token });
+    return this._http.put(this.url + 'actualizar_ventas_enviado_admin/' + id, {data: true}, { headers: headers });
+  }
+
+  actualizar_ventas_recibido_admin(id: any, token: any): Observable<any> {
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'authorization': token });
+    return this._http.put(this.url + 'actualizar_ventas_recibido_admin/' + id, {data: true}, { headers: headers });
+  }
+
   obtener_detalles_orden_cliente(id: any, token: any): Observable<any> {
     let headers = new HttpHeaders({'Content-Type':'application/json', 'authorization': token});
     return this._http.get(this.url + 'obtener_detalles_orden_cliente/' + id, {headers : headers});

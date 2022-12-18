@@ -152,12 +152,17 @@
 
         <!-- Shipping -->
         <h2 class="h4 mb-4">3. Métodos de envío</h2>
-        <div class="custom-control custom-radio mb-3">
-          <input type="radio" class="custom-control-input" id="vacio" name="precio_envio" [(ngModel)]="precio_envio"
-            value="" disabled>
-          <label for="vacio" class="custom-control-label text-danger fw-bold">SELECCIONE</label>
-        </div>
 
+        <p>Estimado cliente, por nuestras políticas de envío, todas tus compras se enviarán
+          mediante el método de pago contra entrega, es decir <em>al momento de realizar el recojo de su paquete,
+            deberá pagar a la empresa de transporte
+          </em>.
+        </p>
+
+        <p style="font-size: 1.2rem; background-color: rgb(255, 184, 184);" class="rounded p-3">
+          EL código de envío así como la empresa por donde se envía, se hará llegar mediante <strong>WhatsApp</strong> 
+          o <strong>Correo electóronico</strong> al titular de la compra.
+        </p>
         <div class="custom-control custom-radio mb-3" *ngFor="let item of envios; let indice = index">
           <input type="radio" class="custom-control-input" id="courier-{{indice}}" name="precio_envio"
             [(ngModel)]="precio_envio" value="{{item.precio}}" (change)="calcular_total(item.titulo)">
@@ -166,7 +171,6 @@
               <strong class="d-block">{{item.titulo}}</strong>
               <span class="text-muted font-size-sm">Tiempo de espera: {{item.tiempo}}</span>
             </span>
-            <span class="ml-auto">S/. {{item.precio}}</span>
           </label>
         </div>
 
@@ -231,24 +235,6 @@
                   </div>
                 </div>
               </div>
-
-              <!-- Card: Cash -->
-              <div class="card mb-3 px-4 py-3 border rounded box-shadow-sm">
-                <div class="card-header py-2">
-                  <div class="accordion-heading custom-control custom-radio" data-toggle="collapse"
-                    data-target="#cash-card">
-                    <input type="radio" class="custom-control-input" id="cash" name="payment">
-                    <label for="cash" class="custom-control-label">
-                      <strong class="d-block mr-3">Cash on delivery</strong>
-                    </label>
-                  </div>
-                </div>
-                <div class="collapse" id="cash-card" data-parent="#payment-methods">
-                  <div class="card-body pt-3 pb-0">
-                    <p class="mb-2 text-muted">You have selected to pay with cash upon delivery.</p>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
         </div>
@@ -276,7 +262,7 @@
                 <input type="text" id="promo-code" class="form-control" placeholder="Ingrese código de cupón"
                   name="venta.cupon" [(ngModel)]="venta.cupon">
                 <div class="input-group-append">
-                  <button type="button" class="btn btn-primary" (click)="validar_cupon()">
+                  <button type="button" class="btn btn-primary" (click)="validar_cupon()" [disabled]="!btn_cupon">
                     Aplicar
                   </button>
                 </div>

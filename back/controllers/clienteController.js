@@ -5,6 +5,7 @@ var Contacto = require('../models/contacto');
 var Venta = require('../models/venta');
 var Dventa = require('../models/dventa');
 var Review = require('../models/review');
+var Cupon = require('../models/cupon');
 var bcrypt = require('bcrypt-nodejs');
 var jwt = require('../helpers/jwt');
 
@@ -420,6 +421,35 @@ const obtener_reviews_cliente = async function (req, res) {
   }
 }
 
+const actualizar_ventas_recibido = async function (req, res) {
+  if (req.user) {
+
+    let id = req.params['id'];
+    let reg = await Venta.findByIdAndUpdate({ _id: id }, {estado: 'Recibido'});
+    res.status(200).send({ data: reg });
+  } else {
+      res.status(500).send({ message: 'NoAccess' });
+  }
+}
+
+const actualizar_cupon_cliente = async function (req, res) {
+  if (req.user) {
+
+    var id = req.params['id'];
+    var data = req.body;
+
+    let reg = await Cupon.findByIdAndUpdate({ _id: id }, {
+      codigo: data.codigo,
+      tipo: data.tipo,
+      valor: data.valor,
+      limite: data.limite - 1
+    });
+    res.status(200).send({ data: reg });
+  } else {
+      res.status(500).send({ message: 'NoAccess' });
+  }
+}
+
 module.exports = {
   registro_cliente,
   login_cliente,
@@ -440,5 +470,7 @@ module.exports = {
   obtener_detalles_orden_cliente,
   emitir_review_producto_cliente,
   obtener_review_producto_cliente,
-  obtener_reviews_cliente
+  obtener_reviews_cliente,
+  actualizar_ventas_recibido,
+  actualizar_cupon_cliente
 };

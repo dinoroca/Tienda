@@ -135,4 +135,13 @@ export class DetalleOrdenComponent implements OnInit {
     }
   }
 
+  cambiar_estado_recibido(id: any) {
+    this._clienteService.actualizar_ventas_recibido(id, this.token).subscribe(
+      response => {
+        this.init_data();
+        
+      }
+    );
+  }
+
 }

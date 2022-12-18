@@ -74,6 +74,13 @@
                 </div>
               </div>
 
+              <div class="text-center">
+                <div class="my-2" *ngIf="orden.estado == 'Enviado'">
+                  <button class="btn btn-warning" (click)="cambiar_estado_recibido(orden._id)">
+                    <i class="cxi-check"></i> Confirmar recibido
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -129,7 +136,7 @@
                             <a style="cursor: pointer;" data-toggle="modal" [attr.data-target]="'#review-' + item._id"
                               (click)="openModal(item)" *ngIf="!item.estado">
                               <!-- Info badge -->
-                              <span class="badge text-white rounded-pill bg-info"> 
+                              <span class="badge text-white rounded-pill bg-info" *ngIf="orden.estado == 'Recibido'"> 
                                 <i class="cxi-chat"></i> &nbsp;
                                 Emitir reseña
                               </span>

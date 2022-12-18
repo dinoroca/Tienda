@@ -34,7 +34,7 @@ export class CarritoComponent implements OnInit {
   public direccion_principal: any = {};
   public envios: Array<any> = [];
 
-  public precio_envio = '';
+  public precio_envio = '0';
   public descuento = 0;
 
   public venta: any = {};
@@ -43,6 +43,9 @@ export class CarritoComponent implements OnInit {
   public error_cupon = '';
 
   public descuento_activo: any = undefined;
+
+  public btn_cupon = true;
+  public cupon: any = {};
 
   constructor(
     private _clienteService: ClienteService,
@@ -160,8 +163,8 @@ export class CarritoComponent implements OnInit {
               variedad: element.variedad,
               cantidad: element.cantidad,
               descuento: this.descuento_activo.descuento,
-              subtotal: Math.round((parseInt(element.producto.precio) * element.cantidad) - 
-              (parseInt(element.producto.precio) * element.cantidad * this.descuento_activo.descuento)/100),
+              subtotal: Math.round((parseInt(element.producto.precio) * element.cantidad) -
+                (parseInt(element.producto.precio) * element.cantidad * this.descuento_activo.descuento) / 100),
               cliente: localStorage.getItem('_id')
             });
           });
@@ -205,8 +208,8 @@ export class CarritoComponent implements OnInit {
     } else if (this.descuento_activo != undefined) {
       //Hay descuento
       this.carrito_arr.forEach(element => {
-        let new_precio =  Math.round((parseInt(element.producto.precio) * element.cantidad) - 
-                                      (parseInt(element.producto.precio) * element.cantidad * this.descuento_activo.descuento)/100);
+        let new_precio = Math.round((parseInt(element.producto.precio) * element.cantidad) -
+          (parseInt(element.producto.precio) * element.cantidad * this.descuento_activo.descuento) / 100);
         this.subtotal = this.subtotal + new_precio;
       });
     }
@@ -248,6 +251,19 @@ export class CarritoComponent implements OnInit {
             if (response.data != undefined) {
               //Procede con el descuento
               this.error_cupon = '';
+              this.btn_cupon = false;
+
+              //Obtener cupon del back
+              this._clienteService.obtener_cupon_cliente(response.data._id, this.token).subscribe(
+                response => {
+                  this.cupon = response.data;
+
+                  //Actualizar limite de cupon
+                  this._clienteService.actualizar_cupon_cliente(this.cupon._id, this.cupon, this.token).subscribe(
+                    response => {}
+                  );
+                }
+              );
 
               if (response.data.tipo == 'Valor fijo') {
                 this.descuento = response.data.valor;
@@ -262,7 +278,6 @@ export class CarritoComponent implements OnInit {
             } else {
               this.error_cupon = 'El cupón no se pudo canjear';
             }
-            console.log(response);
           }
         );
 

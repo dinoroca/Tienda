@@ -24,6 +24,10 @@ export class IndexVentasComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.init_data();
+  }
+
+  init_data() {
     this._adminService.obtener_ventas_admin(this.desde, this.hasta, this.token).subscribe(
       response => {
         this.ventas = response.data;
@@ -39,4 +43,21 @@ export class IndexVentasComponent implements OnInit {
     );
   }
 
+  cambiar_estado_enviado (id: any) {
+    this._adminService.actualizar_ventas_enviado_admin(id, this.token).subscribe(
+      response => {
+        this.init_data();
+        
+      }
+    );
+  }
+
+  cambiar_estado_recibido (id: any) {
+    this._adminService.actualizar_ventas_recibido_admin(id, this.token).subscribe(
+      response => {
+        this.init_data();
+        
+      }
+    );
+  }
 }

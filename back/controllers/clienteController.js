@@ -60,7 +60,7 @@ const login_cliente = async function (req, res) {
   if (clientes_arr.length == 0) {
     res
       .status(200)
-      .send({ message: "No se encontró el correo", data: undefined });
+      .send({ message: "Correo o contraseña incorrectos", data: undefined });
   } else {
     //Si existe el cliente se manda al login
     let user = clientes_arr[0];
@@ -75,7 +75,7 @@ const login_cliente = async function (req, res) {
       } else {
         res
           .status(200)
-          .send({ message: "Contraseña incorrecta", data: undefined });
+          .send({ message: "Correo o contraseña incorrectos", data: undefined });
       }
     });
   }

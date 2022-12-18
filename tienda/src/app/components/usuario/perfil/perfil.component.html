@@ -58,33 +58,38 @@
                             <input required type="text" class="form-control form-control-lg"
                                 name="telefono" [(ngModel)]="cliente.telefono" placeholder="Teléfono" id="tel">
                         </div>
-                        <div class="col-sm-6 form-group">
-                            <label for="input_password" class="form-label">Contraseña</label>
+                        <div class="form-group col-lg-6">
+                            <label for="signin-password" class="form-label">Contraseña nueva</label>
                             <div class="cs-password-toggle input-group-overlay">
-                                <input type="password" autocomplete="new-password" class="form-control form-control-lg" 
-                                    placeholder="Contraseña nueva" id="input_password">
-
+                                <input type="password" class="form-control appended-form-control"
+                                    id="signin-password" placeholder="Contraseña" required
+                                    name="password1" [(ngModel)]="password1">
                                 <div class="input-group-append-overlay">
                                     <label class="btn cs-password-toggle-btn input-group-text">
                                         <input type="checkbox" class="custom-control-input">
-                                        <i class="cxi-eye cs-password-toggle-indicator"></i>
-                                        <span class="sr-only">Show password</span>
                                     </label>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-6 form-group">
-                            <label for="ac-password-confirm" class="form-label">Confirmar contraseña</label>
+
+                        <div class="form-group col-lg-6">
+                            <label for="signin-password1" class="form-label">Confirmar contraseña</label>
                             <div class="cs-password-toggle input-group-overlay">
-                                <input type="password" id="ac-password-confirm" class="form-control form-control-lg" 
-                                    placeholder="Confirmar">
+                                <input type="password" class="form-control appended-form-control"
+                                    id="signin-password1" placeholder="Contraseña" 
+                                    required name="password2" [(ngModel)]="password2" 
+                                    (keyup)="compare_password()">
                                 <div class="input-group-append-overlay">
                                     <label class="btn cs-password-toggle-btn input-group-text">
-                                        <input type="checkbox" class="custom-control-input">
+                                        <input type="checkbox" class="custom-control-input" (click)="show_password()">
                                         <i class="cxi-eye cs-password-toggle-indicator"></i>
-                                        <span class="sr-only">Show password</span>
+                                        <span class="sr-only">Mostrar contraseña</span>
                                     </label>
                                 </div>
+                            </div>
+
+                            <div class="alert-danger mt-2" role="alert" *ngIf="alert_pass">
+                                <em><small>Las contraseñas no coinciden</small></em>
                             </div>
                         </div>
                         <div class="col-sm-6 form-group">
@@ -121,7 +126,7 @@
                     </div>
                     <div class="justify-content-center row">
                         <button type="submit" class="btn btn-success btn-lg bi-check-circle-fill"
-                            [disabled]="actualizarForm.invalid"> Actualizar perfil</button>
+                            [disabled]="actualizarForm.invalid || !valid"> Actualizar perfil</button>
                     </div>
                     
                 </form>

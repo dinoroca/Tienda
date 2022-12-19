@@ -74,6 +74,16 @@
                 </div>
               </div>
 
+              <div>
+                <div class="my-2" *ngIf="orden.estado == 'Reservado'">
+                  <p class="rounded p-2" style="background-color: rgb(255, 191, 191);">
+                    Recuerde enviar el código de venta "<strong> 
+                      {{id | uppercase}}  </strong>" así como el comprobante de la transferencia o depósito 
+                      al WhatsApp <a>921680694</a>.
+                  </p>
+                </div>
+              </div>
+
               <div class="text-center">
                 <div class="my-2" *ngIf="orden.estado == 'Enviado'">
                   <button class="btn btn-warning" (click)="cambiar_estado_recibido(orden._id)">

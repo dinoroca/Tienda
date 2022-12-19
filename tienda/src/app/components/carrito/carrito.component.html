@@ -52,7 +52,8 @@
                 <div class="d-flex pr-sm-3">
                   <input type="number" class="form-control form-control-sm bg-light mr-3" style="width: 4.5rem;"
                     value="{{item.cantidad}}" readonly>
-                  <div class="text-nowrap" *ngIf="descuento_activo == undefined"><strong class="text-muted" style="font-size: 1.2rem;">
+                  <div class="text-nowrap" *ngIf="descuento_activo == undefined"><strong class="text-muted"
+                      style="font-size: 1.2rem;">
                       S/. {{item.producto.precio}}</strong>
                   </div>
 
@@ -62,7 +63,7 @@
                     </div>
 
                     <div class="ml-1 text-muted">
-                        <small> <del>S/. {{item.producto.precio}}</del></small>
+                      <small> <del>S/. {{item.producto.precio}}</del></small>
                     </div>
                   </div>
                 </div>
@@ -162,7 +163,7 @@
         </p>
 
         <p style="font-size: 1.2rem; background-color: rgb(255, 191, 191);" class="rounded p-3">
-          EL código de envío así como la empresa por donde se envía, se hará llegar mediante <strong>WhatsApp</strong> 
+          EL código de envío así como la empresa por donde se envía, se hará llegar mediante <strong>WhatsApp</strong>
           o <strong>Correo electóronico</strong> al titular de la compra.
         </p>
         <div class="custom-control custom-radio mb-3">
@@ -260,19 +261,53 @@
                     Plin Numero 987654321 a nombre de NANANANANANAN
                   </div>
 
-                  <p class="mt-3">Estimado cliente, al momento de ralizar el depósito del monto correspondiente, enviar 
-                    el <strong>código de la compra </strong> <a [routerLink]="['/cuenta/ordenes']">aquí</a> y 
+                  <p class="mt-3">Estimado cliente, al momento de ralizar el depósito del monto correspondiente, enviar
+                    el <strong>código de la compra </strong> <a [routerLink]="['/cuenta/ordenes']">aquí</a> y
                     <strong>el comprobante</strong> al whatsapp <a href="https://wa.me/51921680694" target="_blank"
-                    style="text-decoration: none;">
-                      921680694</a> o al correo 
+                      style="text-decoration: none;">
+                      921680694</a> o al correo
                     <a href="mailto:support@example.coms" style="text-decoration: none;">correo@correo</a>.
                   </p>
-                  <p class="text-danger"><strong>RECUERDE:</strong> El reservar un pedido no garantiza su compra, una vez que verifiquemos el depósito,
+                  <p class="text-danger"><strong>RECUERDE:</strong> El reservar una compra no garantiza su compra, una
+                    vez que verifiquemos el depósito,
                     procederemos con el envío. GRACIAS.
                   </p>
 
                   <div class="row mt-4">
-                    <button class="btn btn-primary btn-block" (click)="pago_transferencia()">Reservar pedido</button>
+                    <button class="btn btn-primary btn-block" data-toggle="modal"
+                      [attr.data-target]="'#confirm'">
+                      Reservar compra
+                    </button>
+
+                    <!-- MODAL -->
+                    <div class="modal fade" id="confirm" tabindex="-1" style="display: none"
+                      aria-hidden="true">
+                      <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h4 class="modal-title text-center">
+                              Reservar compra
+                            </h4>
+                            <button class="btn btn-secondary btn-sm" type="button" data-dismiss="modal" aria-label="Close">
+                              x
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            <p class="fs-sm">Desea reservar la compra?</p>
+                          </div>
+                          <div class="modal-footer">
+                            <button class="btn btn-secondary btn-sm bi-x-circle-fill" type="button"
+                              data-dismiss="modal">
+                              Cancelar
+                            </button>
+                            <button class="btn btn-primary btn-sm" (click)="pago_transferencia()"
+                              type="button"  data-dismiss="modal"> <i class="cxi-check"></i>
+                              Reservar
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
 
                 </div>
@@ -294,7 +329,7 @@
                   <div class="card-body pt-3 pb-0" #paypalButton>
                     <p class="rounded text-center py-2" style="background-color: rgb(255, 191, 191);">
                       El tipo de cambio está dado en base al emitido por el SUNAT al día de hoy: <br> <strong>
-                        1 USD <i class="cxi-arrow-right"></i> 
+                        1 USD <i class="cxi-arrow-right"></i>
                         S/. {{tipo_cambio}} </strong>
                     </p>
                   </div>

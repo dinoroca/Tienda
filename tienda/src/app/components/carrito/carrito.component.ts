@@ -5,6 +5,7 @@ import { io } from 'socket.io-client';
 import { GuestService } from '../../services/guest.service';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 
 declare var iziToast: { show: (arg0: { title: string; titleColor: string; class: string; position: string; message: string; }) => void; };
 declare var Cleave: any;
@@ -46,6 +47,7 @@ export class CarritoComponent implements OnInit {
 
   public btn_cupon = true;
   public cupon: any = {};
+  public tipo_cambio = {};
 
   constructor(
     private _clienteService: ClienteService,
@@ -61,8 +63,6 @@ export class CarritoComponent implements OnInit {
     this._guestService.obtener_envios().subscribe(
       response => {
         this.envios = response;
-        console.log(this.envios);
-        
       }
     );
     this.calcular_subtotal();

@@ -1,5 +1,6 @@
 
 var Venta = require('../models/venta');
+var VentaSoftware = require('../models/ventaSoftware');
 var Dventa = require('../models/dventa');
 var Producto = require('../models/producto');
 var Carrito = require('../models/carrito');
@@ -64,6 +65,30 @@ const registro_compra_cliente = async function (req, res) {
             //Limpiar carrito de compras al finalizar una compra
             await Carrito.remove({ cliente: data.cliente });
         });
+
+        res.status(200).send({ venta: venta });
+
+    } else {
+        res.status(500).send({ message: 'NoAccess' });
+    }
+}
+
+const registro_compra_software = async function (req, res) {
+    if (req.user) {
+
+        var data = req.body;
+        var nventa = 0;
+        var venta_last = await VentaSoftware.find().sort({ cretedAt: -1 });
+
+        if (venta_last.length == 0) {
+            nventa = 1;
+        } else {
+            nventa = venta_last.length + 1;
+        }
+
+        data.nventa = parseInt(nventa);
+
+        let venta = await VentaSoftware.create(data);
 
         res.status(200).send({ venta: venta });
 
@@ -194,9 +219,9 @@ const enviar_correo_cliente = async function (req, res) {
 
     readHTMLFile(process.cwd() + '/mail.html', (err, html) => {
 
-        let rest_html = ejs.render(html, { 
-            data: data, 
-            cliente: cliente, 
+        let rest_html = ejs.render(html, {
+            data: data,
+            cliente: cliente,
             _id: _id,
             fecha: fecha,
             subtotal: subtotal,
@@ -224,6 +249,7 @@ const enviar_correo_cliente = async function (req, res) {
 
 module.exports = {
     registro_compra_cliente,
+    registro_compra_software,
     registro_reservacion_cliente,
     enviar_correo_cliente
 }

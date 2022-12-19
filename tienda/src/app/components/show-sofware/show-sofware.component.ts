@@ -19,6 +19,7 @@ export class ShowSofwareComponent implements OnInit {
 
   @ViewChild('paypalButton', { static: true }) paypalElement!: ElementRef;
   public token: any;
+  public id: any;
   public slug: any;
   public software: any = {};
   public url: any;
@@ -46,6 +47,8 @@ export class ShowSofwareComponent implements OnInit {
     this.url = GLOBAL.url;
 
     this.token = localStorage.getItem('token');
+    this.id = localStorage.getItem('_id');
+    this.venta.cliente = this.id;
 
     this._route.params.subscribe(
       params => {
@@ -96,7 +99,13 @@ export class ShowSofwareComponent implements OnInit {
         const order = await actions.order.capture();
 
         this.venta.transaccion = order.purchase_units[0].payments.captures[0].id;
-        this.venta.detalles = this.dventa;
+        this.venta.subtotal = this.total_pagar;
+
+        //Registrar venta de software lado cliente
+        this._clienteService.registro_compra_software(this.venta, this.token).subscribe(
+          response => {});
+
+        //Descargar el archivo
         this.comprar();
         this._router.navigate(['/']);
       },

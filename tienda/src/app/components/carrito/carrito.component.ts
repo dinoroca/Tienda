@@ -32,9 +32,9 @@ export class CarritoComponent implements OnInit {
   public socket = io('http://localhost:4201');
 
   public direccion_principal: any = {};
-  public envios: Array<any> = [];
+  public envios: any = {};
 
-  public precio_envio = '';
+  public precio_envio = '0';
   public descuento = 0;
 
   public venta: any = {};
@@ -43,6 +43,9 @@ export class CarritoComponent implements OnInit {
   public error_cupon = '';
 
   public descuento_activo: any = undefined;
+
+  public btn_cupon = true;
+  public cupon: any = {};
 
   constructor(
     private _clienteService: ClienteService,
@@ -58,6 +61,8 @@ export class CarritoComponent implements OnInit {
     this._guestService.obtener_envios().subscribe(
       response => {
         this.envios = response;
+        console.log(this.envios);
+        
       }
     );
     this.calcular_subtotal();
@@ -130,7 +135,7 @@ export class CarritoComponent implements OnInit {
           response => {
             this._clienteService.enviar_correo_cliente(response.venta._id, this.token).subscribe(
               response => {
-                this._router.navigate(['/']);
+                this._router.navigate(['/cuenta/ordenes']);
               }
             );
           }
@@ -160,8 +165,8 @@ export class CarritoComponent implements OnInit {
               variedad: element.variedad,
               cantidad: element.cantidad,
               descuento: this.descuento_activo.descuento,
-              subtotal: Math.round((parseInt(element.producto.precio) * element.cantidad) - 
-              (parseInt(element.producto.precio) * element.cantidad * this.descuento_activo.descuento)/100),
+              subtotal: Math.round((parseInt(element.producto.precio) * element.cantidad) -
+                (parseInt(element.producto.precio) * element.cantidad * this.descuento_activo.descuento) / 100),
               cliente: localStorage.getItem('_id')
             });
           });
@@ -205,8 +210,8 @@ export class CarritoComponent implements OnInit {
     } else if (this.descuento_activo != undefined) {
       //Hay descuento
       this.carrito_arr.forEach(element => {
-        let new_precio =  Math.round((parseInt(element.producto.precio) * element.cantidad) - 
-                                      (parseInt(element.producto.precio) * element.cantidad * this.descuento_activo.descuento)/100);
+        let new_precio = Math.round((parseInt(element.producto.precio) * element.cantidad) -
+          (parseInt(element.producto.precio) * element.cantidad * this.descuento_activo.descuento) / 100);
         this.subtotal = this.subtotal + new_precio;
       });
     }
@@ -248,6 +253,19 @@ export class CarritoComponent implements OnInit {
             if (response.data != undefined) {
               //Procede con el descuento
               this.error_cupon = '';
+              this.btn_cupon = false;
+
+              //Obtener cupon del back
+              this._clienteService.obtener_cupon_cliente(response.data._id, this.token).subscribe(
+                response => {
+                  this.cupon = response.data;
+
+                  //Actualizar limite de cupon
+                  this._clienteService.actualizar_cupon_cliente(this.cupon._id, this.cupon, this.token).subscribe(
+                    response => { }
+                  );
+                }
+              );
 
               if (response.data.tipo == 'Valor fijo') {
                 this.descuento = response.data.valor;
@@ -262,7 +280,6 @@ export class CarritoComponent implements OnInit {
             } else {
               this.error_cupon = 'El cupón no se pudo canjear';
             }
-            console.log(response);
           }
         );
 
@@ -273,6 +290,29 @@ export class CarritoComponent implements OnInit {
     } else {
       this.error_cupon = 'El cupón no es válido';
     }
+  }
+
+  pago_transferencia() {
+    this.init_data();
+    this.calcular_subtotal();
+
+    this.venta.transaccion = '123';
+    this.venta.detalles = this.dventa;
+    this.venta.subtotal = this.total_pagar;
+    this.venta.envio_titulo = 'Pago contra entrega';
+    this.venta.envio_precio = 0;
+    
+    console.log(this.venta);
+    //Registrar la venta mediante el método del controlador
+    this._clienteService.registro_reservacion_cliente(this.venta, this.token).subscribe(
+      response => {
+        this._clienteService.enviar_correo_cliente(response.venta._id, this.token).subscribe(
+          response => {
+            this._router.navigate(['/cuenta/ordenes']);
+          }
+        );
+      }
+    );
   }
 
 }

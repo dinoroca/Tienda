@@ -58,4 +58,30 @@ export class DetalleVentasComponent implements OnInit {
     );
   }
 
+  cambiar_estado_enviado (id: any) {
+    this._adminService.actualizar_ventas_enviado_admin(id, this.token).subscribe(
+      response => {
+        this.init_data();
+        
+      }
+    );
+  }
+
+  cambiar_estado_recibido (id: any) {
+    this._adminService.actualizar_ventas_recibido_admin(id, this.token).subscribe(
+      response => {
+        this.init_data();
+        
+      }
+    );
+  }
+  
+  cambiar_estado_procesando (id: any) {
+    this._adminService.actualizar_ventas_procesando_admin(id, this.token).subscribe(
+      response => {
+        this.init_data();
+      }
+    );
+  }
+
 }

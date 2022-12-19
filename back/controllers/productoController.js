@@ -169,7 +169,7 @@ const listar_inventario_admin = async function (req, res) {
         if (req.user.role == 'admin') {
 
             var id = req.params['id'];
-            var reg = await Inventario.find({ producto: id }).populate('admin').sort({ createdAt: -1 });
+            var reg = await Inventario.find({ producto: id }).populate('admin').sort({ createdAt: - 1 });
 
             res.status(200).send({ data: reg });
         } else {

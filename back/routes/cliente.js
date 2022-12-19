@@ -33,6 +33,10 @@ api.post('/enviar_mensaje_contacto', clienteController.enviar_mensaje_contacto);
 //Odenes
 api.get('/obtener_ordenes_cliente/:id', auth.auth, clienteController.obtener_ordenes_cliente);
 api.get('/obtener_detalles_orden_cliente/:id', auth.auth, clienteController.obtener_detalles_orden_cliente);
+api.put('/actualizar_ventas_recibido/:id', auth.auth, clienteController.actualizar_ventas_recibido);
+
+//CUpones
+api.put('/actualizar_cupon_cliente/:id', auth.auth, clienteController.actualizar_cupon_cliente);
 
 //Reviews
 api.post('/emitir_review_producto_cliente', auth.auth, clienteController.emitir_review_producto_cliente);

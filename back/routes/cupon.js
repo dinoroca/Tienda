@@ -12,6 +12,7 @@ api.get('/obtener_cupon_admin/:id', auth.auth, cuponController.obtener_cupon_adm
 api.put('/actualizar_cupon_admin/:id', auth.auth, cuponController.actualizar_cupon_admin);
 api.delete('/eliminar_cupon_admin/:id', auth.auth, cuponController.eliminar_cupon_admin);
 api.get('/validar_cupon_cliente/:cupon', auth.auth, cuponController.validar_cupon_cliente);
+api.get('/obtener_cupon_cliente/:id', auth.auth, cuponController.obtener_cupon_cliente);
 
 
 module.exports = api;

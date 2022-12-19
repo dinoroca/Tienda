@@ -56,7 +56,10 @@
                                         <i class="cxi-calendar font-size-base align-middle mt-n1 mr-1"></i>
                                         {{item.createdAt | date}}
                                     </span>
-                                    <span class="badge badge-info rounded-pill"> {{item.estado}} </span>
+                                    <span class="badge badge-secondary rounded-pill" *ngIf="item.estado == 'Reservado'"> {{item.estado}} </span>
+                                    <span class="badge badge-info rounded-pill" *ngIf="item.estado == 'Procesando'"> {{item.estado}} </span>
+                                    <span class="badge badge-success rounded-pill" *ngIf="item.estado == 'Enviado'"> {{item.estado}} </span>
+                                    <span class="badge badge-warning rounded-pill" *ngIf="item.estado == 'Recibido'"> {{item.estado}} </span>
                                     <span class="text-dark pl-1">S/. {{item.subtotal}} </span>
                                 </a>
                             </div>

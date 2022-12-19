@@ -97,6 +97,20 @@ const eliminar_cupon_admin = async function (req, res) {
     }
 }
 
+const obtener_cupon_cliente = async function (req, res) {
+
+    if (req.user) {
+
+        var id = req.params['id'];
+        var data = await Cupon.findById({ _id: id });
+
+        res.status(200).send({ data: data });
+
+    } else {
+        res.status(200).send({ message: NoAccess });
+    }
+}
+
 const validar_cupon_cliente = async function (req, res) {
 
     if (req.user) {
@@ -125,6 +139,6 @@ module.exports = {
     obtener_cupon_admin,
     actualizar_cupon_admin,
     eliminar_cupon_admin,
-    validar_cupon_cliente
-
+    validar_cupon_cliente,
+    obtener_cupon_cliente
 }

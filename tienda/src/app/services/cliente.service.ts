@@ -124,14 +124,29 @@ export class ClienteService {
     return this._http.post(this.url + 'registro_compra_cliente', data, {headers : headers});
   }
 
+  registro_reservacion_cliente(data: any, token: any): Observable<any> {
+    let headers = new HttpHeaders({'Content-Type':'application/json', 'authorization': token});
+    return this._http.post(this.url + 'registro_reservacion_cliente', data, {headers : headers});
+  }
+
   enviar_correo_cliente(id: any, token: any): Observable<any> {
     let headers = new HttpHeaders({'Content-Type':'application/json', 'authorization': token});
     return this._http.get(this.url + 'enviar_correo_cliente/' + id, {headers : headers});
   }
 
+  obtener_cupon_cliente(id: any, token: any): Observable<any> {
+    let headers = new HttpHeaders({'Content-Type':'application/json', 'authorization': token});
+    return this._http.get(this.url + 'obtener_cupon_cliente/' + id, {headers : headers});
+  }
+
   validar_cupon_cliente(cupon: any, token: any): Observable<any> {
     let headers = new HttpHeaders({'Content-Type':'application/json', 'authorization': token});
     return this._http.get(this.url + 'validar_cupon_cliente/' + cupon, {headers : headers});
+  }
+
+  actualizar_cupon_cliente(id: any, data: any, token: any): Observable<any> {
+    let headers = new HttpHeaders({'Content-Type':'application/json', 'authorization': token});
+    return this._http.put(this.url + 'actualizar_cupon_cliente/' + id, data, {headers : headers});
   }
 
   obtener_ordenes_cliente(id: any, token: any): Observable<any> {
@@ -142,6 +157,11 @@ export class ClienteService {
   obtener_detalles_orden_cliente(id: any, token: any): Observable<any> {
     let headers = new HttpHeaders({'Content-Type':'application/json', 'authorization': token});
     return this._http.get(this.url + 'obtener_detalles_orden_cliente/' + id, {headers : headers});
+  }
+
+  actualizar_ventas_recibido(id: any, token: any): Observable<any> {
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'authorization': token });
+    return this._http.put(this.url + 'actualizar_ventas_recibido/' + id, {data: true}, { headers: headers });
   }
 
   emitir_review_producto_cliente(data: any, token: any): Observable<any> {

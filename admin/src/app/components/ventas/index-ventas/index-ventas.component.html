@@ -27,13 +27,23 @@
                     <input class="form-control" type="date" name="hasta" [(ngModel)]="hasta">
                 </div>
             </div>
+            <div class="col-12 text-center">
+                <button type="button" class="btn btn-success" (click)="filtrar()">
+                    <i class="cxi-search"></i>
+                    Filtrar por fecha
+                </button>
+            </div>
         </div>
 
-        <div class="col-12 text-center">
-            <button type="button" class="btn btn-success" (click)="filtrar()">
-                <i class="cxi-search"></i>
-                Filtrar
-            </button>
+        <!-- Button addon on the right -->
+        <div class="input-group mt-4">
+            <input class="form-control" type="text" 
+                placeholder="Filtrar por nombre" name="filtro_cod" [(ngModel)]="filtro_cod"
+                (keyup)="filtrar_cod(filtro_cod)">
+        </div>
+
+        <div class="rounded my-2" *ngIf="err_msg" style="background-color: rgb(255, 223, 223);">
+            <p class="text-center p-2 text-danger" >ERROR: Ingrese el ID correctamente.</p>
         </div>
     </div>
 
@@ -49,7 +59,14 @@
                         </h3>
                     </div>
                     <div class="col text-right">
-                        <span class="badge badge-primary mb-3"> {{item.estado}} </span>
+                        <span class="badge badge-primary mb-3 rounded-pill" *ngIf="item.estado == 'Procesando'">
+                            {{item.estado}} </span>
+                        <span class="badge badge-success mb-3 rounded-pill" *ngIf="item.estado == 'Enviado'">
+                            {{item.estado}} </span>
+                        <span class="badge badge-warning mb-3 rounded-pill" *ngIf="item.estado == 'Recibido'">
+                            {{item.estado}} </span>
+                        <span class="badge badge-secondary mb-3 rounded-pill" *ngIf="item.estado == 'Reservado'">
+                            {{item.estado}} </span>
                         <div class="dropdown">
                             <a style="cursor: pointer;" class="dropdown-toggle" data-toggle="dropdown">
                                 <span class="cxi-settings"></span>
@@ -57,6 +74,22 @@
                             <div class="dropdown-menu text-center">
                                 <a [routerLink]="['/panel/ventas', item._id]" class="dropdown-item">Ver detalles &nbsp;
                                     <i class="bi-list-ul"></i>
+                                </a>
+                                <a class="dropdown-item" (click)="cambiar_estado_enviado (item._id)"
+                                    style="cursor: pointer;"
+                                    *ngIf="item.estado == 'Procesando'">Cambiar a Enviado
+                                    &nbsp;
+                                    <i class="cxi-truck"></i>
+                                </a>
+                                <a class="dropdown-item" (click)="cambiar_estado_procesando (item._id)"
+                                    style="cursor: pointer;"
+                                    *ngIf="item.estado == 'Reservado'">Cambiar a Procesando
+                                    &nbsp;
+                                    <i class="cxi-arrow-convert"></i>
+                                </a>
+                                <a (click)="cambiar_estado_recibido (item._id)" style="cursor: pointer;"
+                                    class="dropdown-item" *ngIf="item.estado == 'Enviado'">Cambiar a Recibido &nbsp;
+                                    <i class="cxi-check"></i>
                                 </a>
                             </div>
                         </div>
@@ -78,7 +111,7 @@
                                 <span class="text-border px-1">|</span>
                             </li>
                             <li class="nav-item mr-2">
-                                <a href="#" class="nav-link d-inline-block mr-2 p-0 font-size-sm font-weight-normal">
+                                <a class="nav-link d-inline-block mr-2 p-0 font-size-sm font-weight-normal">
                                     <i class="cxi-truck mt-n1 mr-2 font-size-base align-middle"></i>
                                     {{item.envio_titulo}}
                                 </a>

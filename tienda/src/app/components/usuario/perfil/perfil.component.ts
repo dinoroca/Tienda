@@ -17,6 +17,12 @@ export class PerfilComponent implements OnInit {
   public id: any;
   public token: any;
 
+  public show = false;
+  public password1 = '';
+  public password2 = '';
+  public alert_pass = false;
+  public valid = false;
+
   constructor(
     private _clienteService: ClienteService,
     private _title: Title
@@ -42,10 +48,33 @@ export class PerfilComponent implements OnInit {
     this._title.setTitle('Perfil');
   }
 
+  show_password() {
+    if (!this.show) {
+      this.show = true;
+      $('#signin-password').attr('type', 'text');
+      $('#signin-password1').attr('type', 'text');
+    } else {
+      this.show = false;
+      $('#signin-password').attr('type', 'password');
+      $('#signin-password1').attr('type', 'password');
+    }
+  }
+
+  compare_password() {
+    if (this.password1 == this.password2) {
+      this.alert_pass = false;
+      this.valid = true;
+
+    } else if (this.password1 != this.password2) {
+      this.alert_pass = true;
+      this.valid = false;
+    }
+  }
+
   actualizar(actualizarForm: any) {
     if (actualizarForm.valid) {
 
-      this.cliente.password = $('#input_password').val();
+      this.cliente.password = $('#signin-password1').val();
 
       this._clienteService.actualizar_perfil_cliente(this.id, this.cliente, this.token).subscribe(
         response => {

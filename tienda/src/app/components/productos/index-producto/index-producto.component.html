@@ -144,7 +144,7 @@
                           [(ngModel)]="filter_cat_productos" (change)="buscar_por_categoria()">
                         <label for="cat-todos" class="custom-control-label">
                           <span class="cs-filter-item-text">Todos</span>
-                          <span class="pl-1 text-muted">(1)</span>
+                          <span class="pl-1 text-muted">({{productos.length}})</span>
                         </label>
                       </div>
                     </li>
@@ -155,7 +155,6 @@
                           value="{{item.titulo}}" [(ngModel)]="filter_cat_productos" (change)="buscar_por_categoria()">
                         <label for="cat-{{indice}}" class="custom-control-label">
                           <span class="cs-filter-item-text">{{item.titulo}}</span>
-                          <span class="pl-1 text-muted">(1)</span>
                         </label>
                       </div>
                     </li>

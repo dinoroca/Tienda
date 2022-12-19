@@ -90,8 +90,8 @@
                                     </h6>
                                 </td>
                                 <td>{{ item.descuento }} %</td>
-                                <td> <small>{{ item.fecha_inicio }}</small> <span class="text-success"> al </span> 
-                                    <small>{{ item.fecha_fin }}</small>
+                                <td> {{ item.fecha_inicio }}<span class="text-success"> al </span> 
+                                    {{ item.fecha_fin }}
                                 </td>
                                 <td> 
                                     <span class="badge bg-info rounded-pill text-white" *ngIf="item.estado == 'Próximamente'">
@@ -108,7 +108,7 @@
                                     <div class="btn-group dropdown">
                                         <button type="button" class="btn btn-outline-secondary btn-sm dropdown-toggle"
                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            opciones
+                                            Opciones
                                         </button>
                                         <div class="dropdown-menu text-center">
                                             <a class="dropdown-item bi-pencil-fill"

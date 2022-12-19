@@ -36,7 +36,7 @@ export class InicioComponent implements OnInit {
         this.total_mes_anterior = response.total_mes_anterior;
         this.count_ventas = response.count_ventas;
         this.chart = new Chart("MyChart", {
-          type: 'line', //this denotes tha type of chart
+          type: 'bar', //this denotes tha type of chart
 
           data: {// values on X-Axis
             labels: ['Enero',

@@ -32,7 +32,7 @@ export class CarritoComponent implements OnInit {
   public socket = io('http://localhost:4201');
 
   public direccion_principal: any = {};
-  public envios: Array<any> = [];
+  public envios: any = {};
 
   public precio_envio = '0';
   public descuento = 0;
@@ -61,6 +61,8 @@ export class CarritoComponent implements OnInit {
     this._guestService.obtener_envios().subscribe(
       response => {
         this.envios = response;
+        console.log(this.envios);
+        
       }
     );
     this.calcular_subtotal();
@@ -260,7 +262,7 @@ export class CarritoComponent implements OnInit {
 
                   //Actualizar limite de cupon
                   this._clienteService.actualizar_cupon_cliente(this.cupon._id, this.cupon, this.token).subscribe(
-                    response => {}
+                    response => { }
                   );
                 }
               );
@@ -288,6 +290,29 @@ export class CarritoComponent implements OnInit {
     } else {
       this.error_cupon = 'El cupón no es válido';
     }
+  }
+
+  pago_transferencia() {
+    this.init_data();
+    this.calcular_subtotal();
+
+    this.venta.transaccion = '123';
+    this.venta.detalles = this.dventa;
+    this.venta.subtotal = this.total_pagar;
+    this.venta.envio_titulo = 'Pago contra entrega';
+    this.venta.envio_precio = 0;
+    
+    console.log(this.venta);
+    //Registrar la venta mediante el método del controlador
+    this._clienteService.registro_reservacion_cliente(this.venta, this.token).subscribe(
+      response => {
+        this._clienteService.enviar_correo_cliente(response.venta._id, this.token).subscribe(
+          response => {
+            this._router.navigate(['/cuenta/ordenes']);
+          }
+        );
+      }
+    );
   }
 
 }

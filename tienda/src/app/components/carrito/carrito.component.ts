@@ -28,6 +28,7 @@ export class CarritoComponent implements OnInit {
   public id: any;
   public url: any;
   public carrito_arr: Array<any> = [];
+  public config_global: any = '';
   public subtotal = 0;
   public total_pagar = 0;
   public socket = io('http://localhost:4201');
@@ -47,7 +48,7 @@ export class CarritoComponent implements OnInit {
 
   public btn_cupon = true;
   public cupon: any = {};
-  public tipo_cambio = {};
+  public tipo_cambio = 0;
 
   constructor(
     private _clienteService: ClienteService,
@@ -65,6 +66,15 @@ export class CarritoComponent implements OnInit {
         this.envios = response;
       }
     );
+
+    this._clienteService.obtener_config_publico().subscribe(
+      response => {
+        //Asiganr los valores de las categorias del back
+        this.config_global = response.data;
+        this.tipo_cambio = response.data.tipo_cambio;
+      }
+    );
+
     this.calcular_subtotal();
   }
 
@@ -118,7 +128,7 @@ export class CarritoComponent implements OnInit {
             description: 'Pago en la tienda HJM',
             amount: {
               currency_code: 'USD',
-              value: this.total_pagar
+              value: Math.round(((this.total_pagar/this.tipo_cambio) + Number.EPSILON) * 100)/100
             },
           }]
         });

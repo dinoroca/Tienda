@@ -18,6 +18,7 @@ const actualizar_config_admin = async function (req, res) {
                 let reg = await Config.findByIdAndUpdate({ _id: '637452564a440ec5894e43a7' }, {
                     categorias: JSON.parse(data.categorias),
                     titulo: data.titulo,
+                    tipo_cambio: data.tipo_cambio,
                     serie: data.serie,
                     logo: logo_name,
                     correlativo: data.correlativo
@@ -39,6 +40,7 @@ const actualizar_config_admin = async function (req, res) {
                 let reg = await Config.findByIdAndUpdate({ _id: '637452564a440ec5894e43a7' }, {
                     categorias: data.categorias,
                     titulo: data.titulo,
+                    tipo_cambio: data.tipo_cambio,
                     serie: data.serie,
                     correlativo: data.correlativo
                 });

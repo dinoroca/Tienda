@@ -64,6 +64,23 @@
                         </div>
                     </div>
 
+                    <div class="text-center">
+                        <div class="my-2" *ngIf="orden.estado == 'Procesando' ">
+                            <button class="btn btn-success" (click)="cambiar_estado_enviado(orden._id)">
+                                <i class="cxi-truck"></i> Cambiar a enviado
+                            </button>
+                        </div>
+                        <div class="my-2" *ngIf="orden.estado == 'Reservado'">
+                            <button class="btn btn-primary" (click)="cambiar_estado_procesando(orden._id)">
+                                <i class="cxi-arrow-convert"></i> Cambiar a procesando
+                            </button>
+                        </div>
+                        <div class="my-2" *ngIf="orden.estado == 'Enviado'">
+                            <button class="btn btn-warning" (click)="cambiar_estado_recibido(orden._id)">
+                                <i class="cxi-check"></i> Cambiar a recibido
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -178,5 +195,5 @@
 
     <div class="card-footer text-center">
         <a class="bi-arrow-left-circle-fill text-warning" style="font-size: 2rem;" [routerLink]="['/panel/ventas']"></a>
-      </div>
+    </div>
 </div>

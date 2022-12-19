@@ -65,25 +65,25 @@ const login_admin = async function (req, res) {
 
 const obtener_admin = async function (req, res) {
     if (req.user) {
-      if (req.user.role == 'admin') {
-  
-        var id = req.params['id'];
-  
-        try {
-          var reg = await Admin.findById({ _id: id });
-          res.status(200).send({ data: reg });
-  
-        } catch (error) {
-          res.status(200).send({ data: undefined });
+        if (req.user.role == 'admin') {
+
+            var id = req.params['id'];
+
+            try {
+                var reg = await Admin.findById({ _id: id });
+                res.status(200).send({ data: reg });
+
+            } catch (error) {
+                res.status(200).send({ data: undefined });
+            }
+
+        } else {
+            res.status(500).send({ message: 'NoAccess' });
         }
-  
-      } else {
-        res.status(500).send({ message: 'NoAccess' });
-      }
     } else {
-      res.status(500).send({ message: 'NoAccess' });
+        res.status(500).send({ message: 'NoAccess' });
     }
-  }
+}
 
 const obtener_logo = async function (req, res) {
     var img = req.params['img'];
@@ -150,13 +150,13 @@ const obtener_ventas_admin = async function (req, res) {
 
             } else {
                 //Hay filtros
-                let tt_desde = Date.parse(new Date(desde + 'T00:00:00'))/1000;
-                let tt_hasta = Date.parse(new Date(hasta + 'T23:59:59'))/1000;
+                let tt_desde = Date.parse(new Date(desde + 'T00:00:00')) / 1000;
+                let tt_hasta = Date.parse(new Date(hasta + 'T23:59:59')) / 1000;
 
                 let temp_ventas = await Venta.find().populate('cliente').populate('direccion').sort({ createdAt: -1 });
 
                 for (var item of temp_ventas) {
-                    var tt_create = Date.parse(new Date(item.createdAt))/1000;
+                    var tt_create = Date.parse(new Date(item.createdAt)) / 1000;
                     if (tt_create >= tt_desde && tt_create <= tt_hasta) {
                         ventas.push(item);
                     }
@@ -173,12 +173,49 @@ const obtener_ventas_admin = async function (req, res) {
     }
 }
 
+const obtener_venta_admin = async function (req, res) {
+    if (req.user) {
+        if (req.user.role == 'admin') {
+
+            let id = req.params['id'];
+
+            try {
+                let reg = await Venta.findById({ _id: id });
+                res.status(200).send({ data: reg });
+            } catch (error) {
+                res.status(200).send({ data: undefined });
+            }
+
+        } else {
+            res.status(500).send({ message: 'NoAccess' });
+        }
+    } else {
+        res.status(500).send({ message: 'NoAccess' });
+    }
+}
+
+const actualizar_ventas_procesando_admin = async function (req, res) {
+    if (req.user) {
+        if (req.user.role == 'admin') {
+
+            let id = req.params['id'];
+            let reg = await Venta.findByIdAndUpdate({ _id: id }, { estado: 'Procesando' });
+            res.status(200).send({ data: reg });
+
+        } else {
+            res.status(500).send({ message: 'NoAccess' });
+        }
+    } else {
+        res.status(500).send({ message: 'NoAccess' });
+    }
+}
+
 const actualizar_ventas_enviado_admin = async function (req, res) {
     if (req.user) {
         if (req.user.role == 'admin') {
 
             let id = req.params['id'];
-            let reg = await Venta.findByIdAndUpdate({ _id: id }, {estado: 'Enviado'});
+            let reg = await Venta.findByIdAndUpdate({ _id: id }, { estado: 'Enviado' });
             res.status(200).send({ data: reg });
 
         } else {
@@ -194,7 +231,7 @@ const actualizar_ventas_recibido_admin = async function (req, res) {
         if (req.user.role == 'admin') {
 
             let id = req.params['id'];
-            let reg = await Venta.findByIdAndUpdate({ _id: id }, {estado: 'Recibido'});
+            let reg = await Venta.findByIdAndUpdate({ _id: id }, { estado: 'Recibido' });
             res.status(200).send({ data: reg });
 
         } else {
@@ -232,7 +269,7 @@ const kpi_ganancias_mensuales_admin = async function (req, res) {
             let current_year = current_date.getFullYear();
             let current_month = current_date.getMonth() + 1;
 
-            for(var item of reg) {
+            for (var item of reg) {
                 let createdAt_date = new Date(item.createdAt);
                 let mes = createdAt_date.getMonth() + 1;
 
@@ -244,7 +281,7 @@ const kpi_ganancias_mensuales_admin = async function (req, res) {
                         total_mes = total_mes + item.subtotal;
                         count_ventas = count_ventas + 1;
                     }
-                    
+
                     if (mes == current_month - 1) {
                         total_mes_anterior = total_mes_anterior + item.subtotal;
                     }
@@ -253,25 +290,25 @@ const kpi_ganancias_mensuales_admin = async function (req, res) {
                         enero = enero + item.subtotal;
                     } else if (mes == 2) {
                         febrero = febrero + item.subtotal;
-                    }else if (mes == 3) {
+                    } else if (mes == 3) {
                         marzo = marzo + item.subtotal;
-                    }else if (mes == 4) {
+                    } else if (mes == 4) {
                         abril = abril + item.subtotal;
-                    }else if (mes == 5) {
+                    } else if (mes == 5) {
                         mayo = mayo + item.subtotal;
-                    }else if (mes == 6) {
+                    } else if (mes == 6) {
                         junio = junio + item.subtotal;
-                    }else if (mes == 7) {
+                    } else if (mes == 7) {
                         julio = julio + item.subtotal;
-                    }else if (mes == 8) {
+                    } else if (mes == 8) {
                         agosto = agosto + item.subtotal;
                     } else if (mes == 9) {
                         septiembre = septiembre + item.subtotal;
-                    }else if (mes == 10) {
+                    } else if (mes == 10) {
                         octubre = octubre + item.subtotal;
-                    }else if (mes == 11) {
+                    } else if (mes == 11) {
                         noviembre = noviembre + item.subtotal;
-                    }else if (mes == 12) {
+                    } else if (mes == 12) {
                         diciembre = diciembre + item.subtotal;
                     }
                 }
@@ -313,7 +350,9 @@ module.exports = {
     obtener_mensajes_admin,
     cerrar_mensaje_admin,
     obtener_ventas_admin,
+    obtener_venta_admin,
     actualizar_ventas_enviado_admin,
+    actualizar_ventas_procesando_admin,
     actualizar_ventas_recibido_admin,
     kpi_ganancias_mensuales_admin
 };

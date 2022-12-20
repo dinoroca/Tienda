@@ -64,6 +64,7 @@ export class CarritoComponent implements OnInit {
     this._guestService.obtener_envios().subscribe(
       response => {
         this.envios = response;
+        
       }
     );
 

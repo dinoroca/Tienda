@@ -166,14 +166,10 @@
           EL código de envío así como la empresa por donde se envía, se hará llegar mediante <strong>WhatsApp</strong>
           o <strong>Correo electóronico</strong> al titular de la compra.
         </p>
-        <div class="custom-control custom-radio mb-3">
-          <label class="custom-control-label d-flex align-items-center">
-            <span>
-              <strong class="d-block">{{envios.titulo}}</strong>
-              <span class="text-muted font-size-sm">Tiempo de espera: {{envios.tiempo}}</span>
-            </span>
-          </label>
-        </div>
+          <span style="font-size: 1.2rem;">
+            <strong class="d-block">{{envios.titulo}}</strong>
+            <span class="text-muted font-size-sm">Tiempo de espera: {{envios.tiempo}}</span>
+          </span>
 
         <hr class="border-top-0 border-bottom pt-4 mb-4">
 
@@ -210,7 +206,7 @@
                       </div>
                       <div class="form-group mb-3">
                         <label for="cc-cvc">CVC</label>
-                        <input type="text" id="cc-cvc" class="form-control form-control-lg" data-format="cvc"
+                        <input type="text" id="cc-cvc" class="form-control form-control-lg" data-format="cvc" maxlength="3"
                           placeholder="000">
                       </div>
                     </div>

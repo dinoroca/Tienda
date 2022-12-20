@@ -20,5 +20,6 @@ api.put('/actualizar_ventas_procesando_admin/:id', auth.auth, adiminController.a
 api.put('/actualizar_ventas_recibido_admin/:id', auth.auth, adiminController.actualizar_ventas_recibido_admin);
 
 api.get('/kpi_ganancias_mensuales_admin', auth.auth, adiminController.kpi_ganancias_mensuales_admin);
+api.get('/kpi_ganancias_programas_admin', auth.auth, adiminController.kpi_ganancias_programas_admin);
 
 module.exports = api;

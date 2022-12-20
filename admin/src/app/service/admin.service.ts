@@ -139,4 +139,9 @@ export class AdminService {
     let headers = new HttpHeaders({'Content-Type':'application/json', 'authorization': token});
     return this._http.get(this.url + 'kpi_ganancias_mensuales_admin', {headers : headers});
   }
+
+  kpi_ganancias_programas_admin(token: any): Observable<any> {
+    let headers = new HttpHeaders({'Content-Type':'application/json', 'authorization': token});
+    return this._http.get(this.url + 'kpi_ganancias_programas_admin', {headers : headers});
+  }
 }

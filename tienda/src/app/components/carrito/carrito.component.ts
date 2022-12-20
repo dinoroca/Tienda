@@ -116,6 +116,7 @@ export class CarritoComponent implements OnInit {
     });
 
     this.obtener_direccion_principal();
+    this.calcular_total('Pago contra entrega');
 
     paypal.Buttons({
       style: {

@@ -76,10 +76,12 @@ export class ConfigComponent implements OnInit {
         serie: configForm.value.serie,
         correlativo: configForm.value.correlativo,
         categorias: this.config.categorias,
+        tipo_cambio: this.config.tipo_cambio,
         logo: this.file
       }
 
       console.log(data);
+      
       this._adminService.actualizar_config_admin('637452564a440ec5894e43a7', data, this.token).subscribe(
         response => {
           iziToast.show({

@@ -19,17 +19,26 @@
         <div class="card-body">
             <div style="max-width: 48rem;">
                 <div class="form-group row align-items-center">
-                    <label class="col-md-3 col-form-label font-weight-medium" for="text-input">Nombre de la
+                    <label class="col-md-3 col-form-label font-weight-medium" for="nombre">Nombre de la
                         tienda</label>
                     <div class="col-md-9">
-                        <input class="form-control" type="text" id="text-input" placeholder="Nombre" name="titulo"
+                        <input class="form-control" type="text" id="nombre" placeholder="Nombre" name="titulo"
                             [(ngModel)]="config.titulo" required>
                     </div>
                 </div>
                 <div class="form-group row align-items-center">
-                    <label class="col-md-3 col-form-label font-weight-medium" for="text-input">Facturación</label>
+                    <label class="col-md-3 col-form-label font-weight-medium text-primary" for="cambio">
+                        Tipo de cambio $ a S/.
+                    </label>
+                    <div class="col-md-9">
+                        <input class="form-control" type="number" id="cambio" placeholder="Valor de cambio" name="tipo_cambio"
+                            [(ngModel)]="config.tipo_cambio" required>
+                    </div>
+                </div>
+                <div class="form-group row align-items-center">
+                    <label class="col-md-3 col-form-label font-weight-medium" for="serie">Facturación</label>
                     <div class="col-md-4">
-                        <input class="form-control" type="text" id="text-input" placeholder="Serie" name="serie"
+                        <input class="form-control" type="text" id="serie" placeholder="Serie" name="serie"
                             [(ngModel)]="config.serie" required>
                     </div>
                     <div class="col-md-5">
@@ -38,9 +47,9 @@
                     </div>
                 </div>
                 <div class="form-group row align-items-center">
-                    <label class="col-md-3 col-form-label font-weight-medium" for="text-input">Categorías</label>
+                    <label class="col-md-3 col-form-label font-weight-medium" for="categorias">Categorías</label>
                     <div class="col-md-4">
-                        <input class="form-control" type="text" id="text-input" placeholder="Titulo" name="titulo_cat"
+                        <input class="form-control" type="text" id="categorias" placeholder="Titulo" name="titulo_cat"
                             [(ngModel)]="titulo_cat">
 
                     </div>

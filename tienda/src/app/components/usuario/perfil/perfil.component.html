@@ -55,7 +55,7 @@
                         </div>
                         <div class="col-sm-6 form-group">
                             <label class="form-label" for="tel">Teléfono</label>
-                            <input required type="text" class="form-control form-control-lg"
+                            <input required type="text" class="form-control form-control-lg" maxlength="9"
                                 name="telefono" [(ngModel)]="cliente.telefono" placeholder="Teléfono" id="tel">
                         </div>
                         <div class="form-group col-lg-6">
@@ -99,7 +99,7 @@
                         </div>
                         <div class="col-sm-6 form-group">
                             <label class="form-label" for="dni">DNI</label>
-                            <input required type="text" class="form-control form-control-lg"
+                            <input required type="text" class="form-control form-control-lg" maxlength="8"
                                 name="dni" [(ngModel)]="cliente.dni" placeholder="Ingrese su DNI" id="dni">
                         </div>
                         <div class="col-sm-6 form-group">

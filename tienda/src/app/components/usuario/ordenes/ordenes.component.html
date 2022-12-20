@@ -44,7 +44,7 @@
                 <div class="accordion-alt" id="orders" *ngIf="!load_data">
 
                     <!-- Con órdenes -->
-                    <ng-container *ngIf="ordenes.length >= 1">
+                    <ng-container *ngIf="ordenes.length >= 0">
                         <!-- Order -->
                         <div class="card border-bottom shadow mt-5 rounded px-3" *ngFor="let item of ordenes 
                     | slice: (page - 1) * pageSize:(page - 1) * pageSize + pageSize">

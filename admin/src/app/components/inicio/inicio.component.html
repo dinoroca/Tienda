@@ -5,21 +5,27 @@
     <h1 class="mt-2 mt-md-4 mb-3 pt-5">Dashboard</h1>
 </div>
 
+<!-- Productos -->
 <div class="row mb-5 text-center">
+
+    <div class="col-12">
+        <h3>Productos</h3>
+    </div>
+
     <div class="col-3">
         <div class="card">
             <div class="card-body">
                 <div class="row gx-0">
                     <div class="col">
-                        <h6 class="text-uppercase text-muted mb-2">
+                        <h6 class="text-muted mb-2">
                             Ganancia total
                         </h6>
-                        <span class="h2 mb-0">
+                        <span class="h3 mb-0">
                             S/. {{ganancia_total}}
                         </span>
                     </div>
                     <div class="col-auto">
-                        <span class="h2 fe fe-dollar-sign text-muted mb-o"></span>
+                        <span class="h3 fe fe-dollar-sign text-muted mb-o"></span>
                     </div>
                 </div>
             </div>
@@ -30,15 +36,23 @@
             <div class="card-body">
                 <div class="row gx-0">
                     <div class="col">
-                        <h6 class="text-uppercase text-muted mb-2">
+                        <h6 class="text-muted mb-2">
                             Mes actual
                         </h6>
-                        <span class="h2 mb-0">
+                        <span class="h3 mb-0">
                             S/. {{total_mes}}
                         </span>
                     </div>
-                    <div class="col-auto">
-                        <span class="h2 fe fe-briefcase text-muted mb-0"></span>
+                    <div>
+                        <small class="text-success mb-0" *ngIf="total_mes - total_mes_anterior > 0">
+                            + {{(total_mes - total_mes_anterior_programas)*100/total_mes}}%
+                            <i class="cxi-arrow-up"></i>
+                        </small>
+
+                        <small class="text-danger mb-0" *ngIf="total_mes_programas - total_mes_anterior_programas < 0">
+                            - {{(total_mes - total_mes_anterior)*100/total_mes}}%
+                            <i class="cxi-arrow-down"></i>
+                        </small>
                     </div>
                 </div>
             </div>
@@ -49,10 +63,10 @@
             <div class="card-body">
                 <div class="row gx-0">
                     <div class="col">
-                        <h6 class="text-uppercase text-muted mb-2">
+                        <h6 class="text-muted mb-2">
                             N° Ventas total
                         </h6>
-                        <span class="h2 mb-0">
+                        <span class="h3 mb-0">
                             {{count_ventas}}
                         </span>
                     </div>
@@ -66,15 +80,12 @@
                 <div class="card-body">
                     <div class="row gx-0">
                         <div class="col">
-                            <h6 class="text-uppercase text-muted mb-2">
+                            <h6 class="text-muted mb-2">
                                 Mes anterior
                             </h6>
-                            <span class="h2 mb-0">
+                            <span class="h3 mb-0">
                                 S/. {{total_mes_anterior}}
                             </span>
-                        </div>
-                        <div class="col-auto">
-                            <span class="h2 fe fe-clock text-muted mb-0"></span>
                         </div>
                     </div>
                 </div>
@@ -83,15 +94,128 @@
     </div>
 </div>
 
-<div class="card box-shadow-sm">
-    <div class="card-header">
-        <h5 style="margin-bottom: 0px">Ventas mensuales de productos</h5>
+<div class="card box-shadow-sm mb-5">
+    <div style="background-color: rgb(232, 255, 255);">
+        <div class="card-header">
+            <h5 style="margin-bottom: 0px; color: rgb(75,192,192);">Ventas mensuales de productos</h5>
+        </div>
+    
+        <div class="card-body">
+            <div class="row">
+                <div class="col-12">
+                    <canvas id="MyChart"></canvas>
+                </div>
+            </div>
+        </div>
     </div>
 
+    <div style="background-color: rgb(237, 255, 241);">
+        <div class="card-header">
+            <h5 style="margin-bottom: 0px; color: rgb(83,212,123);">Cantidad de productos vendidos por mes</h5>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-12">
+                    <canvas id="MyChartnv"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Programas -->
+<div class="row mb-5 text-center">
+    <div class="col-12">
+        <h3>Programas</h3>
+    </div>
+    <div class="col-3">
+        <div class="card">
+            <div class="card-body">
+                <div class="row gx-0">
+                    <div class="col">
+                        <h6 class="text-muted mb-2">
+                            Ganancia total
+                        </h6>
+                        <span class="h3 mb-0">
+                            S/. {{ganancia_total_programas}}
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-3">
+        <div class="card">
+            <div class="card-body">
+                <div class="row gx-0">
+                    <div class="col">
+                        <h6 class="text-muted mb-2">
+                            Mes actual
+                        </h6>
+                        <span class="h3 mb-0">
+                            S/. {{total_mes_programas}}
+                        </span>
+                    </div>
+
+                    <div>
+                        <small class="text-success mb-0" *ngIf="total_mes_programas - total_mes_anterior_programas > 0">
+                            + {{(total_mes_programas - total_mes_anterior_programas)*100/total_mes_programas}}%
+                            <i class="cxi-arrow-up"></i>
+                        </small>
+
+                        <small class="text-danger mb-0" *ngIf="total_mes_programas - total_mes_anterior_programas < 0">
+                            - {{(total_mes_programas - total_mes_anterior_programas)*100/total_mes_programas}}%
+                            <i class="cxi-arrow-down"></i>
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-3">
+        <div class="card">
+            <div class="card-body">
+                <div class="row gx-0">
+                    <div class="col">
+                        <h6 class="text-muted mb-2">
+                            N° Ventas total
+                        </h6>
+                        <span class="h3 mb-0">
+                            {{count_ventas_programas}}
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-3">
+        <div class="">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row gx-0">
+                        <div class="col">
+                            <h6 class="text-muted mb-2">
+                                Mes anterior
+                            </h6>
+                            <span class="h3 mb-0">
+                                S/. {{total_mes_anterior_programas}}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card box-shadow-sm mt-4" style="background-color: rgb(248, 235, 255);">
+    <div class="card-header">
+        <h5 style="margin-bottom: 0px; color: rgb(149,99,255);">Ventas mensuales de programas</h5>
+    </div>
     <div class="card-body">
         <div class="row">
             <div class="col-12">
-                <canvas id="MyChart"></canvas>
+                <canvas id="MyChart1"></canvas>
             </div>
         </div>
     </div>

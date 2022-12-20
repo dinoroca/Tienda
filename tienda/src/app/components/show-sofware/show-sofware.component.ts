@@ -19,8 +19,11 @@ export class ShowSofwareComponent implements OnInit {
 
   @ViewChild('paypalButton', { static: true }) paypalElement!: ElementRef;
   public token: any;
+  public id: any;
   public slug: any;
   public software: any = {};
+  public config_global: any = '';
+  public tipo_cambio = 0;
   public url: any;
   public ruta_actual = '';
 
@@ -46,6 +49,8 @@ export class ShowSofwareComponent implements OnInit {
     this.url = GLOBAL.url;
 
     this.token = localStorage.getItem('token');
+    this.id = localStorage.getItem('_id');
+    this.venta.cliente = this.id;
 
     this._route.params.subscribe(
       params => {
@@ -57,6 +62,14 @@ export class ShowSofwareComponent implements OnInit {
             this.total_pagar = this.software.precio;
           }
         );
+      }
+    );
+
+    this._clienteService.obtener_config_publico().subscribe(
+      response => {
+        //Asiganr los valores de las categorias del back
+        this.config_global = response.data;
+        this.tipo_cambio = response.data.tipo_cambio;
       }
     );
   }
@@ -86,7 +99,7 @@ export class ShowSofwareComponent implements OnInit {
             description: 'Pago por software',
             amount: {
               currency_code: 'USD',
-              value: this.total_pagar
+              value: Math.round(((this.total_pagar/this.tipo_cambio) + Number.EPSILON) * 100)/100
             },
           }]
         });
@@ -96,7 +109,13 @@ export class ShowSofwareComponent implements OnInit {
         const order = await actions.order.capture();
 
         this.venta.transaccion = order.purchase_units[0].payments.captures[0].id;
-        this.venta.detalles = this.dventa;
+        this.venta.subtotal = this.total_pagar;
+
+        //Registrar venta de software lado cliente
+        this._clienteService.registro_compra_software(this.venta, this.token).subscribe(
+          response => {});
+
+        //Descargar el archivo
         this.comprar();
         this._router.navigate(['/']);
       },

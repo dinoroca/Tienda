@@ -39,7 +39,7 @@
 
                         <div class="col-sm-6 form-group">
                             <label for="dni" class="form-label">DNI</label>
-                            <input required type="text" class="form-control form-control-lg" name="dni"
+                            <input required type="text" class="form-control form-control-lg" name="dni" maxlength="8"
                                 [(ngModel)]="direccion.dni" placeholder="DNI" id="dni">
                         </div>
 
@@ -52,7 +52,7 @@
                         <div class="col-sm-6 form-group">
                             <label for="telefono" class="form-label">Teléfono</label>
                             <input required type="text" class="form-control form-control-lg" name="telefono"
-                                [(ngModel)]="direccion.telefono" placeholder="Teléfono" id="telefono">
+                                maxlength="9" [(ngModel)]="direccion.telefono" placeholder="Teléfono" id="telefono">
                         </div>
 
                         <div class="col-sm-12 form-group">
@@ -157,8 +157,39 @@
                         <div class="shadow text-center col-sm-12 mb-3 rounded" *ngFor="let item of direcciones">
                             <div class="card-header">ZIP: {{item.zip}}
                                 <a class="text-danger bi-trash-fill" style="margin-left: 30vw; cursor: pointer;"
-                                (click)="eliminar_direccion(item._id)">
+                                    data-toggle="modal" [attr.data-target]="'#delete'">
                                 </a>
+
+                                <!-- MODAL -->
+                                <div class="modal fade" id="delete" tabindex="-1" style="display: none"
+                                    aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title text-center">
+                                                    Eliminar dirección
+                                                </h4>
+                                                <button class="btn btn-secondary btn-sm" type="button"
+                                                    data-dismiss="modal" aria-label="Close">
+                                                    x
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p class="fs-sm">Desea eliminar la dirección?</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button class="btn btn-secondary btn-sm bi-x-circle-fill" type="button"
+                                                    data-dismiss="modal">
+                                                    Cancelar
+                                                </button>
+                                                <button class="btn btn-danger btn-sm" (click)="eliminar_direccion(item._id)"
+                                                    type="button" data-dismiss="modal"> <i class="bi-trash-fill"></i>
+                                                    Eliminar
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <div class="card-body">
                                 <h5 class="card-title">{{item.destinatario}}</h5>

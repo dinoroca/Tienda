@@ -129,7 +129,7 @@ export class CarritoComponent implements OnInit {
             description: 'Pago en la tienda HJM',
             amount: {
               currency_code: 'USD',
-              value: Math.round(((this.total_pagar/this.tipo_cambio) + Number.EPSILON) * 100)/100
+              value: Math.round(((this.total_pagar / this.tipo_cambio) + Number.EPSILON) * 100) / 100
             },
           }]
         });
@@ -140,6 +140,9 @@ export class CarritoComponent implements OnInit {
 
         this.venta.transaccion = order.purchase_units[0].payments.captures[0].id;
         this.venta.detalles = this.dventa;
+        this.venta.envio_titulo = 'Pago contra entrega';
+        this.venta.envio_precio = 0;
+        this.venta.subtotal = this.total_pagar;
 
         //Registrar la venta mediante el método del controlador
         this._clienteService.registro_compra_cliente(this.venta, this.token).subscribe(
@@ -312,7 +315,7 @@ export class CarritoComponent implements OnInit {
     this.venta.subtotal = this.total_pagar;
     this.venta.envio_titulo = 'Pago contra entrega';
     this.venta.envio_precio = 0;
-    
+
     console.log(this.venta);
     //Registrar la venta mediante el método del controlador
     this._clienteService.registro_reservacion_cliente(this.venta, this.token).subscribe(

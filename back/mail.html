@@ -241,20 +241,7 @@
 								<table width="100%" border="0" cellspacing="0" cellpadding="0">
 									<tr>
 										<td class="mpx-10">
-											<!-- Top -->
-											<table width="100%" border="0" cellspacing="0" cellpadding="0">
-												<tr>
-													<td class="text-12 c-grey l-grey a-right py-20"
-														style="font-size:12px; line-height:16px; font-family:'PT Sans', Arial, sans-serif; min-width:auto !important; color:#6e6e6e; text-align:right; padding-top: 20px; padding-bottom: 20px;">
-														<a href="#" target="_blank" class="link c-grey"
-															style="text-decoration:none; color:#6e6e6e;"><span
-																class="link c-grey"
-																style="text-decoration:none; color:#6e6e6e;">View this
-																email in your browser</span></a>
-													</td>
-												</tr>
-											</table> <!-- END Top -->
-
+											
 											<!-- Container -->
 											<table width="100%" border="0" cellspacing="0" cellpadding="0">
 												<tr>
@@ -397,7 +384,8 @@
 																																<strong>Código de compra <br>
 																																	<span
 																																		class="c-purple"
-																																		style="color:#9128df;">#
+																																		style="color:#9128df;">
+																																		<br>
 																																		<%= _id; %>
 																																	</span></strong>
 																															</td>
@@ -584,8 +572,7 @@
 																																	</td>
 																																	<td class="title-20 lh-30 mt-right"
 																																		style="font-size:20px; color:#282828; font-family:'PT Sans', Arial, sans-serif; text-align:left; min-width:auto !important; line-height: 30px;">
-																																		S/. <%=precio_envio%>
-																																		<small>Pago contra entrega</small>
+																																		S/. <%= precio_envio%>
 																																	</td>
 																																</tr>
 
@@ -599,7 +586,7 @@
 																																	</td>
 																																	<td class="title-20 lh-30 c-purple pt-10 mt-right"
 																																		style="font-size:20px; font-family:'PT Sans', Arial, sans-serif; text-align:left; min-width:auto !important; line-height: 30px; color:#9128df; padding-top: 10px;">
-																																		<strong>S/. <%=subtotal%>
+																																		<strong> S/. <%= subtotal%>
 																																		</strong>
 																																	</td>
 																																</tr>

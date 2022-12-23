@@ -16,7 +16,8 @@ export class LoginComponent implements OnInit {
 
   public user: any = {};
   public usuario: any = {};
-  public token: any = {};
+  public token: any;
+  public show = false;
 
   constructor(
     private _adminService: AdminService,
@@ -28,6 +29,16 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     if (this.token) {
       this._router.navigate(['/']);
+    }
+  }
+
+  show_password() {
+    if (!this.show) {
+      this.show = true;
+      $('#signin-password').attr('type', 'text');
+    } else {
+      this.show = false;
+      $('#signin-password').attr('type', 'password');
     }
   }
 

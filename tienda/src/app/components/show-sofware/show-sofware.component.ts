@@ -25,7 +25,6 @@ export class ShowSofwareComponent implements OnInit {
   public config_global: any = '';
   public tipo_cambio = 0;
   public url: any;
-  public ruta_actual = '';
 
   public btn_cart = false;
 
@@ -41,9 +40,6 @@ export class ShowSofwareComponent implements OnInit {
     private _clienteService: ClienteService,
     private _title: Title
   ) {
-    this.ruta_actual = this._router.url;
-
-    localStorage.setItem('ruta_actual', this.ruta_actual);
 
     this.url = GLOBAL.url;
 

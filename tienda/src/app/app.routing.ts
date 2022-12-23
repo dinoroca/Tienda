@@ -34,7 +34,7 @@ const appRoute: Routes = [
     {path: 'productos/categoria/:categoria', component: IndexProductoComponent},
 
     {path: 'software', component: SoftwareComponent},
-    {path: 'software/:slug', component: ShowSofwareComponent},
+    {path: 'software/:slug', component: ShowSofwareComponent, canActivate: [AuthGuard]},
 
     {path: 'contactos', component: ContactoComponent},
     {path: 'nosotros', component: NosotrosComponent},

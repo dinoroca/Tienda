@@ -68,6 +68,7 @@ export class ShowProductoComponent implements OnInit {
     this.ruta_actual = this._router.url;
 
     localStorage.setItem('ruta_actual', this.ruta_actual);
+    sessionStorage.setItem('ruta_actual', this.ruta_actual);
 
     this.url = GLOBAL.url;
 

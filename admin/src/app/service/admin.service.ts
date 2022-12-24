@@ -114,6 +114,11 @@ export class AdminService {
     return this._http.get(this.url + 'obtener_venta_admin/' + id, { headers: headers });
   }
 
+  eliminar_reservacion_admin(id: any, token: any): Observable<any> {
+    let headers = new HttpHeaders({'Content-Type':'application/json', 'authorization': token});
+    return this._http.delete(this.url + 'eliminar_reservacion_admin/' + id, {headers : headers});
+  }
+
   actualizar_ventas_enviado_admin(id: any, token: any): Observable<any> {
     let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'authorization': token });
     return this._http.put(this.url + 'actualizar_ventas_enviado_admin/' + id, {data: true}, { headers: headers });

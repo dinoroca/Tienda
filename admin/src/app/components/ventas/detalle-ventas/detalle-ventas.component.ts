@@ -3,6 +3,10 @@ import { GLOBAL } from 'src/app/service/global';
 import { ActivatedRoute } from '@angular/router';
 import { AdminService } from '../../../service/admin.service';
 
+declare var iziToast: { show: (arg0: { title: string; titleColor: string; class: string; position: string; message: string; }) => void; };
+declare var jQuery: any;
+declare var $: any;
+
 @Component({
   selector: 'app-detalle-ventas',
   templateUrl: './detalle-ventas.component.html',
@@ -19,6 +23,7 @@ export class DetalleVentasComponent implements OnInit {
 
   public total_star = 5;
   public review: any = {};
+  public load_btn = false;
 
   constructor(
     private _route: ActivatedRoute,
@@ -59,26 +64,86 @@ export class DetalleVentasComponent implements OnInit {
   }
 
   cambiar_estado_enviado (id: any) {
+    this.load_btn = true;
     this._adminService.actualizar_ventas_enviado_admin(id, this.token).subscribe(
       response => {
+        iziToast.show({
+          title: 'SUCCESS',
+          titleColor: '#35D18F',
+          class: 'text-success',
+          position: 'topRight',
+          message: 'Estado: Enviado'
+        });
+
+        $('#send-' + id).modal('hide');
+        $('.modal-backdrop').removeClass('show');
+
+        this.load_btn = false;
         this.init_data();
-        
       }
     );
   }
 
   cambiar_estado_recibido (id: any) {
+    this.load_btn = true;
     this._adminService.actualizar_ventas_recibido_admin(id, this.token).subscribe(
       response => {
+        iziToast.show({
+          title: 'SUCCESS',
+          titleColor: '#35D18F',
+          class: 'text-success',
+          position: 'topRight',
+          message: 'Estado: Recibido'
+        });
+
+        $('#recibe-' + id).modal('hide');
+        $('.modal-backdrop').removeClass('show');
+
+        this.load_btn = false;
         this.init_data();
-        
       }
     );
   }
   
   cambiar_estado_procesando (id: any) {
+    this.load_btn = true;
     this._adminService.actualizar_ventas_procesando_admin(id, this.token).subscribe(
       response => {
+        iziToast.show({
+          title: 'SUCCESS',
+          titleColor: '#35D18F',
+          class: 'text-success',
+          position: 'topRight',
+          message: 'Estado: Procesando'
+        });
+
+        $('#confirm-' + id).modal('hide');
+        $('.modal-backdrop').removeClass('show');
+
+        this.load_btn = false;
+        this.init_data();
+      }
+    );
+  }
+
+  eliminar(id: any) {
+    this.load_btn = true;
+    this._adminService.eliminar_reservacion_admin(id, this.token).subscribe(
+      response => {
+        console.log(response);
+        
+        iziToast.show({
+          title: 'SUCCESS',
+          titleColor: '#35D18F',
+          class: 'text-success',
+          position: 'topRight',
+          message: 'Se eliminó la venta reservada'
+        });
+
+        $('#delete-' + id).modal('hide');
+        $('.modal-backdrop').removeClass('show');
+
+        this.load_btn = false;
         this.init_data();
       }
     );

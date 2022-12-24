@@ -37,13 +37,12 @@
 
         <!-- Button addon on the right -->
         <div class="input-group mt-4">
-            <input class="form-control" type="text" 
-                placeholder="Filtrar por ID de venta" name="filtro_cod" [(ngModel)]="filtro_cod"
-                (keyup)="filtrar_cod(filtro_cod)">
+            <input class="form-control" type="text" placeholder="Filtrar por ID de venta" name="filtro_cod"
+                [(ngModel)]="filtro_cod" (keyup)="filtrar_cod(filtro_cod)">
         </div>
 
         <div class="rounded my-2" *ngIf="err_msg" style="background-color: rgb(255, 223, 223);">
-            <p class="text-center p-2 text-danger" >ERROR: Ingrese el ID correctamente.</p>
+            <p class="text-center p-2 text-danger">ERROR: Ingrese el ID correctamente.</p>
         </div>
     </div>
 
@@ -51,10 +50,10 @@
 
         <ng-container *ngFor="let item of ventas | slice: (page - 1) * pageSize:(page - 1) * pageSize + pageSize">
             <div class="shadow rounded px-4">
-                <div class="row mt-3 justify-content-between">
+                <div class="row mt-5 justify-content-between">
                     <div class="col">
-                        <h3 class="h5 mb-2 nav-dark">
-                            <a href="blog-single.html" class="nav-link"> {{item.cliente.nombres}}
+                        <h3 class="h5 mb-1 nav-dark">
+                            <a class="nav-link"> {{item.cliente.nombres}}
                                 {{item.cliente.apellidos}} </a>
                         </h3>
                     </div>
@@ -67,6 +66,7 @@
                             {{item.estado}} </span>
                         <span class="badge badge-secondary mb-3 rounded-pill" *ngIf="item.estado == 'Reservado'">
                             {{item.estado}} </span>
+
                         <div class="dropdown">
                             <a style="cursor: pointer;" class="dropdown-toggle" data-toggle="dropdown">
                                 <span class="cxi-settings"></span>
@@ -75,22 +75,187 @@
                                 <a [routerLink]="['/panel/ventas', item._id]" class="dropdown-item">Ver detalles &nbsp;
                                     <i class="bi-list-ul"></i>
                                 </a>
-                                <a class="dropdown-item" (click)="cambiar_estado_enviado (item._id)"
-                                    style="cursor: pointer;"
-                                    *ngIf="item.estado == 'Procesando'">Cambiar a Enviado
+                                <a class="dropdown-item"
+                                    data-toggle="modal" [attr.data-target]="'#send-' + item._id"
+                                    style="cursor: pointer;" *ngIf="item.estado == 'Procesando'">Cambiar a Enviado
                                     &nbsp;
                                     <i class="cxi-truck"></i>
                                 </a>
-                                <a class="dropdown-item" (click)="cambiar_estado_procesando (item._id)"
-                                    style="cursor: pointer;"
-                                    *ngIf="item.estado == 'Reservado'">Cambiar a Procesando
+                                <a class="dropdown-item" 
+                                    data-toggle="modal" [attr.data-target]="'#confirm-' + item._id"
+                                    style="cursor: pointer;" *ngIf="item.estado == 'Reservado'">Confirmar pago
                                     &nbsp;
                                     <i class="cxi-arrow-convert"></i>
                                 </a>
-                                <a (click)="cambiar_estado_recibido (item._id)" style="cursor: pointer;"
+                                <a style="cursor: pointer;"
+                                    data-toggle="modal" [attr.data-target]="'#recibe-' + item._id"
                                     class="dropdown-item" *ngIf="item.estado == 'Enviado'">Cambiar a Recibido &nbsp;
                                     <i class="cxi-check"></i>
                                 </a>
+                                <a class="dropdown-item" style="cursor: pointer; background-color: rgb(255, 221, 221);"
+                                    *ngIf="item.estado == 'Reservado'"
+                                    data-toggle="modal" [attr.data-target]="'#delete-' + item._id">
+                                    <i class="cxi-delete text-danger"></i>
+                                </a>
+                            </div>
+
+                            <!-- Modal eliminar -->
+                            <div class="modal fade" id="delete-{{ item._id }}" tabindex="-1" style="display: none"
+                                aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title text-center">
+                                                Eliminar Reservación
+                                            </h4>
+                                            <button class="btn btn-secondary btn-sm" type="button" data-dismiss="modal"
+                                                aria-label="Close">
+                                                x
+                                            </button>
+                                        </div>
+                                        <div class="modal-body text-center">
+                                            Desea eliminar {{ item._id | uppercase}}?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button class="btn btn-secondary btn-sm bi-x-circle-fill" type="button"
+                                                data-dismiss="modal">
+                                                Cancelar
+                                            </button>
+                                            <button *ngIf="!load_btn" class="btn btn-danger btn-sm bi-trash-fill"
+                                                (click)="eliminar(item._id)" type="button">
+                                                Eliminar
+                                            </button>
+
+                                            <!-- Button with growing spinner and text -->
+                                            <button *ngIf="load_btn" type="button" class="btn btn-secondary">
+                                                <span class="spinner-grow spinner-grow-sm me-2" role="status"
+                                                    aria-hidden="true" disabled></span>
+                                                Eliminando...
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Modal comfirmar pago -->
+                            <div class="modal fade" id="confirm-{{ item._id }}" tabindex="-1" style="display: none"
+                                aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title text-center">
+                                                Confirmación de pago
+                                            </h4>
+                                            <button class="btn btn-secondary btn-sm" type="button" data-dismiss="modal"
+                                                aria-label="Close">
+                                                x
+                                            </button>
+                                        </div>
+                                        <div class="modal-body text-center">
+                                            Confirmar el pago de {{ item._id | uppercase}}?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button class="btn btn-secondary btn-sm bi-x-circle-fill" type="button"
+                                                data-dismiss="modal">
+                                                Cancelar
+                                            </button>
+                                            <button *ngIf="!load_btn" class="btn btn-primary btn-sm"
+                                                (click)="cambiar_estado_procesando (item._id)" type="button">
+                                                <i class="cxi-checkmark"></i>
+                                                Confirmar
+                                            </button>
+
+                                            <!-- Button with growing spinner and text -->
+                                            <button *ngIf="load_btn" type="button" class="btn btn-secondary">
+                                                <span class="spinner-grow spinner-grow-sm me-2" role="status"
+                                                    aria-hidden="true" disabled></span>
+                                                Confirmando...
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Modal enviado -->
+                            <div class="modal fade" id="send-{{ item._id }}" tabindex="-1" style="display: none"
+                                aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title text-center">
+                                                Confirmación el envío
+                                            </h4>
+                                            <button class="btn btn-secondary btn-sm" type="button" data-dismiss="modal"
+                                                aria-label="Close">
+                                                x
+                                            </button>
+                                        </div>
+                                        <div class="modal-body text-center">
+                                            Confirmar el envío de {{ item._id | uppercase}}? <br><br>
+
+                                            <small class="text-danger mt-4">Recuerde enviar el código de envío así como 
+                                                la empresa de envío al cliente
+                                            </small>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button class="btn btn-secondary btn-sm bi-x-circle-fill" type="button"
+                                                data-dismiss="modal">
+                                                Cancelar
+                                            </button>
+                                            <button *ngIf="!load_btn" class="btn btn-success btn-sm"
+                                                (click)="cambiar_estado_enviado (item._id)" type="button">
+                                                <i class="cxi-truck"></i>
+                                                Confirmar
+                                            </button>
+
+                                            <!-- Button with growing spinner and text -->
+                                            <button *ngIf="load_btn" type="button" class="btn btn-secondary">
+                                                <span class="spinner-grow spinner-grow-sm me-2" role="status"
+                                                    aria-hidden="true" disabled></span>
+                                                Confirmando...
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Modal recibido -->
+                            <div class="modal fade" id="recibe-{{ item._id }}" tabindex="-1" style="display: none"
+                                aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title text-center">
+                                                Confirmación de recepción
+                                            </h4>
+                                            <button class="btn btn-secondary btn-sm" type="button" data-dismiss="modal"
+                                                aria-label="Close">
+                                                x
+                                            </button>
+                                        </div>
+                                        <div class="modal-body text-center">
+                                            Confirmar la recepción de {{ item._id | uppercase}}? <br><br>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button class="btn btn-secondary btn-sm bi-x-circle-fill" type="button"
+                                                data-dismiss="modal">
+                                                Cancelar
+                                            </button>
+                                            <button *ngIf="!load_btn" class="btn btn-warning btn-sm"
+                                                (click)="cambiar_estado_recibido (item._id)" type="button">
+                                                <i class="cxi-checkmark"></i>
+                                                Confirmar
+                                            </button>
+
+                                            <!-- Button with growing spinner and text -->
+                                            <button *ngIf="load_btn" type="button" class="btn btn-secondary">
+                                                <span class="spinner-grow spinner-grow-sm me-2" role="status"
+                                                    aria-hidden="true" disabled></span>
+                                                Confirmando...
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
@@ -114,6 +279,13 @@
                                 <a class="nav-link d-inline-block mr-2 p-0 font-size-sm font-weight-normal">
                                     <i class="cxi-truck mt-n1 mr-2 font-size-base align-middle"></i>
                                     {{item.envio_titulo}}
+                                </a>
+                                <span class="text-border px-1">|</span>
+                            </li>
+                            <li class="nav-item mr-2">
+                                <a class="nav-link d-inline-block mr-2 p-0 font-size-sm font-weight-normal">
+                                    <i class="mt-n1 mr-2 font-size-base align-middle"></i>
+                                    ID: {{item._id | uppercase}}
                                 </a>
                             </li>
                         </ul>

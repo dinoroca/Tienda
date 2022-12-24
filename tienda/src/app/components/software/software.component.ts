@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ClienteService } from 'src/app/services/cliente.service';
 import { GLOBAL } from 'src/app/services/global';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 
 @Component({
@@ -18,6 +18,8 @@ export class SoftwareComponent implements OnInit {
   public filter_producto = '';
   public filter_cat_productos = 'todos';
 
+  public ruta_actual = '';
+
   public load_data = true;
   public url: any;
   public route_catrgoria: any;
@@ -30,11 +32,17 @@ export class SoftwareComponent implements OnInit {
   constructor(
     private _clienteService: ClienteService,
     private _route: ActivatedRoute,
+    private _router: Router,
     private _title: Title
   ) {
     this.url = GLOBAL.url;
 
     this.token = localStorage.getItem('token');
+
+    this.ruta_actual = this._router.url;
+
+    localStorage.setItem('ruta_actual', this.ruta_actual);
+    sessionStorage.setItem('ruta_actual', this.ruta_actual);
 
     this._clienteService.obtener_config_publico().subscribe(
       response => {
@@ -140,7 +148,6 @@ export class SoftwareComponent implements OnInit {
   }
 
   reset_productos() {
-
     this.filter_producto = '';
 
     this._clienteService.listar_software('').subscribe(

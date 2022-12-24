@@ -158,6 +158,22 @@ const registro_reservacion_cliente = async function (req, res) {
     }
 }
 
+const eliminar_reservacion_admin = async function (req, res) {
+    if (req.user) {
+        if (req.user.role == 'admin') {
+    
+          var id = req.params['id'];
+          let reg = await Venta.findByIdAndRemove({ _id: id });
+          res.status(200).send({ data: reg });
+    
+        } else {
+          res.status(500).send({ message: 'NoAccess' });
+        }
+      } else {
+        res.status(500).send({ message: 'NoAccess' });
+      }
+}
+
 //rellenar de 0 un arreglo
 function zfill(number, width) {
     var numberOutput = Math.abs(number);
@@ -251,5 +267,6 @@ module.exports = {
     registro_compra_cliente,
     registro_compra_software,
     registro_reservacion_cliente,
+    eliminar_reservacion_admin,
     enviar_correo_cliente
 }

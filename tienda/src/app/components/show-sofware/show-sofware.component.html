@@ -31,41 +31,11 @@
                 <div class=" p-2 mb-1 rounded" style="background-color: rgb(215, 250, 243);">
                     <span style="font-size: 1.1rem; font-style: italic;">{{software.descripcion}}</span>
                 </div>
-                
+
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
 
-                    <!-- Con descuento -->
-                    <div class="d-flex align-items-center mb-sm-0 mb-4" *ngIf="descuento_activo != undefined">
-                        <span class="h3 d-inline-block mb-0 text-danger" *ngIf="descuento_activo">
-                            S/. {{software.precio | descuento: descuento_activo.descuento}}
-                        </span>
-                        <del class="d-inline-block ml-2 pl-1 font-size-lg text-muted">S/. {{software.precio}} </del>
-                        <span class="ml-4 p-2 badge badge-danger font-size-base font-weight-bold"
-                            *ngIf="descuento_activo">
-                            -{{descuento_activo.descuento}}%
-                        </span>
-                    </div>
-                    <!-- Con descuento por producto -->
-                    <div class="d-flex align-items-center mb-sm-0 mb-4"
-                        *ngIf="descuento_activo == undefined && software.descuento > 0">
-                        <span class="h3 d-inline-block mb-0">
-                            S/. {{software.precio}}
-                        </span>
-                        <del class="d-inline-block ml-2 pl-1 font-size-lg text-muted">S/. {{software.precio +
-                            software.precio * software.descuento/100 | number: '1.0-0'}} </del>
-                        <span class="ml-4 p-2 badge badge-danger font-size-base font-weight-bold"
-                            *ngIf="descuento_activo">
-                            -{{descuento_activo.descuento}}%
-                        </span>
-                        <span class="ml-4 p-2 badge badge-danger font-size-base font-weight-bold"
-                            *ngIf="software.descuento > 0">
-                            -{{software.descuento}}%
-                        </span>
-                    </div>
-
                     <!-- Sin descuento -->
-                    <div class="d-flex align-items-center mb-sm-0 mb-4"
-                        *ngIf="descuento_activo == undefined && software.descuento == undefined">
+                    <div class="d-flex align-items-center mb-sm-0 mb-4">
                         <span class="h3 d-inline-block mb-0">
                             Precio: <strong class="text-warning">S/. {{software.precio}}</strong>
                         </span>
@@ -127,11 +97,12 @@
                                 </div>
                                 <div class="collapse" id="paypal-card" data-parent="#payment-methods">
                                     <div class="card-body pt-3 pb-0" #paypalButton>
-                                        <p class="rounded text-center py-2" style="background-color: rgb(255, 191, 191);">
+                                        <p class="rounded text-center py-2"
+                                            style="background-color: rgb(255, 191, 191);">
                                             El tipo de cambio está dado en base al emitido por el SUNAT: <br> <strong>
-                                              1 USD <i class="cxi-arrow-right"></i> 
-                                              S/. {{tipo_cambio}} </strong>
-                                          </p>
+                                                1 USD <i class="cxi-arrow-right"></i>
+                                                S/. {{tipo_cambio}} </strong>
+                                        </p>
                                     </div>
                                 </div>
                             </div>

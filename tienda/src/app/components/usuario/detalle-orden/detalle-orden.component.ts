@@ -25,6 +25,7 @@ export class DetalleOrdenComponent implements OnInit {
 
   public total_star = 5;
   public review: any = {};
+  public load_btn = false;
 
   constructor(
     private _title: Title,
@@ -136,10 +137,22 @@ export class DetalleOrdenComponent implements OnInit {
   }
 
   cambiar_estado_recibido(id: any) {
+    this.load_btn = true;
     this._clienteService.actualizar_ventas_recibido(id, this.token).subscribe(
       response => {
+        iziToast.show({
+          title: 'SUCCESS',
+          titleColor: '#35D18F',
+          class: 'text-success',
+          position: 'topRight',
+          message: 'Estado: Recibido'
+        });
+
+        $('#recibe-' + id).modal('hide');
+        $('.modal-backdrop').removeClass('show');
+
+        this.load_btn = false;
         this.init_data();
-        
       }
     );
   }

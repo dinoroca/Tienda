@@ -26,13 +26,16 @@ export class LoginComponent implements OnInit {
     private _clienteService: ClienteService,
     private _router: Router,
     private _title: Title
-  ) {
+  ) { }
 
+  obtener_ruta() {
     if (localStorage.getItem('token')) {
       this.token = localStorage.getItem('token');
       this.ruta_actual = localStorage.getItem('ruta_actual');
 
-    } else if (sessionStorage.getItem('token')) {
+    }
+    
+    if (sessionStorage.getItem('token')) {
       this.token = sessionStorage.getItem('token');
       this.ruta_actual = sessionStorage.getItem('ruta_actual');
     }
@@ -42,7 +45,7 @@ export class LoginComponent implements OnInit {
     }
 
     if (this.token) {
-      this._router.navigate(['/']);
+      this._router.navigate(['/' + this.ruta_actual]);
     }
   }
 
@@ -87,6 +90,10 @@ export class LoginComponent implements OnInit {
             sessionStorage.setItem('token', response.token);
             sessionStorage.setItem('_id', response.data._id);
             this.usuario = response.data;
+
+            this.obtener_ruta();
+            console.log(this.ruta_actual);
+            
 
             this._router.navigate(['/' + this.ruta_actual]);
           }

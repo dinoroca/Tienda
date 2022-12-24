@@ -1,7 +1,6 @@
-[
-    {
-        "titulo": "Pago contra entrega",
-        "tiempo": "3 a 7 días",
-        "precio": 0
-    }
-]
+
+{
+    "titulo": "Pago contra entrega",
+    "tiempo": "3 a 7 días",
+    "precio": 0
+}

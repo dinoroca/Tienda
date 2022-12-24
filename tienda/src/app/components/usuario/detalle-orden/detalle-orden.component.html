@@ -77,18 +77,56 @@
               <div>
                 <div class="my-2" *ngIf="orden.estado == 'Reservado'">
                   <p class="rounded p-2" style="background-color: rgb(255, 191, 191);">
-                    Recuerde enviar el código de venta "<strong> 
-                      {{id | uppercase}}  </strong>" así como el comprobante de la transferencia o depósito 
-                      al WhatsApp <a>921680694</a>.
+                    Recuerde enviar el código de venta "<strong>
+                      {{id | uppercase}} </strong>" así como el comprobante de la transferencia o depósito
+                    al WhatsApp <a>921680694</a>.
                   </p>
                 </div>
               </div>
 
               <div class="text-center">
                 <div class="my-2" *ngIf="orden.estado == 'Enviado'">
-                  <button class="btn btn-warning" (click)="cambiar_estado_recibido(orden._id)">
+                  <button class="btn btn-warning" data-toggle="modal" [attr.data-target]="'#recibe-' + orden._id">
                     <i class="cxi-check"></i> Confirmar recibido
                   </button>
+                </div>
+              </div>
+
+              <!-- Modal recibido -->
+              <div class="modal fade" id="recibe-{{ orden._id }}" tabindex="-1" style="display: none"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h4 class="modal-title text-center">
+                        Confirmación de recepción
+                      </h4>
+                      <button class="btn btn-secondary btn-sm" type="button" data-dismiss="modal" aria-label="Close">
+                        x
+                      </button>
+                    </div>
+                    <div class="modal-body text-center">
+                      Confirmar la recepción de {{ orden._id | uppercase}}? <br><br>
+                      <small class="text-warning">No se olvide de calificar el producto y la reseña. GRACIAS.</small>
+                    </div>
+                    <div class="modal-footer">
+                      <button class="btn btn-secondary btn-sm bi-x-circle-fill" type="button" data-dismiss="modal">
+                        Cancelar
+                      </button>
+                      <button *ngIf="!load_btn" class="btn btn-warning btn-sm"
+                        (click)="cambiar_estado_recibido (orden._id)" type="button">
+                        <i class="cxi-checkmark"></i>
+                        Confirmar
+                      </button>
+
+                      <!-- Button with growing spinner and text -->
+                      <button *ngIf="load_btn" type="button" class="btn btn-secondary">
+                        <span class="spinner-grow spinner-grow-sm me-2" role="status" aria-hidden="true"
+                          disabled></span>
+                        Confirmando...
+                      </button>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -146,12 +184,12 @@
                             <a style="cursor: pointer;" data-toggle="modal" [attr.data-target]="'#review-' + item._id"
                               (click)="openModal(item)" *ngIf="!item.estado">
                               <!-- Info badge -->
-                              <span class="badge text-white rounded-pill bg-info" *ngIf="orden.estado == 'Recibido'"> 
+                              <span class="badge text-white rounded-pill bg-info" *ngIf="orden.estado == 'Recibido'">
                                 <i class="cxi-chat"></i> &nbsp;
                                 Emitir reseña
                               </span>
                             </a>
-                            <span class="badge rounded-pill bg-success" *ngIf="item.estado"> 
+                            <span class="badge rounded-pill bg-success" *ngIf="item.estado">
                               <i class="cxi-chat"></i> &nbsp;
                               Emitido
                             </span>

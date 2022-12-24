@@ -16,13 +16,13 @@
 
 <div class="card box-shadow-sm">
     <div class="card-header">
-        <h5 style="margin-bottom: 0px">Filtro de productos</h5>
+        <h5 style="margin-bottom: 0px">Filtro de programas</h5>
     </div>
 
     <div class="card-header text-center">
         <!-- Button addon on the right -->
         <div class="input-group">
-            <input class="form-control" type="text" placeholder="Nombre del producto" name="filtro" [(ngModel)]="filtro"
+            <input class="form-control" type="text" placeholder="Nombre del programa" name="filtro" [(ngModel)]="filtro"
                 required />
             <button class="btn btn-primary bi-search" type="button" (click)="filtrar()" [disabled]="!this.filtro">
                 Filtrar
@@ -47,7 +47,6 @@
                         <th>Título</th>
                         <th>Precio</th>
                         <th>Link</th>
-                        <th>Ventas</th>
                         <th>Opciones</th>
                     </tr>
                 </thead>
@@ -55,7 +54,7 @@
                 <!-- Precargador de página -->
                 <tbody *ngIf="load_data == true">
                     <tr>
-                        <td class="text-center" colspan="7">
+                        <td class="text-center" colspan="5">
                             <!-- Custom size border spinner -->
                             <div class="text-center">
                                 <div class="spinner-border" style="width: 3rem; height: 3rem" role="status"></div>
@@ -82,12 +81,11 @@
                             </td>
                             <td class="text-center">{{ item.precio }}</td>
                             <td class="text-center"> <a href="{{item.link}}" target="_blank">{{ item.titulo }}</a></td>
-                            <td class="text-center">{{ item.nventas }}</td>
                             <td class="text-center">
                                 <div class="btn-group dropdown">
                                     <button type="button" class="btn btn-outline-secondary btn-sm dropdown-toggle"
                                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        opciones
+                                        Opciones
                                     </button>
                                     <div class="dropdown-menu text-center">
                                         <a class="dropdown-item bi-pencil-fill"
@@ -108,7 +106,7 @@
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <h4 class="modal-title text-center">
-                                                    Eliminar producto
+                                                    Eliminar Software
                                                 </h4>
                                                 <button class="btn btn-secondary btn-sm" type="button" data-dismiss="modal"
                                                     aria-label="Close">
@@ -117,7 +115,7 @@
                                             </div>
                                             <div class="modal-body">
                                                 <p class="fs-sm">
-                                                    Desea eliminar el producto {{ item.titulo }}?
+                                                    Desea eliminar el programa {{ item.titulo }}?
                                                 </p>
                                             </div>
                                             <div class="modal-footer">

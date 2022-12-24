@@ -25,9 +25,7 @@ export class ShowSofwareComponent implements OnInit {
   public config_global: any = '';
   public tipo_cambio = 0;
   public url: any;
-  public ruta_actual = '';
 
-  public descuento_activo: any = undefined;
   public btn_cart = false;
 
   public subtotal = 0;
@@ -42,9 +40,6 @@ export class ShowSofwareComponent implements OnInit {
     private _clienteService: ClienteService,
     private _title: Title
   ) {
-    this.ruta_actual = this._router.url;
-
-    localStorage.setItem('ruta_actual', this.ruta_actual);
 
     this.url = GLOBAL.url;
 
@@ -76,17 +71,6 @@ export class ShowSofwareComponent implements OnInit {
 
   ngOnInit(): void {
     this._title.setTitle('Software | ' + this.slug);
-    //Obtener descuentos activos
-    this._guestService.obtener_descuento_activo().subscribe(
-      response => {
-
-        if (response.data != undefined) {
-          this.descuento_activo = response.data[0];
-        } else {
-          this.descuento_activo = undefined;
-        }
-      }
-    );
 
     paypal.Buttons({
       style: {

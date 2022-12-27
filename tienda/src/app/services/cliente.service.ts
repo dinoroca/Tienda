@@ -35,7 +35,7 @@ export class ClienteService {
   
   public isAutenticated(): Boolean {
     
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('token') || sessionStorage.getItem('token');
     
     if (!token) {
       return false;

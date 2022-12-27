@@ -21,8 +21,8 @@ export class IndexReviewComponent implements OnInit {
     private _title: Title,
     private _clienteService: ClienteService
   ) {
-    this.id = localStorage.getItem('_id');
-    this.token = localStorage.getItem('token');
+    this.id = localStorage.getItem('_id') || sessionStorage.getItem('_id');
+    this.token = localStorage.getItem('token') || sessionStorage.getItem('token');
   }
 
   ngOnInit(): void {

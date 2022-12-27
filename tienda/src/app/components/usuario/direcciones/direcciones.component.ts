@@ -42,7 +42,7 @@ export class DireccionesComponent implements OnInit {
     private _clienteService: ClienteService,
     private _title: Title
   ) {
-    this.token = localStorage.getItem('token');
+    this.token = localStorage.getItem('token') || sessionStorage.getItem('token');
 
     this._guestService.obtener_regiones().subscribe(
       response => {

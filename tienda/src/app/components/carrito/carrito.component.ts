@@ -184,7 +184,7 @@ export class CarritoComponent implements OnInit {
               descuento: this.descuento_activo.descuento,
               subtotal: Math.round((parseInt(element.producto.precio) * element.cantidad) -
                 (parseInt(element.producto.precio) * element.cantidad * this.descuento_activo.descuento) / 100),
-              cliente: localStorage.getItem('_id')
+              cliente: localStorage.getItem('_id') || sessionStorage.getItem('_id')
             });
           });
           this.calcular_subtotal();
@@ -195,7 +195,7 @@ export class CarritoComponent implements OnInit {
               variedad: element.variedad,
               cantidad: element.cantidad,
               subtotal: element.producto.precio * element.cantidad,
-              cliente: localStorage.getItem('_id')
+              cliente: localStorage.getItem('_id') || sessionStorage.getItem('_id')
             });
           });
           this.calcular_subtotal();

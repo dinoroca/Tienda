@@ -56,8 +56,10 @@ export class CarritoComponent implements OnInit {
     private _title: Title,
     private _router: Router
   ) {
-    this.token = localStorage.getItem('token');
-    this.id = localStorage.getItem('_id');
+
+    this.id = localStorage.getItem('_id') || sessionStorage.getItem('_id');
+    this.token = localStorage.getItem('token') || sessionStorage.getItem('token');
+
     this.venta.cliente = this.id;
     this.url = GLOBAL.url;
 
@@ -203,7 +205,7 @@ export class CarritoComponent implements OnInit {
   }
 
   obtener_direccion_principal() {
-    this._clienteService.obtener_direccion_principal_cliente(localStorage.getItem('_id'), this.token).subscribe(
+    this._clienteService.obtener_direccion_principal_cliente(localStorage.getItem('_id') || sessionStorage.getItem('_id'), this.token).subscribe(
       response => {
         if (response.data == undefined) {
           this.direccion_principal = undefined;

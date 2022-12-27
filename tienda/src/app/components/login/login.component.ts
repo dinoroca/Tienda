@@ -84,7 +84,6 @@ export class LoginComponent implements OnInit {
             this.usuario = response.data;
 
             this.obtener_ruta();
-            console.log(this.ruta_actual);
             
 
             this._router.navigate(['/' + this.ruta_actual]);

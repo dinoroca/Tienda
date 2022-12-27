@@ -110,7 +110,7 @@
                         <div class="form-group">
                             <label for="size"> {{producto.titulo_variedad}} </label>
                             <select class="form-control custom-select" id="size" name="variedad"
-                                [(ngModel)]="carrito_data.variedad">
+                                [(ngModel)]="carrito_data.variedad" (change)="guardar_variedad()">
                                 <option value="" selected disabled> --Seleccionar-- </option>
                                 <option *ngFor="let item of producto.variedades" value="{{item.titulo}}">
                                     {{item.titulo}} </option>
@@ -122,7 +122,7 @@
                         <div class="form-group">
                             <label for="">Cantidad</label>
                             <select class="form-control custom-select" id="select-input" name="cantidad"
-                                [(ngModel)]="carrito_data.cantidad">
+                                [(ngModel)]="carrito_data.cantidad" (change)="guardar_cantidad()">
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
@@ -136,10 +136,10 @@
                             </select>
                         </div>
                     </div>
-                    <div class="col-6 order-sm-3 order-3">
+                    <div class="col-6 order-3">
                         <button *ngIf="!btn_cart" class="btn btn-block btn-primary" (click)="agregar_producto()">
                             <i class="cxi-cart"></i>
-                            Añadir al carrito
+                            Añadir
                         </button>
 
                         <!-- Button with growing spinner and text -->

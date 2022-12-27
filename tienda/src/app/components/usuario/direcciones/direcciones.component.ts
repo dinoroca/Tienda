@@ -69,7 +69,7 @@ export class DireccionesComponent implements OnInit {
   }
 
   obtener_direcciones() {
-    this._clienteService.obtener_direcciones_cliente(localStorage.getItem('_id'), this.token).subscribe(
+    this._clienteService.obtener_direcciones_cliente(localStorage.getItem('_id') || sessionStorage.getItem('_id'), this.token).subscribe(
       response => {
         this.direcciones = response.data;
         this.load_direcciones = false;
@@ -169,7 +169,7 @@ export class DireccionesComponent implements OnInit {
         provincia: this.direccion.provincia,
         distrito: this.direccion.distrito,
         principal: this.direccion.principal,
-        cliente: localStorage.getItem('_id')
+        cliente: localStorage.getItem('_id') || sessionStorage.getItem('_id')
       }
 
       this._clienteService.registro_direccion_cliente(data, this.token).subscribe(
@@ -210,7 +210,7 @@ export class DireccionesComponent implements OnInit {
   }
 
   establcer_principal(id: any) {
-    this._clienteService.cambiar_direccion_principal(id, localStorage.getItem('_id'), this.token).subscribe(
+    this._clienteService.cambiar_direccion_principal(id, localStorage.getItem('_id') || sessionStorage.getItem('_id'), this.token).subscribe(
       response => {
         this.obtener_direcciones();
         iziToast.show({

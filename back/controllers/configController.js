@@ -21,7 +21,11 @@ const actualizar_config_admin = async function (req, res) {
                     tipo_cambio: data.tipo_cambio,
                     serie: data.serie,
                     logo: logo_name,
-                    correlativo: data.correlativo
+                    correlativo: data.correlativo,
+                    mision: data.mision,
+                    vision: data.vision,
+                    term_cond: data.term_cond,
+                    politica_privacidad: data.politica_privacidad
                 });
 
                 fs.stat('./uploads/configs/' + reg.logo, function (err) {
@@ -42,7 +46,11 @@ const actualizar_config_admin = async function (req, res) {
                     titulo: data.titulo,
                     tipo_cambio: data.tipo_cambio,
                     serie: data.serie,
-                    correlativo: data.correlativo
+                    correlativo: data.correlativo,
+                    mision: data.mision,
+                    vision: data.vision,
+                    term_cond: data.term_cond,
+                    politica_privacidad: data.politica_privacidad
                 });
 
                 res.status(200).send({ data: reg });

@@ -13,54 +13,72 @@
 <form #configForm="ngForm" (ngSubmit)="actualizar(configForm)">
     <div class="card box-shadow-sm">
         <div class="card-header">
-            <h5 style="margin-bottom: 0px;">Configuraciones</h5>
+            <div class="row align-items-between">
+                <div class="col-6">
+                    <h5 style="margin-bottom: 0px;">Configuraciones</h5>
+                </div>
+    
+                <div class="col-6">
+                    <button class="btn btn-primary mr-3 bi-check-circle-fill" type="submit" [disabled]="configForm.invalid">
+                        Guardar cambios
+                    </button>
+                </div>
+            </div>
         </div>
 
         <div class="card-body">
-            <div style="max-width: 48rem;">
+            <div class="mx-4">
+
+                <!-- Nombre de la tienda -->
                 <div class="form-group row align-items-center">
-                    <label class="col-md-3 col-form-label font-weight-medium" for="nombre">Nombre de la
+                    <label class="col-3 col-form-label font-weight-medium" for="nombre">Nombre de la
                         tienda</label>
-                    <div class="col-md-9">
+                    <div class="col-9">
                         <input class="form-control" type="text" id="nombre" placeholder="Nombre" name="titulo"
                             [(ngModel)]="config.titulo" required>
                     </div>
                 </div>
+
+                <!-- Tipo de cambio -->
                 <div class="form-group row align-items-center">
-                    <label class="col-md-3 col-form-label font-weight-medium text-primary" for="cambio">
+                    <label class="col-3 col-form-label font-weight-medium text-primary" for="cambio">
                         Tipo de cambio $ a S/.
                     </label>
-                    <div class="col-md-9">
+                    <div class="col-9">
                         <input class="form-control" type="number" id="cambio" placeholder="Valor de cambio" name="tipo_cambio"
                             [(ngModel)]="config.tipo_cambio" required>
                     </div>
                 </div>
+
+                <!-- Serie y correlativo de faturación -->
                 <div class="form-group row align-items-center">
-                    <label class="col-md-3 col-form-label font-weight-medium" for="serie">Facturación</label>
-                    <div class="col-md-4">
+                    <label class="col-3 col-form-label font-weight-medium" for="serie">Facturación</label>
+                    <div class="col-4">
                         <input class="form-control" type="text" id="serie" placeholder="Serie" name="serie"
                             [(ngModel)]="config.serie" required>
                     </div>
-                    <div class="col-md-5">
+                    <div class="col-5">
                         <input class="form-control" type="text" id="text-input" placeholder="Correlativo"
                             name="correlativo" [(ngModel)]="config.correlativo">
                     </div>
                 </div>
+
+                <!-- Categorías -->
                 <div class="form-group row align-items-center">
-                    <label class="col-md-3 col-form-label font-weight-medium" for="categorias">Categorías</label>
-                    <div class="col-md-4">
+                    <label class="col-3 col-form-label font-weight-medium" for="categorias">Categorías</label>
+                    <div class="col-4">
                         <input class="form-control" type="text" id="categorias" placeholder="Titulo" name="titulo_cat"
                             [(ngModel)]="titulo_cat">
 
                     </div>
-                    <div class="col-md-5">
+                    <div class="col-5">
                         <input class="form-control" type="text" id="text-input" placeholder="Icono" name="icono_cat"
                             [(ngModel)]="icono_cat">
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-3">
 
                     </div>
-                    <div class="col-md-9">
+                    <div class="col-9">
                         <a style="cursor: pointer;" class="my-3 text-center btn btn-success col-12 bi-plus-circle-fill"
                             (click)="agregar_cat()">
                             Agregar</a>
@@ -100,9 +118,11 @@
                     </div>
 
                 </div>
+
+                <!-- Logo -->
                 <div class="form-group row align-items-center">
-                    <label class="col-md-3 col-form-label font-weight-medium" for="file-input">Logo</label>
-                    <div class="col-md-9">
+                    <label class="col-3 col-form-label font-weight-medium" for="file-input">Logo</label>
+                    <div class="col-9">
 
                         <!-- Drag and drop file upload -->
                         <div class="cs-file-drop-area">
@@ -117,12 +137,49 @@
                     </div>
 
                 </div>
+
+                <!-- Misión -->
+                <div class="form-group row align-items-center">
+                    <label class="col-3 col-form-label font-weight-medium" for="mision">Misión </label>
+                    <textarea class="form-control col-9" placeholder="Ingrese la misión" name="mision" id="mision"
+                        [(ngModel)]="config.mision" required rows="5"></textarea>
+                </div>
+
+                <!-- Visión -->
+                <div class="form-group row align-items-center">
+                    <label class="col-3 col-form-label font-weight-medium" for="vision">Visión </label>
+                    <textarea class="form-control col-9" placeholder="Ingrese la Visión" name="vision" id="vision"
+                        [(ngModel)]="config.vision" required rows="5"></textarea>
+                </div>
+
+                <!-- Términos y condiciones -->
+                <div class="form-group row align-items-center py-1 rounded" style="background-color: rgb(208, 235, 255);">
+                    <label class="col-3 col-form-label font-weight-medium text-primary" for="term_cond">
+                        Términos y condiciones
+                    </label>
+                    
+                    <div class="col-9">
+                        <tinymce name="term_cond" [(ngModel)]="config.term_cond" id="term_cond"></tinymce>
+                    </div>
+                </div>
+
+                <!-- Política de privacidad -->
+                <div class="form-group row align-items-center py-1 rounded" style="background-color: rgb(255, 235, 207);">
+                    <label class="col-3 col-form-label font-weight-medium text-warning" for="politica_privacidad">
+                        Política de provacidad
+                    </label>
+                    
+                    <div class="col-9">
+                        <tinymce name="politica_privacidad" [(ngModel)]="config.politica_privacidad" id="politica_privacidad"></tinymce>
+                    </div>
+                </div>
             </div>
 
         </div>
         <div class="card-footer text-center">
             <button class="btn btn-primary mr-3 bi-check-circle-fill" type="submit" [disabled]="configForm.invalid">
-                Guardar cambios</button>
+                Guardar cambios
+            </button>
         </div>
     </div>
 </form>

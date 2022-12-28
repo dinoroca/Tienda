@@ -31,6 +31,8 @@ import { OrdenesComponent } from './components/usuario/ordenes/ordenes.component
 import { DetalleOrdenComponent } from './components/usuario/detalle-orden/detalle-orden.component';
 import { IndexReviewComponent } from './components/usuario/reviews/index-review/index-review.component';
 import { ShowSofwareComponent } from './components/show-sofware/show-sofware.component';
+import { TermCondicionesComponent } from './components/static/term-condiciones/term-condiciones.component';
+import { PolPrivacidadComponent } from './components/static/pol-privacidad/pol-privacidad.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +56,9 @@ import { ShowSofwareComponent } from './components/show-sofware/show-sofware.com
     OrdenesComponent,
     DetalleOrdenComponent,
     IndexReviewComponent,
-    ShowSofwareComponent
+    ShowSofwareComponent,
+    TermCondicionesComponent,
+    PolPrivacidadComponent
   ],
   imports: [
     BrowserModule,

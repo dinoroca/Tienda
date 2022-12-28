@@ -3,11 +3,11 @@ import { ClienteService } from 'src/app/services/cliente.service';
 import { Title } from '@angular/platform-browser';
 
 @Component({
-  selector: 'app-nosotros',
-  templateUrl: './nosotros.component.html',
-  styleUrls: ['./nosotros.component.css']
+  selector: 'app-pol-privacidad',
+  templateUrl: './pol-privacidad.component.html',
+  styleUrls: ['./pol-privacidad.component.css']
 })
-export class NosotrosComponent implements OnInit {
+export class PolPrivacidadComponent implements OnInit {
 
   public config_global: any = '';
 
@@ -24,7 +24,7 @@ export class NosotrosComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this._title.setTitle('Nosotros');
+    this._title.setTitle('Política de privacidad');
   }
 
 }

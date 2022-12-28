@@ -17,6 +17,8 @@ import { OrdenesComponent } from './components/usuario/ordenes/ordenes.component
 import { DetalleOrdenComponent } from './components/usuario/detalle-orden/detalle-orden.component';
 import { IndexReviewComponent } from './components/usuario/reviews/index-review/index-review.component';
 import { ShowSofwareComponent } from './components/show-sofware/show-sofware.component';
+import { PolPrivacidadComponent } from './components/static/pol-privacidad/pol-privacidad.component';
+import { TermCondicionesComponent } from './components/static/term-condiciones/term-condiciones.component';
 
 const appRoute: Routes = [
     {path: '', component: InicioComponent},
@@ -37,9 +39,13 @@ const appRoute: Routes = [
     {path: 'software/:slug', component: ShowSofwareComponent, canActivate: [AuthGuard]},
 
     {path: 'contactos', component: ContactoComponent},
+    {path: 'politica-privacidad', component: PolPrivacidadComponent},
+    {path: 'terminos-condiciones', component: TermCondicionesComponent},
     {path: 'nosotros', component: NosotrosComponent},
 
 ]
 
 export const appRoutingProviders: any [] = [];
-export const routing: ModuleWithProviders<any> = RouterModule.forRoot(appRoute);
+export const routing: ModuleWithProviders<any> = RouterModule.forRoot(appRoute , {
+    scrollPositionRestoration: 'enabled'
+});

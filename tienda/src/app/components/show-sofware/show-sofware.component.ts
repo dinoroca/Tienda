@@ -55,6 +55,8 @@ export class ShowSofwareComponent implements OnInit {
           response => {
             this.software = response.data;
             this.total_pagar = this.software.precio;
+            this.venta.software = this.software._id;
+            
           }
         );
       }
@@ -94,6 +96,7 @@ export class ShowSofwareComponent implements OnInit {
 
         this.venta.transaccion = order.purchase_units[0].payments.captures[0].id;
         this.venta.subtotal = this.total_pagar;
+        this.venta.estado = 'Pagado';
 
         //Registrar venta de software lado cliente
         this._clienteService.registro_compra_software(this.venta, this.token).subscribe(

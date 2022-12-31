@@ -3,6 +3,7 @@
 var Cliente = require('../models/cliente');
 var Contacto = require('../models/contacto');
 var Venta = require('../models/venta');
+var VentaSoftware = require('../models/ventaSoftware');
 var Dventa = require('../models/dventa');
 var Review = require('../models/review');
 var Cupon = require('../models/cupon');
@@ -391,6 +392,43 @@ const obtener_detalles_orden_cliente = async function (req, res) {
   }
 }
 
+//////////Ventas de Software///////////////////////
+const obtener_ventas_software = async function (req, res) {
+  if (req.user) {
+    var id = req.params['id'];
+
+    var reg = await VentaSoftware.find({ cliente: id }).sort({ createdAt: -1 });
+
+    if (reg.length >= 1) {
+      res.status(200).send({ data: reg });
+
+    } else if (reg.length == 0) {
+      res.status(200).send({ data: undefined });
+    }
+
+  } else {
+    res.status(500).send({ message: 'NoAccess' });
+  }
+}
+
+const obtener_detalles_venta_software = async function (req, res) {
+  if (req.user) {
+    var id = req.params['id'];
+
+    try {
+      let venta = await VentaSoftware.findById({ _id: id }).populate('cliente').populate('software');
+
+      res.status(200).send({ data: venta});
+
+    } catch (error) {
+      res.status(200).send({ data: undefined });
+    }
+
+  } else {
+    res.status(500).send({ message: 'NoAccess' });
+  }
+}
+
 //Reseñas
 const emitir_review_producto_cliente = async function (req, res) {
   if (req.user) {
@@ -468,6 +506,8 @@ module.exports = {
   enviar_mensaje_contacto,
   obtener_ordenes_cliente,
   obtener_detalles_orden_cliente,
+  obtener_ventas_software,
+  obtener_detalles_venta_software,
   emitir_review_producto_cliente,
   obtener_review_producto_cliente,
   obtener_reviews_cliente,

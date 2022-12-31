@@ -35,6 +35,10 @@ api.get('/obtener_ordenes_cliente/:id', auth.auth, clienteController.obtener_ord
 api.get('/obtener_detalles_orden_cliente/:id', auth.auth, clienteController.obtener_detalles_orden_cliente);
 api.put('/actualizar_ventas_recibido/:id', auth.auth, clienteController.actualizar_ventas_recibido);
 
+/////Software
+api.get('/obtener_ventas_software/:id', auth.auth, clienteController.obtener_ventas_software);
+api.get('/obtener_detalles_venta_software/:id', auth.auth, clienteController.obtener_detalles_venta_software);
+
 //CUpones
 api.put('/actualizar_cupon_cliente/:id', auth.auth, clienteController.actualizar_cupon_cliente);
 

@@ -33,6 +33,8 @@ import { IndexReviewComponent } from './components/usuario/reviews/index-review/
 import { ShowSofwareComponent } from './components/show-sofware/show-sofware.component';
 import { TermCondicionesComponent } from './components/static/term-condiciones/term-condiciones.component';
 import { PolPrivacidadComponent } from './components/static/pol-privacidad/pol-privacidad.component';
+import { CompraSoftwareComponent } from './components/usuario/compra-software/compra-software.component';
+import { CompraSoftwareDetComponent } from './components/usuario/compra-software-det/compra-software-det.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +60,9 @@ import { PolPrivacidadComponent } from './components/static/pol-privacidad/pol-p
     IndexReviewComponent,
     ShowSofwareComponent,
     TermCondicionesComponent,
-    PolPrivacidadComponent
+    PolPrivacidadComponent,
+    CompraSoftwareComponent,
+    CompraSoftwareDetComponent
   ],
   imports: [
     BrowserModule,

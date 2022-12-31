@@ -1,0 +1,123 @@
+<app-nav></app-nav>
+
+<main class="cs-page-wrapper mt-5">
+
+    <!-- Breadcrumb -->
+    <nav class="bg-secondary mb-3" aria-label="breadcrumb">
+        <div class="container">
+            <ol class="breadcrumb breadcrumb-alt mb-0">
+                <li class="breadcrumb-item">
+                    <a [routerLink]="['/']"><i class="cxi-home"></i></a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">Detalle de la orden</li>
+            </ol>
+        </div>
+    </nav>
+
+    <!-- Page container -->
+    <section class="container pt-3 pt-lg-4 pb-5 pb-lg-6">
+        <div class="row pb-2 pb-lg-0">
+
+            <!-- Account menu (sticky sidebar) -->
+            <aside class="col-xl-3 col-lg-4 pb-3 mb-4 mb-lg-0">
+                <app-sidebar></app-sidebar>
+            </aside>
+
+            <!-- Content -->
+            <div class="col-lg-8 ml-auto" *ngIf="orden != undefined">
+                <div class="d-flex align-items-center justify-content-between mb-4 pb-sm-2">
+                    <h3 class="mb-0">Orden #{{id | uppercase}} </h3>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-12 mb-4">
+                        <div class="card card-body py-3 box-shadow ">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <table class="table mb-0">
+                                        <tbody>
+                                            <tr>
+                                                <th class="border-0 py-2 pl-0">Orden No:</th>
+                                                <td class="border-0 py-2 px-0 text-muted">{{id | uppercase}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th class="border-0 py-2 pl-0">Envío:</th>
+                                                <td class="border-0 py-2 px-0 text-muted"> {{orden.envio_titulo}} </td>
+                                            </tr>
+                                            <tr>
+                                                <th class="border-0 py-2 pl-0">Fecha:</th>
+                                                <td class="border-0 py-2 px-0 text-muted"> {{orden.createdAt | date}}
+                                                </td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="col-lg-6">
+                                    <table class="table mb-0">
+                                        <tbody>
+
+                                            <tr>
+                                                <th class="border-0 py-2 pl-0">Venta:</th>
+                                                <td class="border-0 py-2 px-0 text-muted"> {{orden.nventa}} </td>
+                                            </tr>
+                                            <tr>
+                                                <th class="border-0 py-2 pl-0">Transaccion:</th>
+                                                <td class="border-0 py-2 px-0 text-muted"> {{orden.transaccion}} </td>
+                                            </tr>
+                                            <tr>
+                                                <th class="border-0 py-2 pl-0">Estado:</th>
+                                                <td class="border-0 py-2 px-0 text-muted"> {{orden.estado}} </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class="my-2" *ngIf="orden.estado == 'Reservado'">
+                                    <p class="rounded p-2" style="background-color: rgb(255, 191, 191);">
+                                        Recuerde enviar el código de venta "<strong>
+                                            {{id | uppercase}} </strong>" así como el comprobante de la transferencia o
+                                        depósito
+                                        al WhatsApp <a>921680694</a>.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="text-center">
+                                <div class="my-2" *ngIf="orden.estado == 'Pagado'">
+                                    <button class="btn btn-warning" (click)="comprar()">
+                                        <i class="cxi-download"></i> Descargar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Sin órdenes -->
+            <div class="col-lg-8 ml-auto" *ngIf="orden == undefined">
+                <div class="col-lg-12 card align-items-center py-4 rounded"
+                    style="background-color: rgb(255, 207, 207); border-color: rgb(255, 66, 66);">
+                    <h4 class="text-danger">ERROR 404</h4>
+                    <h5 class="text-muted">No se encontró detalles con este orden</h5>
+
+                    <svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="#FF4242"
+                        class="bi bi-exclamation-octagon" viewBox="0 0 16 16">
+                        <path
+                            d="M4.54.146A.5.5 0 0 1 4.893 0h6.214a.5.5 0 0 1 .353.146l4.394 4.394a.5.5 0 0 1 .146.353v6.214a.5.5 0 0 1-.146.353l-4.394 4.394a.5.5 0 0 1-.353.146H4.893a.5.5 0 0 1-.353-.146L.146 11.46A.5.5 0 0 1 0 11.107V4.893a.5.5 0 0 1 .146-.353L4.54.146zM5.1 1 1 5.1v5.8L5.1 15h5.8l4.1-4.1V5.1L10.9 1H5.1z" />
+                        <path
+                            d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z" />
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<app-footer></app-footer>

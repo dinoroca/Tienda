@@ -19,6 +19,8 @@ import { IndexReviewComponent } from './components/usuario/reviews/index-review/
 import { ShowSofwareComponent } from './components/show-sofware/show-sofware.component';
 import { PolPrivacidadComponent } from './components/static/pol-privacidad/pol-privacidad.component';
 import { TermCondicionesComponent } from './components/static/term-condiciones/term-condiciones.component';
+import { CompraSoftwareComponent } from './components/usuario/compra-software/compra-software.component';
+import { CompraSoftwareDetComponent } from './components/usuario/compra-software-det/compra-software-det.component';
 
 const appRoute: Routes = [
     {path: '', component: InicioComponent},
@@ -28,6 +30,8 @@ const appRoute: Routes = [
     {path: 'cuenta/direcciones', component: DireccionesComponent, canActivate: [AuthGuard]},
     {path: 'cuenta/ordenes', component: OrdenesComponent, canActivate: [AuthGuard]},
     {path: 'cuenta/ordenes/:id', component: DetalleOrdenComponent, canActivate: [AuthGuard]},
+    {path: 'cuenta/software-compra', component: CompraSoftwareComponent, canActivate: [AuthGuard]},
+    {path: 'cuenta/software-compra/:id', component: CompraSoftwareDetComponent, canActivate: [AuthGuard]},
     {path: 'cuenta/reviews', component: IndexReviewComponent, canActivate: [AuthGuard]},
     {path: 'carrito-compras', component: CarritoComponent, canActivate: [AuthGuard]},
 

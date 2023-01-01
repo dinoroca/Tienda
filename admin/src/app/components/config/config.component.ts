@@ -77,7 +77,11 @@ export class ConfigComponent implements OnInit {
         correlativo: configForm.value.correlativo,
         categorias: this.config.categorias,
         tipo_cambio: this.config.tipo_cambio,
-        logo: this.file
+        logo: this.file,
+        mision: this.config.mision,
+        vision: this.config.vision,
+        term_cond: this.config.term_cond,
+        politica_privacidad: this.config.politica_privacidad
       }
 
       console.log(data);

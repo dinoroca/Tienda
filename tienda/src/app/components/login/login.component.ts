@@ -29,16 +29,8 @@ export class LoginComponent implements OnInit {
   ) { }
 
   obtener_ruta() {
-    if (localStorage.getItem('token')) {
-      this.token = localStorage.getItem('token');
-      this.ruta_actual = localStorage.getItem('ruta_actual');
-
-    }
-    
-    if (sessionStorage.getItem('token')) {
-      this.token = sessionStorage.getItem('token');
-      this.ruta_actual = sessionStorage.getItem('ruta_actual');
-    }
+      this.token = localStorage.getItem('token') || sessionStorage.getItem('token');
+      this.ruta_actual = localStorage.getItem('ruta_actual') || sessionStorage.getItem('ruta_actual');
 
     if (this.ruta_actual == undefined || this.ruta_actual == null) {
       this.ruta_actual = '';
@@ -92,7 +84,6 @@ export class LoginComponent implements OnInit {
             this.usuario = response.data;
 
             this.obtener_ruta();
-            console.log(this.ruta_actual);
             
 
             this._router.navigate(['/' + this.ruta_actual]);

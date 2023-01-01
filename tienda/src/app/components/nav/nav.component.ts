@@ -52,7 +52,7 @@ export class NavComponent implements OnInit {
 
     this._clienteService.obtener_config_publico().subscribe(
       response => {
-        //Asiganr los valores de las categorias del back
+        //Asignar los valores de las categorias del back
         this.config_global = response.data;
       }
     );

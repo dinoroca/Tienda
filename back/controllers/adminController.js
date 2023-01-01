@@ -243,6 +243,99 @@ const actualizar_ventas_recibido_admin = async function (req, res) {
     }
 }
 
+/////VENTAS SOFTWARE
+const obtener_ventas_software_admin = async function (req, res) {
+    if (req.user) {
+        if (req.user.role == 'admin') {
+
+            let ventas = [];
+
+            let desde = req.params['desde'];
+            let hasta = req.params['hasta'];
+
+            if (desde == 'undefined' && hasta == 'undefined') {
+                //No hay filtros
+                ventas = await VentaSoftware.find().populate('cliente').populate('software').sort({ createdAt: -1 });
+                res.status(200).send({ data: ventas });
+
+            } else {
+                //Hay filtros
+                let tt_desde = Date.parse(new Date(desde + 'T00:00:00')) / 1000;
+                let tt_hasta = Date.parse(new Date(hasta + 'T23:59:59')) / 1000;
+
+                let temp_ventas = await VentaSoftware.find().populate('cliente').populate('software').sort({ createdAt: -1 });
+
+                for (var item of temp_ventas) {
+                    var tt_create = Date.parse(new Date(item.createdAt)) / 1000;
+                    if (tt_create >= tt_desde && tt_create <= tt_hasta) {
+                        ventas.push(item);
+                    }
+                }
+
+                res.status(200).send({ data: ventas });
+            }
+
+        } else {
+            res.status(500).send({ message: 'NoAccess' });
+        }
+    } else {
+        res.status(500).send({ message: 'NoAccess' });
+    }
+}
+
+const obtener_venta_software_admin = async function (req, res) {
+    if (req.user) {
+        if (req.user.role == 'admin') {
+
+            let id = req.params['id'];
+
+            try {
+                let reg = await VentaSoftware.findById({ _id: id }).populate('cliente').populate('software').sort({ createdAt: -1 });
+                res.status(200).send({ data: reg });
+            } catch (error) {
+                res.status(200).send({ data: undefined });
+            }
+
+        } else {
+            res.status(500).send({ message: 'NoAccess' });
+        }
+    } else {
+        res.status(500).send({ message: 'NoAccess' });
+    }
+}
+
+const actualizar_venta_software_pagado_admin = async function (req, res) {
+    if (req.user) {
+        if (req.user.role == 'admin') {
+
+            let id = req.params['id'];
+            let reg = await VentaSoftware.findByIdAndUpdate({ _id: id }, { estado: 'Pagado' });
+            res.status(200).send({ data: reg });
+
+        } else {
+            res.status(500).send({ message: 'NoAccess' });
+        }
+    } else {
+        res.status(500).send({ message: 'NoAccess' });
+    }
+}
+
+const eliminar_venta_software_admin = async function (req, res) {
+    if (req.user) {
+        if (req.user.role == 'admin') {
+    
+          var id = req.params['id'];
+          let reg = await VentaSoftware.findByIdAndRemove({ _id: id });
+          res.status(200).send({ data: reg });
+    
+        } else {
+          res.status(500).send({ message: 'NoAccess' });
+        }
+      } else {
+        res.status(500).send({ message: 'NoAccess' });
+      }
+}
+
 //////////////KPI
 const kpi_ganancias_mensuales_admin = async function (req, res) {
     if (req.user) {
@@ -489,6 +582,10 @@ module.exports = {
     cerrar_mensaje_admin,
     obtener_ventas_admin,
     obtener_venta_admin,
+    obtener_ventas_software_admin,
+    obtener_venta_software_admin,
+    actualizar_venta_software_pagado_admin,
+    eliminar_venta_software_admin,
     actualizar_ventas_enviado_admin,
     actualizar_ventas_procesando_admin,
     actualizar_ventas_recibido_admin,

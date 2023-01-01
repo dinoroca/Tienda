@@ -72,7 +72,10 @@ export class ShowProductoComponent implements OnInit {
 
     this.url = GLOBAL.url;
 
-    this.token = localStorage.getItem('token');
+    this.token = localStorage.getItem('token') || sessionStorage.getItem('token');
+
+    this.carrito_data.variedad = localStorage.getItem('variedad') || '';
+    this.carrito_data.cantidad = localStorage.getItem('cantidad') || 1;
 
     this._route.params.subscribe(
       params => {
@@ -229,6 +232,14 @@ export class ShowProductoComponent implements OnInit {
     );
   }
 
+  guardar_variedad() {
+    localStorage.setItem('variedad', this.carrito_data.variedad);
+  }
+
+  guardar_cantidad() {
+    localStorage.setItem('cantidad', this.carrito_data.cantidad);
+  }
+
   agregar_producto() {
 
     if (this.token != undefined) {
@@ -237,7 +248,7 @@ export class ShowProductoComponent implements OnInit {
           
           let data = {
             producto: this.producto._id,
-            cliente: localStorage.getItem('_id'),
+            cliente: localStorage.getItem('_id') || sessionStorage.getItem('_id'),
             cantidad: this.carrito_data.cantidad,
             variedad: this.carrito_data.variedad
           }

@@ -9,7 +9,11 @@ var configSchema = Schema({
     tipo_cambio: {type: Number, required: true},
     logo: {type: String, required: true},
     serie: {type: String, required: true},
-    correlativo: {type: String, required: true}
+    correlativo: {type: String, required: true},
+    mision: {type: String, required: true},
+    vision: {type: String, required: true},
+    term_cond: {type: String, required: true},
+    politica_privacidad: {type: String, required: true},
 });
 
 module.exports = mongoose.model('config', configSchema);

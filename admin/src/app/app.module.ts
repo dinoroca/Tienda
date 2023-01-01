@@ -34,6 +34,8 @@ import { IndexContactoComponent } from './components/contacto/index-contacto/ind
 import { ReviewsProductoComponent } from './components/productos/reviews-producto/reviews-producto.component';
 import { IndexVentasComponent } from './components/ventas/index-ventas/index-ventas.component';
 import { DetalleVentasComponent } from './components/ventas/detalle-ventas/detalle-ventas.component';
+import { VentasSofwareComponent } from './components/ventas-sofware/ventas-sofware.component';
+import { DetalleVentasSofwareComponent } from './components/detalle-ventas-sofware/detalle-ventas-sofware.component';
 
 @NgModule({
   declarations: [
@@ -63,7 +65,9 @@ import { DetalleVentasComponent } from './components/ventas/detalle-ventas/detal
     IndexContactoComponent,
     ReviewsProductoComponent,
     IndexVentasComponent,
-    DetalleVentasComponent
+    DetalleVentasComponent,
+    VentasSofwareComponent,
+    DetalleVentasSofwareComponent
   ],
   imports: [
     BrowserModule,

@@ -21,7 +21,7 @@ export class OrdenesComponent implements OnInit {
     private _clienteService: ClienteService,
     private _title: Title
   ) {
-    this.token = localStorage.getItem('token');
+    this.token = localStorage.getItem('token') || sessionStorage.getItem('token');
   }
 
   ngOnInit(): void {
@@ -30,7 +30,7 @@ export class OrdenesComponent implements OnInit {
   }
 
   init_data() {
-    this._clienteService.obtener_ordenes_cliente(localStorage.getItem('_id'), this.token).subscribe(
+    this._clienteService.obtener_ordenes_cliente(localStorage.getItem('_id') || sessionStorage.getItem('_id'), this.token).subscribe(
       response => {
         this.ordenes = response.data;
         this.load_data = false;

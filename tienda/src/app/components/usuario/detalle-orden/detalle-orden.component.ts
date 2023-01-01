@@ -32,7 +32,7 @@ export class DetalleOrdenComponent implements OnInit {
     private _clienteService: ClienteService,
     private _route: ActivatedRoute
   ) {
-    this.token = localStorage.getItem('token');
+    this.token = localStorage.getItem('token') || sessionStorage.getItem('token');
 
     this.url = GLOBAL.url;
 

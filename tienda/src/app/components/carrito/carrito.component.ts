@@ -56,8 +56,10 @@ export class CarritoComponent implements OnInit {
     private _title: Title,
     private _router: Router
   ) {
-    this.token = localStorage.getItem('token');
-    this.id = localStorage.getItem('_id');
+
+    this.id = localStorage.getItem('_id') || sessionStorage.getItem('_id');
+    this.token = localStorage.getItem('token') || sessionStorage.getItem('token');
+
     this.venta.cliente = this.id;
     this.url = GLOBAL.url;
 
@@ -182,7 +184,7 @@ export class CarritoComponent implements OnInit {
               descuento: this.descuento_activo.descuento,
               subtotal: Math.round((parseInt(element.producto.precio) * element.cantidad) -
                 (parseInt(element.producto.precio) * element.cantidad * this.descuento_activo.descuento) / 100),
-              cliente: localStorage.getItem('_id')
+              cliente: localStorage.getItem('_id') || sessionStorage.getItem('_id')
             });
           });
           this.calcular_subtotal();
@@ -193,7 +195,7 @@ export class CarritoComponent implements OnInit {
               variedad: element.variedad,
               cantidad: element.cantidad,
               subtotal: element.producto.precio * element.cantidad,
-              cliente: localStorage.getItem('_id')
+              cliente: localStorage.getItem('_id') || sessionStorage.getItem('_id')
             });
           });
           this.calcular_subtotal();
@@ -203,7 +205,7 @@ export class CarritoComponent implements OnInit {
   }
 
   obtener_direccion_principal() {
-    this._clienteService.obtener_direccion_principal_cliente(localStorage.getItem('_id'), this.token).subscribe(
+    this._clienteService.obtener_direccion_principal_cliente(localStorage.getItem('_id') || sessionStorage.getItem('_id'), this.token).subscribe(
       response => {
         if (response.data == undefined) {
           this.direccion_principal = undefined;

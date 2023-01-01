@@ -1,0 +1,104 @@
+<app-nav></app-nav>
+
+<main class="cs-page-wrapper mt-5">
+
+    <!-- Breadcrumb -->
+    <nav class="bg-secondary mb-3" aria-label="breadcrumb">
+        <div class="container">
+            <ol class="breadcrumb breadcrumb-alt mb-0">
+                <li class="breadcrumb-item">
+                    <a [routerLink]="['/']"><i class="cxi-home"></i></a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">Mis programas</li>
+            </ol>
+        </div>
+    </nav>
+
+    <!-- Page container -->
+    <section class="container pt-3 pt-lg-4 pb-5 pb-lg-6">
+        <div class="row pb-2 pb-lg-0">
+
+            <!-- Account menu (sticky sidebar) -->
+            <aside class="col-xl-3 col-lg-4 pb-3 mb-4 mb-lg-0">
+                <app-sidebar></app-sidebar>
+            </aside>
+
+            <!-- Content -->
+            <div class="col-lg-8 ml-auto">
+                <div class="d-flex align-items-center justify-content-between mb-4 pb-sm-2">
+                    <h1 class="h2 mb-0">Mis programas</h1>
+                    <!-- <div class="form-inline">
+                        <label for="sort-orders" class="d-none d-sm-block font-weight-bold mr-2 pr-1">Sort
+                            orders</label>
+                        <select id="sort-orders" class="custom-select">
+                            <option>All</option>
+                            <option>Delivered</option>
+                            <option>In Progress</option>
+                            <option>Delayed</option>
+                            <option>Canceled</option>
+                        </select>
+                    </div> -->
+                </div>
+
+                <!-- Orders accordion -->
+                <div class="accordion-alt" id="orders" *ngIf="!load_data">
+
+                    <!-- Con órdenes -->
+                    <ng-container *ngIf="ordenes.length >= 0">
+                        <!-- Order -->
+                        <div class="card border-bottom shadow mt-5 rounded px-3" *ngFor="let item of ordenes 
+                    | slice: (page - 1) * pageSize:(page - 1) * pageSize + pageSize">
+                            <div class="card-header accordion-heading py-1">
+                                <a [routerLink]="['/cuenta/software-compra', item._id]" class="d-flex flex-wrap justify-content-between py-3"
+                                    data-toggle="collapse" aria-expanded="false">
+                                    <span class="pr-2">Cód. {{item._id | uppercase}} </span>
+                                    <span class="font-size-sm text-muted text-nowrap px-2">
+                                        <i class="cxi-calendar font-size-base align-middle mt-n1 mr-1"></i>
+                                        {{item.createdAt | date}}
+                                    </span>
+                                    <span class="badge badge-secondary rounded-pill" *ngIf="item.estado == 'Reservado'"> {{item.estado}} </span>
+                                    <span class="badge badge-success rounded-pill" *ngIf="item.estado == 'Pagado'"> {{item.estado}} </span>
+                                    <span class="text-dark pl-1">S/. {{item.subtotal}} </span>
+                                </a>
+                            </div>
+
+                        </div>
+                    </ng-container>
+
+                    <!-- Sin órdenes -->
+                    <ng-container *ngIf="ordenes.length == 0">
+                        <div class="col-lg-12 col-md-5 text-center">
+                            <h3 class="h6 mb-2">NO SE ENCONTRARON ÓRDENES</h3>
+                            <h3 class="text-danger">
+                                Es posible que aún no haya realizado compras</h3>
+              
+                            <svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="#FF4242"
+                              class="bi bi-exclamation-octagon" viewBox="0 0 16 16">
+                              <path
+                                d="M4.54.146A.5.5 0 0 1 4.893 0h6.214a.5.5 0 0 1 .353.146l4.394 4.394a.5.5 0 0 1 .146.353v6.214a.5.5 0 0 1-.146.353l-4.394 4.394a.5.5 0 0 1-.353.146H4.893a.5.5 0 0 1-.353-.146L.146 11.46A.5.5 0 0 1 0 11.107V4.893a.5.5 0 0 1 .146-.353L4.54.146zM5.1 1 1 5.1v5.8L5.1 15h5.8l4.1-4.1V5.1L10.9 1H5.1z" />
+                              <path
+                                d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z" />
+                            </svg> <br>
+              
+                            <a class="btn btn-gradient mt-3" style="cursor: pointer;"  [routerLink]="['/productos']">Ir a tienda</a>
+                          </div>
+                    </ng-container>
+                </div>
+
+                <div class="text-center" *ngIf="load_data">
+                    <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+                    </div>
+                </div>
+
+                <!-- Pagination of orders -->
+                <!-- <div class="mt-5 row justify-content-center">
+                    <ngb-pagination [(page)]="page" [pageSize]="pageSize" [collectionSize]="ordenes.length">
+                    </ngb-pagination>
+                </div> -->
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<app-footer></app-footer>

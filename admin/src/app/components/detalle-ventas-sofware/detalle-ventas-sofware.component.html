@@ -1,0 +1,237 @@
+<app-sidebar></app-sidebar>
+
+<!-- Page title-->
+<div class="border-bottom mt-4 mb-5">
+    <h1 class="mt-2 mt-md-4 mb-3 pt-5">Detalle de venta de programas</h1>
+    <div class="d-flex flex-wrap flex-md-nowrap justify-content-between">
+        <p class="text-muted">Este módulo muestra los detalles de venta de una programa.</p>
+
+    </div>
+</div>
+
+<div class="card box-shadow-sm">
+
+    <!-- Detalles / datos de la venta -->
+    <div class="card-body" *ngIf="orden">
+        <div class="row mb-3">
+            <div class="col-12 mb-4">
+                <div class="card card-body py-3 box-shadow ">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <table class="table mb-0">
+                                <tbody>
+                                    <tr *ngIf="orden.cliente">
+                                        <th class="border-0 py-2 pl-0">Nombres:</th>
+                                        <td class="border-0 py-2 px-0 text-muted">{{orden.cliente.nombres}}</td>
+                                    </tr>
+                                    <tr *ngIf="orden.cliente">
+                                        <th class="border-0 py-2 pl-0">Apellidos:</th>
+                                        <td class="border-0 py-2 px-0 text-muted"> {{orden.cliente.apellidos}} </td>
+                                    </tr>
+                                    <tr>
+                                        <th class="border-0 py-2 pl-0">Orden No:</th>
+                                        <td class="border-0 py-2 px-0 text-muted">{{id | uppercase}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th class="border-0 py-2 pl-0">Fecha:</th>
+                                        <td class="border-0 py-2 px-0 text-muted"> {{orden.createdAt | date}} </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-lg-6">
+                            <table class="table mb-0">
+                                <tbody>
+                                    <tr>
+                                        <th class="border-0 py-2 pl-0">Venta:</th>
+                                        <td class="border-0 py-2 px-0 text-muted"> {{orden.nventa}} </td>
+                                    </tr>
+                                    <tr>
+                                        <th class="border-0 py-2 pl-0">Transaccion:</th>
+                                        <td class="border-0 py-2 px-0 text-muted"> {{orden.transaccion}} </td>
+                                    </tr>
+                                    <tr>
+                                        <th class="border-0 py-2 pl-0">Estado:</th>
+                                        <td class="border-0 py-2 px-0 text-muted"> {{orden.estado}} </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="text-center">
+                        <div class="my-2" *ngIf="orden.estado == 'Reservado'">
+                            <button class="btn btn-success" 
+                                data-toggle="modal" [attr.data-target]="'#confirm-' + orden._id">
+                                <i class="cxi-check"></i> Confirmar pago
+                            </button>
+
+                            <a class="btn btn-danger btn-sm ml-3" data-toggle="modal"
+                                [attr.data-target]="'#delete-' + orden._id">
+                                <i class="cxi-delete"></i>
+                            </a>
+                        </div>
+
+                        <!-- Modal eliminar -->
+                        <div class="modal fade" id="delete-{{ orden._id }}" tabindex="-1" style="display: none"
+                            aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title text-center">
+                                            Eliminar Reservación
+                                        </h4>
+                                        <button class="btn btn-secondary btn-sm" type="button" data-dismiss="modal"
+                                            aria-label="Close">
+                                            x
+                                        </button>
+                                    </div>
+                                    <div class="modal-body text-center">
+                                        Desea eliminar {{ orden._id | uppercase}}?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button class="btn btn-secondary btn-sm bi-x-circle-fill" type="button"
+                                            data-dismiss="modal">
+                                            Cancelar
+                                        </button>
+                                        <button *ngIf="!load_btn" class="btn btn-danger btn-sm bi-trash-fill"
+                                            (click)="eliminar(orden._id)" type="button">
+                                            Eliminar
+                                        </button>
+
+                                        <!-- Button with growing spinner and text -->
+                                        <button *ngIf="load_btn" type="button" class="btn btn-secondary">
+                                            <span class="spinner-grow spinner-grow-sm me-2" role="status"
+                                                aria-hidden="true" disabled></span>
+                                            Eliminando...
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Modal comfirmar pago -->
+                        <div class="modal fade" id="confirm-{{ orden._id }}" tabindex="-1" style="display: none"
+                            aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title text-center">
+                                            Confirmación de pago
+                                        </h4>
+                                        <button class="btn btn-secondary btn-sm" type="button" data-dismiss="modal"
+                                            aria-label="Close">
+                                            x
+                                        </button>
+                                    </div>
+                                    <div class="modal-body text-center">
+                                        Confirmar el pago de {{ orden._id | uppercase}}?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button class="btn btn-secondary btn-sm bi-x-circle-fill" type="button"
+                                            data-dismiss="modal">
+                                            Cancelar
+                                        </button>
+                                        <button *ngIf="!load_btn" class="btn btn-success btn-sm"
+                                            (click)="cambiar_estado_pagado(orden._id)" type="button">
+                                            <i class="cxi-checkmark"></i>
+                                            Confirmar
+                                        </button>
+
+                                        <!-- Button with growing spinner and text -->
+                                        <button *ngIf="load_btn" type="button" class="btn btn-secondary">
+                                            <span class="spinner-grow spinner-grow-sm me-2" role="status"
+                                                aria-hidden="true" disabled></span>
+                                            Confirmando...
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card border-bottom">
+            <div id="order-1" class="collapse show" data-parent="#orders">
+                <div class="bg-secondary rounded shadow">
+                    <div class="table-responsive">
+                        <table class="table mb-0 text-center">
+                            <tbody>
+
+                                <tr>
+                                    <td class="border-top-0">
+                                        <div class="media pl-2 py-2">
+                                            <a style="min-width: 80px;">
+                                                <img [src]="url + 'obtener_portada/' + orden.software.portada" width="80"
+                                                    alt="Product thumb">
+                                            </a>
+                                            <div class="media-body pl-3">
+                                                <h3 class="font-size-sm mb-3">
+                                                    <a  class="nav-link font-weight-bold">
+                                                        {{orden.software.titulo}}
+                                                    </a>
+                                                </h3>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="border-top-0">
+                                        <div class="py-2">
+                                            <div class="font-size-xs text-muted mb-1">Precio:</div>
+                                            <div class="font-size-sm text-dark">S/. {{orden.software.precio}} </div>
+                                        </div>
+                                    </td>
+                                    
+                                    <td class="border-top-0">
+                                        <div class="py-2 pr-3 text-right">
+                                            <div class="font-size-xs text-muted mb-1">Subtotal:</div>
+                                            <div class="font-size-sm font-weight-bold text-dark">S/. {{orden.subtotal}}
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                        <div class="py-2 pr-3 text-right">
+                                            <span class="font-size-xs text-muted">Total: </span>
+                                            <span class="font-size-sm font-weight-bold text-dark">S/. {{orden.subtotal}}
+                                            </span>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cuando no hay detalle de orden -->
+    <div class="card-body" *ngIf="!orden">
+        <div class="col-lg-12 card align-items-center py-4 rounded"
+            style="background-color: rgb(255, 207, 207); border-color: rgb(255, 66, 66);">
+            <h4 class="text-danger">
+                ERROR: No se tiene registro de compra con ese código.</h4>
+
+            <svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="#FF4242"
+                class="bi bi-exclamation-octagon" viewBox="0 0 16 16">
+                <path
+                    d="M4.54.146A.5.5 0 0 1 4.893 0h6.214a.5.5 0 0 1 .353.146l4.394 4.394a.5.5 0 0 1 .146.353v6.214a.5.5 0 0 1-.146.353l-4.394 4.394a.5.5 0 0 1-.353.146H4.893a.5.5 0 0 1-.353-.146L.146 11.46A.5.5 0 0 1 0 11.107V4.893a.5.5 0 0 1 .146-.353L4.54.146zM5.1 1 1 5.1v5.8L5.1 15h5.8l4.1-4.1V5.1L10.9 1H5.1z" />
+                <path
+                    d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z" />
+            </svg>
+        </div>
+    </div>
+
+    <div class="card-footer text-center">
+        <a class="bi-arrow-left-circle-fill text-warning" style="font-size: 2rem;" [routerLink]="['/panel/ventas-software']"></a>
+    </div>
+</div>

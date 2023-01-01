@@ -1,0 +1,206 @@
+<app-sidebar></app-sidebar>
+
+<!-- Page title-->
+<div class="border-bottom mt-4 mb-5">
+    <h1 class="mt-2 mt-md-4 mb-3 pt-5">Ventas de programas</h1>
+    <div class="d-flex flex-wrap flex-md-nowrap justify-content-between">
+        <p class="text-muted">Este módulo lista todas las ventas de programas de la tienda.</p>
+
+    </div>
+</div>
+
+<div class="card box-shadow-sm">
+    <div class="card-header">
+        <h5 style="margin-bottom: 0px;">Filtro de ventas de programas</h5>
+    </div>
+    <div class="card-header">
+        <div class="row">
+            <div class="col-6">
+                <div class="form-group">
+                    <label class="form-label" for="pass-visibility">Desde</label>
+                    <input class="form-control" type="date" name="desde" [(ngModel)]="desde">
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="form-group">
+                    <label class="form-label" for="pass-visibility">Hasta</label>
+                    <input class="form-control" type="date" name="hasta" [(ngModel)]="hasta">
+                </div>
+            </div>
+            <div class="col-12 text-center">
+                <button type="button" class="btn btn-success" (click)="filtrar()">
+                    <i class="cxi-search"></i>
+                    Filtrar por fecha
+                </button>
+            </div>
+        </div>
+
+        <!-- Button addon on the right -->
+        <div class="input-group mt-4">
+            <input class="form-control" type="text" placeholder="Filtrar por ID de venta" name="filtro_cod"
+                [(ngModel)]="filtro_cod" (keyup)="filtrar_cod(filtro_cod)">
+        </div>
+
+        <div class="rounded my-2" *ngIf="err_msg" style="background-color: rgb(255, 223, 223);">
+            <p class="text-center p-2 text-danger">ERROR: Ingrese el ID correctamente.</p>
+        </div>
+    </div>
+
+    <div class="card-body">
+
+        <ng-container *ngFor="let item of ventas | slice: (page - 1) * pageSize:(page - 1) * pageSize + pageSize">
+            <div class="shadow rounded px-4">
+                <div class="row mt-5 justify-content-between">
+                    <div class="col">
+                        <h3 class="h5 mb-1 nav-dark">
+                            <a class="nav-link"> {{item.cliente.nombres}}
+                                {{item.cliente.apellidos}} </a>
+                        </h3>
+                    </div>
+                    <div class="col text-right">
+                        <span class="badge badge-success mb-3 rounded-pill" *ngIf="item.estado == 'Pagado'">
+                            {{item.estado}} </span>
+                        <span class="badge badge-secondary mb-3 rounded-pill" *ngIf="item.estado == 'Reservado'">
+                            {{item.estado}} </span>
+
+                        <div class="dropdown">
+                            <a style="cursor: pointer;" class="dropdown-toggle" data-toggle="dropdown">
+                                <span class="cxi-settings"></span>
+                            </a>
+                            <div class="dropdown-menu text-center">
+                                <a [routerLink]="['/panel/ventas-software', item._id]" class="dropdown-item">Ver
+                                    detalles &nbsp;
+                                    <i class="bi-list-ul"></i>
+                                </a>
+                                <a class="dropdown-item" data-toggle="modal" [attr.data-target]="'#confirm-' + item._id"
+                                    style="cursor: pointer;" *ngIf="item.estado == 'Reservado'">Confirmar pago
+                                    &nbsp;
+                                    <i class="cxi-arrow-convert"></i>
+                                </a>
+                                <a class="dropdown-item" style="cursor: pointer; background-color: rgb(255, 221, 221);"
+                                    *ngIf="item.estado == 'Reservado'" data-toggle="modal"
+                                    [attr.data-target]="'#delete-' + item._id">
+                                    <i class="cxi-delete text-danger"></i>
+                                </a>
+                            </div>
+
+                            <!-- Modal eliminar -->
+                            <div class="modal fade" id="delete-{{ item._id }}" tabindex="-1" style="display: none"
+                                aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title text-center">
+                                                Eliminar Reservación
+                                            </h4>
+                                            <button class="btn btn-secondary btn-sm" type="button" data-dismiss="modal"
+                                                aria-label="Close">
+                                                x
+                                            </button>
+                                        </div>
+                                        <div class="modal-body text-center">
+                                            Desea eliminar {{ item._id | uppercase}}?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button class="btn btn-secondary btn-sm bi-x-circle-fill" type="button"
+                                                data-dismiss="modal">
+                                                Cancelar
+                                            </button>
+                                            <button *ngIf="!load_btn" class="btn btn-danger btn-sm bi-trash-fill"
+                                                (click)="eliminar(item._id)" type="button">
+                                                Eliminar
+                                            </button>
+
+                                            <!-- Button with growing spinner and text -->
+                                            <button *ngIf="load_btn" type="button" class="btn btn-secondary">
+                                                <span class="spinner-grow spinner-grow-sm me-2" role="status"
+                                                    aria-hidden="true" disabled></span>
+                                                Eliminando...
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Modal comfirmar pago -->
+                            <div class="modal fade" id="confirm-{{ item._id }}" tabindex="-1" style="display: none"
+                                aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title text-center">
+                                                Confirmación de pago
+                                            </h4>
+                                            <button class="btn btn-secondary btn-sm" type="button" data-dismiss="modal"
+                                                aria-label="Close">
+                                                x
+                                            </button>
+                                        </div>
+                                        <div class="modal-body text-center">
+                                            Confirmar el pago de {{ item._id | uppercase}}?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button class="btn btn-secondary btn-sm bi-x-circle-fill" type="button"
+                                                data-dismiss="modal">
+                                                Cancelar
+                                            </button>
+                                            <button *ngIf="!load_btn" class="btn btn-success btn-sm"
+                                                (click)="cambiar_estado_pagado (item._id)" type="button">
+                                                <i class="cxi-checkmark"></i>
+                                                Confirmar
+                                            </button>
+
+                                            <!-- Button with growing spinner and text -->
+                                            <button *ngIf="load_btn" type="button" class="btn btn-secondary">
+                                                <span class="spinner-grow spinner-grow-sm me-2" role="status"
+                                                    aria-hidden="true" disabled></span>
+                                                Confirmando...
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <ul class="nav nav-muted mb-2 pb-1">
+                            <li class="nav-item mr-2">
+                                <span class="badge badge-dark MR-3">{{item.nventa}}</span>
+                                <span class="text-border px-1">|</span>
+                            </li>
+                            <li class="nav-item mr-2">
+                                <a class="nav-link d-inline-block mr-2 p-0 font-size-sm font-weight-normal">
+                                    {{item.createdAt | date}}
+                                </a>
+                                <span class="text-border px-1">|</span>
+                            </li>
+
+                            <li class="nav-item mr-2">
+                                <a class="nav-link d-inline-block mr-2 p-0 font-size-sm font-weight-normal">
+                                    <i class="mt-n1 mr-2 font-size-base align-middle"></i>
+                                    ID: {{item._id | uppercase}}
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-12 mb-3">
+                        <div class="d-flex align-items-center">
+                            <strong>{{item.software.titulo}}</strong> <span class="text-border px-1">|</span>
+                            <span class="h5 d-inline-block mb-0 text-primary">S/. {{item.subtotal}} </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </ng-container>
+    </div>
+    <div class="card-footer">
+        <ngb-pagination [(page)]="page" [pageSize]="pageSize" [collectionSize]="ventas.length">
+        </ngb-pagination>
+    </div>
+</div>

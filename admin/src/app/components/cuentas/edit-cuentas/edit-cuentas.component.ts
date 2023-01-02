@@ -1,26 +1,26 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { ClienteService } from '../../../service/cliente.service';
 import { AdminService } from '../../../service/admin.service';
+import { Router, ActivatedRoute } from '@angular/router';
 
 declare var iziToast: { show: (arg0: { title: string; titleColor: string; class: string; position: string; message: string; }) => void; };
+declare var jQuery: any;
+declare var $: any;
 
 @Component({
-  selector: 'app-edit-cliente',
-  templateUrl: './edit-cliente.component.html',
-  styleUrls: ['./edit-cliente.component.css']
+  selector: 'app-edit-cuentas',
+  templateUrl: './edit-cuentas.component.html',
+  styleUrls: ['./edit-cuentas.component.css']
 })
-export class EditClienteComponent implements OnInit {
+export class EditCuentasComponent implements OnInit {
 
-  public cliente: any = {};
-  public id: any;
+  public cuenta : any = {};
   public token;
+  public id: any;
   public load_btn = false;
   public load_data = true;
 
   constructor(
     private _route: ActivatedRoute,
-    private _clienteService: ClienteService,
     private _adminService: AdminService,
     private _router: Router
   ) {
@@ -33,14 +33,13 @@ export class EditClienteComponent implements OnInit {
       params => {
         this.id = params['id'];
         
-        this._clienteService.obtener_cliente_admin(this.id, this.token).subscribe(
+        this._adminService.obtener_cuenta_admin(this.id, this.token).subscribe(
           response => {
-
             if(response.data == undefined) {
-              this.cliente = undefined;
+              this.cuenta = undefined;
               this.load_data = false;
             }else {
-              this.cliente = response.data;
+              this.cuenta = response.data;
               this.load_data = false;
             }
           }
@@ -49,30 +48,33 @@ export class EditClienteComponent implements OnInit {
     );
   }
 
-  actualizar(updateForm: any) {
+  actualizar(actualizarForm: any){
 
-    if(updateForm.valid) {
+    if(actualizarForm.valid){
       this.load_btn = true;
-      this._clienteService.actualizar_cliente_admin(this.id, this.cliente, this.token).subscribe(
+      this._adminService.actualizar_cuenta_admin(this.id, this.cuenta, this.token).subscribe(
         response => {
-          console.log(response);
           iziToast.show({
             title: 'SUCCESS',
             titleColor: '#35D18F',
             class: 'text-success',
             position: 'topRight',
-            message: 'Se actualizó el cliente'
+            message: 'Se actualizó la cuenta'
           });
 
-          this.load_btn = false;
-          this._router.navigate(['/panel/clientes']);
-        },
-        error => {
-          console.log(error);
+          this.cuenta = {
+            banco   : '',
+            titular : '',
+            cuenta : 0,
+            cci : 0,
+            color : ''
+          }
           
+          this.load_btn = false;
+          this._router.navigate(['/panel/cuentas']);
         }
       );
-    } else {
+    }else {
       iziToast.show({
         title: 'ERROR',
         titleColor: '#FF634F',

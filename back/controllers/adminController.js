@@ -3,6 +3,7 @@ var Admin = require('../models/admin');
 var Venta = require('../models/venta');
 var VentaSoftware = require('../models/ventaSoftware');
 var Contacto = require('../models/contacto');
+var Cuenta = require('../models/cuenta');
 var bcrypt = require('bcrypt-nodejs');
 var jwt = require('../helpers/jwt');
 var fs = require('fs');
@@ -323,17 +324,17 @@ const actualizar_venta_software_pagado_admin = async function (req, res) {
 const eliminar_venta_software_admin = async function (req, res) {
     if (req.user) {
         if (req.user.role == 'admin') {
-    
-          var id = req.params['id'];
-          let reg = await VentaSoftware.findByIdAndRemove({ _id: id });
-          res.status(200).send({ data: reg });
-    
+
+            var id = req.params['id'];
+            let reg = await VentaSoftware.findByIdAndRemove({ _id: id });
+            res.status(200).send({ data: reg });
+
         } else {
-          res.status(500).send({ message: 'NoAccess' });
+            res.status(500).send({ message: 'NoAccess' });
         }
-      } else {
+    } else {
         res.status(500).send({ message: 'NoAccess' });
-      }
+    }
 }
 
 //////////////KPI
@@ -395,7 +396,7 @@ const kpi_ganancias_mensuales_admin = async function (req, res) {
 
                     if (mes == 1) {
                         enero = enero + item.subtotal;
-                        nv_enero = nv_enero  + 1;
+                        nv_enero = nv_enero + 1;
                     } else if (mes == 2) {
                         febrero = febrero + item.subtotal;
                         nv_febrero = nv_febrero + 1;
@@ -573,6 +574,103 @@ const kpi_ganancias_programas_admin = async function (req, res) {
     }
 }
 
+/////////CUENTAS
+const registro_cuenta_admin = async function (req, res) {
+    if (req.user) {
+        if (req.user.role == 'admin') {
+
+            var data = req.body;
+
+            let reg = await Cuenta.create(data);
+            res.status(200).send({ data: reg });
+
+        } else {
+            res.status(500).send({ message: 'NoAccess' });
+        }
+    } else {
+        res.status(500).send({ message: 'NoAccess' });
+    }
+}
+
+const obtener_cuentas_admin = async function (req, res) {
+    if (req.user) {
+        if (req.user.role == 'admin') {
+
+            let cuentas = [];
+            cuentas = await Cuenta.find().sort({ createdAt: -1 });
+            res.status(200).send({ data: cuentas });
+        } else {
+            res.status(500).send({ message: 'NoAccess' });
+        }
+    } else {
+        res.status(500).send({ message: 'NoAccess' });
+    }
+}
+
+const obtener_cuenta_admin = async function (req, res) {
+    if (req.user) {
+        if (req.user.role == 'admin') {
+
+            var id = req.params['id'];
+
+            let cuenta;
+
+            try {
+                cuenta = await Cuenta.findById({ _id: id });
+                res.status(200).send({ data: cuenta });
+              } catch (error) {
+                res.status(200).send({ data: undefined });
+              }
+        } else {
+            res.status(500).send({ message: 'NoAccess' });
+        }
+    } else {
+        res.status(500).send({ message: 'NoAccess' });
+    }
+}
+
+const eliminar_cuenta_admin = async function (req, res) {
+    if (req.user) {
+        if (req.user.role == 'admin') {
+
+            var id = req.params['id'];
+            let reg = await Cuenta.findByIdAndRemove({ _id: id });
+            res.status(200).send({ data: reg });
+
+        } else {
+            res.status(500).send({ message: 'NoAccess' });
+        }
+    } else {
+        res.status(500).send({ message: 'NoAccess' });
+    }
+}
+
+const actualizar_cuenta_admin = async function (req, res) {
+    if (req.user) {
+        if (req.user.role == 'admin') {
+
+            var id = req.params['id'];
+            var data = req.body;
+
+            var reg = await Cuenta.findByIdAndUpdate({ _id: id }, {
+                banco: data.banco,
+                titular: data.titular,
+                cuenta: data.cuenta,
+                cci: data.cci,
+                color: data.color
+            });
+
+            res.status(200).send({ data: reg });
+
+        } else {
+            res.status(500).send({ message: 'NoAccess' });
+        }
+    } else {
+        res.status(500).send({ message: 'NoAccess' });
+    }
+}
+
+
 module.exports = {
     registro_admim,
     login_admin,
@@ -590,5 +688,10 @@ module.exports = {
     actualizar_ventas_procesando_admin,
     actualizar_ventas_recibido_admin,
     kpi_ganancias_mensuales_admin,
-    kpi_ganancias_programas_admin
+    kpi_ganancias_programas_admin,
+    registro_cuenta_admin,
+    obtener_cuentas_admin,
+    obtener_cuenta_admin,
+    eliminar_cuenta_admin,
+    actualizar_cuenta_admin
 };

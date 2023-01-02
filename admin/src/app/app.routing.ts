@@ -28,6 +28,9 @@ import { IndexVentasComponent } from './components/ventas/index-ventas/index-ven
 import { DetalleVentasComponent } from './components/ventas/detalle-ventas/detalle-ventas.component';
 import { VentasSofwareComponent } from './components/ventas-sofware/ventas-sofware.component';
 import { DetalleVentasSofwareComponent } from './components/detalle-ventas-sofware/detalle-ventas-sofware.component';
+import { IndexCuentasComponent } from './components/cuentas/index-cuentas/index-cuentas.component';
+import { CreateCuentasComponent } from './components/cuentas/create-cuentas/create-cuentas.component';
+import { EditCuentasComponent } from './components/cuentas/edit-cuentas/edit-cuentas.component';
 
 const appRoute: Routes = [
 
@@ -68,6 +71,10 @@ const appRoute: Routes = [
         {path: 'ventas-software/:id', component: DetalleVentasSofwareComponent, canActivate: [AdminGuard]},
 
         {path: 'contactos', component: IndexContactoComponent, canActivate: [AdminGuard]},
+
+        {path: 'cuentas', component: IndexCuentasComponent, canActivate: [AdminGuard]},
+        {path: 'cuentas/registro', component: CreateCuentasComponent, canActivate: [AdminGuard]},
+        {path: 'cuentas/:id', component: EditCuentasComponent, canActivate: [AdminGuard]},
 
         {path: 'configuraciones', component: ConfigComponent, canActivate: [AdminGuard]},
     ]},

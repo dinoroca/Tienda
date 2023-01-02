@@ -57,5 +57,12 @@ export class CompraSoftwareDetComponent implements OnInit {
                         + '\n 2. Link de descarga: ' + this.orden.software.link], 
                         { type: "text/plain;charset=utf-8" });
     FileSaver.saveAs(blob, this.orden.software.slug + ".txt");
+
+    //Eliminar botón desde back
+    this._clienteService.actualizar_venta_software_descargado(this.id, this.token).subscribe(
+      response => {
+        this.init_data();
+      }
+    );
   }
 }

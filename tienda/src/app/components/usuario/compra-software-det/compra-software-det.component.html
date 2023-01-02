@@ -42,13 +42,13 @@
                                                 <td class="border-0 py-2 px-0 text-muted">{{id | uppercase}}</td>
                                             </tr>
                                             <tr>
-                                                <th class="border-0 py-2 pl-0">Envío:</th>
-                                                <td class="border-0 py-2 px-0 text-muted"> {{orden.envio_titulo}} </td>
-                                            </tr>
-                                            <tr>
                                                 <th class="border-0 py-2 pl-0">Fecha:</th>
                                                 <td class="border-0 py-2 px-0 text-muted"> {{orden.createdAt | date}}
                                                 </td>
+                                            </tr>
+                                            <tr>
+                                                <th class="border-0 py-2 pl-0">Venta:</th>
+                                                <td class="border-0 py-2 px-0 text-muted"> {{orden.nventa}} </td>
                                             </tr>
 
                                         </tbody>
@@ -57,11 +57,6 @@
                                 <div class="col-lg-6">
                                     <table class="table mb-0">
                                         <tbody>
-
-                                            <tr>
-                                                <th class="border-0 py-2 pl-0">Venta:</th>
-                                                <td class="border-0 py-2 px-0 text-muted"> {{orden.nventa}} </td>
-                                            </tr>
                                             <tr>
                                                 <th class="border-0 py-2 pl-0">Transaccion:</th>
                                                 <td class="border-0 py-2 px-0 text-muted"> {{orden.transaccion}} </td>
@@ -84,10 +79,19 @@
                                         al WhatsApp <a>921680694</a>.
                                     </p>
                                 </div>
+
+                                <div class="my-2" *ngIf="orden.estado == 'Pagado' && orden.descargado == 'NoDescargado'">
+                                    <p class="rounded p-2" style="background-color: rgb(255, 191, 191);">
+                                        El botón de descargar solo estará diponible unavez, 
+                                        recuerde guardar su archivo en un lugar seguro.
+                                    </p>
+                                </div>
+
+
                             </div>
 
                             <div class="text-center">
-                                <div class="my-2" *ngIf="orden.estado == 'Pagado'">
+                                <div class="my-2" *ngIf="orden.estado == 'Pagado' && orden.descargado == 'NoDescargado'">
                                     <button class="btn btn-warning" (click)="comprar()">
                                         <i class="cxi-download"></i> Descargar
                                     </button>

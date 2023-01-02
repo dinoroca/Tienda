@@ -13,4 +13,8 @@ api.get('/enviar_correo_cliente/:id', auth.auth, ventaController.enviar_correo_c
 
 api.delete('/eliminar_reservacion_admin/:id', auth.auth, ventaController.eliminar_reservacion_admin);
 
+//Programas
+api.post('/registro_reservacion_software_cliente', auth.auth, ventaController.registro_reservacion_software_cliente);
+api.put('/actualizar_venta_software_descargado/:id', auth.auth, ventaController.actualizar_venta_software_descargado);
+
 module.exports = api;

@@ -322,7 +322,7 @@ export class CarritoComponent implements OnInit {
     this.init_data();
     this.calcular_subtotal();
 
-    this.venta.transaccion = '123';
+    this.venta.transaccion = '111';
     this.venta.detalles = this.dventa;
     this.venta.subtotal = this.total_pagar;
     this.venta.envio_titulo = 'Pago contra entrega';

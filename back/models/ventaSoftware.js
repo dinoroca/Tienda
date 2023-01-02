@@ -10,6 +10,7 @@ var VentaSoftwareSchema = Schema({
     subtotal: {type: Number, required: true},
     transaccion: {type: String, required: true},
     estado: {type: String, required: true},
+    descargado: {type: String, required: false},
     
     createdAt: {type: Date, default: Date.now, required: true}
 });

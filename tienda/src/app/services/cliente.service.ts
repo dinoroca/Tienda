@@ -26,7 +26,6 @@ export class ClienteService {
     let headers = new HttpHeaders({'Content-Type':'application/json', 'authorization': token});
     return this._http.get(this.url + 'obtener_cliente/' + id, {headers : headers});
   }
-
   
   actualizar_perfil_cliente(id: any, data: any, token: any): Observable<any> {
     let headers = new HttpHeaders({'Content-Type':'application/json', 'authorization': token});
@@ -132,6 +131,16 @@ export class ClienteService {
   registro_reservacion_cliente(data: any, token: any): Observable<any> {
     let headers = new HttpHeaders({'Content-Type':'application/json', 'authorization': token});
     return this._http.post(this.url + 'registro_reservacion_cliente', data, {headers : headers});
+  }
+
+  registro_reservacion_software_cliente(data: any, token: any): Observable<any> {
+    let headers = new HttpHeaders({'Content-Type':'application/json', 'authorization': token});
+    return this._http.post(this.url + 'registro_reservacion_software_cliente', data, {headers : headers});
+  }
+
+  actualizar_venta_software_descargado(id: any, token: any): Observable<any> {
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'authorization': token });
+    return this._http.put(this.url + 'actualizar_venta_software_descargado/' + id, {data: true}, { headers: headers });
   }
 
   enviar_correo_cliente(id: any, token: any): Observable<any> {

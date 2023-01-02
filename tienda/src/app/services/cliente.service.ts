@@ -198,4 +198,10 @@ export class ClienteService {
     let headers = new HttpHeaders().set('Content-Type', 'application/json');
     return this._http.get(this.url + 'listar_software/' + filtro, { headers: headers });
   }
+
+  //Cuentas
+  obtener_cuentas(token: any): Observable<any> {
+    let headers = new HttpHeaders({'Content-Type':'application/json', 'authorization': token});
+    return this._http.get(this.url + 'obtener_cuentas', {headers : headers});
+  }
 }

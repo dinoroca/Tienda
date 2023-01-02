@@ -7,6 +7,7 @@ var VentaSoftware = require('../models/ventaSoftware');
 var Dventa = require('../models/dventa');
 var Review = require('../models/review');
 var Cupon = require('../models/cupon');
+var Cuenta = require('../models/cuenta');
 var bcrypt = require('bcrypt-nodejs');
 var jwt = require('../helpers/jwt');
 
@@ -418,7 +419,7 @@ const obtener_detalles_venta_software = async function (req, res) {
     try {
       let venta = await VentaSoftware.findById({ _id: id }).populate('cliente').populate('software');
 
-      res.status(200).send({ data: venta});
+      res.status(200).send({ data: venta });
 
     } catch (error) {
       res.status(200).send({ data: undefined });
@@ -463,10 +464,10 @@ const actualizar_ventas_recibido = async function (req, res) {
   if (req.user) {
 
     let id = req.params['id'];
-    let reg = await Venta.findByIdAndUpdate({ _id: id }, {estado: 'Recibido'});
+    let reg = await Venta.findByIdAndUpdate({ _id: id }, { estado: 'Recibido' });
     res.status(200).send({ data: reg });
   } else {
-      res.status(500).send({ message: 'NoAccess' });
+    res.status(500).send({ message: 'NoAccess' });
   }
 }
 
@@ -484,7 +485,23 @@ const actualizar_cupon_cliente = async function (req, res) {
     });
     res.status(200).send({ data: reg });
   } else {
-      res.status(500).send({ message: 'NoAccess' });
+    res.status(500).send({ message: 'NoAccess' });
+  }
+}
+
+////////Cuentas del back
+const obtener_cuentas = async function (req, res) {
+  if (req.user) {
+
+    let cuentas = [];
+    try {
+      cuentas = await Cuenta.find();
+      res.status(200).send({ data: cuentas });
+    } catch (error) {
+      res.status(200).send({ data: undefined });
+    }
+  } else {
+    res.status(500).send({ message: 'NoAccess' });
   }
 }
 
@@ -512,5 +529,6 @@ module.exports = {
   obtener_review_producto_cliente,
   obtener_reviews_cliente,
   actualizar_ventas_recibido,
-  actualizar_cupon_cliente
+  actualizar_cupon_cliente,
+  obtener_cuentas
 };

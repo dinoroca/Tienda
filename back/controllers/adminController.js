@@ -597,8 +597,12 @@ const obtener_cuentas_admin = async function (req, res) {
         if (req.user.role == 'admin') {
 
             let cuentas = [];
-            cuentas = await Cuenta.find().sort({ createdAt: -1 });
-            res.status(200).send({ data: cuentas });
+            try {
+                cuentas = await Cuenta.find().sort({ createdAt: -1 });
+                res.status(200).send({ data: cuentas });
+              } catch (error) {
+                res.status(200).send({ data: undefined });
+              }
         } else {
             res.status(500).send({ message: 'NoAccess' });
         }

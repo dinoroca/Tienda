@@ -158,20 +158,55 @@ const registro_reservacion_cliente = async function (req, res) {
     }
 }
 
+const registro_reservacion_software_cliente = async function (req, res) {
+    if (req.user) {
+
+        var data = req.body;
+        var nventa = 0;
+        var venta_last = await VentaSoftware.find().sort({ cretedAt: -1 });
+
+        if (venta_last.length == 0) {
+            nventa = 1;
+        } else {
+            nventa = venta_last.length + 1;
+        }
+
+        data.nventa = parseInt(nventa);
+
+        let venta = await VentaSoftware.create(data);
+
+        res.status(200).send({ venta: venta });
+
+    } else {
+        res.status(500).send({ message: 'NoAccess' });
+    }
+}
+
 const eliminar_reservacion_admin = async function (req, res) {
     if (req.user) {
         if (req.user.role == 'admin') {
-    
-          var id = req.params['id'];
-          let reg = await Venta.findByIdAndRemove({ _id: id });
-          res.status(200).send({ data: reg });
-    
+
+            var id = req.params['id'];
+            let reg = await Venta.findByIdAndRemove({ _id: id });
+            res.status(200).send({ data: reg });
+
         } else {
-          res.status(500).send({ message: 'NoAccess' });
+            res.status(500).send({ message: 'NoAccess' });
         }
-      } else {
+    } else {
         res.status(500).send({ message: 'NoAccess' });
-      }
+    }
+}
+
+const actualizar_venta_software_descargado = async function (req, res) {
+    if (req.user) {
+
+        let id = req.params['id'];
+        let reg = await VentaSoftware.findByIdAndUpdate({ _id: id }, { descargado: 'Descargado' });
+        res.status(200).send({ data: reg });
+    } else {
+        res.status(500).send({ message: 'NoAccess' });
+    }
 }
 
 //rellenar de 0 un arreglo
@@ -267,6 +302,8 @@ module.exports = {
     registro_compra_cliente,
     registro_compra_software,
     registro_reservacion_cliente,
+    registro_reservacion_software_cliente,
+    actualizar_venta_software_descargado,
     eliminar_reservacion_admin,
     enviar_correo_cliente
 }

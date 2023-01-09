@@ -29,4 +29,11 @@ api.delete('/eliminar_venta_software_admin/:id', auth.auth, adiminController.eli
 api.get('/kpi_ganancias_mensuales_admin', auth.auth, adiminController.kpi_ganancias_mensuales_admin);
 api.get('/kpi_ganancias_programas_admin', auth.auth, adiminController.kpi_ganancias_programas_admin);
 
+/////// CUENTAS
+api.post('/registro_cuenta_admin', auth.auth, adiminController.registro_cuenta_admin);
+api.get('/obtener_cuentas_admin', auth.auth, adiminController.obtener_cuentas_admin);
+api.get('/obtener_cuenta_admin/:id', auth.auth, adiminController.obtener_cuenta_admin);
+api.delete('/eliminar_cuenta_admin/:id', auth.auth, adiminController.eliminar_cuenta_admin);
+api.put('/actualizar_cuenta_admin/:id', auth.auth, adiminController.actualizar_cuenta_admin);
+
 module.exports = api;

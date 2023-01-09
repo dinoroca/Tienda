@@ -1,0 +1,115 @@
+<app-sidebar></app-sidebar>
+
+<!-- Page title-->
+<div class="border-bottom mt-4 mb-5">
+    <h1 class="mt-2 mt-md-4 mb-3 pt-5">Cuentas</h1>
+    <div class="d-flex flex-wrap flex-md-nowrap justify-content-between">
+        <p class="text-muted">Este módulo lista las cuentas de la tienda para los pagos.</p>
+        <p class="pl-md-4">
+            <a class="text-nowrap bi-plus-circle-fill btn btn-secondary" [routerLink]="['/panel/cuentas/registro']"> 
+              Registrar cuenta
+              </a>
+          </p>
+    </div>
+</div>
+
+<div class="card box-shadow-sm">
+    <div class="card-header">
+        <h5 style="margin-bottom: 0px;">Cuentas</h5>
+    </div>
+
+    <div class="card-body mb-3">
+
+        <ng-container *ngFor="let item of cuentas">
+            <div class="shadow rounded px-4 mt-4" [ngStyle]="{'background-color': item.color}">
+                <div class="row pt-3 justify-content-between">
+                    <div class="col">
+                        <h3 class="h5 mb-1 nav-dark">
+                            <a class="nav-link"> {{item.banco}}</a>
+                        </h3>
+                    </div>
+                    <div class="col text-right">
+
+                        <div class="dropdown">
+                            <a style="cursor: pointer;" class="dropdown-toggle" data-toggle="dropdown">
+                                <span class="cxi-settings"></span>
+                            </a>
+                            <div class="dropdown-menu text-center">
+                                <a [routerLink]="['/panel/cuentas', item._id]" class="dropdown-item">Editar &nbsp;
+                                    <i class="bi-pencil-fill"></i>
+                                </a>
+                                <a class="dropdown-item" style="cursor: pointer; background-color: rgb(255, 221, 221);"
+                                    data-toggle="modal" [attr.data-target]="'#delete-' + item._id">
+                                    <i class="cxi-delete text-danger"></i>
+                                </a>
+                            </div>
+
+                            <!-- Modal eliminar -->
+                            <div class="modal fade" id="delete-{{ item._id }}" tabindex="-1" style="display: none"
+                                aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title text-center">
+                                                Eliminar cuenta
+                                            </h4>
+                                            <button class="btn btn-secondary btn-sm" type="button" data-dismiss="modal"
+                                                aria-label="Close">
+                                                x
+                                            </button>
+                                        </div>
+                                        <div class="modal-body text-center">
+                                            Desea eliminar la cuenta de {{item.banco}} {{ item.cuenta}}?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button class="btn btn-secondary btn-sm bi-x-circle-fill" type="button"
+                                                data-dismiss="modal">
+                                                Cancelar
+                                            </button>
+                                            <button *ngIf="!load_btn" class="btn btn-danger btn-sm bi-trash-fill"
+                                                (click)="eliminar(item._id)" type="button">
+                                                Eliminar
+                                            </button>
+
+                                            <!-- Button with growing spinner and text -->
+                                            <button *ngIf="load_btn" type="button" class="btn btn-secondary">
+                                                <span class="spinner-grow spinner-grow-sm me-2" role="status"
+                                                    aria-hidden="true" disabled></span>
+                                                Eliminando...
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <ul class="nav nav-muted mb-2 pb-1 justify-content-between">
+                            <li class="nav-item mr-2">
+                                <span class="badge badge-secondary MR-3"> <strong>Titular: </strong> {{item.titular}}</span>
+                                <span class="text-border px-1">|</span>
+                            </li>
+                            <li class="nav-item mr-2">
+                                <a class="nav-link d-inline-block mr-2 p-0 font-size-sm font-weight-normal">
+                                    Cuenta: {{item.cuenta}}
+                                </a>
+                                <span class="text-border px-1">|</span>
+                            </li>
+                            <li class="nav-item mr-2">
+                                <a class="nav-link d-inline-block mr-2 p-0 font-size-sm font-weight-normal">
+                                    <i class="mt-n1 mr-2 font-size-base align-middle"></i>
+                                    CCI: {{item.cci}}
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </ng-container>
+    </div>
+</div>

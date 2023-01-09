@@ -1,0 +1,59 @@
+<app-sidebar></app-sidebar>
+
+<!-- Page title-->
+<div class="border-bottom mt-4 mb-5">
+    <h1 class="mt-2 mt-md-4 mb-3 pt-5">Cuenta</h1>
+    <div class="d-flex flex-wrap flex-md-nowrap justify-content-between">
+        <p class="text-muted">Este módulo permite registrar una cuenta para el pago en tienda.</p>
+    </div>
+</div>
+
+<form #registroForm="ngForm" (ngSubmit)="registro(registroForm)">
+    <div class="card box-shadow-sm">
+        <div class="card-header">
+            <h5 style="margin-bottom: 0px">Registro de cuenta</h5>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-6 form-group">
+                    <label for="validationCustom01" class="form-label">Banco</label>
+                    <input class="form-control" type="text" name="banco" [(ngModel)]="cuenta.banco"
+                        placeholder="Ingrese nombre del Banco" required />
+                </div>
+                <div class="col-6 form-group">
+                    <label for="validationCustom01" class="form-label">Nombre del titular</label>
+                    <input class="form-control" type="text" name="titular" [(ngModel)]="cuenta.titular"
+                        placeholder="Ingrese nombre del titular" required />
+                </div>
+                <div class="col-md-4 form-group">
+                    <label for="validationCustom01" class="form-label">N° Cuenta</label>
+                    <input class="form-control" type="number" name="cuenta" [(ngModel)]="cuenta.cuenta"
+                        placeholder="Número de cuenta" min="0" required />
+                </div>
+
+                <div class="col-md-4 form-group">
+                    <label for="validationCustom01" class="form-label">CCI</label>
+                    <input class="form-control" type="number" name="cci" [(ngModel)]="cuenta.cci"
+                        placeholder="CCI" required min="0" />
+                </div>
+                <div class="col-md-4 form-group">
+                    <label for="color-input" class="form-label">Color de fondo &nbsp;</label>
+                    <input class="form-control form-control-color" type="color" id="color" value="{{cuenta.color}}"
+                        name="color" [(ngModel)]="cuenta.color" required>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer text-center">
+            <button class="btn btn-primary mx-2 bi-plus-circle-fill" type="submit" [disabled]="registroForm.invalid"
+                *ngIf="!load_btn"> Crear cuenta
+            </button>
+
+            <!-- Button with growing spinner and text -->
+            <button *ngIf="load_btn" type="button" class="btn btn-secondary" disabled>
+                <span class="spinner-grow spinner-grow-sm me-2" role="status" aria-hidden="true"></span>
+                Creando...
+            </button>
+            <a class="btn btn-warning mx-2" [routerLink]="['/panel/cuentas']"><i class="cxi-arrow-back"></i></a>
+        </div>
+    </div>
+</form>

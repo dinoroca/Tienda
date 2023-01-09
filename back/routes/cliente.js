@@ -47,4 +47,7 @@ api.post('/emitir_review_producto_cliente', auth.auth, clienteController.emitir_
 api.get('/obtener_review_producto_cliente/:id', clienteController.obtener_review_producto_cliente);
 api.get('/obtener_reviews_cliente/:id', auth.auth, clienteController.obtener_reviews_cliente);
 
+//Cuentas
+api.get('/obtener_cuentas', auth.auth, clienteController.obtener_cuentas);
+
 module.exports = api;

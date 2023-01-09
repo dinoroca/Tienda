@@ -36,6 +36,9 @@ import { IndexVentasComponent } from './components/ventas/index-ventas/index-ven
 import { DetalleVentasComponent } from './components/ventas/detalle-ventas/detalle-ventas.component';
 import { VentasSofwareComponent } from './components/ventas-sofware/ventas-sofware.component';
 import { DetalleVentasSofwareComponent } from './components/detalle-ventas-sofware/detalle-ventas-sofware.component';
+import { IndexCuentasComponent } from './components/cuentas/index-cuentas/index-cuentas.component';
+import { CreateCuentasComponent } from './components/cuentas/create-cuentas/create-cuentas.component';
+import { EditCuentasComponent } from './components/cuentas/edit-cuentas/edit-cuentas.component';
 
 @NgModule({
   declarations: [
@@ -67,7 +70,10 @@ import { DetalleVentasSofwareComponent } from './components/detalle-ventas-sofwa
     IndexVentasComponent,
     DetalleVentasComponent,
     VentasSofwareComponent,
-    DetalleVentasSofwareComponent
+    DetalleVentasSofwareComponent,
+    IndexCuentasComponent,
+    CreateCuentasComponent,
+    EditCuentasComponent
   ],
   imports: [
     BrowserModule,

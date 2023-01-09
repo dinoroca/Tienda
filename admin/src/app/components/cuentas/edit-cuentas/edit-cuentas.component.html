@@ -1,0 +1,79 @@
+<app-sidebar></app-sidebar>
+
+<!-- Page title-->
+<div class="border-bottom mt-4 mb-5">
+    <h1 class="mt-2 mt-md-4 mb-3 pt-5">Actualizar cuenta</h1>
+    <div class="d-flex flex-wrap flex-md-nowrap justify-content-between">
+        <p class="text-muted">Este módulo permite actualizar una cuenta.</p>
+    </div>
+</div>
+
+<form #actualizarForm="ngForm" (ngSubmit)="actualizar(actualizarForm)">
+    <div class="card box-shadow-sm">
+        <div class="card-header">
+            <h5 style="margin-bottom: 0px">Actualización de cuenta</h5>
+        </div>
+
+        <ng-container *ngIf="load_data">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <!-- Custom size border spinner -->
+                        <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+                        </div>
+                        <h5 class="text-black-50"><small>Cargando...</small></h5>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+
+        <div class="card-body" *ngIf="cuenta != undefined">
+            <div class="row">
+                <div class="col-6 form-group">
+                    <label for="validationCustom01" class="form-label">Banco</label>
+                    <input class="form-control" type="text" name="banco" [(ngModel)]="cuenta.banco"
+                        placeholder="Ingrese nombre del Banco" required />
+                </div>
+                <div class="col-6 form-group">
+                    <label for="validationCustom01" class="form-label">Nombre del titular</label>
+                    <input class="form-control" type="text" name="titular" [(ngModel)]="cuenta.titular"
+                        placeholder="Ingrese nombre del titular" required />
+                </div>
+                <div class="col-md-4 form-group">
+                    <label for="validationCustom01" class="form-label">N° Cuenta</label>
+                    <input class="form-control" type="number" name="cuenta" [(ngModel)]="cuenta.cuenta"
+                        placeholder="Número de cuenta" required />
+                </div>
+
+                <div class="col-md-4 form-group">
+                    <label for="validationCustom01" class="form-label">CCI</label>
+                    <input class="form-control" type="number" name="cci" [(ngModel)]="cuenta.cci" placeholder="CCI"
+                        required />
+                </div>
+                <div class="col-md-4 form-group">
+                    <label for="color-input" class="form-label">Color de fondo &nbsp;</label>
+                    <input class="form-control form-control-color" type="color" id="color" value="{{cuenta.color}}"
+                        name="color" [(ngModel)]="cuenta.color" required>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-body text-center" *ngIf="cuenta == undefined">
+            <h3 class="text-danger">No se encontró el registro</h3>
+            <img src="assets/img/error.png" style="width: 100px;">
+        </div>
+
+        <div class="card-footer text-center">
+            <button class="btn btn-primary mx-2 bi-check-circle-fill" type="submit" [disabled]="actualizarForm.invalid"
+                *ngIf="!load_btn && cuenta != undefined"> Actualizar cuenta
+            </button>
+
+            <!-- Button with growing spinner and text -->
+            <button *ngIf="load_btn" type="button" class="btn btn-secondary" disabled>
+                <span class="spinner-grow spinner-grow-sm me-2" role="status" aria-hidden="true"></span>
+                Actualizando...
+            </button>
+            <a class="btn btn-warning mx-2" [routerLink]="['/panel/cuentas']"><i class="cxi-arrow-back"></i></a>
+        </div>
+    </div>
+</form>

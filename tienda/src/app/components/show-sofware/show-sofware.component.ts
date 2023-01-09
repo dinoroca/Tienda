@@ -22,6 +22,7 @@ export class ShowSofwareComponent implements OnInit {
   public id: any;
   public slug: any;
   public software: any = {};
+  public cuentas: Array<any> = [];
   public config_global: any = '';
   public tipo_cambio = 0;
   public url: any;
@@ -69,6 +70,13 @@ export class ShowSofwareComponent implements OnInit {
         this.tipo_cambio = response.data.tipo_cambio;
       }
     );
+
+    //Obtener cuentas
+    this._clienteService.obtener_cuentas(this.token).subscribe(
+      response => {
+        this.cuentas = response.data;
+      }
+    );
   }
 
   ngOnInit(): void {
@@ -97,6 +105,7 @@ export class ShowSofwareComponent implements OnInit {
         this.venta.transaccion = order.purchase_units[0].payments.captures[0].id;
         this.venta.subtotal = this.total_pagar;
         this.venta.estado = 'Pagado';
+        this.venta.descargado = 'Descargado';
 
         //Registrar venta de software lado cliente
         this._clienteService.registro_compra_software(this.venta, this.token).subscribe(
@@ -104,7 +113,7 @@ export class ShowSofwareComponent implements OnInit {
 
         //Descargar el archivo
         this.comprar();
-        this._router.navigate(['/']);
+        this._router.navigate(['/cuenta/software-compra']);
       },
       onError: (err: any) => {
 
@@ -123,6 +132,21 @@ export class ShowSofwareComponent implements OnInit {
                         + '\n 2. Link de descarga: ' + this.software.link], 
                         { type: "text/plain;charset=utf-8" });
     FileSaver.saveAs(blob, this.software.slug + ".txt");
+  }
+
+  pago_transferencia() {
+    this.venta.transaccion = '111';
+    this.venta.subtotal = this.total_pagar;
+    this.venta.estado = 'Reservado';
+    this.venta.descargado = 'NoDescargado';
+
+    console.log(this.venta);
+    //Registrar la venta mediante el método del controlador
+    this._clienteService.registro_reservacion_software_cliente(this.venta, this.token).subscribe(
+      response => {
+        this._router.navigate(['/cuenta/software-compra']);
+      }
+    );
   }
 
 }

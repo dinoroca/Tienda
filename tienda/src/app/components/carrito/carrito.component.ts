@@ -28,6 +28,7 @@ export class CarritoComponent implements OnInit {
   public id: any;
   public url: any;
   public carrito_arr: Array<any> = [];
+  public cuentas: Array<any> = [];
   public config_global: any = '';
   public subtotal = 0;
   public total_pagar = 0;
@@ -75,6 +76,14 @@ export class CarritoComponent implements OnInit {
         //Asiganr los valores de las categorias del back
         this.config_global = response.data;
         this.tipo_cambio = response.data.tipo_cambio;
+      }
+    );
+
+
+    //Obtener cuentas
+    this._clienteService.obtener_cuentas(this.token).subscribe(
+      response => {
+        this.cuentas = response.data;
       }
     );
 
@@ -313,7 +322,7 @@ export class CarritoComponent implements OnInit {
     this.init_data();
     this.calcular_subtotal();
 
-    this.venta.transaccion = '123';
+    this.venta.transaccion = '111';
     this.venta.detalles = this.dventa;
     this.venta.subtotal = this.total_pagar;
     this.venta.envio_titulo = 'Pago contra entrega';

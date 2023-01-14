@@ -68,8 +68,6 @@ export class DetalleVentasComponent implements OnInit {
     this.load_btn = true;
     this._adminService.actualizar_ventas_enviado_admin(id, this.token).subscribe(
       response => {
-        console.log(this.envio);
-        
         this._adminService.enviar_correo_enviado_admin(this.id, this.envio, this.token).subscribe(
           response => {
             iziToast.show({
@@ -135,6 +133,7 @@ export class DetalleVentasComponent implements OnInit {
             });
           }
         );
+        
         iziToast.show({
           title: 'SUCCESS',
           titleColor: '#35D18F',

@@ -66,14 +66,14 @@
 
                     <div class="text-center">
                         <div class="my-2" *ngIf="orden.estado == 'Procesando' ">
-                            <button class="btn btn-success"
-                                data-toggle="modal" [attr.data-target]="'#send-' + orden._id">
+                            <button class="btn btn-success" data-toggle="modal"
+                                [attr.data-target]="'#send-' + orden._id">
                                 <i class="cxi-truck"></i> Cambiar a enviado
                             </button>
                         </div>
                         <div class="my-2" *ngIf="orden.estado == 'Reservado'">
-                            <button class="btn btn-primary" 
-                                data-toggle="modal" [attr.data-target]="'#confirm-' + orden._id">
+                            <button class="btn btn-primary" data-toggle="modal"
+                                [attr.data-target]="'#confirm-' + orden._id">
                                 <i class="cxi-arrow-convert"></i> Confirmar pago
                             </button>
 
@@ -84,8 +84,8 @@
                         </div>
 
                         <div class="my-2" *ngIf="orden.estado == 'Enviado'">
-                            <button class="btn btn-warning"
-                                data-toggle="modal" [attr.data-target]="'#recibe-' + orden._id">
+                            <button class="btn btn-warning" data-toggle="modal"
+                                [attr.data-target]="'#recibe-' + orden._id">
                                 <i class="cxi-check"></i> Cambiar a recibido
                             </button>
                         </div>
@@ -181,19 +181,47 @@
                                             x
                                         </button>
                                     </div>
-                                    <div class="modal-body text-center">
+                                    <div class="modal-body">
                                         Confirmar el envío de {{ orden._id | uppercase}}? <br><br>
 
                                         <small class="text-danger mt-4">Recuerde enviar el código de envío así como
                                             la empresa de envío al cliente
                                         </small>
+
+                                        <form #confirmarForm="ngForm">
+                                            <!-- Empresa -->
+                                            <div class="mb-4">
+                                                <label for="empresa" class="form-label">Empresa</label>
+                                                <input class="form-control" type="text" id="empresa"
+                                                     required name="empresa" [(ngModel)]="envio.empresa"
+                                                     placeholder="Nombre de la empresa">
+                                            </div>
+
+                                            <div class="row">
+                                                <!-- Codigo -->
+                                            <div class="mb-4 col-6">
+                                                <label for="codigo" class="form-label">Código</label>
+                                                <input class="form-control" type="text" id="codigo"
+                                                    required name="codigo" [(ngModel)]="envio.codigo"
+                                                    placeholder="Código de envío">
+                                            </div>
+
+                                            <!-- Clave -->
+                                            <div class="mb-4 col-6">
+                                                <label for="clave" class="form-label">Clave</label>
+                                                <input class="form-control" type="number" id="clave"
+                                                    name="clave" [(ngModel)]="envio.clave"
+                                                    placeholder="Clave del envío">
+                                            </div>
+                                            </div>
+                                        </form>
                                     </div>
                                     <div class="modal-footer">
                                         <button class="btn btn-secondary btn-sm bi-x-circle-fill" type="button"
                                             data-dismiss="modal">
                                             Cancelar
                                         </button>
-                                        <button *ngIf="!load_btn" class="btn btn-success btn-sm"
+                                        <button *ngIf="!load_btn" class="btn btn-success btn-sm" [disabled]="confirmarForm.invalid"
                                             (click)="cambiar_estado_enviado (orden._id)" type="button">
                                             <i class="cxi-truck"></i>
                                             Confirmar

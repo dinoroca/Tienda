@@ -78,7 +78,7 @@ export class IndexVentasComponent implements OnInit {
               titleColor: '#35D18F',
               class: 'text-success',
               position: 'topRight',
-              message: 'Correo enviado'
+              message: 'Correo de envío de producto enviado'
             });
           }
         );
@@ -131,7 +131,7 @@ export class IndexVentasComponent implements OnInit {
               titleColor: '#35D18F',
               class: 'text-success',
               position: 'topRight',
-              message: 'Correo enviado'
+              message: 'Correo de confirmación enviado'
             });
           }
         );

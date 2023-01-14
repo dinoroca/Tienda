@@ -148,6 +148,11 @@ export class ClienteService {
     return this._http.get(this.url + 'enviar_correo_cliente/' + id, {headers : headers});
   }
 
+  enviar_correo_reservacion_cliente(id: any, token: any): Observable<any> {
+    let headers = new HttpHeaders({'Content-Type':'application/json', 'authorization': token});
+    return this._http.get(this.url + 'enviar_correo_reservacion_cliente/' + id, {headers : headers});
+  }
+
   obtener_cupon_cliente(id: any, token: any): Observable<any> {
     let headers = new HttpHeaders({'Content-Type':'application/json', 'authorization': token});
     return this._http.get(this.url + 'obtener_cupon_cliente/' + id, {headers : headers});

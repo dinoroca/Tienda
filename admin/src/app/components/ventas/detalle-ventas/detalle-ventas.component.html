@@ -200,7 +200,7 @@
                                             <div class="row">
                                                 <!-- Codigo -->
                                             <div class="mb-4 col-6">
-                                                <label for="codigo" class="form-label">Código</label>
+                                                <label for="codigo" class="form-label">Código de envío</label>
                                                 <input class="form-control" type="text" id="codigo"
                                                     required name="codigo" [(ngModel)]="envio.codigo"
                                                     placeholder="Código de envío">
@@ -208,10 +208,10 @@
 
                                             <!-- Clave -->
                                             <div class="mb-4 col-6">
-                                                <label for="clave" class="form-label">Clave</label>
+                                                <label for="clave" class="form-label">Clave de retiro</label>
                                                 <input class="form-control" type="number" id="clave"
                                                     name="clave" [(ngModel)]="envio.clave"
-                                                    placeholder="Clave del envío">
+                                                    placeholder="Clave del secreta de retiro">
                                             </div>
                                             </div>
                                         </form>
@@ -311,13 +311,13 @@
                                 <tr *ngFor="let item of detalles">
                                     <td class="border-top-0">
                                         <div class="media pl-2 py-2">
-                                            <a href="shop-single.html" style="min-width: 80px;">
+                                            <a style="min-width: 80px;">
                                                 <img [src]="url + 'obtener_portada/' + item.producto.portada" width="80"
-                                                    alt="Product thumb">
+                                                    alt="Product thumb" class="rounded">
                                             </a>
                                             <div class="media-body pl-3">
                                                 <h3 class="font-size-sm mb-3">
-                                                    <a href="shop-single.html" class="nav-link font-weight-bold">
+                                                    <a class="nav-link font-weight-bold">
                                                         {{item.producto.titulo}}
                                                     </a>
                                                 </h3>

@@ -42,6 +42,8 @@ export class CarritoComponent implements OnInit {
   public descuento = 0;
 
   public venta: any = {};
+  public ventaJson: any = {};
+  public ventaJson1: any = {};
   public dventa: Array<any> = [];
 
   public error_cupon = '';
@@ -177,6 +179,7 @@ export class CarritoComponent implements OnInit {
 
         this.venta.transaccion = order.purchase_units[0].payments.captures[0].id;
         this.venta.detalles = this.dventa;
+        this.venta.cantidad = this.dventa[0].cantidad;
         this.venta.envio_titulo = 'Pago contra entrega';
         this.venta.envio_precio = 0;
         this.venta.subtotal = this.total_pagar;
@@ -350,10 +353,10 @@ export class CarritoComponent implements OnInit {
     this.venta.transaccion = '111';
     this.venta.detalles = this.dventa;
     this.venta.subtotal = this.total_pagar;
+    this.venta.cantidad = this.dventa[0].cantidad;
     this.venta.envio_titulo = 'Pago contra entrega';
     this.venta.envio_precio = 0;
-
-    console.log(this.venta);
+    
     //Registrar la venta mediante el método del controlador
     this._clienteService.registro_reservacion_cliente(this.venta, this.token).subscribe(
       response => {

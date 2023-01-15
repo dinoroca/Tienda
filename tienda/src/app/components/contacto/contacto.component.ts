@@ -17,7 +17,11 @@ export class ContactoComponent implements OnInit {
   constructor(
     private _title: Title,
     private _guestService: GuestService
-  ) { }
+  ) {
+    localStorage.removeItem('ruta_actual');
+    localStorage.removeItem('cantidad');
+    localStorage.removeItem('variedad');
+  }
 
   ngOnInit(): void {
     this._title.setTitle('Contacto');

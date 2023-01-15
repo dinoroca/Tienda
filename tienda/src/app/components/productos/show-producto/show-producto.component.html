@@ -19,13 +19,12 @@
     </nav>
 
     <!-- Page title -->
-    <section class="container d-md-flex align-items-center justify-content-between py-3 py-md-4 mb-3">
-        <h1 class="mb-2 mb-md-0">{{producto.titulo}}</h1>
-        <span class="text-muted" *ngIf="producto._id"><strong>Art. ID</strong> {{producto._id.toUpperCase()}} </span>
+    <section class="container d-md-flex align-items-center justify-content-between py-2">
+        <h1 class="mb-0">{{producto.titulo}}</h1>
     </section>
 
     <!-- Single product -->
-    <section class="container py-md-6 py-5 mb-2">
+    <section class="container py-5 mb-2">
         <div class="row">
             <div class="col-md-6 mb-md-0 mb-4">
 
@@ -165,22 +164,19 @@
                     <div class="card border-bottom">
                         <div class="card-header" id="delivery-card">
                             <h6 class="accordion-heading">
-                                <a href="#delivery" class="collapsed" role="button" data-toggle="collapse"
+                                <a href="#delivery" class="show" role="button" data-toggle="collapse"
                                     aria-expanded="false" aria-controls="delivery">Envío
                                     <span class="accordion-indicator"></span>
                                 </a>
                             </h6>
                         </div>
-                        <div class="collapse" id="delivery" aria-labelledby="delivery-card" data-parent="#productTerms">
+                        <div class="show" id="delivery" aria-labelledby="delivery-card" data-parent="#productTerms">
                             <div class="card-body">
-                                <p class="font-size-sm">
+                                
                                     EL envío de nuestros productos fuera de Ayacucho, se realizará a través de
                                     <strong>empresas de envío</strong> como <em> (Olva courrier, Shalom y más).</em>
                                     <br><br>
-                                    La empresa de envío así como el código, se enviará al correo del cliente cuando se
-                                    confirme la compra. <strong>Gracias por su comprensión.</strong>
-                                </p>
-
+                                    Toda la información necesaria del producto y envío, se enviará al correo del cliente cuando confirmemos su compra: Le invitamos a revisar su E-mail, <strong>gracias por su comprensión</strong>.
                             </div>
                         </div>
                     </div>
@@ -198,7 +194,7 @@
                         <div class="collapse pb-2" id="return" aria-labelledby="return-card" data-parent="#productTerms">
                             Tiene <strong>30 días</strong> para devolver el producto a través de la empresa de envío, 
                             puede revisar más sobre devoluciones en nuestos 
-                            <a href="#" class="text-decoration-none"><strong>términos y condiciones</strong></a>.
+                            <a [routerLink]="['/terminos-condiciones']"  class="text-decoration-none"><strong>términos y condiciones</strong></a>.
                         </div>
                     </div>
                 </div>
@@ -219,14 +215,18 @@
 
                 <!-- Payment -->
                 <div class="pb-3 text-nowrap text-center" data-simplebar data-simplebar-auto-hide="false">
-                    <a class="d-inline-block mb-3 mr-xl-4 mr-3">
+                    <h5>Aceptamos pagos mediante: </h5>
+                    <a class="d-inline-block mb-3 mr-4 mr-3">
                         <img src="assets/img/visa.jpg" alt="Visa" class="border rounded">
                     </a>
-                    <a class="d-inline-block mb-3 mr-xl-4 mr-3">
+                    <a class="d-inline-block mb-3 mr-4 mr-3">
                         <img src="assets/img/master-card.jpg" alt="Mastercard" class="border rounded">
                     </a>
-                    <a class="d-inline-block mb-3">
+                    <a class="d-inline-block mr-4 mb-3">
                         <img src="assets/img/pay-pal.jpg" alt="PayPal" class="border rounded">
+                    </a>
+                    <a class="d-inline-block mb-3">
+                        <img src="assets/img/trans.png" alt="Transferencia" class="border rounded">
                     </a>
                 </div>
             </div>

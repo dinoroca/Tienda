@@ -189,29 +189,6 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- Ordering form -->
-                <form class="row">
-                    <div class="col-6 order-sm-3 order-3" *ngIf="!btn_cart">
-                        <button class="btn btn-block btn-primary" (click)="comprar()">
-                            <i class="cxi-cart"></i>
-                            Descargar
-                        </button>
-
-                        <!-- Button with growing spinner and text -->
-                        <button *ngIf="btn_cart" type="button" class="btn btn-secondary" disabled>
-                            <span class="spinner-grow spinner-grow-sm me-2" role="status" aria-hidden="true"></span>
-                            Agregando...
-                        </button>
-                    </div>
-
-                    <div class="col-6 order-sm-4 order-4">
-                        <button class="btn btn-block btn-outline-primary px-lg-4">
-                            <i class="cxi-heart"></i>
-                            Lista de deseos
-                        </button>
-                    </div>
-                </form>
             </div>
         </div>
     </section>

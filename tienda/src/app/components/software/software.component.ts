@@ -44,6 +44,9 @@ export class SoftwareComponent implements OnInit {
     localStorage.setItem('ruta_actual', this.ruta_actual);
     sessionStorage.setItem('ruta_actual', this.ruta_actual);
 
+    localStorage.removeItem('cantidad');
+    localStorage.removeItem('variedad');
+
     this._clienteService.obtener_config_publico().subscribe(
       response => {
         //Asiganr los valores de las categorias del back

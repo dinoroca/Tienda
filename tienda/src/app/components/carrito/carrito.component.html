@@ -189,6 +189,7 @@
                   </div>
                 </div>
                 <div class="collapse show" id="cc-card" data-parent="#payment-methods">
+                  <h3 class="text-center text-danger">En proceso de implementación</h3>
                   <div class="card-body pt-3 pb-0">
                     <div class="form-group mb-3">
                       <label for="cc-number">Número de tarjeta</label>
@@ -208,6 +209,10 @@
                       </div>
                     </div>
                   </div>
+
+                  <button type="button" class="btn btn-primary btn-block bi-wallet-fill">
+                    Completar orden S/. {{total_pagar}}
+                  </button>
                 </div>
               </div>
 
@@ -367,9 +372,6 @@
                 <span class="h5 mb-0">S/. {{total_pagar}} </span>
               </div>
             </div>
-            <button type="button" class="btn btn-primary btn-block bi-wallet-fill">
-              Completar orden
-            </button>
           </div>
         </div>
       </aside>

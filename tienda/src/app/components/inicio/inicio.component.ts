@@ -36,6 +36,10 @@ export class InicioComponent implements OnInit {
         this.config_global = response.data;
       }
     );
+
+    localStorage.removeItem('ruta_actual');
+    localStorage.removeItem('cantidad');
+    localStorage.removeItem('variedad');
   }
 
   ngOnInit(): void {

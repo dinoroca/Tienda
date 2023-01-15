@@ -25,7 +25,18 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [
+              {
+                "input": "src/assets/js/openpay.v1.min.js",
+                "inject": true,
+                "bundleName": "OpenPay"
+                },
+                {
+                "input": "src/assets/js/openpay-data.v1.min.js",
+                "inject": true,
+                "bundleName": "OpenPay"
+                }
+            ]
           },
           "configurations": {
             "production": {

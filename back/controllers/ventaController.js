@@ -231,6 +231,73 @@ function zfill(number, width) {
     }
 }
 
+const enviar_correo_reservacion_cliente = async function (req, res) {
+
+    var id = req.params['id'];
+
+    var readHTMLFile = function (path, callback) {
+        fs.readFile(path, { encoding: 'utf-8' }, function (err, html) {
+            if (err) {
+                throw err;
+                callback(err);
+            }
+            else {
+                callback(null, html);
+            }
+        });
+    };
+
+    var transporter = nodemailer.createTransport(smtpTransport({
+        service: 'gmail',
+        host: 'smtp.gmail.com',
+        auth: {
+            user: 'hjm.tienda.compra@gmail.com',
+            pass: 'sxmmbvxebipxisbf'
+        }
+    }));
+
+    //cliente _id fecha data subtotal
+
+    var venta = await Venta.findById({ _id: id }).populate('cliente');
+    var detalles = await Dventa.find({ venta: id }).populate('producto');
+
+    var cliente = venta.cliente.nombres + ' ' + venta.cliente.apellidos;
+    var _id = venta._id.toString().toUpperCase();
+    var fecha = new Date(venta.createdAt);
+    var data = detalles;
+    var subtotal = venta.subtotal;
+    var precio_envio = venta.envio_precio;
+
+    readHTMLFile(process.cwd() + '/mail-reservation.html', (err, html) => {
+
+        let rest_html = ejs.render(html, {
+            data: data,
+            cliente: cliente,
+            _id: _id,
+            fecha: fecha,
+            subtotal: subtotal,
+            precio_envio: precio_envio
+        });
+
+        var template = handlebars.compile(rest_html);
+        var htmlToSend = template({ op: true });
+
+        var mailOptions = {
+            from: 'hjm.tienda.compra@gmail.com',
+            to: venta.cliente.email,
+            subject: 'Gracias por tu reservación, HJM',
+            html: htmlToSend
+        };
+        res.status(200).send({ data: true });
+        transporter.sendMail(mailOptions, function (error, info) {
+            if (!error) {
+                console.log('Email sent: ' + info.response);
+            }
+        });
+
+    });
+}
+
 const enviar_correo_cliente = async function (req, res) {
 
     var id = req.params['id'];
@@ -251,8 +318,8 @@ const enviar_correo_cliente = async function (req, res) {
         service: 'gmail',
         host: 'smtp.gmail.com',
         auth: {
-            user: 'rocalaurented@gmail.com',
-            pass: 'jkntntzwtiszmzxe'
+            user: 'hjm.tienda.compra@gmail.com',
+            pass: 'sxmmbvxebipxisbf'
         }
     }));
 
@@ -283,9 +350,152 @@ const enviar_correo_cliente = async function (req, res) {
         var htmlToSend = template({ op: true });
 
         var mailOptions = {
-            from: 'rocalaurented@gmail.com',
+            from: 'hjm.tienda.compra@gmail.com',
             to: venta.cliente.email,
             subject: 'Gracias por tu compra, HJM',
+            html: htmlToSend
+        };
+        res.status(200).send({ data: true });
+        transporter.sendMail(mailOptions, function (error, info) {
+            if (!error) {
+                console.log('Email sent: ' + info.response);
+            }
+        });
+
+    });
+}
+
+const enviar_correo_confirmacion_admin = async function (req, res) {
+
+    var id = req.params['id'];
+
+    var readHTMLFile = function (path, callback) {
+        fs.readFile(path, { encoding: 'utf-8' }, function (err, html) {
+            if (err) {
+                throw err;
+                callback(err);
+            }
+            else {
+                callback(null, html);
+            }
+        });
+    };
+
+    var transporter = nodemailer.createTransport(smtpTransport({
+        service: 'gmail',
+        host: 'smtp.gmail.com',
+        auth: {
+            user: 'hjm.tienda.compra@gmail.com',
+            pass: 'sxmmbvxebipxisbf'
+        }
+    }));
+
+    //cliente _id fecha data subtotal
+
+    var venta = await Venta.findById({ _id: id }).populate('cliente');
+    var detalles = await Dventa.find({ venta: id }).populate('producto');
+
+    var cliente = venta.cliente.nombres + ' ' + venta.cliente.apellidos;
+    var _id = venta._id.toString().toUpperCase();
+    var fecha = new Date(venta.createdAt);
+    var data = detalles;
+    var subtotal = venta.subtotal;
+    var precio_envio = venta.envio_precio;
+
+    readHTMLFile(process.cwd() + '/mail-confirmation.html', (err, html) => {
+
+        let rest_html = ejs.render(html, {
+            data: data,
+            cliente: cliente,
+            _id: _id,
+            fecha: fecha,
+            subtotal: subtotal,
+            precio_envio: precio_envio
+        });
+
+        var template = handlebars.compile(rest_html);
+        var htmlToSend = template({ op: true });
+
+        var mailOptions = {
+            from: 'hjm.tienda.compra@gmail.com',
+            to: venta.cliente.email,
+            subject: 'Confirmación de pago, HJM',
+            html: htmlToSend
+        };
+        res.status(200).send({ data: true });
+        transporter.sendMail(mailOptions, function (error, info) {
+            if (!error) {
+                console.log('Email sent: ' + info.response);
+            }
+        });
+
+    });
+}
+
+const enviar_correo_enviado_admin = async function (req, res) {
+
+    var id = req.params['id'];
+
+    var data = req.body;
+
+    var readHTMLFile = function (path, callback) {
+        fs.readFile(path, { encoding: 'utf-8' }, function (err, html) {
+            if (err) {
+                throw err;
+                callback(err);
+            }
+            else {
+                callback(null, html);
+            }
+        });
+    };
+
+    var transporter = nodemailer.createTransport(smtpTransport({
+        service: 'gmail',
+        host: 'smtp.gmail.com',
+        auth: {
+            user: 'hjm.tienda.compra@gmail.com',
+            pass: 'sxmmbvxebipxisbf'
+        }
+    }));
+
+    //Datos de envío
+    var empresa = data.empresa;
+    var codigo = data.codigo;
+    var clave = data.clave;
+
+    //cliente _id fecha data subtotal
+    var venta = await Venta.findById({ _id: id }).populate('cliente');
+    var detalles = await Dventa.find({ venta: id }).populate('producto');
+
+    var cliente = venta.cliente.nombres + ' ' + venta.cliente.apellidos;
+    var _id = venta._id.toString().toUpperCase();
+    var fecha = new Date(venta.createdAt);
+    var data = detalles;
+    var subtotal = venta.subtotal;
+    var precio_envio = venta.envio_precio;
+
+    readHTMLFile(process.cwd() + '/mail-enviado.html', (err, html) => {
+
+        let rest_html = ejs.render(html, {
+            data: data,
+            cliente: cliente,
+            _id: _id,
+            fecha: fecha,
+            subtotal: subtotal,
+            precio_envio: precio_envio,
+            empresa: empresa,
+            codigo: codigo,
+            clave: clave
+        });
+
+        var template = handlebars.compile(rest_html);
+        var htmlToSend = template({ op: true });
+
+        var mailOptions = {
+            from: 'hjm.tienda.compra@gmail.com',
+            to: venta.cliente.email,
+            subject: 'TU compra fue enviada!!!',
             html: htmlToSend
         };
         res.status(200).send({ data: true });
@@ -305,5 +515,8 @@ module.exports = {
     registro_reservacion_software_cliente,
     actualizar_venta_software_descargado,
     eliminar_reservacion_admin,
-    enviar_correo_cliente
+    enviar_correo_reservacion_cliente,
+    enviar_correo_cliente,
+    enviar_correo_confirmacion_admin,
+    enviar_correo_enviado_admin
 }

@@ -23,6 +23,7 @@ export class DetalleVentasComponent implements OnInit {
 
   public total_star = 5;
   public review: any = {};
+  public envio: any = {};
   public load_btn = false;
 
   constructor(
@@ -67,6 +68,18 @@ export class DetalleVentasComponent implements OnInit {
     this.load_btn = true;
     this._adminService.actualizar_ventas_enviado_admin(id, this.token).subscribe(
       response => {
+        this._adminService.enviar_correo_enviado_admin(this.id, this.envio, this.token).subscribe(
+          response => {
+            iziToast.show({
+              title: 'SUCCESS',
+              titleColor: '#35D18F',
+              class: 'text-success',
+              position: 'topRight',
+              message: 'Correo de envío de producto enviado'
+            });
+          }
+        );
+
         iziToast.show({
           title: 'SUCCESS',
           titleColor: '#35D18F',
@@ -109,6 +122,18 @@ export class DetalleVentasComponent implements OnInit {
     this.load_btn = true;
     this._adminService.actualizar_ventas_procesando_admin(id, this.token).subscribe(
       response => {
+        this._adminService.enviar_correo_confirmacion_admin(this.id, this.token).subscribe(
+          response => {
+            iziToast.show({
+              title: 'SUCCESS',
+              titleColor: '#35D18F',
+              class: 'text-success',
+              position: 'topRight',
+              message: 'Correo de confirmación enviado'
+            });
+          }
+        );
+
         iziToast.show({
           title: 'SUCCESS',
           titleColor: '#35D18F',

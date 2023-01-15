@@ -396,40 +396,40 @@ const kpi_ganancias_mensuales_admin = async function (req, res) {
 
                     if (mes == 1) {
                         enero = enero + item.subtotal;
-                        nv_enero = nv_enero + 1;
+                        nv_enero = nv_enero + item.cantidad;
                     } else if (mes == 2) {
                         febrero = febrero + item.subtotal;
-                        nv_febrero = nv_febrero + 1;
+                        nv_febrero = nv_febrero + item.cantidad;
                     } else if (mes == 3) {
                         marzo = marzo + item.subtotal;
-                        nv_marzo = nv_marzo + 1;
+                        nv_marzo = nv_marzo + item.cantidad;
                     } else if (mes == 4) {
                         abril = abril + item.subtotal;
-                        nv_abril = nv_abril + 1;
+                        nv_abril = nv_abril + item.cantidad;
                     } else if (mes == 5) {
                         mayo = mayo + item.subtotal;
-                        nv_mayo = nv_mayo + 1;
+                        nv_mayo = nv_mayo + item.cantidad;
                     } else if (mes == 6) {
                         junio = junio + item.subtotal;
-                        nv_junio = nv_junio + 1;
+                        nv_junio = nv_junio + item.cantidad;
                     } else if (mes == 7) {
                         julio = julio + item.subtotal;
-                        nv_julio = nv_julio + 1;
+                        nv_julio = nv_julio + item.cantidad;
                     } else if (mes == 8) {
                         agosto = agosto + item.subtotal;
-                        nv_agosto = nv_agosto + 1;
+                        nv_agosto = nv_agosto + item.cantidad;
                     } else if (mes == 9) {
                         septiembre = septiembre + item.subtotal;
-                        nv_septiembre = nv_septiembre + 1;
+                        nv_septiembre = nv_septiembre + item.cantidad;
                     } else if (mes == 10) {
                         octubre = octubre + item.subtotal;
-                        nv_octubre = nv_octubre + 1;
+                        nv_octubre = nv_octubre + item.cantidad;
                     } else if (mes == 11) {
                         noviembre = noviembre + item.subtotal;
-                        nv_noviembre = nv_noviembre + 1;
+                        nv_noviembre = nv_noviembre + item.cantidad;
                     } else if (mes == 12) {
                         diciembre = diciembre + item.subtotal;
-                        nv_diciembre = nv_diciembre + 1;
+                        nv_diciembre = nv_diciembre + item.cantidad;
                     }
                 }
             }

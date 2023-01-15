@@ -163,13 +163,13 @@
                     <tr *ngFor="let item of detalles">
                       <td class="border-top-0">
                         <div class="media pl-2 py-2">
-                          <a href="shop-single.html" style="min-width: 80px;">
+                          <a style="min-width: 80px;">
                             <img [src]="url + 'obtener_portada/' + item.producto.portada" width="80"
-                              alt="Product thumb">
+                              alt="Product thumb" class="rounded">
                           </a>
                           <div class="media-body pl-3">
                             <h3 class="font-size-sm mb-3">
-                              <a href="shop-single.html" class="nav-link font-weight-bold">
+                              <a class="nav-link font-weight-bold">
                                 {{item.producto.titulo}}
                               </a>
                             </h3>

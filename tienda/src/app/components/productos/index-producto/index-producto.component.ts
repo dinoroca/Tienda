@@ -54,6 +54,9 @@ export class IndexProductoComponent implements OnInit {
 
     this.url = GLOBAL.url;
 
+    localStorage.removeItem('variedad');
+    localStorage.removeItem('cantidad');
+
     this.token = localStorage.getItem('token');
 
     this._clienteService.obtener_config_publico().subscribe(

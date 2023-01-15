@@ -11,6 +11,7 @@ declare var iziToast: { show: (arg0: { title: string; titleColor: string; class:
 declare var Cleave: any;
 declare var StickySidebar: any;
 declare var paypal: any;
+declare var OpenPay: any;
 
 interface HtmlInputEvent extends Event {
   target: HTMLInputElement & EventTarget;
@@ -41,6 +42,8 @@ export class CarritoComponent implements OnInit {
   public descuento = 0;
 
   public venta: any = {};
+  public ventaJson: any = {};
+  public ventaJson1: any = {};
   public dventa: Array<any> = [];
 
   public error_cupon = '';
@@ -64,10 +67,34 @@ export class CarritoComponent implements OnInit {
     this.venta.cliente = this.id;
     this.url = GLOBAL.url;
 
+    ////Open Pay
+    // OpenPay.setId('mraa86qw2tuhzd5o52vd');
+    // OpenPay.setApiKey('pk_d421027e8a2b47e38cca5befd88ad82d');
+    // OpenPay.setSandboxMode(true);
+    // var deviceSessionId = OpenPay.deviceData.setup("formId", "deviceIdHiddenFieldName");
+    // console.log(OpenPay.getSandboxMode());
+
+    // OpenPay.token.create({
+    //   "card_number": "4111111111111111",
+    //   "holder_name": "Juan Perez Ramirez",
+    //   "expiration_year": "24",
+    //   "expiration_month": "12",
+    //   "cvv2": "110",
+    //   "address": {
+    //     "city": "Querétaro",
+    //     "line3": "Queretaro",
+    //     "postal_code": "76900",
+    //     "line1": "Av 5 de Febrero",
+    //     "line2": "Roble 207",
+    //     "state": "Queretaro",
+    //     "country_code": "MX"
+    //   }
+    // }, this.SuccessCallback, this.ErrorCallback);
+
     this._guestService.obtener_envios().subscribe(
       response => {
         this.envios = response;
-        
+
       }
     );
 
@@ -152,6 +179,7 @@ export class CarritoComponent implements OnInit {
 
         this.venta.transaccion = order.purchase_units[0].payments.captures[0].id;
         this.venta.detalles = this.dventa;
+        this.venta.cantidad = this.dventa[0].cantidad;
         this.venta.envio_titulo = 'Pago contra entrega';
         this.venta.envio_precio = 0;
         this.venta.subtotal = this.total_pagar;
@@ -325,14 +353,14 @@ export class CarritoComponent implements OnInit {
     this.venta.transaccion = '111';
     this.venta.detalles = this.dventa;
     this.venta.subtotal = this.total_pagar;
+    this.venta.cantidad = this.dventa[0].cantidad;
     this.venta.envio_titulo = 'Pago contra entrega';
     this.venta.envio_precio = 0;
-
-    console.log(this.venta);
+    
     //Registrar la venta mediante el método del controlador
     this._clienteService.registro_reservacion_cliente(this.venta, this.token).subscribe(
       response => {
-        this._clienteService.enviar_correo_cliente(response.venta._id, this.token).subscribe(
+        this._clienteService.enviar_correo_reservacion_cliente(response.venta._id, this.token).subscribe(
           response => {
             this._router.navigate(['/cuenta/ordenes']);
           }
@@ -340,5 +368,21 @@ export class CarritoComponent implements OnInit {
       }
     );
   }
+
+
+  ////////OPEN PAY
+  // SuccessCallback(response: any) {
+  //   console.log('Operación exitosa');
+  //   var results = {
+  //     'Id tarjeta: ': response.data.id,
+  //     'A nombre de: ': response.data.holder_name,
+  //     'Marca de tarjeta usada: ': response.data.brand
+  //   }
+  //   console.log(results);
+  // }
+
+  // ErrorCallback(response: any) {
+  //   console.log('Operación Errónea');
+  // }
 
 }

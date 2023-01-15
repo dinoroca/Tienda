@@ -15,6 +15,11 @@ export class NosotrosComponent implements OnInit {
     private _clienteService: ClienteService,
     private _title: Title
   ) {
+
+    localStorage.removeItem('ruta_actual');
+    localStorage.removeItem('cantidad');
+    localStorage.removeItem('variedad');
+    
     this._clienteService.obtener_config_publico().subscribe(
       response => {
         //Asignar los valores de las categorias del back

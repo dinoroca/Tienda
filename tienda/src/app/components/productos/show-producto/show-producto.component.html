@@ -192,25 +192,11 @@
                             </h6>
                         </div>
                         <div class="collapse pb-2" id="return" aria-labelledby="return-card" data-parent="#productTerms">
-                            Tiene <strong>30 días</strong> para devolver el producto a través de la empresa de envío, 
+                            Tiene <strong>7 días</strong> para devolver el producto a través de la empresa de envío, 
                             puede revisar más sobre devoluciones en nuestos 
                             <a [routerLink]="['/terminos-condiciones']"  class="text-decoration-none"><strong>términos y condiciones</strong></a>.
                         </div>
                     </div>
-                </div>
-
-                <!-- Share -->
-                <div class="mb-5 text-nowrap">
-                    <h6 class="d-inline-block align-middle mr-2 mb-0">Compartir:</h6>
-                    <a class="social-btn sb-solid align-middle mr-2" data-toggle="tooltip" title="Facebook">
-                        <i class="cxi-facebook"></i>
-                    </a>
-                    <a class="social-btn sb-solid align-middle mr-2" data-toggle="tooltip" title="Twitter">
-                        <i class="cxi-twitter"></i>
-                    </a>
-                    <a class="social-btn sb-solid align-middle" data-toggle="tooltip" title="Pinterest">
-                        <i class="cxi-pinterest"></i>
-                    </a>
                 </div>
 
                 <!-- Payment -->
@@ -276,7 +262,7 @@
                         </div>
                         <div class="card-body pb-2 text-center" style="background-color: white;">
                             <h3 class="card-product-title text-truncate mb-2">
-                                <a href="#" class="nav-link"> {{producto.titulo}} </a>
+                                <a [routerLink]="['/productos/', producto.slug]" class="nav-link"> {{producto.titulo}} </a>
                             </h3>
 
                             <div *ngIf="descuento_activo == undefined && producto.descuento == undefined">
@@ -297,11 +283,6 @@
                                 </span>
                                 <del class="d-inline-block ml-3 text-muted">S/. {{producto.precio}}</del>
                             </div>
-
-                            <button type="button" class="btn btn-primary btn-block mb-3 mt-3">
-                                <i class="cxi-cart align-middle mt-n1 mr-2"></i>
-                                Añadir al carrito
-                            </button>
                         </div>
                     </div>
                 </div>
@@ -518,7 +499,7 @@
                     </div>
                     <div class="card-body pb-2 text-center" style="background-color: white;">
                         <h3 class="card-product-title text-truncate mb-2">
-                            <a href="#" class="nav-link"> {{producto.titulo}} </a>
+                            <a [routerLink]="['/productos/', producto.slug]" class="nav-link"> {{producto.titulo}} </a>
                         </h3>
 
                         <div *ngIf="descuento_activo == undefined && producto.descuento == undefined">
@@ -539,11 +520,6 @@
                             </span>
                             <del class="d-inline-block ml-3 text-muted">S/. {{producto.precio}}</del>
                         </div>
-
-                        <button type="button" class="btn btn-primary btn-block mb-3 mt-3">
-                            <i class="cxi-cart align-middle mt-n1 mr-2"></i>
-                            Añadir al carrito
-                        </button>
                     </div>
                 </div>
             </div>

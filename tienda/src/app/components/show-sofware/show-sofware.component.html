@@ -16,7 +16,6 @@
     <!-- Page title -->
     <section class="container d-md-flex align-items-center justify-content-between">
         <h1 class="mb-md-0">{{software.titulo}}</h1>
-        <span class="text-muted" *ngIf="software._id"><strong>Art. ID</strong> {{software._id.toUpperCase()}} </span>
     </section>
 
     <!-- Single product -->
@@ -61,6 +60,7 @@
                                     </div>
                                 </div>
                                 <div class="collapse show" id="cc-card" data-parent="#payment-methods">
+                                    <h4 class="text-center text-danger">En proceso de implementación</h4>
                                     <div class="card-body pt-3 pb-0">
                                         <div class="form-group mb-3">
                                             <label for="cc-number">Número de tarjeta</label>
@@ -79,6 +79,10 @@
                                                     data-format="cvc" placeholder="000">
                                             </div>
                                         </div>
+
+                                        <button type="button" class="btn btn-primary btn-block bi-wallet-fill">
+                                            Completar orden S/. {{total_pagar}}
+                                        </button>
                                     </div>
                                 </div>
                             </div>

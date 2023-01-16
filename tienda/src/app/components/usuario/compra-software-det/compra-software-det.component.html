@@ -32,7 +32,7 @@
 
                 <div class="row">
                     <div class="col-12 mb-4">
-                        <div class="card card-body py-3 box-shadow ">
+                        <div class="card card-body py-3 box-shadow">
                             <div class="row">
                                 <div class="col-lg-6">
                                     <table class="table mb-0">
@@ -65,6 +65,10 @@
                                                 <th class="border-0 py-2 pl-0">Estado:</th>
                                                 <td class="border-0 py-2 px-0 text-muted"> {{orden.estado}} </td>
                                             </tr>
+                                            <tr>
+                                                <th class="border-0 py-2 pl-0">Precio:</th>
+                                                <td class="border-0 py-2 px-0 text-muted"> S/. {{orden.subtotal}} </td>
+                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>
@@ -76,13 +80,16 @@
                                         Recuerde enviar el código de venta "<strong>
                                             {{id | uppercase}} </strong>" así como el comprobante de la transferencia o
                                         depósito
-                                        al WhatsApp <a>921680694</a>.
+                                        al WhatsApp <a href="https://wa.me/51920385491" target="_blank">
+                                            920 385 491</a> o al correo <a href="mailto:hjm.tienda@gmail.com">
+                                            hjm.tienda@gmail.com</a>.
                                     </p>
                                 </div>
 
-                                <div class="my-2" *ngIf="orden.estado == 'Pagado' && orden.descargado == 'NoDescargado'">
+                                <div class="my-2"
+                                    *ngIf="orden.estado == 'Pagado' && orden.descargado == 'NoDescargado'">
                                     <p class="rounded p-2" style="background-color: rgb(255, 191, 191);">
-                                        El botón de descargar solo estará diponible unavez, 
+                                        El botón de descargar solo estará diponible unavez,
                                         recuerde guardar su archivo en un lugar seguro.
                                     </p>
                                 </div>
@@ -91,7 +98,8 @@
                             </div>
 
                             <div class="text-center">
-                                <div class="my-2" *ngIf="orden.estado == 'Pagado' && orden.descargado == 'NoDescargado'">
+                                <div class="my-2"
+                                    *ngIf="orden.estado == 'Pagado' && orden.descargado == 'NoDescargado'">
                                     <button class="btn btn-warning" (click)="comprar()">
                                         <i class="cxi-download"></i> Descargar
                                     </button>
@@ -100,6 +108,36 @@
                         </div>
                     </div>
 
+                    <div class="col-12">
+                        <div class="bg-secondary rounded shadow">
+                            <table class="table text-center">
+                                <tbody>
+                                    <tr>
+                                        <td class="border-top-0">
+                                            <div class="media py-2">
+                                                <a style="min-width: 80px;">
+                                                    <img [src]="url + 'obtener_portada/' + orden.software.portada"
+                                                        width="80" alt="Product thumb" class="rounded">
+                                                </a>
+                                            </div>
+                                        </td>
+                                        <td class="border-top-0">
+                                            <div class="py-2">
+                                                <div class="text-muted mb-1">Nombre</div>
+                                                <div class="text-dark">{{orden.software.titulo}} </div>
+                                            </div>
+                                        </td>
+                                        <td class="border-top-0">
+                                            <div class="py-2">
+                                                <div class="text-muted mb-1">Precio</div>
+                                                <div class="text-dark">S/. {{orden.subtotal}} </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
 

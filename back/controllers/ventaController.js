@@ -508,6 +508,73 @@ const enviar_correo_enviado_admin = async function (req, res) {
     });
 }
 
+const enviar_correo_recepcion_admin = async function (req, res) {
+
+    var id = req.params['id'];
+
+    var readHTMLFile = function (path, callback) {
+        fs.readFile(path, { encoding: 'utf-8' }, function (err, html) {
+            if (err) {
+                throw err;
+                callback(err);
+            }
+            else {
+                callback(null, html);
+            }
+        });
+    };
+
+    var transporter = nodemailer.createTransport(smtpTransport({
+        service: 'gmail',
+        host: 'smtp.gmail.com',
+        auth: {
+            user: 'hjm.tienda.compra@gmail.com',
+            pass: 'sxmmbvxebipxisbf'
+        }
+    }));
+
+    //cliente _id fecha data subtotal
+
+    var venta = await Venta.findById({ _id: id }).populate('cliente');
+    var detalles = await Dventa.find({ venta: id }).populate('producto');
+
+    var cliente = venta.cliente.nombres + ' ' + venta.cliente.apellidos;
+    var _id = venta._id.toString().toUpperCase();
+    var fecha = new Date(venta.createdAt);
+    var data = detalles;
+    var subtotal = venta.subtotal;
+    var precio_envio = venta.envio_precio;
+
+    readHTMLFile(process.cwd() + '/mail-reception.html', (err, html) => {
+
+        let rest_html = ejs.render(html, {
+            data: data,
+            cliente: cliente,
+            _id: _id,
+            fecha: fecha,
+            subtotal: subtotal,
+            precio_envio: precio_envio
+        });
+
+        var template = handlebars.compile(rest_html);
+        var htmlToSend = template({ op: true });
+
+        var mailOptions = {
+            from: 'hjm.tienda.compra@gmail.com',
+            to: venta.cliente.email,
+            subject: 'Recepción de pedido!!!',
+            html: htmlToSend
+        };
+        res.status(200).send({ data: true });
+        transporter.sendMail(mailOptions, function (error, info) {
+            if (!error) {
+                console.log('Email sent: ' + info.response);
+            }
+        });
+
+    });
+}
+
 module.exports = {
     registro_compra_cliente,
     registro_compra_software,
@@ -518,5 +585,6 @@ module.exports = {
     enviar_correo_reservacion_cliente,
     enviar_correo_cliente,
     enviar_correo_confirmacion_admin,
-    enviar_correo_enviado_admin
+    enviar_correo_enviado_admin,
+    enviar_correo_recepcion_admin
 }

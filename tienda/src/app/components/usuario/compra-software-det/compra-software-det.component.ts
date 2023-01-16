@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ClienteService } from 'src/app/services/cliente.service';
 import { ActivatedRoute } from '@angular/router';
+import { GLOBAL } from 'src/app/services/global';
 
 @Component({
   selector: 'app-compra-software-det',
@@ -14,6 +15,7 @@ export class CompraSoftwareDetComponent implements OnInit {
   public orden: any = {};
   public load_data = true;
   public id: any;
+  public url: any;
 
   constructor(
     private _title: Title,
@@ -21,6 +23,7 @@ export class CompraSoftwareDetComponent implements OnInit {
     private _route: ActivatedRoute
   ) {
     this.token = localStorage.getItem('token') || sessionStorage.getItem('token');
+    this.url = GLOBAL.url;
 
     this._route.params.subscribe(
       params => {

@@ -32,6 +32,8 @@ export class NavComponent implements OnInit {
   public load_data = true;
   public productos: Array<any> = [];
 
+  public logo: any;
+
   public descuento_activo: any = undefined;
 
   constructor(
@@ -54,8 +56,11 @@ export class NavComponent implements OnInit {
       response => {
         //Asignar los valores de las categorias del back
         this.config_global = response.data;
+        localStorage.setItem('logo', this.config_global.logo);
       }
     );
+
+    this.logo = localStorage.getItem('logo');
 
     if (this.token) {
       //Obtener usuario

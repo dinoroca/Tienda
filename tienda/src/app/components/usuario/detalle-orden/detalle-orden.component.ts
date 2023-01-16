@@ -139,7 +139,19 @@ export class DetalleOrdenComponent implements OnInit {
   cambiar_estado_recibido(id: any) {
     this.load_btn = true;
     this._clienteService.actualizar_ventas_recibido(id, this.token).subscribe(
-      response => {
+      response => {        
+        this._clienteService.enviar_correo_recepcion_admin(id, this.token).subscribe(
+          response => {
+            iziToast.show({
+              title: 'SUCCESS',
+              titleColor: '#35D18F',
+              class: 'text-success',
+              position: 'topRight',
+              message: 'Correo enviado'
+            });
+          }
+        );
+
         iziToast.show({
           title: 'SUCCESS',
           titleColor: '#35D18F',

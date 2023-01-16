@@ -28,10 +28,7 @@ export class PerfilComponent implements OnInit {
     private _title: Title
   ) {
     this.id = localStorage.getItem('_id') || sessionStorage.getItem('_id');
-    this.token = localStorage.getItem('token') || sessionStorage.getItem('token');
-
-    console.log(this.id, this.token);
-    
+    this.token = localStorage.getItem('token') || sessionStorage.getItem('token');    
 
     if (this.id) {
       this._clienteService.obtener_cliente(this.id, this.token).subscribe(

@@ -13,6 +13,7 @@ api.get('/enviar_correo_cliente/:id', auth.auth, ventaController.enviar_correo_c
 api.get('/enviar_correo_reservacion_cliente/:id', auth.auth, ventaController.enviar_correo_reservacion_cliente);
 api.get('/enviar_correo_confirmacion_admin/:id', auth.auth, ventaController.enviar_correo_confirmacion_admin);
 api.post('/enviar_correo_enviado_admin/:id', auth.auth, ventaController.enviar_correo_enviado_admin);
+api.get('/enviar_correo_recepcion_admin/:id', auth.auth, ventaController.enviar_correo_recepcion_admin);
 
 api.delete('/eliminar_reservacion_admin/:id', auth.auth, ventaController.eliminar_reservacion_admin);
 

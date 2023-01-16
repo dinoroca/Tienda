@@ -12,6 +12,9 @@ export class FooterComponent implements OnInit {
   public config_global: any = '';
   public url: any;
 
+  public logo: any;
+  public nombre: any;
+
   constructor(
     private _clienteService: ClienteService
   ) {
@@ -21,8 +24,13 @@ export class FooterComponent implements OnInit {
       response => {
         //Asiganr los valores de las categorias del back
         this.config_global = response.data;
+        localStorage.setItem('logo', this.config_global.logo);
+        localStorage.setItem('nombre', this.config_global.titulo);
       }
     );
+
+    this.logo = localStorage.getItem('logo');
+    this.nombre = localStorage.getItem('nombre');
   }
 
   ngOnInit(): void {

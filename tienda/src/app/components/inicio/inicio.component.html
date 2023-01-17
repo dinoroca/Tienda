@@ -92,7 +92,18 @@
 
     <!-- Categorías -->
     <section class="pt-5" style="background: linear-gradient(to right, #ffc6b3, #fffaff);">
-        <div class="cs-carousel cs-nav-outside pt-lg-5 pb-1">
+
+        <div class="row" *ngIf="load_categorias">
+            <div class="col-12">
+            <!-- Custom size border spinner -->
+            <div class="text-center">
+                <div class="spinner-border" style="width: 3rem; height: 3rem" role="status"></div>
+                <h5 class="text-black-50"><small>Cargando...</small></h5>
+            </div>
+            </div>
+        </div>
+
+        <div class="cs-carousel cs-nav-outside pt-lg-5 pb-1" *ngIf="!load_categorias">
             <h5 class="text-center text-primary my-0">Categorías</h5>
             <div class="cs-carousel-inner cs-carousel-inner-two" data-carousel-options=''>
                 <!-- Category -->
@@ -116,8 +127,18 @@
             <a [routerLink]="['/productos']" class="font-size-lg">Ver productos nuevos</a>
         </div>
 
+        <div class="row" *ngIf="load_nuevos">
+            <div class="col-12">
+            <!-- Custom size border spinner -->
+            <div class="text-center">
+                <div class="spinner-border" style="width: 3rem; height: 3rem" role="status"></div>
+                <h5 class="text-black-50"><small>Cargando...</small></h5>
+            </div>
+            </div>
+        </div>
+
         <!-- Product carousel -->
-        <div class="cs-carousel cs-nav-outside">
+        <div class="cs-carousel cs-nav-outside" *ngIf="!load_nuevos">
             <div class="cs-carousel-inner cs-carousel-inner-three" data-carousel-options='{}'>
                 <!-- Item -->
                 <div *ngFor="let item of productos_nuevos">
@@ -134,10 +155,6 @@
                                 <span class="badge product-badge badge-danger ml-2" *ngIf="item.descuento > 0">
                                     -{{item.descuento}}%
                                 </span>
-                            </div>
-                            <div class="card-product-widgets-bottom">
-                                <a href="#" class="btn-wishlist ml-auto" data-toggle="tooltip" data-placement="left"
-                                    title="Add to wishlist"></a>
                             </div>
                         </div>
                         <div class="card-body text-center">
@@ -169,7 +186,7 @@
         </div>
     </section>
 
-    <!-- Trending products (carousel) -->
+    <!-- Productos más vendidos -->
     <section class="py-3" style="background-color: #e5e8ed;">
         <div class="container my-lg-2 py-2 py-md-4">
             <div class="d-flex align-items-center justify-content-between pb-sm-1 mb-2">
@@ -186,7 +203,18 @@
                     </button>
                 </div>
             </div>
-            <div class="cs-carousel pb-2">
+
+            <div class="row" *ngIf="load_mas_vendidos">
+                <div class="col-12">
+                <!-- Custom size border spinner -->
+                <div class="text-center">
+                    <div class="spinner-border" style="width: 3rem; height: 3rem" role="status"></div>
+                    <h5 class="text-black-50"><small>Cargando...</small></h5>
+                </div>
+                </div>
+            </div>
+
+            <div class="cs-carousel pb-2" *ngIf="!load_mas_vendidos">
                 <div class="cs-carousel-inner cs-carousel-inner-four" data-carousel-options='{}'>
                     <!-- Item -->
                     <div *ngFor="let item of productos_mas_vendidos">
@@ -203,10 +231,6 @@
                                     <span class="badge product-badge badge-danger ml-2" *ngIf="item.descuento > 0">
                                         -{{item.descuento}}%
                                     </span>
-                                </div>
-                                <div class="card-product-widgets-bottom">
-                                    <a href="#" class="btn-wishlist ml-auto" data-toggle="tooltip" data-placement="left"
-                                        title="Add to wishlist"></a>
                                 </div>
                             </div>
                             <div class="card-body bg-0 pb-2 text-center">
@@ -242,7 +266,17 @@
             <p class="font-size-lg mb-1">Explora nuestros productos en oferta.</p>
         </div>
 
-        <div class="cs-carousel pb-2">
+        <div class="row" *ngIf="load_descuento">
+            <div class="col-12">
+            <!-- Custom size border spinner -->
+            <div class="text-center">
+                <div class="spinner-border" style="width: 3rem; height: 3rem" role="status"></div>
+                <h5 class="text-black-50"><small>Cargando...</small></h5>
+            </div>
+            </div>
+        </div>
+
+        <div class="cs-carousel pb-2" *ngIf="!load_descuento">
             <div class="cs-carousel-inner cs-carousel-inner-six" data-carousel-options='{}'>
                 <!-- Item -->
                 <div *ngFor="let item of productos_descuento">
@@ -259,10 +293,6 @@
                                 <span class="badge product-badge badge-danger ml-2" *ngIf="item.descuento > 0">
                                     -{{item.descuento}}%
                                 </span>
-                            </div>
-                            <div class="card-product-widgets-bottom">
-                                <a href="#" class="btn-wishlist ml-auto" data-toggle="tooltip" data-placement="left"
-                                    title="Add to wishlist"></a>
                             </div>
                         </div>
                         <div class="card-body text-center">

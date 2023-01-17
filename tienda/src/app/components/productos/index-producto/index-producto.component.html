@@ -88,7 +88,7 @@
 
             <!-- Filtro de búsqueda -->
             <div class="card border-bottom">
-              <div class="card-header py-3" id="filter-panel">
+              <div class="card-header pb-3" id="filter-panel">
                 <h6 class="accordion-heading">
                   <a href="#filter" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="filter">
                     Buscar producto
@@ -97,10 +97,10 @@
                 </h6>
               </div>
               <div class="collapse show" id="filter" aria-labelledby="filter-panel">
-                <div class="cs-widget pl-1 pb-4 mt-n3">
+                <div class="cs-widget-data-list cs-filter">
                   <!-- Search desktop -->
-                  <div class="input-group-overlay mt-3 d-lg-block d-none order-lg-3">
-                    <input class="form-control appended-form-control" type="text" placeholder="Buscar por nombre"
+                  <div class="input-group-overlay mb-3">
+                    <input class="cs-filter-search form-control appended-form-control" type="text" placeholder="Buscar por nombre"
                       name="filter_producto" [(ngModel)]="filter_producto" />
                     <div class="input-group-append-overlay" style="cursor: pointer; color: #fff; background: #17696a;"
                       (click)="buscar_producto()">

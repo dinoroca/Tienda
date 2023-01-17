@@ -14,14 +14,18 @@ declare var tns: any;
 export class InicioComponent implements OnInit {
 
   public config_global: any = '';
+  public load_categorias = true;
   public descuento_activo: any = undefined;
   public url: any;
 
   public load_data = true;
 
   public productos_nuevos: Array<any> = [];
+  public load_nuevos = true;
   public productos_descuento: Array<any> = [];
+  public load_descuento = true;
   public productos_mas_vendidos: Array<any> = [];
+  public load_mas_vendidos = true;
 
   constructor(
     private _title: Title,
@@ -34,6 +38,7 @@ export class InicioComponent implements OnInit {
       response => {
         //Asiganr los valores de las categorias del back
         this.config_global = response.data;
+        this.load_categorias = false;
       }
     );
 
@@ -61,6 +66,7 @@ export class InicioComponent implements OnInit {
     this._guestService.listar_productos_nuevos().subscribe(
       response => {
         this.productos_nuevos = response.data;
+        this.load_nuevos = false;
       }
     );
 
@@ -68,6 +74,7 @@ export class InicioComponent implements OnInit {
     this._guestService.listar_productos_mas_vendidos().subscribe(
       response => {
         this.productos_mas_vendidos = response.data;
+        this.load_mas_vendidos = false;
       }
     );
 
@@ -75,7 +82,7 @@ export class InicioComponent implements OnInit {
     this._guestService.listar_productos_descuento().subscribe(
       response => {
         this.productos_descuento = response.data;
-        this.load_data = false;
+        this.load_descuento = false;
       }
     );
 
@@ -204,7 +211,7 @@ export class InicioComponent implements OnInit {
         
       });
 
-    },500);
+    },200);
   }
 
 }

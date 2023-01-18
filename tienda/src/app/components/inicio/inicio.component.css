@@ -47,3 +47,32 @@
       padding: 0vw 2vw 0vw 2vw;
     }
   }
+
+  .relleno-card-categorias {
+    background: linear-gradient(195deg,#03CEA4, #13bb99, #a0e9db, #77ead3);
+    background-size: 500% 500%;
+  
+    -webkit-animation: AnimationName 21s ease infinite;
+    -moz-animation: AnimationName 21s ease infinite;
+    -o-animation: AnimationName 21s ease infinite;
+    animation: AnimationName 21s ease infinite;
+  
+    border-color: #ffffff00;
+    padding: 0vw 2vw 0vw 2vw;
+  }
+
+  @media screen and (max-width: 768px) {
+    .relleno-card-categorias {
+      background: linear-gradient(195deg,#03CEA4, #13bb99, #a0e9db, #77ead3);
+      background-size: 500% 500%;
+    
+      -webkit-animation: AnimationName 21s ease infinite;
+      -moz-animation: AnimationName 21s ease infinite;
+      -o-animation: AnimationName 21s ease infinite;
+      animation: AnimationName 21s ease infinite;
+    
+      border-color: #ffffff00;
+      margin: 0vw 0vw 0vw 0vw;
+      padding: 0vw 2vw 0vw 2vw;
+    }
+  }

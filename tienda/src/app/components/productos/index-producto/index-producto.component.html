@@ -258,10 +258,6 @@
                       -{{item.descuento}}%
                     </span>
                   </div>
-                  <div class="card-product-widgets-bottom">
-                    <a href="#" class="btn-wishlist ml-auto" data-toggle="tooltip" data-placement="left"
-                      title="Add to wishlist"></a>
-                  </div>
                 </div>
                 <div class="card-body pb-2 text-center">
                   <h3 class="card-product-title text-truncate mb-2">
@@ -288,13 +284,6 @@
 
                 </div>
                 <div class="card-footer">
-                  <div class="d-flex align-items-center mb-2 pb-1">
-                    <div class="row">
-                      <div class="col-12">
-                        <a href="">{{item.categoria}}</a>
-                      </div>
-                    </div>
-                  </div>
                   <button *ngIf="!btn_cart" type="button" class="btn btn-primary btn-block"
                   [routerLink]="['/productos/', item.slug]">
                     <i class="cxi-cart align-middle mt-n1 mr-2"></i>

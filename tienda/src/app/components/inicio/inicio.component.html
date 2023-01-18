@@ -1,12 +1,14 @@
 <app-nav></app-nav>
 
 <main class="cs-page-wrapper mt-5">
+
+    <!-- Banners -->
     <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
 
         <div class="carousel-inner" *ngIf="config_global.banners">
 
-            <div class="" *ngFor="let item of config_global.banners">
-                <div class="carousel-item active" data-bs-interval="3000">
+            <div class="" *ngFor="let item of config_global.banners; let indice = index">
+                <div class="carousel-item" [ngClass]="{'active': indice == 0}" data-bs-interval="3000">
                     <img [src]="url + 'obtener_banner/' + item.imagen" alt="{{item.banners}}" class="d-block w-100"
                         alt="...">
                 </div>
@@ -25,7 +27,7 @@
     </div>
 
     <!-- Categorías -->
-    <section class="pt-5" style="background-color: #ffd1c2;">
+    <section class="pt-3 relleno-card-categorias">
 
         <div class="row" *ngIf="load_categorias">
             <div class="col-12">
@@ -37,13 +39,13 @@
             </div>
         </div>
 
-        <div class="container py-lg-4 pb-4" *ngIf="!load_categorias">
-            <h5 class="text-center text-primary my-0">Categorías</h5>
+        <div class="container py-lg-4 pb-5" *ngIf="!load_categorias">
+            <h1 class="text-center text-white my-0">Categorías</h1>
             <div class="row mt-2 justify-content-center">
                 <div *ngFor="let item of config_global.categorias">
                     <!-- Category -->
                     <div class="card card-hover border-0 shadow m-2 pt-2"
-                        style="cursor: pointer; background-color: #ffd1c2;"
+                        style="cursor: pointer; background-color: #ffffff;"
                         [routerLink]="['/productos/categoria/', item.titulo.toLowerCase()]">
                         <div class="text-center">
                             <h2 class="card-title"><i class="{{item.icono}}"></i></h2>
@@ -61,7 +63,7 @@
     <section class="container-fluid px-xl-grid-gutter mt-5 mb-3 mb-sm-4 mt-md-0 mb-lg-5 py-3">
         <div class="text-center mb-5 pb-2">
             <h2 class="h1">Productos nuevos</h2>
-            <p class="font-size-lg text-muted mb-1">Explora nuestros productos recién llegados anuestra tienda.</p>
+            <p class="font-size-lg text-muted mb-1">Explora los productos recién llegados a nuestra tienda</p>
             <a [routerLink]="['/productos']" class="font-size-lg">Ver productos nuevos</a>
         </div>
 
@@ -130,7 +132,7 @@
             <div class="d-flex pb-sm-1 mb-2">
                 <div class="mb-5 pb-2">
                     <h2 class="h2 text-center">Productos más vendidos</h2>
-                    <p class="text-muted mb-1">Explora nuestros productos con mayor demanda.</p>
+                    <p class="text-muted mb-1">Explora nuestros productos con mayor demanda</p>
                 </div>
             </div>
 
@@ -192,7 +194,7 @@
     <section class="container-fluid px-xl-grid-gutter py-3 relleno-card" style="background-color: rgb(255, 231, 250);">
         <div class="text-center mb-3 pb-2">
             <h2 class="h1">Descuentos</h2>
-            <p class="font-size-lg mb-1">Explora nuestros productos en oferta.</p>
+            <p class="font-size-lg mb-1">Explora nuestros productos con descuento</p>
         </div>
 
         <div class="row" *ngIf="load_descuento">

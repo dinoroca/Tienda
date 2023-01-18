@@ -35,27 +35,28 @@
 
                     <div class="carousel-inner" *ngIf="producto.galeria">
 
-                        <div class="" *ngFor="let item of producto.galeria">
-                            <div class="carousel-item active" data-bs-interval="3000">
+                        <div class="" *ngFor="let item of producto.galeria; let indice = index">
+                            <div class="carousel-item" [ngClass]="{'active': indice == 0}" data-bs-interval="3000">
                                 <img [src]="url + 'obtener_portada/' + item.imagen" alt="{{item.imagen}}"
-                                    class="d-block w-100">
+                                    class="d-block w-100 rounded">
                             </div>
                         </div>
+
+
+                        <button class="carousel-control-prev" type="button"
+                            style="background-color: #ffffff00; border: #fff;" data-bs-target="#carouselExampleInterval"
+                            data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"
+                                style="background-color: #9c9c9c7a; border-radius: 5px;"></span>
+                        </button>
+
+                        <button class="carousel-control-next" type="button"
+                            style="background-color: #ffffff00; border: #fff;" data-bs-target="#carouselExampleInterval"
+                            data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"
+                                style="background-color: #9c9c9c7a; border-radius: 5px;"></span>
+                        </button>
                     </div>
-
-                    <button class="carousel-control-prev" type="button"
-                        style="background-color: #ffffff00; border: #fff;" data-bs-target="#carouselExampleInterval"
-                        data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true" 
-                        style="background-color: #9c9c9c7a; border-radius: 5px;"></span>
-                    </button>
-
-                    <button class="carousel-control-next" type="button"
-                        style="background-color: #ffffff00; border: #fff;" data-bs-target="#carouselExampleInterval"
-                        data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"
-                        style="background-color: #9c9c9c7a; border-radius: 5px;"></span>
-                    </button>
                 </div>
             </div>
             <div class="col-md-6 pl-xl-5">

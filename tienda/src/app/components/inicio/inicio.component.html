@@ -5,8 +5,8 @@
 
         <div class="carousel-inner" *ngIf="config_global.banners">
 
-            <div class="" *ngFor="let item of config_global.banners">
-                <div class="carousel-item active" data-bs-interval="3000">
+            <div class="" *ngFor="let item of config_global.banners; let indice = index">
+                <div class="carousel-item" [ngClass]="{'active': indice == 0}" data-bs-interval="3000">
                     <img [src]="url + 'obtener_banner/' + item.imagen" alt="{{item.banners}}" class="d-block w-100"
                         alt="...">
                 </div>

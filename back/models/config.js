@@ -14,6 +14,7 @@ var configSchema = Schema({
     vision: {type: String, required: true},
     term_cond: {type: String, required: true},
     politica_privacidad: {type: String, required: true},
+    banners: [{type: Object, required: false}],
 });
 
 module.exports = mongoose.model('config', configSchema);

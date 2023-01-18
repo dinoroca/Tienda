@@ -92,7 +92,7 @@ export class IndexProductoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this._title.setTitle('Tienda | Productos');
+    this._title.setTitle('HJM TECNOLOGÍA Y SOPORTE | Productos');
 
     var slider: any = document.getElementById('slider');
     noUiSlider.create(slider, {

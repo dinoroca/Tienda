@@ -29,7 +29,7 @@ export class NosotrosComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this._title.setTitle('Nosotros');
+    this._title.setTitle('HJM TECNOLOGÍA Y SOPORTE | Nosotros');
   }
 
 }

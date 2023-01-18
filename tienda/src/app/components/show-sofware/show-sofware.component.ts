@@ -80,7 +80,7 @@ export class ShowSofwareComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this._title.setTitle('Software | ' + this.slug);
+    this._title.setTitle('HJM TECNOLOGÍA Y SOPORTE | ' + this.slug);
 
     paypal.Buttons({
       style: {

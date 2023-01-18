@@ -41,7 +41,7 @@ export class PerfilComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this._title.setTitle('Perfil');
+    this._title.setTitle('HJM TECNOLOGÍA Y SOPORTE | Perfil');
   }
 
   show_password() {

@@ -35,7 +35,7 @@ export class CompraSoftwareDetComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this._title.setTitle('Perfil | Detalle de programas');
+    this._title.setTitle('HJM TECNOLOGÍA Y SOPORTE | Detalle de programas');
   }
 
   init_data() {

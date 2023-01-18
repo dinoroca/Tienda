@@ -22,24 +22,29 @@ export class ConfigComponent implements OnInit {
   public file: File | any = undefined;
   public imgSelect: any | ArrayBuffer;
 
+  public load_btn_eliminar = false;
+  public load_data = true;
+  public load_btn = false;
+
   constructor(
     private _adminService: AdminService
   ) {
     this.token = localStorage.getItem('token');
     this.url = GLOBAL.url;
+    this.init_data();
+  }
+
+  ngOnInit(): void {
+  }
+
+  init_data() {
     this._adminService.obtener_config_admin(this.token).subscribe(
       response => {
         this.config = response.data;
         this.imgSelect = this.url + 'obtener_logo/' + this.config.logo;
-      },
-      error => {
-        console.log(error);
-
+        this.load_data = false;
       }
     );
-  }
-
-  ngOnInit(): void {
   }
 
   agregar_cat() {
@@ -174,6 +179,69 @@ export class ConfigComponent implements OnInit {
 
   }
 
+  fileChangeEventBan(event: any): void {
+    var file: any;
+
+    if (event.target.files && event.target.files[0]) {
+      file = <File>event.target.files[0];
+
+    } else {
+      iziToast.show({
+        title: 'ERROR',
+        titleColor: '#FF634F',
+        class: 'text-danger',
+        position: 'topRight',
+        message: 'No hay imagen en el envío'
+      });
+
+      $('#input-img').val('');
+
+      this.file = undefined;
+    }
+
+    if (file.size <= 4000000) {
+      if (file.type == 'image/png' || file.type == 'image/webp'
+        || file.type == 'image/jpg' || file.type == 'image/jpeg'
+        || file.type == 'image/gif') {
+
+        const reader = new FileReader();
+
+        reader.readAsDataURL(file);
+
+        this.file = file;
+
+      } else {
+        iziToast.show({
+          title: 'ERROR',
+          titleColor: '#FF634F',
+          class: 'text-danger',
+          position: 'topRight',
+          message: 'EL archivo debe ser una imagen'
+        });
+
+        $('#input-img').val('');
+
+        this.file = undefined;
+      }
+    } else {
+      iziToast.show({
+        title: 'ERROR',
+        titleColor: '#FF634F',
+        class: 'text-danger',
+        position: 'topRight',
+        message: 'La imagen no debe ser mayor a 4MB'
+      });
+
+      $('#input-img').val('');
+
+      this.file = undefined;
+    }
+
+    console.log(this.file);
+    
+
+  }
+
   ngDoCkeck(): void {
     //Permite subor imagen al detectar cambios
     $('.cs-file-drop-preview').html("<img src=\"" + this.imgSelect + "\">");
@@ -181,6 +249,73 @@ export class ConfigComponent implements OnInit {
 
   eliminar_categoria(idx: any) {
     this.config.categorias.splice(idx, 1);
+  }
+
+  subir_imagen() {
+
+    var uuid = uuidv4();
+
+    if (this.file != undefined) {
+
+      console.log(uuidv4());
+
+      let data = {
+        imagen: this.file,
+        _id: uuidv4()
+      }
+
+      console.log(data);
+
+      this._adminService.agregar_imagen_banner_admin('637452564a440ec5894e43a7', data, this.token).subscribe(
+        response => {
+          this.init_data();
+          $('#input-img').val('');
+        }
+      );
+      
+    } else {
+      iziToast.show({
+        title: 'ERROR',
+        titleColor: '#FF634F',
+        class: 'text-danger',
+        position: 'topRight',
+        message: 'Debe seleccionar una imagen'
+      });
+    }
+  }
+
+  eliminar(id: any) {
+
+    this.load_btn_eliminar = true;
+    this._adminService.eliminar_imagen_banner_admin('637452564a440ec5894e43a7', {_id:id}, this.token).subscribe(
+      response => {
+        iziToast.show({
+          title: 'SUCCESS',
+          titleColor: '#35D18F',
+          class: 'text-success',
+          position: 'topRight',
+          message: 'Se eliminó la imagen'
+        });
+
+        $('#delete-' + id).modal('hide');
+        $('.modal-backdrop').removeClass('show');
+
+        this.load_btn_eliminar = false;
+        this.init_data();
+      },
+      error => {
+        iziToast.show({
+          title: 'ERROR',
+          titleColor: '#FF634F',
+          class: 'text-danger',
+          position: 'topRight',
+          message: 'Error en el servidor'
+        });
+        console.log(error);
+        this.load_btn_eliminar = false;
+        
+      }
+    );
   }
 
 }

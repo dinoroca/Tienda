@@ -25,7 +25,7 @@ export class OrdenesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this._title.setTitle('Perfil | Órdenes');
+    this._title.setTitle('HJM TECNOLOGÍA Y SOPORTE | Órdenes');
     this.init_data();
   }
 

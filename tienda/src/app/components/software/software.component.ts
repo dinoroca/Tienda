@@ -81,7 +81,7 @@ export class SoftwareComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this._title.setTitle('Software');
+    this._title.setTitle('HJM TECNOLOGÍA Y SOPORTE | Software');
   }
 
   orden_por() {

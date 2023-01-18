@@ -46,7 +46,7 @@ export class DetalleOrdenComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this._title.setTitle('Perfil | Detalle de orden');
+    this._title.setTitle('HJM TECNOLOGÍA Y SOPORTE | Detalle de orden');
   }
 
   init_data() {

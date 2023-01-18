@@ -26,7 +26,7 @@ export class IndexReviewComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this._title.setTitle('Perfil | Reseñas');
+    this._title.setTitle('HJM TECNOLOGÍA Y SOPORTE | Reseñas');
 
     this._clienteService.obtener_reviews_cliente(this.id, this.token).subscribe(
       response => {

@@ -1,119 +1,57 @@
 <app-nav></app-nav>
 
 <main class="cs-page-wrapper mt-5">
-    <section class="cs-carousel cs-controls-onhover">
-        <div class="cs-carousel-inner" data-carousel-options=''>
+    <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
 
-            <!-- Slide 1 -->
-            <div *ngIf="descuento_activo != undefined" class="bg-size-cover py-xl-6"
-                style="background-image: url({{url}}obtener_banner_descuento/{{descuento_activo.banner}});">
-                <div class="container pt-5 pb-6">
-                    <div class="row pb-lg-6">
-                        <div class="col-lg-6 offset-lg-1 offset-xl-0 pb-4 pb-md-6 py-3 rounded"
-                            style="background-color: rgba(255, 255, 255, 0.704);">
-                            <h3 class="font-size-lg cs-from-left cs-delay-1">
-                                Desde <span class="text-info">{{descuento_activo.fecha_inicio}}</span>
-                                hasta el <span class="text-danger">{{descuento_activo.fecha_fin}}</span>
-                            </h3>
-                            <h2 class="display-2 mb-lg-5 pb-3 cs-from-left">{{descuento_activo.titulo}}</h2>
-                            <div class="mb-4 cs-scale-up cs-delay-2">
-                                <a [routerLink]="['/productos']" class="btn btn-primary">Ver
-                                    productos</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="carousel-inner" *ngIf="config_global.banners">
 
-            <!-- Slide 2 -->
-            <div class="bg-size-cover py-xl-6"
-                style="background-image: url(../../assets/img/ecommerce/home/hero-slider/02.webp); height: 50% !important;">
-                <div class="container pt-5 pb-6">
-                    <div class="row pb-lg-6">
-                        <div class="col-lg-6 offset-lg-1 offset-xl-0 pb-4 pb-md-6 py-3 rounded"
-                            style="background-color: rgba(255, 255, 255, 0.704);">
-                            <h3 class="font-size-lg text-uppercase cs-from-top cs-delay-1">Productos de tecnología</h3>
-                            <h2 class="display-2 mb-lg-5 pb-3 cs-scale-down">Nuevos productos</h2>
-                            <div class="mb-4 cs-scale-down cs-delay-2">
-                                <a [routerLink]="['/productos']"  class="btn btn-primary">Ver productos</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Slide 3 -->
-            <!-- <div class="bg-size-cover py-xl-6" style="background-image: url(../../assets/img/ecommerce/home/hero-slider/03.jpg);">
-            <div class="container pt-5 pb-6">
-              <div class="row pb-lg-6">
-                <div class="col-lg-6 offset-lg-1 offset-xl-0 pb-4 pb-md-6">
-                  <h3 class="font-size-lg text-uppercase cs-from-left cs-delay-1">Limited Edition</h3>
-                  <h2 class="display-2 mb-lg-5 pb-3 cs-from-left">Leather Issue</h2>
-                  <div class="mb-4 cs-scale-up cs-delay-2">
-                    <a href="shop-catalog.html" class="btn btn-outline-primary btn-lg">Shop the collection</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div> -->
-
-            <!-- Slide 4 -->
-            <!-- <div class="bg-size-cover py-xl-6" style="background-image: url(../../assets/img/ecommerce/home/hero-slider/04.jpg);">
-            <div class="container pt-5 pb-6">
-              <div class="row pb-lg-6">
-                <div class="col-lg-6 offset-lg-1 offset-xl-0 pb-4 pb-md-6">
-                  <h3 class="font-size-lg text-uppercase cs-from-top cs-delay-1">Hottest Prices</h3>
-                  <h2 class="display-2 mb-lg-5 pb-3 cs-scale-down">Kidswear Sales</h2>
-                  <div class="mb-4 cs-scale-down cs-delay-2">
-                    <a href="shop-catalog.html" class="btn btn-outline-primary btn-lg">Shop sale now</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div> -->
-        </div>
-
-        <!-- Pager -->
-        <div class="container position-relative">
-            <div class="row mt-lg-n5">
-                <div class="col-lg-7 col-md-8 col-sm-10 offset-lg-1 offset-xl-0">
-                    <div class="position-relative">
-                        <div id="pager" class="cs-pager cs-pager-inverse mb-xl-5 pb-5 pb-md-6">
-                            <button type="button" data-nav="0">01</button>
-                            <button type="button" data-nav="1">02</button>
-                            <!-- <button type="button" data-nav="2">03</button>
-                  <button type="button" data-nav="3">04</button> -->
-                        </div>
-                    </div>
+            <div class="" *ngFor="let item of config_global.banners">
+                <div class="carousel-item active" data-bs-interval="3000">
+                    <img [src]="url + 'obtener_banner/' + item.imagen" alt="{{item.banners}}" class="d-block w-100"
+                        alt="...">
                 </div>
             </div>
         </div>
-    </section>
+
+        <button class="carousel-control-prev" type="button" style="background-color: #ffffff00; border: #fff;"
+            data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        </button>
+
+        <button class="carousel-control-next" type="button" style="background-color: #ffffff00; border: #fff;"
+            data-bs-target="#carouselExampleInterval" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        </button>
+    </div>
 
     <!-- Categorías -->
-    <section class="pt-5" style="background: linear-gradient(to right, #ffc6b3, #fffaff);">
+    <section class="pt-5" style="background-color: #ffd1c2;">
 
         <div class="row" *ngIf="load_categorias">
             <div class="col-12">
-            <!-- Custom size border spinner -->
-            <div class="text-center">
-                <div class="spinner-border" style="width: 3rem; height: 3rem" role="status"></div>
-                <h5 class="text-black-50"><small>Cargando...</small></h5>
-            </div>
+                <!-- Custom size border spinner -->
+                <div class="text-center">
+                    <div class="spinner-border" style="width: 3rem; height: 3rem" role="status"></div>
+                    <h5 class="text-black-50"><small>Cargando...</small></h5>
+                </div>
             </div>
         </div>
 
-        <div class="cs-carousel cs-nav-outside pt-lg-5 pb-1" *ngIf="!load_categorias">
+        <div class="container py-lg-4 pb-4" *ngIf="!load_categorias">
             <h5 class="text-center text-primary my-0">Categorías</h5>
-            <div class="cs-carousel-inner cs-carousel-inner-two" data-carousel-options=''>
-                <!-- Category -->
-                <a [routerLink]="['/productos/categoria/', item.titulo.toLowerCase()]"
-                    class="d-block cs-image-scale cs-heading-highlight text-center"
-                    *ngFor="let item of config_global.categorias">
-                    <i class="{{item.icono}}" style="font-size: 5rem;">
-                    </i>
-                    <h3 class="h5">{{item.titulo}}</h3>
-                </a>
+            <div class="row mt-2 justify-content-center">
+                <div *ngFor="let item of config_global.categorias">
+                    <!-- Category -->
+                    <div class="card card-hover border-0 shadow m-2 pt-2"
+                        style="cursor: pointer; background-color: #ffd1c2;"
+                        [routerLink]="['/productos/categoria/', item.titulo.toLowerCase()]">
+                        <div class="text-center">
+                            <h2 class="card-title"><i class="{{item.icono}}"></i></h2>
+                            <a class="btn">{{item.titulo}}</a>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
@@ -129,20 +67,20 @@
 
         <div class="row" *ngIf="load_nuevos">
             <div class="col-12">
-            <!-- Custom size border spinner -->
-            <div class="text-center">
-                <div class="spinner-border" style="width: 3rem; height: 3rem" role="status"></div>
-                <h5 class="text-black-50"><small>Cargando...</small></h5>
-            </div>
+                <!-- Custom size border spinner -->
+                <div class="text-center">
+                    <div class="spinner-border" style="width: 3rem; height: 3rem" role="status"></div>
+                    <h5 class="text-black-50"><small>Cargando...</small></h5>
+                </div>
             </div>
         </div>
 
         <!-- Product carousel -->
         <div class="cs-carousel cs-nav-outside" *ngIf="!load_nuevos">
-            <div class="cs-carousel-inner cs-carousel-inner-three" data-carousel-options='{}'>
+            <div class="row pt-0 justify-content-center">
                 <!-- Item -->
                 <div *ngFor="let item of productos_nuevos">
-                    <div class="card card-product rounded shadow mb-5">
+                    <div class="card mx-4 mb-5 card-product rounded shadow card-hover">
                         <div class="card-product-img">
                             <a [routerLink]="['/productos/', item.slug]" class="card-img-top">
                                 <img [src]="url + 'obtener_portada/' + item.portada" alt="{{item.titulo}}">
@@ -170,7 +108,7 @@
                                     S/. {{item.precio}}
                                 </span>
                                 <del class="d-inline-block ml-1 text-muted"> <small>S/. {{item.precio +
-                                    item.precio*item.descuento/100}}</small> </del>
+                                        item.precio*item.descuento/100}}</small> </del>
                             </div>
 
                             <div *ngIf="descuento_activo != undefined" class="">
@@ -189,36 +127,28 @@
     <!-- Productos más vendidos -->
     <section class="py-3" style="background-color: #e5e8ed;">
         <div class="container my-lg-2 py-2 py-md-4">
-            <div class="d-flex align-items-center justify-content-between pb-sm-1 mb-2">
+            <div class="d-flex pb-sm-1 mb-2">
                 <div class="mb-5 pb-2">
-                    <h2 class="h2">Productos más vendidos</h2>
+                    <h2 class="h2 text-center">Productos más vendidos</h2>
                     <p class="text-muted mb-1">Explora nuestros productos con mayor demanda.</p>
-                </div>
-                <div class="tns-custom-controls cs-controls-inverse" id="custom-controls-trending" tabindex="0">
-                    <button type="button" data-controls="prev" tabindex="-1">
-                        <i class="cxi-arrow-left"></i>
-                    </button>
-                    <button type="button" data-controls="next" tabindex="-1">
-                        <i class="cxi-arrow-right"></i>
-                    </button>
                 </div>
             </div>
 
             <div class="row" *ngIf="load_mas_vendidos">
                 <div class="col-12">
-                <!-- Custom size border spinner -->
-                <div class="text-center">
-                    <div class="spinner-border" style="width: 3rem; height: 3rem" role="status"></div>
-                    <h5 class="text-black-50"><small>Cargando...</small></h5>
-                </div>
+                    <!-- Custom size border spinner -->
+                    <div class="text-center">
+                        <div class="spinner-border" style="width: 3rem; height: 3rem" role="status"></div>
+                        <h5 class="text-black-50"><small>Cargando...</small></h5>
+                    </div>
                 </div>
             </div>
 
-            <div class="cs-carousel pb-2" *ngIf="!load_mas_vendidos">
-                <div class="cs-carousel-inner cs-carousel-inner-four" data-carousel-options='{}'>
+            <div class="pb-2" *ngIf="!load_mas_vendidos">
+                <div class="row justify-content-center">
                     <!-- Item -->
                     <div *ngFor="let item of productos_mas_vendidos">
-                        <div class="card card-product mx-auto shadow mb-5">
+                        <div class="card card-hover card-product mx-4 shadow mb-5">
                             <div class="card-product-img">
                                 <a [routerLink]="['/productos/', item.slug]" class="card-img-top">
                                     <img [src]="url + 'obtener_portada/' + item.portada" alt="{{item.titulo}}">
@@ -227,7 +157,7 @@
                                     <span class="badge product-badge badge-danger" *ngIf="descuento_activo">
                                         -{{descuento_activo.descuento}}%
                                     </span>
-    
+
                                     <span class="badge product-badge badge-danger ml-2" *ngIf="item.descuento > 0">
                                         -{{item.descuento}}%
                                     </span>
@@ -259,8 +189,7 @@
     </section>
 
     <!-- Promociones -->
-    <section class="container-fluid px-xl-grid-gutter py-3 relleno-card"
-        style="background-color: rgb(255, 231, 250);">
+    <section class="container-fluid px-xl-grid-gutter py-3 relleno-card" style="background-color: rgb(255, 231, 250);">
         <div class="text-center mb-3 pb-2">
             <h2 class="h1">Descuentos</h2>
             <p class="font-size-lg mb-1">Explora nuestros productos en oferta.</p>
@@ -268,19 +197,19 @@
 
         <div class="row" *ngIf="load_descuento">
             <div class="col-12">
-            <!-- Custom size border spinner -->
-            <div class="text-center">
-                <div class="spinner-border" style="width: 3rem; height: 3rem" role="status"></div>
-                <h5 class="text-black-50"><small>Cargando...</small></h5>
-            </div>
+                <!-- Custom size border spinner -->
+                <div class="text-center">
+                    <div class="spinner-border" style="width: 3rem; height: 3rem" role="status"></div>
+                    <h5 class="text-black-50"><small>Cargando...</small></h5>
+                </div>
             </div>
         </div>
 
-        <div class="cs-carousel pb-2" *ngIf="!load_descuento">
-            <div class="cs-carousel-inner cs-carousel-inner-six" data-carousel-options='{}'>
+        <div *ngIf="!load_descuento">
+            <div class="row justify-content-center">
                 <!-- Item -->
                 <div *ngFor="let item of productos_descuento">
-                    <div class="card card-product shadow mb-5 text-center">
+                    <div class="card card-product shadow card-hover mx-4 mb-5 text-center">
                         <div class="card-product-img">
                             <a [routerLink]="['/productos/', item.slug]" class="card-img-top">
                                 <img [src]="url + 'obtener_portada/' + item.portada" alt="{{item.titulo}}">
@@ -323,7 +252,7 @@
             </div>
         </div>
     </section>
-    
+
     <!-- Services -->
     <section class="container pt-3 pb-2 pb-sm-5">
         <h2 class="text-primary text-center">Te ofrecemos</h2>

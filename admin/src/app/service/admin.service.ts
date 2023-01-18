@@ -68,6 +68,20 @@ export class AdminService {
     let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'authorization': token });
     return this._http.get(this.url + 'obtener_config_admin', { headers: headers });
   }
+
+  agregar_imagen_banner_admin(id: any, data: any, token: any): Observable<any> {
+    let headers = new HttpHeaders({ 'authorization': token });
+    const fd = new FormData();
+    fd.append('_id', data._id);
+
+    fd.append('imagen', data.imagen);
+    return this._http.put(this.url + 'agregar_imagen_banner_admin/' + id, fd, { headers: headers });
+  }
+
+  eliminar_imagen_banner_admin(id: any, data: any, token: any): Observable<any> {
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'authorization': token });
+    return this._http.put(this.url + 'eliminar_imagen_banner_admin/' + id, data, { headers: headers });
+  }
   
   actualizar_config_admin(id: any, data: any, token: any): Observable<any> {
     

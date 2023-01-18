@@ -119,7 +119,7 @@ export class CarritoComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this._title.setTitle('Carrito de compras');
+    this._title.setTitle('HJM TECNOLOGÍA Y SOPORTE | Carrito de compras');
 
     //Obtener descuentos activos
     this._guestService.obtener_descuento_activo().subscribe(

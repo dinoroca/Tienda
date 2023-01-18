@@ -29,25 +29,33 @@
             <div class="col-md-6 mb-md-0 mb-4">
 
                 <!-- Product gallery -->
-                <div class="cs-gallery cs-product-gallery mx-auto" style="max-width: 570px;">
-                    <div class="cs-carousel-inner" data-carousel-options=''>
 
-                        <!-- Product gallery item -->
-                        <a class="cs-gallery-item" *ngFor="let item of producto.galeria; let indice = index"
-                            href="{{url + 'obtener_portada/' + item.imagen}}"
-                            data-sub-html='<h6 class="text-light">Gallery image caption #1</h6>'>
-                            <img class="rounded" [src]="url + 'obtener_portada/' + item.imagen" alt="Carousel image">
-                            <span class="cs-gallery-caption">Imagen #{{indice+1}}</span>
-                        </a>
+                <!-- Product gallery item -->
+                <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
+
+                    <div class="carousel-inner" *ngIf="producto.galeria">
+
+                        <div class="" *ngFor="let item of producto.galeria">
+                            <div class="carousel-item active" data-bs-interval="3000">
+                                <img [src]="url + 'obtener_portada/' + item.imagen" alt="{{item.imagen}}"
+                                    class="d-block w-100">
+                            </div>
+                        </div>
                     </div>
 
-                    <!-- Product gallery thumbnails -->
-                    <div class="cs-thumbnails" id="cs-thumbnails">
-                        <button type="button" *ngFor="let item of producto.galeria; let indice = index"
-                            [attr.data-nav]="indice">
-                            <img [src]="url + 'obtener_portada/' + item.imagen" alt="Thumbnail">
-                        </button>
-                    </div>
+                    <button class="carousel-control-prev" type="button"
+                        style="background-color: #ffffff00; border: #fff;" data-bs-target="#carouselExampleInterval"
+                        data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true" 
+                        style="background-color: #9c9c9c7a; border-radius: 5px;"></span>
+                    </button>
+
+                    <button class="carousel-control-next" type="button"
+                        style="background-color: #ffffff00; border: #fff;" data-bs-target="#carouselExampleInterval"
+                        data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"
+                        style="background-color: #9c9c9c7a; border-radius: 5px;"></span>
+                    </button>
                 </div>
             </div>
             <div class="col-md-6 pl-xl-5">
@@ -172,11 +180,13 @@
                         </div>
                         <div class="show" id="delivery" aria-labelledby="delivery-card" data-parent="#productTerms">
                             <div class="card-body">
-                                
-                                    EL envío de nuestros productos fuera de Ayacucho, se realizará a través de
-                                    <strong>empresas de envío</strong> como <em> (Olva courrier, Shalom y más).</em>
-                                    <br><br>
-                                    Toda la información necesaria del producto y envío, se enviará al correo del cliente cuando confirmemos su compra: Le invitamos a revisar su E-mail, <strong>gracias por su comprensión</strong>.
+
+                                EL envío de nuestros productos fuera de Ayacucho, se realizará a través de
+                                <strong>empresas de envío</strong> como <em> (Olva courrier, Shalom y más).</em>
+                                <br><br>
+                                Toda la información necesaria del producto y envío, se enviará al correo del cliente
+                                cuando confirmemos su compra: Le invitamos a revisar su E-mail, <strong>gracias por su
+                                    comprensión</strong>.
                             </div>
                         </div>
                     </div>
@@ -191,10 +201,12 @@
                                 </a>
                             </h6>
                         </div>
-                        <div class="collapse pb-2" id="return" aria-labelledby="return-card" data-parent="#productTerms">
-                            Tiene <strong>7 días</strong> para devolver el producto a través de la empresa de envío, 
-                            puede revisar más sobre devoluciones en nuestos 
-                            <a [routerLink]="['/terminos-condiciones']"  class="text-decoration-none"><strong>términos y condiciones</strong></a>.
+                        <div class="collapse pb-2" id="return" aria-labelledby="return-card"
+                            data-parent="#productTerms">
+                            Tiene <strong>7 días</strong> para devolver el producto a través de la empresa de envío,
+                            puede revisar más sobre devoluciones en nuestos
+                            <a [routerLink]="['/terminos-condiciones']" class="text-decoration-none"><strong>términos y
+                                    condiciones</strong></a>.
                         </div>
                     </div>
                 </div>
@@ -262,7 +274,8 @@
                         </div>
                         <div class="card-body pb-2 text-center" style="background-color: white;">
                             <h3 class="card-product-title text-truncate mb-2">
-                                <a [routerLink]="['/productos/', producto.slug]" class="nav-link"> {{producto.titulo}} </a>
+                                <a [routerLink]="['/productos/', producto.slug]" class="nav-link"> {{producto.titulo}}
+                                </a>
                             </h3>
 
                             <div *ngIf="descuento_activo == undefined && producto.descuento == undefined">

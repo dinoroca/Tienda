@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this._title.setTitle('Iniciar sesión');
+    this._title.setTitle('HJM TECNOLOGÍA Y SOPORTE | Iniciar sesión');
   }
 
   show_password() {

@@ -24,7 +24,7 @@ export class ContactoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this._title.setTitle('Contacto');
+    this._title.setTitle('HJM TECNOLOGÍA Y SOPORTE | Contacto');
   }
 
   registro(registroForm: any) {

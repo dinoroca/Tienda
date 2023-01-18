@@ -64,7 +64,7 @@ export class DireccionesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this._title.setTitle('Perfil | Direcciones');
+    this._title.setTitle('HJM TECNOLOGÍA Y SOPORTE | Direcciones');
     this.obtener_direcciones();
   }
 
